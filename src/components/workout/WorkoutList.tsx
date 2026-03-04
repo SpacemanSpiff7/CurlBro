@@ -1,0 +1,109 @@
+import { useCallback } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { AnimatePresence } from 'framer-motion';
+import { ExerciseCard } from '@/components/exercise/ExerciseCard';
+import { useStore } from '@/store';
+import type { WorkoutExercise } from '@/types';
+
+interface WorkoutListProps {
+  onSwapRequest: (index: number) => void;
+}
+
+export function WorkoutList({ onSwapRequest }: WorkoutListProps) {
+  const workout = useStore((state) => state.builder.workout);
+  const graph = useStore((state) => state.graph);
+  const { removeExercise, reorderExercises, updateExercise } =
+    useStore((state) => state.builderActions);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }),
+    useSensor(KeyboardSensor)
+  );
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (!over || active.id === over.id) return;
+
+      const oldIndex = workout.exercises.findIndex(
+        (ex) => ex.exerciseId === active.id
+      );
+      const newIndex = workout.exercises.findIndex(
+        (ex) => ex.exerciseId === over.id
+      );
+
+      if (oldIndex !== -1 && newIndex !== -1) {
+        reorderExercises(oldIndex, newIndex);
+      }
+    },
+    [workout.exercises, reorderExercises]
+  );
+
+  const handleUpdate = useCallback(
+    (index: number, updates: Partial<WorkoutExercise>) => {
+      updateExercise(index, updates);
+    },
+    [updateExercise]
+  );
+
+  const handleRemove = useCallback(
+    (index: number) => {
+      removeExercise(index);
+    },
+    [removeExercise]
+  );
+
+  if (workout.exercises.length === 0) {
+    return null;
+  }
+
+  return (
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        items={workout.exercises.map((ex) => ex.exerciseId)}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="space-y-2">
+          <AnimatePresence mode="popLayout">
+            {workout.exercises.map((workoutExercise, index) => {
+              const exercise = graph.exercises.get(workoutExercise.exerciseId);
+              if (!exercise) return null;
+
+              return (
+                <ExerciseCard
+                  key={workoutExercise.exerciseId}
+                  exercise={exercise}
+                  workoutExercise={workoutExercise}
+                  index={index}
+                  onUpdate={handleUpdate}
+                  onRemove={handleRemove}
+                  onSwapRequest={onSwapRequest}
+                />
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      </SortableContext>
+    </DndContext>
+  );
+}
