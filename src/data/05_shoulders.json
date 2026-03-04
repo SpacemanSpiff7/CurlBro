@@ -1,0 +1,795 @@
+{
+  "file": "05_shoulders.json",
+  "description": "Overhead presses, lateral raises, face pulls, rear delt work, shrugs, prehab",
+  "exercise_count": 20,
+  "exercises": [
+    {
+      "id": "overhead_press",
+      "name": "Barbell Overhead Press (Standing)",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core",
+        "traps"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/military-press.html",
+      "beginner_tips": "Feet shoulder-width, bar at collarbone. Press straight overhead to lockout. Move head slightly back as bar passes face, then push it forward once the bar is above. Keep core tight and glutes squeezed \u2014 don't arch lower back excessively. The bar should finish directly over mid-foot.",
+      "substitutes": [
+        "dumbbell_shoulder_press",
+        "machine_shoulder_press",
+        "arnold_press",
+        "smith_machine_overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "barbell_row",
+        "pull_up"
+      ],
+      "superset_candidates": [
+        "pull_up",
+        "lat_pulldown",
+        "chin_up",
+        "close_grip_pulldown",
+        "reverse_grip_pulldown"
+      ],
+      "notes": "Best overall shoulder builder. Standing requires significantly more core than seated \u2014 the core demand is one of the main advantages. If you find yourself leaning back excessively, the weight is too heavy. The strict standing press is one of the best measures of real-world upper body strength."
+    },
+    {
+      "id": "dumbbell_shoulder_press",
+      "name": "Dumbbell Shoulder Press (Seated)",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-dumbbell-press.html",
+      "beginner_tips": "Sit with back support on an upright bench (just short of 90 degrees \u2014 a very slight incline is easier on the shoulders). Dumbbells at shoulder height, palms forward. Press up until arms are straight, lower to shoulder height. Don't let the dumbbells drift too far backward at the bottom.",
+      "substitutes": [
+        "overhead_press",
+        "machine_shoulder_press",
+        "arnold_press",
+        "smith_machine_overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "lat_pulldown"
+      ],
+      "superset_candidates": [
+        "lat_pulldown",
+        "close_grip_pulldown",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "Easier to learn than barbell. Dumbbells allow a more natural pressing arc and greater range of motion. The back support removes the core demand \u2014 this isn't worse, it just lets you focus entirely on the shoulders and use more weight. Good default pressing option for most trainees."
+    },
+    {
+      "id": "arnold_press",
+      "name": "Arnold Press",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/arnold-dumbbell-press.html",
+      "beginner_tips": "Start with palms facing YOU at chin level. As you press up, rotate palms to face forward at the top. Reverse the rotation on the way down. The rotation should be smooth and continuous, not a pause-and-twist. Use lighter weight than regular dumbbell presses \u2014 the rotation increases time under tension.",
+      "substitutes": [
+        "dumbbell_shoulder_press",
+        "overhead_press",
+        "smith_machine_overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "lat_pulldown"
+      ],
+      "superset_candidates": [
+        "lat_pulldown"
+      ],
+      "notes": "Named after Arnold Schwarzenegger. The rotation through the pressing motion means the front delt works at the bottom (palms toward you) and the side delt gets more work through the middle and top of the press. Effectively combines a front raise into a shoulder press. Uses lighter weight than standard presses due to the mechanical disadvantage of the rotation."
+    },
+    {
+      "id": "machine_shoulder_press",
+      "name": "Shoulder Press Machine",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "shoulder_press_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-shoulder-press.html",
+      "beginner_tips": "Sit, grab handles at shoulder height, press up. Machine guides the motion so you can focus entirely on pushing. Adjust the seat height so the handles start at about ear level \u2014 too low puts excessive stretch on the shoulders, too high reduces range of motion.",
+      "substitutes": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "smith_machine_overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "lat_pulldown"
+      ],
+      "superset_candidates": [
+        "lat_pulldown",
+        "close_grip_pulldown"
+      ],
+      "notes": "Safest overhead press. Great for beginners learning the pressing pattern, for training to failure safely, and for drop sets. Some machines offer converging paths that feel more natural than straight-up tracks."
+    },
+    {
+      "id": "smith_machine_overhead_press",
+      "name": "Smith Machine Overhead Press",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "smith_machine",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-smith-machine-shoulder-press.html",
+      "beginner_tips": "Set an adjustable bench to just under 90 degrees inside the Smith machine. Position yourself so the bar travels in front of your face (not behind your head). Unhook, lower to about chin level, press up. Twist to re-rack at any point. The fixed bar path means you only need to focus on pushing.",
+      "substitutes": [
+        "machine_shoulder_press",
+        "dumbbell_shoulder_press",
+        "overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "lat_pulldown"
+      ],
+      "superset_candidates": [
+        "lat_pulldown",
+        "smith_machine_row"
+      ],
+      "notes": "Safe overhead pressing alone without a spotter. The fixed path eliminates the stabilization demand, letting you focus on pure overhead pressing force. Allows heavier loading than free-weight presses for some people. Good option for gyms without a dedicated shoulder press machine."
+    },
+    {
+      "id": "lateral_raise",
+      "name": "Dumbbell Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-lateral-raise.html",
+      "beginner_tips": "Dumbbells at sides. Raise arms out to sides until about parallel to the floor (T shape). Lead with elbows, not hands \u2014 think about pouring water from a pitcher. Use LIGHT weight \u2014 this exercise doesn't need heavy dumbbells. A slight lean forward can help target the side delt and reduce trap involvement.",
+      "substitutes": [
+        "cable_lateral_raise",
+        "machine_lateral_raise",
+        "upright_row"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "THE exercise for wider shoulders. The side delts are the most visible part of the shoulder and respond well to high volume (15-20+ sets per week across the training week). Recent research on lengthened partials suggests that the bottom portion of the movement (where the side delt is stretched) may be the most growth-producing part \u2014 so don't neglect the bottom half of the range. #1 mistake = going too heavy and turning it into a trap exercise."
+    },
+    {
+      "id": "cable_lateral_raise",
+      "name": "Cable Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-cable-lateral-raise.html",
+      "beginner_tips": "Low cable pulley. Stand sideways to the machine. Grab with the FAR hand (cable crosses behind your body). Raise arm to the side to about shoulder height. Cable keeps tension the whole time, including at the bottom where dumbbells have zero tension. You can lean slightly away from the cable to increase the stretch at the bottom.",
+      "substitutes": [
+        "lateral_raise",
+        "machine_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "cable_rear_delt_flye"
+      ],
+      "notes": "Better constant tension than dumbbells, especially at the bottom of the movement where the side delt is in a stretched position. The behind-the-body cable path provides tension even at the starting position. One arm at a time allows better mind-muscle connection. Many coaches consider this superior to dumbbell laterals for side delt growth."
+    },
+    {
+      "id": "machine_lateral_raise",
+      "name": "Machine Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "lateral_raise_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-lateral-raise.html",
+      "beginner_tips": "Sit in machine, push pads outward with your upper arms. The machine eliminates all cheating and momentum \u2014 every rep is strict. Adjust the seat so the pivot point of the machine aligns with your shoulder joint.",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "reverse_fly_machine"
+      ],
+      "notes": "Not every gym has one. If yours does, it's excellent for strict side delt isolation \u2014 impossible to cheat. Great for drop sets since you just move the pin. The fixed path means you can train closer to failure with less injury risk."
+    },
+    {
+      "id": "front_raise",
+      "name": "Dumbbell Front Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_flexion",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "chest"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-dumbbell-raise.html",
+      "beginner_tips": "Dumbbells in front of thighs. Raise one or both arms straight in front to shoulder height. Lower slowly. Palms can face down or toward each other \u2014 the neutral grip is generally more comfortable. Use light weight.",
+      "substitutes": [
+        "cable_front_raise",
+        "low_to_high_cable_flye"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "rear_delt_flye",
+        "face_pull"
+      ],
+      "notes": "Often unnecessary if you already bench press and overhead press \u2014 both hit the front delts heavily. The front delt is typically the most developed part of the shoulder in most trainees due to all the pressing they do. Add front raises only if your front delts are specifically underdeveloped (rare) or for physique balance."
+    },
+    {
+      "id": "cable_front_raise",
+      "name": "Cable Front Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_flexion",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "chest"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-dumbbell-raise.html",
+      "beginner_tips": "Low cable behind you. Face away from the machine. Grab the handle and raise your arm straight in front to shoulder height. The cable provides tension throughout the entire movement, including at the bottom where dumbbells have zero resistance. One arm at a time.",
+      "substitutes": [
+        "front_raise",
+        "low_to_high_cable_flye"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "cable_rear_delt_flye",
+        "face_pull"
+      ],
+      "notes": "Cable version maintains tension at the bottom of the movement where dumbbells have none. Same caveat as dumbbell front raises applies \u2014 most people don't need direct front delt work. If you do add them, the cable version is mechanically superior to dumbbells."
+    },
+    {
+      "id": "face_pull",
+      "name": "Face Pull (Cable)",
+      "category": "isolation",
+      "movement_pattern": "external_rotation_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/face-pull.html",
+      "beginner_tips": "Cable at face height, rope attachment. Pull toward face, spreading rope ends apart at the end. Squeeze shoulder blades together, rotate thumbs backward as you finish. Hold for 1 second in the fully contracted position. Think about making a double bicep pose at the end of each rep. This is a LIGHT exercise \u2014 if you need to lean back or use momentum, the weight is too heavy.",
+      "substitutes": [
+        "band_pull_apart",
+        "rear_delt_flye",
+        "reverse_fly_machine",
+        "cable_rear_delt_flye",
+        "prone_y_raise"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "overhead_press",
+        "incline_dumbbell_press",
+        "dumbbell_shoulder_press"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "incline_dumbbell_press",
+        "dumbbell_bench_press",
+        "incline_barbell_press",
+        "dip_chest"
+      ],
+      "notes": "The single most important exercise for shoulder health in any program. Trains external rotation and scapular retraction \u2014 the exact movements that counterbalance all the internal rotation from pressing. Should be in EVERY program, regardless of goals. Do 2-4 sets of 15-20 on every upper body or push day. The rear delts and external rotators can handle very high weekly volume without recovery issues."
+    },
+    {
+      "id": "reverse_fly_machine",
+      "name": "Reverse Fly Machine (Rear Pec Deck)",
+      "category": "isolation",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "reverse_fly_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-machine-flyes.html",
+      "beginner_tips": "Sit FACING the pec deck machine (opposite direction from chest flyes). Arms extended in front, open wide to the sides squeezing shoulder blades together. The machine guides the movement \u2014 focus entirely on squeezing the rear delts. Adjust the handles/pads so your arms are at about shoulder height.",
+      "substitutes": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart",
+        "cable_rear_delt_flye"
+      ],
+      "complements": [
+        "machine_pec_deck",
+        "overhead_press",
+        "lateral_raise"
+      ],
+      "superset_candidates": [
+        "machine_pec_deck",
+        "machine_lateral_raise"
+      ],
+      "notes": "Same machine as pec deck but you sit the other way. One of the most efficient supersets in the gym: chest flyes \u2192 immediately turn around \u2192 reverse flyes for rear delts. Great for drop sets since you just move the pin. The fixed path ensures strict rear delt isolation."
+    },
+    {
+      "id": "rear_delt_flye",
+      "name": "Dumbbell Rear Delt Flye (Bent-Over)",
+      "category": "isolation",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/bent-over-dumbbell-reverse-fly.html",
+      "beginner_tips": "Bend forward at the hips (about 60-75 degrees) or sit on a bench leaning over your knees. Dumbbells hanging below. Raise arms to the sides leading with elbows, like spreading your wings. Use VERY light weight \u2014 if you're using more than 15-20 lbs per hand, you're probably using too much momentum or traps. Focus on feeling the rear delts work.",
+      "substitutes": [
+        "face_pull",
+        "reverse_fly_machine",
+        "band_pull_apart",
+        "cable_rear_delt_flye"
+      ],
+      "complements": [
+        "lateral_raise",
+        "overhead_press",
+        "dumbbell_shoulder_press"
+      ],
+      "superset_candidates": [
+        "lateral_raise",
+        "dumbbell_flye",
+        "incline_dumbbell_flye",
+        "front_raise"
+      ],
+      "notes": "Targets rear delts \u2014 the most commonly underdeveloped part of the shoulder. Light weights and high reps are the key. The rear delts are small muscles that fatigue quickly but also recover quickly, so high frequency (3-4x per week) works well. Can also be done lying face down on an incline bench to eliminate any momentum."
+    },
+    {
+      "id": "cable_rear_delt_flye",
+      "name": "Cable Rear Delt Flye",
+      "category": "isolation",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/bent-over-dumbbell-reverse-fly.html",
+      "beginner_tips": "Set two cables at about shoulder height. Cross your arms to grab the opposite cables (right hand grabs left cable, left grabs right). Step back, then pull arms apart by squeezing rear delts and shoulder blades together. Can also be done one arm at a time with a single cable. Keep a slight bend in the elbows throughout.",
+      "substitutes": [
+        "rear_delt_flye",
+        "reverse_fly_machine",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "cable_lateral_raise",
+        "cable_flye",
+        "cable_front_raise"
+      ],
+      "notes": "Constant cable tension throughout the entire movement \u2014 unlike dumbbells which have no tension at the bottom and peak tension only at the top. The cables also allow easy angle adjustment to find the exact line of pull that hits your rear delts best. Pairs naturally with cable lateral raises for an efficient cable-only shoulder finisher."
+    },
+    {
+      "id": "band_pull_apart",
+      "name": "Band Pull-Apart",
+      "category": "isolation",
+      "movement_pattern": "external_rotation_pull",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-30",
+      "rep_range_strength": "12-20",
+      "video_url": "https://www.muscleandstrength.com/exercises/band-pull-apart.html",
+      "beginner_tips": "Hold band at shoulder height with straight arms in front of you, about shoulder-width grip. Pull apart until band touches your chest, squeezing shoulder blades together. Control the return \u2014 don't let the band snap your arms back. Keep arms at shoulder height throughout. A light band is all you need.",
+      "substitutes": [
+        "face_pull",
+        "reverse_fly_machine",
+        "rear_delt_flye",
+        "prone_y_raise"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "overhead_press",
+        "incline_dumbbell_press"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "push_up",
+        "incline_dumbbell_press",
+        "dip_chest"
+      ],
+      "notes": "Do these every single training day as a warmup or between pressing sets. 2-3 sets of 15-30 reps costs almost nothing in terms of fatigue but accumulates massive rear delt and external rotator volume over time. A resistance band is a $10 investment that can save your shoulders. The simplest and most effective prehab tool in the gym."
+    },
+    {
+      "id": "prone_y_raise",
+      "name": "Prone Y-Raise",
+      "category": "isolation",
+      "movement_pattern": "scapular_stabilization",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/bent-over-dumbbell-reverse-fly.html",
+      "beginner_tips": "Lie face down on a bench inclined at about 30-45 degrees. Let very light dumbbells or just your thumbs hang toward the floor. Raise arms up and out at a Y angle (about 45 degrees from your head) with thumbs pointing up. Squeeze at the top for 1-2 seconds. These are VERY light \u2014 start with just your thumbs pointing up and no weight. If you need more than 5 lbs per hand, you're doing it wrong.",
+      "substitutes": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "face_pull",
+        "lateral_raise",
+        "overhead_press",
+        "barbell_bench_press"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "Targets the lower traps and the rotator cuff \u2014 two muscle groups that are critical for shoulder health but rarely trained directly. The lower traps depress and upwardly rotate the scapula, which is essential for safe overhead pressing. Widely used in physical therapy and sports medicine. If you have any history of shoulder impingement or pain, these should be a staple. Can also do T-raises (arms straight to sides) and W-raises (bent elbows, external rotation) in the same position for complete scapular stabilizer coverage."
+    },
+    {
+      "id": "upright_row",
+      "name": "Upright Row (Cable or Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "traps"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/upright-row.html",
+      "beginner_tips": "Weight in front of thighs. Pull up along body to about chest height (NOT to your chin \u2014 stopping lower is safer), leading with elbows. Use a WIDE grip \u2014 hands should be wider than shoulder width. Cable or dumbbell versions are significantly safer than barbell. Don't pull higher than your elbows \u2014 that's the point where impingement risk increases.",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "barbell_shrug"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye"
+      ],
+      "superset_candidates": [
+        "face_pull"
+      ],
+      "notes": "Controversial exercise. The concern is subacromial impingement \u2014 when you pull a weight upward with internally rotated shoulders (narrow grip, high pull), the supraspinatus tendon can get pinched. The FIX: use a wide grip (reduces internal rotation), pull to chest height only (not chin), and use cables or dumbbells instead of a barbell (allows natural wrist rotation). With these modifications, the exercise is reasonably safe and hits both side delts and upper traps. If it still irritates your shoulders, replace with lateral raises + shrugs \u2014 you get the same muscles without the risk."
+    },
+    {
+      "id": "barbell_shrug",
+      "name": "Barbell Shrug",
+      "category": "isolation",
+      "movement_pattern": "scapular_elevation",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-shrug.html",
+      "beginner_tips": "Hold barbell in front of thighs with straight arms. Shrug shoulders straight UP toward ears. Hold 1 second at top \u2014 the pause is more important than the weight. Don't roll shoulders in circles \u2014 that adds no benefit and can irritate the shoulder joint. Straight up and down only.",
+      "substitutes": [
+        "dumbbell_shrug",
+        "trap_bar_shrug"
+      ],
+      "complements": [
+        "face_pull",
+        "barbell_row",
+        "conventional_deadlift"
+      ],
+      "superset_candidates": [
+        "face_pull"
+      ],
+      "notes": "The upper traps respond well to heavy loads with moderate reps. However, many people find that heavy deadlifts and rows already build their traps sufficiently without direct shrug work. Add shrugs if you want extra trap development or if you don't deadlift. Focus on the squeeze at the top, not the weight."
+    },
+    {
+      "id": "dumbbell_shrug",
+      "name": "Dumbbell Shrug",
+      "category": "isolation",
+      "movement_pattern": "scapular_elevation",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-shrug.html",
+      "beginner_tips": "Dumbbells at sides. Shrug up, hold 1 second, lower slowly. Hands at sides can feel more natural than a barbell in front of you. Straight up and down \u2014 no rolling.",
+      "substitutes": [
+        "barbell_shrug",
+        "trap_bar_shrug"
+      ],
+      "complements": [
+        "face_pull",
+        "barbell_row",
+        "farmer_walk"
+      ],
+      "superset_candidates": [
+        "face_pull"
+      ],
+      "notes": "Dumbbells at your sides allow a slightly greater range of motion than a barbell in front. The neutral hand position is also more comfortable for most people. Pair with farmer's walks for complete trap development \u2014 shrugs hit the upper traps, heavy carries build the mid and lower traps."
+    },
+    {
+      "id": "trap_bar_shrug",
+      "name": "Trap Bar Shrug",
+      "category": "isolation",
+      "movement_pattern": "scapular_elevation",
+      "force_type": "pull",
+      "equipment": [
+        "trap_bar"
+      ],
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-shrug.html",
+      "beginner_tips": "Stand inside the trap bar and grip the handles. Stand up straight, then shrug shoulders toward ears. The neutral grip and centered weight distribution feel very natural. Hold at the top for 1 second, lower with control.",
+      "substitutes": [
+        "barbell_shrug",
+        "dumbbell_shrug"
+      ],
+      "complements": [
+        "face_pull",
+        "barbell_row",
+        "trap_bar_deadlift",
+        "farmer_walk"
+      ],
+      "superset_candidates": [
+        "face_pull"
+      ],
+      "notes": "Allows the heaviest shrug loading of any variation \u2014 the centered weight and neutral grip eliminate the barbell's tendency to pull you forward or the dumbbell's tendency to bump your thighs. The trap bar was literally named after the trapezius muscle. If your gym has one, this is the optimal shrug tool."
+    }
+  ]
+}

@@ -1,0 +1,1016 @@
+{
+  "file": "03_chest.json",
+  "description": "Bench press variations, flyes, dips, push-ups, machine presses, floor press, pullovers",
+  "exercise_count": 25,
+  "exercises": [
+    {
+      "id": "barbell_bench_press",
+      "name": "Barbell Bench Press (Flat)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "1-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-bench-press.html",
+      "beginner_tips": "Eyes under bar. Grip wider than shoulders. Unrack, lower to mid-chest, pause, press up. Feet flat, butt on bench, shoulder blades squeezed together and DOWN \u2014 this creates a stable shelf. Always use a spotter or safety pins for heavy sets.",
+      "substitutes": [
+        "dumbbell_bench_press",
+        "machine_chest_press",
+        "smith_machine_bench_press",
+        "floor_press"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "cable_flye",
+        "dumbbell_flye",
+        "tricep_pushdown",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "barbell_row",
+        "face_pull",
+        "band_pull_apart",
+        "pendlay_row"
+      ],
+      "notes": "Most popular upper body exercise. Wider grip = more chest stretch, narrower = more tricep emphasis. Grip around 1.5x shoulder width is a good starting point for most people. The arch is not cheating \u2014 a slight natural arch protects the shoulders."
+    },
+    {
+      "id": "dumbbell_bench_press",
+      "name": "Dumbbell Bench Press (Flat)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-bench-press.html",
+      "beginner_tips": "Sit with dumbbells on knees, lie back and kick them up to chest level. Press up until arms straight but not locked. Greater range of motion than barbell. Lower with control \u2014 feel the stretch at the bottom.",
+      "substitutes": [
+        "barbell_bench_press",
+        "machine_chest_press",
+        "smith_machine_bench_press",
+        "floor_press"
+      ],
+      "complements": [
+        "incline_barbell_press",
+        "cable_flye",
+        "dip_chest",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "dumbbell_row",
+        "face_pull"
+      ],
+      "notes": "Better chest stretch at bottom than barbell. Fixes left/right imbalances since each arm works independently. Many people find these produce better chest development than barbell because of the greater ROM."
+    },
+    {
+      "id": "incline_barbell_press",
+      "name": "Incline Barbell Press",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-bench-press.html",
+      "beginner_tips": "Set bench to about 30 degrees. Same as flat bench but lower to upper chest/collarbone area. Targets upper chest more than flat pressing.",
+      "substitutes": [
+        "incline_dumbbell_press",
+        "low_to_high_cable_flye",
+        "landmine_press",
+        "smith_machine_incline_press",
+        "incline_machine_press"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "cable_flye",
+        "lateral_raise",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "barbell_row"
+      ],
+      "notes": "~30 degrees maximizes upper chest emphasis (Lauver et al., 2016). At 45 degrees, the front deltoids take over significantly \u2014 if your gym bench only goes to 45, use dumbbells or cables for upper chest instead. Most people have a weak upper chest relative to mid/lower."
+    },
+    {
+      "id": "incline_dumbbell_press",
+      "name": "Incline Dumbbell Press",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-dumbbell-bench-press.html",
+      "beginner_tips": "Bench at ~30 degrees. Press from upper chest level. Dumbbells allow a deeper stretch than barbell and a more natural pressing arc. Let the dumbbells travel slightly outward on the way down for maximum stretch.",
+      "substitutes": [
+        "incline_barbell_press",
+        "low_to_high_cable_flye",
+        "smith_machine_incline_press",
+        "incline_machine_press",
+        "landmine_press"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "dumbbell_flye",
+        "incline_dumbbell_flye",
+        "tricep_pushdown",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "dumbbell_row",
+        "chest_supported_row"
+      ],
+      "notes": "Many coaches consider this the single best chest exercise for complete development. Combines upper chest emphasis with a deep stretch under load \u2014 two key drivers of hypertrophy. The stretch-mediated hypertrophy research (Pedrosa et al., 2023) supports exercises that load muscles at long lengths."
+    },
+    {
+      "id": "decline_bench_press",
+      "name": "Decline Barbell Bench Press",
+      "category": "compound",
+      "movement_pattern": "decline_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/decline-bench-press.html",
+      "beginner_tips": "Slight decline (15-20 degrees), feet hooked under pads. Lower bar to lower chest and press. Many people are stronger on decline than flat due to the favorable pressing angle.",
+      "substitutes": [
+        "decline_dumbbell_press",
+        "dip_chest",
+        "chest_crossover"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "barbell_row"
+      ],
+      "notes": "Targets lower chest / sternal fibers. Reduced shoulder stress compared to flat bench. Some research suggests similar overall chest activation to flat bench with less anterior deltoid involvement. Dips are a bodyweight alternative for this angle."
+    },
+    {
+      "id": "decline_dumbbell_press",
+      "name": "Decline Dumbbell Press",
+      "category": "compound",
+      "movement_pattern": "decline_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/decline-dumbbell-bench-press.html",
+      "beginner_tips": "Slight decline, feet hooked under pads. Kick dumbbells up to chest level, press up. Slightly easier to get into position than barbell decline since you don't need to unrack. Lower until a deep chest stretch, press back up.",
+      "substitutes": [
+        "decline_bench_press",
+        "dip_chest",
+        "chest_crossover"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "dumbbell_row"
+      ],
+      "notes": "Dumbbell version allows greater ROM and is easier to set up solo than barbell decline. Good option if your gym doesn't have a dedicated decline bench with a barbell rack."
+    },
+    {
+      "id": "machine_chest_press",
+      "name": "Chest Press Machine",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "chest_press_machine"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-chest-press.html",
+      "beginner_tips": "Sit in machine, grab handles at chest height, push forward until arms extended. Machine guides you \u2014 can't drop anything on yourself. Adjust the seat so handles are at mid-chest height. Perfect for beginners or training to failure safely.",
+      "substitutes": [
+        "barbell_bench_press",
+        "dumbbell_bench_press",
+        "smith_machine_bench_press"
+      ],
+      "complements": [
+        "cable_flye",
+        "tricep_pushdown",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "machine_row",
+        "cable_row"
+      ],
+      "notes": "Safest pressing option. Great for training to absolute failure without a spotter, for drop sets, and for building confidence before moving to free weights. Research shows machines and free weights produce similar hypertrophy when effort is matched."
+    },
+    {
+      "id": "incline_machine_press",
+      "name": "Incline Chest Press Machine",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "chest_press_machine"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-chest-press.html",
+      "beginner_tips": "Same concept as the flat machine press but the handles are angled upward to target upper chest. Sit with your back flat against the pad, push the handles up and out. Adjust the seat so you feel the work in your upper chest, not your shoulders.",
+      "substitutes": [
+        "incline_dumbbell_press",
+        "incline_barbell_press",
+        "smith_machine_incline_press",
+        "low_to_high_cable_flye"
+      ],
+      "complements": [
+        "machine_chest_press",
+        "cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "machine_row"
+      ],
+      "notes": "Not every gym has a dedicated incline press machine, but if yours does, it's an excellent beginner-friendly way to target the upper chest. Safe for going to failure. Good option on days where you want upper chest work without the setup of free weights."
+    },
+    {
+      "id": "smith_machine_bench_press",
+      "name": "Smith Machine Bench Press (Flat)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "smith_machine",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-bench-press.html",
+      "beginner_tips": "Flat bench under Smith machine. Line up so the bar path hits mid-chest. Rotate bar to unhook, lower to chest, press up. Twist to re-rack if stuck. The fixed path means you only need to focus on pushing.",
+      "substitutes": [
+        "barbell_bench_press",
+        "machine_chest_press",
+        "dumbbell_bench_press"
+      ],
+      "complements": [
+        "cable_flye",
+        "dumbbell_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "cable_row",
+        "smith_machine_row"
+      ],
+      "notes": "Good spotterless option. Fixed path lets you focus on pushing hard without worrying about balance. Position the bench so the bar touches mid-chest naturally \u2014 don't force an unnatural path."
+    },
+    {
+      "id": "smith_machine_incline_press",
+      "name": "Smith Machine Incline Press",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "smith_machine",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-bench-press.html",
+      "beginner_tips": "Set adjustable bench to ~30 degrees under the Smith machine. Position so the bar travels to your upper chest/collarbone area. Unrack, lower to upper chest, press up. The Smith machine handles the balance so you can focus entirely on pressing.",
+      "substitutes": [
+        "incline_barbell_press",
+        "incline_dumbbell_press",
+        "incline_machine_press",
+        "landmine_press"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "cable_flye",
+        "low_to_high_cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "cable_row",
+        "face_pull",
+        "smith_machine_row"
+      ],
+      "notes": "The safest way to do heavy incline pressing alone. Very common in gyms that don't have a dedicated incline bench station. Set the bench angle to ~30 degrees \u2014 the Smith bar path works well at this angle."
+    },
+    {
+      "id": "floor_press",
+      "name": "Floor Press (Barbell or Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "chest",
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "3-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-bench-press.html",
+      "beginner_tips": "Lie on the floor (no bench). With dumbbells: start with them on your chest. With barbell: set up in a power rack with pins low enough to reach from the floor. Press up, lower until your upper arms touch the floor, pause briefly, press back up. The floor stops the descent \u2014 this is intentional, not a limitation.",
+      "substitutes": [
+        "barbell_bench_press",
+        "dumbbell_bench_press",
+        "machine_chest_press",
+        "close_grip_bench_press"
+      ],
+      "complements": [
+        "dumbbell_flye",
+        "cable_flye",
+        "incline_dumbbell_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "barbell_row",
+        "face_pull"
+      ],
+      "notes": "The floor limits your range of motion, which has two benefits: it's much easier on the shoulders (great for people with shoulder pain during bench press), and it overloads the lockout portion. Commonly used in powerlifting as a bench press accessory. Also eliminates leg drive, making it a stricter upper body exercise."
+    },
+    {
+      "id": "dumbbell_flye",
+      "name": "Dumbbell Flye (Flat)",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-flys.html",
+      "beginner_tips": "Lie flat, dumbbells above chest, arms slightly bent (keep this bend fixed throughout). Open arms wide until you feel a deep chest stretch, then bring them back together like hugging a large tree. Control the lowering \u2014 this is where the growth stimulus happens.",
+      "substitutes": [
+        "cable_flye",
+        "machine_pec_deck",
+        "incline_dumbbell_flye"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "incline_dumbbell_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "rear_delt_flye",
+        "face_pull"
+      ],
+      "notes": "Provides an excellent chest stretch under load, but tension drops significantly at the top of the movement. If you want constant tension throughout, cables or the pec deck are superior. The deep stretch at the bottom is the most valuable part of this exercise."
+    },
+    {
+      "id": "incline_dumbbell_flye",
+      "name": "Incline Dumbbell Flye",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-dumbbell-flys.html",
+      "beginner_tips": "Bench at ~30 degrees. Dumbbells above upper chest, slight fixed bend in elbows. Open arms wide until deep stretch across upper chest, bring back together. Use lighter weight than flat flyes \u2014 the incline makes it harder. Focus on feeling the upper chest stretch at the bottom.",
+      "substitutes": [
+        "low_to_high_cable_flye",
+        "dumbbell_flye",
+        "machine_pec_deck"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "barbell_bench_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "rear_delt_flye",
+        "face_pull"
+      ],
+      "notes": "Upper chest isolation without the tricep fatigue of pressing. Great as a second chest exercise after an incline press, or as a pre-exhaust before pressing. The stretch at the bottom targets the clavicular (upper) chest fibers specifically."
+    },
+    {
+      "id": "cable_flye",
+      "name": "Cable Flye (Mid-Height)",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-flye.html",
+      "beginner_tips": "Pulleys at chest height. Grab handles, step forward into a staggered stance for balance, bring hands together in front of chest with a slight elbow bend. Think hugging a barrel. Squeeze chest hard when hands meet.",
+      "substitutes": [
+        "dumbbell_flye",
+        "machine_pec_deck",
+        "incline_dumbbell_flye"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "incline_dumbbell_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart",
+        "straight_arm_pulldown",
+        "cable_rear_delt_flye"
+      ],
+      "notes": "Superior to dumbbell flyes because the cable keeps constant tension throughout the entire range of motion \u2014 including at the top where dumbbells lose tension. Adjust pulley height: high = lower chest emphasis, mid = mid chest, low = upper chest."
+    },
+    {
+      "id": "low_to_high_cable_flye",
+      "name": "Low-to-High Cable Flye",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-15",
+      "rep_range_strength": "10-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-lower-chest-raise.html",
+      "beginner_tips": "Pulleys set at the lowest position. Bring handles upward and together in front of your upper chest, crossing slightly. You should feel the contraction in your upper chest specifically. Use a staggered stance for balance.",
+      "substitutes": [
+        "incline_dumbbell_press",
+        "incline_dumbbell_flye",
+        "machine_pec_deck"
+      ],
+      "complements": [
+        "incline_barbell_press",
+        "barbell_bench_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "Excellent upper chest isolation without heavy pressing. The low-to-high arc matches the fiber direction of the clavicular (upper) chest. Great as a warmup to activate upper chest before pressing, or as a finisher."
+    },
+    {
+      "id": "chest_crossover",
+      "name": "Cable Crossover (High-to-Low)",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-crossover.html",
+      "beginner_tips": "Pulleys set high. Step forward into a staggered stance, bring handles down and together in front of your lower chest/navel. Squeeze chest hard when hands meet. Keep a slight bend in elbows throughout.",
+      "substitutes": [
+        "cable_flye",
+        "dumbbell_flye",
+        "machine_pec_deck",
+        "decline_dumbbell_press"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "The high-to-low arc targets the sternal (lower) chest fibers. Great finisher after pressing. Between this, mid-height cable flyes, and low-to-high flyes, you can target every region of the chest with cables alone."
+    },
+    {
+      "id": "machine_pec_deck",
+      "name": "Pec Deck / Machine Flye",
+      "category": "isolation",
+      "movement_pattern": "chest_fly",
+      "force_type": "push",
+      "equipment": [
+        "pec_deck_machine"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/pec-dec.html",
+      "beginner_tips": "Back against pad. Forearms on pads (or grip handles depending on machine type). Bring pads together in front of chest by squeezing pecs. Slowly open back up \u2014 control the negative. Adjust the seat so the pads/handles are at chest height.",
+      "substitutes": [
+        "cable_flye",
+        "dumbbell_flye",
+        "incline_dumbbell_flye"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "incline_dumbbell_press",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "reverse_fly_machine",
+        "pullover_machine"
+      ],
+      "notes": "Very beginner-friendly fixed path. Constant tension like cables. Focus entirely on squeezing the chest. Excellent for drop sets \u2014 just move the pin. The pec deck + reverse pec deck superset is one of the most efficient shoulder-health combos in the gym."
+    },
+    {
+      "id": "dip_chest",
+      "name": "Chest Dip",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "dip_station",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest",
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "5-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/chest-dip.html",
+      "beginner_tips": "Grip parallel bars, support weight with straight arms. Lean FORWARD (~30 degrees) and lower until you feel a deep stretch in your chest \u2014 usually when upper arms are parallel to the floor or slightly below. Push back up. The forward lean is what makes this a chest exercise vs. a tricep exercise.",
+      "substitutes": [
+        "decline_bench_press",
+        "decline_dumbbell_press",
+        "machine_chest_press",
+        "push_up"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "chin_up",
+        "pull_up",
+        "neutral_grip_pull_up"
+      ],
+      "notes": "Loads the chest in a deep stretch at the bottom, making it an excellent hypertrophy exercise. Use the assisted dip machine or a resistance band looped under your knees if you can't do bodyweight. Add a weight belt or hold a dumbbell between your feet to progress beyond bodyweight."
+    },
+    {
+      "id": "push_up",
+      "name": "Push-Up",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "to failure",
+      "rep_range_strength": "to failure",
+      "video_url": "https://www.muscleandstrength.com/exercises/push-up.html",
+      "beginner_tips": "Hands slightly wider than shoulders, body straight from head to heels. Lower chest to the floor (or as close as you can), push up. Keep your core tight \u2014 don't let your hips sag. Can't do a full one? Start with incline push-ups (hands on a bench or wall) rather than knee push-ups \u2014 it trains a more similar movement pattern.",
+      "substitutes": [
+        "barbell_bench_press",
+        "machine_chest_press",
+        "incline_push_up"
+      ],
+      "complements": [
+        "bodyweight_row",
+        "dip_chest",
+        "plank",
+        "band_pull_apart",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "bodyweight_row",
+        "band_pull_apart"
+      ],
+      "notes": "Most accessible chest exercise. Progression: wall \u2192 incline \u2192 floor \u2192 decline (feet elevated) \u2192 weighted. Push-ups with handles or on fists allow deeper range of motion. EMG research shows push-ups produce comparable chest activation to bench press at similar relative intensities."
+    },
+    {
+      "id": "incline_push_up",
+      "name": "Incline Push-Up (Hands Elevated)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "to failure",
+      "rep_range_strength": "to failure",
+      "video_url": "https://www.muscleandstrength.com/exercises/push-up.html",
+      "beginner_tips": "Hands on a bench, box, counter, or wall \u2014 the higher your hands, the easier it is. Same form as a regular push-up: straight body, chest to the surface, push back up. This is NOT a lesser exercise \u2014 it's the correct progression step toward floor push-ups.",
+      "substitutes": [
+        "push_up",
+        "machine_chest_press"
+      ],
+      "complements": [
+        "bodyweight_row",
+        "plank",
+        "band_pull_apart",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "bodyweight_row"
+      ],
+      "notes": "Better than knee push-ups for building toward full push-ups because the movement pattern is identical \u2014 you're just reducing the load. Progressively lower the surface height over weeks: wall \u2192 counter \u2192 bench \u2192 floor. Also useful as a high-rep finisher for experienced lifters."
+    },
+    {
+      "id": "decline_push_up",
+      "name": "Decline Push-Up (Feet Elevated)",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "to failure",
+      "rep_range_strength": "to failure",
+      "video_url": "https://www.muscleandstrength.com/exercises/decline-push-up.html",
+      "beginner_tips": "Feet on a bench or box, hands on the floor. The elevation shifts more of your bodyweight onto your arms and angles the press upward \u2014 similar to an incline bench press. Keep your core tight and body straight. The higher your feet, the harder it gets and the more it shifts toward shoulders.",
+      "substitutes": [
+        "push_up",
+        "incline_dumbbell_press",
+        "low_to_high_cable_flye"
+      ],
+      "complements": [
+        "push_up",
+        "dip_chest",
+        "bodyweight_row",
+        "band_pull_apart",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "bodyweight_row",
+        "band_pull_apart"
+      ],
+      "notes": "The bodyweight equivalent of an incline press \u2014 targets upper chest and front delts more than regular push-ups. Feet on a standard bench (~18 inches) provides a good challenge. Progress by adding a weight vest or elevating feet higher."
+    },
+    {
+      "id": "hex_press",
+      "name": "Hex Press (Squeeze Press)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-bench-press.html",
+      "beginner_tips": "Lie flat on bench with two dumbbells pressed together (flat sides touching). Push the dumbbells into each other HARD throughout the entire movement \u2014 this constant squeeze is the point of the exercise. Press up and lower while maintaining that inward pressure.",
+      "substitutes": [
+        "dumbbell_bench_press",
+        "cable_flye",
+        "machine_pec_deck"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "dumbbell_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "dumbbell_row",
+        "face_pull"
+      ],
+      "notes": "The constant inward squeezing force creates chest activation throughout the entire ROM \u2014 unlike dumbbell flyes where tension drops at the top, or regular presses where the chest can coast at lockout. Very joint-friendly since the neutral grip and adduction force stabilize the shoulder. Good option for people with shoulder discomfort during regular pressing."
+    },
+    {
+      "id": "landmine_press",
+      "name": "Landmine Press",
+      "category": "compound",
+      "movement_pattern": "incline_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/landmine-press.html",
+      "beginner_tips": "Wedge barbell end in a corner or landmine attachment. Hold other end at chest with one or both hands, press up and forward at about a 45-degree angle. Very shoulder-friendly pressing motion. The arcing path is natural and self-stabilizing.",
+      "substitutes": [
+        "incline_dumbbell_press",
+        "machine_chest_press",
+        "incline_machine_press",
+        "smith_machine_incline_press"
+      ],
+      "complements": [
+        "barbell_bench_press",
+        "cable_flye",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "landmine_row"
+      ],
+      "notes": "The natural arc path is exceptionally easy on shoulders. Great option if regular pressing causes shoulder pain. Single-arm version adds core demand. The pressing angle is somewhere between a flat and incline press, hitting both regions."
+    },
+    {
+      "id": "close_grip_bench_press",
+      "name": "Close-Grip Bench Press",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "triceps",
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "4-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-bench-press.html",
+      "beginner_tips": "Same as bench press but hands about shoulder-width apart (NOT hands touching \u2014 that strains wrists). Tuck elbows closer to your body than a regular bench press. The reduced grip width shifts work from chest to triceps.",
+      "substitutes": [
+        "dip_tricep",
+        "machine_chest_press",
+        "floor_press"
+      ],
+      "complements": [
+        "overhead_tricep_extension",
+        "barbell_curl",
+        "face_pull"
+      ],
+      "superset_candidates": [
+        "barbell_curl"
+      ],
+      "notes": "Shoulder-width grip is ideal \u2014 going narrower adds wrist strain without extra tricep benefit. Great compound tricep builder and bench press accessory. Helps strengthen the lockout portion of the bench press."
+    },
+    {
+      "id": "dumbbell_pullover",
+      "name": "Dumbbell Pullover",
+      "category": "compound",
+      "movement_pattern": "shoulder_extension",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-pullover.html",
+      "beginner_tips": "Lie across bench, upper back supported, hips slightly below bench level. Hold dumbbell with both hands above chest. Lower behind head in a controlled arc with a slight elbow bend. Pull back to starting position. You should feel the stretch across your lats and chest at the bottom.",
+      "substitutes": [
+        "straight_arm_pulldown",
+        "cable_flye"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "barbell_bench_press",
+        "face_pull"
+      ],
+      "superset_candidates": [],
+      "notes": "A unique exercise that stretches both the lats and chest under load simultaneously. Whether it biases lats or chest depends partly on intent: thinking about pulling with your lats shifts the emphasis toward back, thinking about squeezing your chest shifts it toward pecs. EMG data is mixed \u2014 treat it as a general upper body exercise rather than a targeted chest or back move. Great for shoulder mobility and thoracic extension."
+    }
+  ]
+}

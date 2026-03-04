@@ -1,0 +1,217 @@
+import { z } from 'zod';
+
+// ─── Branded Types ────────────────────────────────────────
+type Brand<T, B extends string> = T & { readonly __brand: B };
+export type ExerciseId = Brand<string, 'ExerciseId'>;
+export type WorkoutId = Brand<string, 'WorkoutId'>;
+export type LogId = Brand<string, 'LogId'>;
+
+// ─── Enums ────────────────────────────────────────────────
+export const MUSCLE_GROUPS = [
+  'chest', 'upper_back', 'shoulders', 'traps', 'biceps', 'triceps',
+  'forearms', 'quadriceps', 'hamstrings', 'glutes', 'calves', 'core',
+  'adductors', 'abductors',
+] as const;
+export type MuscleGroup = typeof MUSCLE_GROUPS[number];
+
+export const FORCE_TYPES = ['push', 'pull', 'isometric'] as const;
+export type ForceType = typeof FORCE_TYPES[number];
+
+export const EQUIPMENT_TYPES = [
+  'barbell', 'dumbbell', 'ez_bar', 'cable_machine', 'smith_machine',
+  'leg_press_machine', 'hack_squat_machine', 'pendulum_squat_machine',
+  'belt_squat_machine', 'leg_extension_machine', 'leg_curl_machine',
+  'chest_press_machine', 'shoulder_press_machine', 'lat_pulldown_machine',
+  'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
+  'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
+  'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
+  'pull_up_bar', 'dip_station', 'flat_bench', 'adjustable_bench',
+  'preacher_curl_bench', 'roman_chair', 'ab_wheel', 'kettlebell',
+  'resistance_band', 'trap_bar', 'medicine_ball', 'battle_ropes', 'bodyweight',
+] as const;
+export type Equipment = typeof EQUIPMENT_TYPES[number];
+
+export const WORKOUT_POSITIONS = ['early', 'early_mid', 'mid', 'mid_late', 'late'] as const;
+export type WorkoutPosition = typeof WORKOUT_POSITIONS[number];
+
+export const DIFFICULTY_LEVELS = ['beginner', 'intermediate', 'advanced'] as const;
+export type DifficultyLevel = typeof DIFFICULTY_LEVELS[number];
+
+export const CATEGORIES = ['compound', 'isolation'] as const;
+export type Category = typeof CATEGORIES[number];
+
+// ─── Exercise Schema ──────────────────────────────────────
+export const ExerciseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(CATEGORIES),
+  movement_pattern: z.string(),
+  force_type: z.enum(FORCE_TYPES),
+  equipment: z.array(z.string()),
+  primary_muscles: z.array(z.string()),
+  secondary_muscles: z.array(z.string()),
+  workout_position: z.enum(WORKOUT_POSITIONS),
+  difficulty: z.enum(DIFFICULTY_LEVELS),
+  bilateral: z.boolean(),
+  rep_range_hypertrophy: z.string(),
+  rep_range_strength: z.string(),
+  video_url: z.string(),
+  beginner_tips: z.string(),
+  substitutes: z.array(z.string()),
+  complements: z.array(z.string()),
+  superset_candidates: z.array(z.string()),
+  notes: z.string(),
+});
+
+export type Exercise = z.infer<typeof ExerciseSchema> & { id: ExerciseId };
+
+export const ExerciseFileSchema = z.object({
+  file: z.string(),
+  description: z.string(),
+  exercise_count: z.number(),
+  exercises: z.array(ExerciseSchema),
+});
+
+export type ExerciseFile = z.infer<typeof ExerciseFileSchema>;
+
+// ─── Exercise Graph ───────────────────────────────────────
+export interface ExerciseGraph {
+  exercises: Map<ExerciseId, Exercise>;
+  substitutes: Map<ExerciseId, Set<ExerciseId>>;
+  complements: Map<ExerciseId, Set<ExerciseId>>;
+  supersets: Map<ExerciseId, Set<ExerciseId>>;
+  byMuscle: Map<string, Set<ExerciseId>>;
+  byEquipment: Map<string, Set<ExerciseId>>;
+  byPattern: Map<string, Set<ExerciseId>>;
+  byForceType: Map<ForceType, Set<ExerciseId>>;
+}
+
+// ─── Workout Draft ────────────────────────────────────────
+export interface WorkoutExercise {
+  exerciseId: ExerciseId;
+  sets: number;
+  reps: number;
+  weight: number | null;
+  restSeconds: number;
+  notes: string;
+}
+
+export interface WorkoutDraft {
+  id: WorkoutId;
+  name: string;
+  exercises: WorkoutExercise[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const WorkoutExerciseSchema = z.object({
+  exerciseId: z.string(),
+  sets: z.number().int().min(1),
+  reps: z.number().int().min(1),
+  weight: z.number().nullable(),
+  restSeconds: z.number().int().min(0),
+  notes: z.string(),
+});
+
+export const SavedWorkoutSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  exercises: z.array(WorkoutExerciseSchema),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export type SavedWorkout = z.infer<typeof SavedWorkoutSchema> & {
+  id: WorkoutId;
+  exercises: WorkoutExercise[];
+};
+
+// ─── Suggestion Groups ───────────────────────────────────
+export interface SuggestionGroups {
+  pairsWellWith: ExerciseId[];
+  stillNeedToHit: ExerciseId[];
+  supersetWith: ExerciseId[];
+}
+
+// ─── Workout Validation ──────────────────────────────────
+export interface WorkoutValidation {
+  pushCount: number;
+  pullCount: number;
+  isometricCount: number;
+  isBalanced: boolean;
+  coveredMuscles: MuscleGroup[];
+  missingMuscles: MuscleGroup[];
+}
+
+// ─── Active Session ──────────────────────────────────────
+export interface SetLog {
+  weight: number | null;
+  reps: number | null;
+  completed: boolean;
+}
+
+export interface ExerciseLog {
+  exerciseId: ExerciseId;
+  sets: SetLog[];
+}
+
+export interface ActiveSession {
+  workoutId: WorkoutId;
+  workoutName: string;
+  exercises: ExerciseLog[];
+  currentExerciseIndex: number;
+  startedAt: string;
+}
+
+export interface TimerState {
+  isRunning: boolean;
+  remainingSeconds: number;
+  totalSeconds: number;
+}
+
+// ─── Workout Log ─────────────────────────────────────────
+export interface WorkoutLog {
+  id: LogId;
+  workoutId: WorkoutId;
+  workoutName: string;
+  exercises: ExerciseLog[];
+  startedAt: string;
+  completedAt: string;
+  durationMinutes: number;
+}
+
+export const WorkoutLogSchema = z.object({
+  id: z.string(),
+  workoutId: z.string(),
+  workoutName: z.string(),
+  exercises: z.array(z.object({
+    exerciseId: z.string(),
+    sets: z.array(z.object({
+      weight: z.number().nullable(),
+      reps: z.number().nullable(),
+      completed: z.boolean(),
+    })),
+  })),
+  startedAt: z.string(),
+  completedAt: z.string(),
+  durationMinutes: z.number(),
+});
+
+// ─── Settings ────────────────────────────────────────────
+export interface AppSettings {
+  restTimerCompoundSeconds: number;
+  restTimerIsolationSeconds: number;
+}
+
+export const AppSettingsSchema = z.object({
+  restTimerCompoundSeconds: z.number().int().min(0).default(120),
+  restTimerIsolationSeconds: z.number().int().min(0).default(60),
+});
+
+export const DEFAULT_SETTINGS: AppSettings = {
+  restTimerCompoundSeconds: 120,
+  restTimerIsolationSeconds: 60,
+};
+
+// ─── Navigation ──────────────────────────────────────────
+export type TabId = 'build' | 'library' | 'active' | 'settings';

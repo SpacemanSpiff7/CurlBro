@@ -1,0 +1,421 @@
+{
+  "metadata": {
+    "version": "3.0",
+    "description": "Comprehensive exercise graph dataset for gym workout builder app. 162 exercises across 7 files with full graph connectivity (substitutes, complements, superset candidates). Beginner-friendly with video references. Generic equipment names — works at any well-equipped commercial gym.",
+    "created": "2026-03-04",
+    "last_updated": "2026-03-04",
+    "file_structure": [
+      "00_schema_and_metadata.json — This file. Schema, equipment, muscle groups, templates, graph edge semantics.",
+      "01_legs_quads_glutes.json — 30 exercises. Squat variations (barbell, smith, hack, pendulum, belt), lunges, split squats, leg press, leg extensions, hip thrusts, glute bridges, adduction/abduction.",
+      "02_legs_hamstrings_calves.json — 19 exercises. Deadlift variations (conventional, sumo, trap bar, RDL), leg curls, nordic curls, calf raises, kettlebell swings, back extensions.",
+      "03_chest.json — 25 exercises. Bench press variations (flat, incline, decline, close-grip, floor press), flyes (dumbbell, cable, machine), dips, push-up variations, hex press, pullovers.",
+      "04_back.json — 24 exercises. Rows (barbell, dumbbell, cable, machine, Pendlay, seal, T-bar, landmine), pull-ups/chin-ups (overhand, neutral, band-assisted), pulldowns (wide, close, reverse grip, single-arm), pullovers.",
+      "05_shoulders.json — 20 exercises. Overhead presses (barbell, dumbbell, Arnold, machine, smith), lateral raises (dumbbell, cable, machine), face pulls, rear delt work, front raises, shrugs, prone Y-raises.",
+      "06_arms.json — 24 exercises. Bicep curls (barbell, EZ, dumbbell, hammer, preacher, incline, bayesian, spider, cable, concentration, reverse), tricep extensions (pushdown, overhead, skull crusher, kickback, dip), forearm/grip work (wrist curls, farmer's walk, dead hang).",
+      "07_core_and_functional.json — 20 exercises. Abs (cable crunch, hanging raises, decline crunch), anti-extension (plank, ab wheel, dead bug, bird dog, hollow body), anti-rotation (Pallof press), rotation (Russian twist, woodchop), anti-lateral flexion (side plank, suitcase carry), plyometrics (box jump, squat jump), conditioning (mountain climbers, battle ropes)."
+    ],
+    "total_exercises": 162,
+    "total_graph_edges": 1340,
+    "cross_file_edges": 434,
+    "video_source": "muscleandstrength.com — each link has a short video demo plus written form cues. All free, no login needed.",
+    "changelog": {
+      "v2_to_v3": [
+        "Added 12 exercises across files 01, 03, 04, 05 to fill equipment and movement pattern gaps",
+        "Added 4 exercises to file 06 (bayesian curl, spider curl, reverse curl, single-arm overhead extension) for complete bicep length-tension spectrum and forearm coverage",
+        "Added 5 exercises to file 07 (hanging knee raise, bird dog, hollow body hold, squat jump, suitcase carry) for complete core training paradigm and progression gap coverage",
+        "Fixed all broken graph references (0 remaining), eliminated all generic 'any_*' references",
+        "Added 63 cross-file superset and complement edges for antagonist pairing and synergist relationships",
+        "Added edge_semantics section defining how substitutes, complements, and superset_candidates should be used by the app",
+        "Added 6 new equipment types, expanded progression chains, added new scientific principles",
+        "Updated all file descriptions and exercise counts"
+      ]
+    }
+  },
+
+  "how_to_use_this_data": {
+    "for_beginners": "Each exercise has a difficulty rating (beginner/intermediate/advanced) and a 'beginner_tips' field with plain-English form cues. Start with 'beginner' exercises. The 'substitutes' array gives easier or alternative options.",
+    "workout_position": "Exercises are tagged with when to do them: 'early' = do first when fresh (big compound lifts), 'late' = do last (small isolation moves). Follow this order for safety and performance.",
+    "push_vs_pull": "Every exercise is tagged 'push', 'pull', or 'isometric'. Balance pushing and pulling volume roughly 1:1 across your training week to prevent imbalances and shoulder injuries.",
+    "substitutes": "If a machine is taken or unavailable, check the 'substitutes' array for alternatives that work the same muscles with the same movement pattern.",
+    "complements": "The 'complements' array lists exercises that pair well in the SAME workout session — synergists and same-muscle-group variations. Use these to build out a training day.",
+    "superset_candidates": "The 'superset_candidates' array lists exercises to do back-to-back during rest periods — typically antagonist pairs (bench ↔ row) or non-competing fillers (planks between squat sets).",
+    "video_url": "Click the link for a short video demo with written instructions.",
+    "antagonist_pairing": "Use the muscle_groups.antagonist field to derive push/pull pairings at the template level. The app doesn't need every row to explicitly list every bench press — it derives antagonist sessions from muscle group metadata."
+  },
+
+  "edge_semantics": {
+    "overview": "The three edge types serve different purposes in workout generation. Understanding these distinctions is critical for building coherent programs across different training splits.",
+    "substitutes": {
+      "meaning": "Use this INSTEAD of that",
+      "relationship": "Same muscle group, same movement pattern, similar difficulty",
+      "use_case": "Equipment unavailable, user preference, injury workaround",
+      "direction": "Bidirectional — if A substitutes for B, B substitutes for A (usually)",
+      "example": "barbell_bench_press ↔ dumbbell_bench_press"
+    },
+    "complements": {
+      "meaning": "These belong in the SAME session when training the same muscle group",
+      "relationship": "Synergists, same-group variations, exercises that cover different portions of a muscle",
+      "use_case": "Building a push day, pull day, leg day, etc. These are exercises that train together.",
+      "direction": "Generally symmetric within muscle groups, plus cross-file synergist links (curls complement rows, pushdowns complement bench)",
+      "example": "barbell_bench_press complements incline_dumbbell_press (same session, different angle) and tricep_pushdown (synergist isolation after compound)",
+      "not_for": "Antagonist pairing. Rows do NOT complement bench press — they belong in different sessions on a push/pull split. Use muscle_groups.antagonist for cross-group pairing at the template level."
+    },
+    "superset_candidates": {
+      "meaning": "Do these BACK-TO-BACK during rest periods for time efficiency",
+      "relationship": "Antagonist pairs, non-competing fillers, or same-station convenience pairs",
+      "use_case": "User wants to superset exercises. App suggests pairings that don't interfere with each other.",
+      "direction": "Intentionally asymmetric in some cases. Core exercises list compounds as superset targets (planks between squat sets), but compounds don't list core back — because compounds aren't filler for core work.",
+      "example": "barbell_bench_press ↔ barbell_row (antagonist), plank → barbell_bench_press (non-competing filler, one-directional)",
+      "array_size": "Capped at ~6-8 per exercise. High-traffic exercises like face_pull and leg_curl_lying are referenced by many more exercises than they list back — this is intentional trimming, not a bug."
+    },
+    "app_routing_logic": {
+      "push_pull_legs": "Use 'complements' to build each session. All exercises in a push session complement each other. Antagonist relationships are implicit — push day and pull day are separate.",
+      "upper_lower": "Use 'complements' for within-group ordering. Use muscle_groups.antagonist to pull from both push and pull groups into one upper session. 'superset_candidates' for efficient pairing within the session.",
+      "full_body": "Use muscle_groups.antagonist to ensure balanced coverage. Use 'superset_candidates' heavily — full body sessions benefit most from antagonist supersets for time efficiency.",
+      "supersets": "Use 'superset_candidates' directly. These are curated for equipment compatibility and non-competing muscle groups."
+    }
+  },
+
+  "exercise_schema": {
+    "id": "unique_snake_case identifier",
+    "name": "Human-readable name with equipment/variation in parentheses",
+    "category": "compound | isolation",
+    "movement_pattern": "One of 37 patterns — see movement_pattern_catalog",
+    "force_type": "push | pull | isometric",
+    "equipment": ["array of equipment needed — all generic names matching equipment_types keys"],
+    "primary_muscles": ["main muscles worked — matching muscle_groups keys"],
+    "secondary_muscles": ["assisting muscles — matching muscle_groups keys"],
+    "workout_position": "early | early_mid | mid | mid_late | late — see workout_position_guide",
+    "difficulty": "beginner | intermediate | advanced",
+    "bilateral": "true = both sides at once, false = one side at a time (unilateral)",
+    "rep_range_hypertrophy": "recommended reps for muscle growth (string, may include 'per side' or time-based)",
+    "rep_range_strength": "recommended reps for strength (string)",
+    "video_url": "link to muscleandstrength.com video demonstration",
+    "beginner_tips": "plain-English form cues for someone new to the exercise",
+    "substitutes": ["exercise IDs — same pattern, same muscles, use instead"],
+    "complements": ["exercise IDs — same session synergists, see edge_semantics"],
+    "superset_candidates": ["exercise IDs — antagonist or non-competing back-to-back pairs, see edge_semantics"],
+    "notes": "additional context, common mistakes, scientific references, pro tips"
+  },
+
+  "movement_pattern_catalog": {
+    "lower_body_compound": ["squat", "hip_hinge", "lunge", "hip_extension"],
+    "lower_body_isolation": ["knee_extension", "knee_flexion", "ankle_plantar_flexion", "hip_adduction", "hip_abduction"],
+    "upper_body_push": ["horizontal_push", "incline_push", "decline_push", "vertical_push", "chest_fly"],
+    "upper_body_pull": ["horizontal_pull", "vertical_pull", "shoulder_extension", "external_rotation_pull"],
+    "arms": ["elbow_flexion", "elbow_extension", "wrist_flexion", "wrist_extension"],
+    "shoulders_isolation": ["shoulder_abduction", "shoulder_flexion", "scapular_elevation", "scapular_stabilization"],
+    "core": ["spinal_flexion", "spinal_rotation", "spinal_extension", "anti_extension", "anti_rotation", "anti_lateral_flexion", "hip_flexion_spinal_flexion"],
+    "functional": ["loaded_carry", "plyometric", "full_body_conditioning", "grip_endurance"],
+    "total_unique_patterns": 37
+  },
+
+  "muscle_groups": {
+    "chest": {
+      "full_name": "Chest (Pectorals)",
+      "subgroups": ["upper_chest", "mid_chest", "lower_chest"],
+      "what_it_does": "Pushes things away from your body, brings arms together in front of you",
+      "antagonist": "upper_back",
+      "exercise_count": 25
+    },
+    "upper_back": {
+      "full_name": "Back (Lats, Rhomboids, Traps, Teres)",
+      "subgroups": ["lats", "rhomboids", "teres", "mid_traps", "low_traps"],
+      "what_it_does": "Pulls things toward your body, helps with posture",
+      "antagonist": "chest",
+      "exercise_count": 24
+    },
+    "shoulders": {
+      "full_name": "Shoulders (Deltoids)",
+      "subgroups": ["front_delt", "side_delt", "rear_delt"],
+      "what_it_does": "Raises arms in all directions, stabilizes the shoulder joint",
+      "antagonist": "upper_back",
+      "notes": "Front delts are synergists for chest pressing. Rear delts are synergists for back pulling. Side delts are only directly trained by abduction (lateral raises).",
+      "exercise_count": 20
+    },
+    "traps": {
+      "full_name": "Upper Trapezius",
+      "subgroups": ["upper_traps"],
+      "what_it_does": "Shrugs shoulders up, helps hold heavy things",
+      "exercise_count": 3
+    },
+    "biceps": {
+      "full_name": "Biceps (Front of Upper Arm)",
+      "subgroups": ["biceps_long_head", "biceps_short_head", "brachialis", "brachioradialis"],
+      "what_it_does": "Bends the elbow, turns palm face-up (supination). Brachialis sits under the bicep and adds arm thickness.",
+      "antagonist": "triceps",
+      "synergist_for": "All pulling movements (rows, pulldowns, pull-ups)",
+      "exercise_count": 12
+    },
+    "triceps": {
+      "full_name": "Triceps (Back of Upper Arm)",
+      "subgroups": ["triceps_long_head", "triceps_lateral_head", "triceps_medial_head"],
+      "what_it_does": "Straightens the elbow, helps with all pushing. Long head crosses the shoulder — needs overhead work to fully train.",
+      "antagonist": "biceps",
+      "synergist_for": "All pressing movements (bench press, overhead press, dips)",
+      "exercise_count": 8
+    },
+    "forearms": {
+      "full_name": "Forearms and Grip",
+      "subgroups": ["wrist_flexors", "wrist_extensors", "brachioradialis"],
+      "what_it_does": "Grips things, bends and extends the wrist. Trained indirectly by all pulling exercises.",
+      "exercise_count": 7
+    },
+    "quadriceps": {
+      "full_name": "Quads (Front of Thigh)",
+      "subgroups": ["rectus_femoris", "vastus_lateralis", "vastus_medialis", "vastus_intermedius"],
+      "what_it_does": "Straightens the knee, helps you stand up from sitting",
+      "antagonist": "hamstrings",
+      "exercise_count": 30
+    },
+    "hamstrings": {
+      "full_name": "Hamstrings (Back of Thigh)",
+      "subgroups": ["biceps_femoris", "semitendinosus", "semimembranosus"],
+      "what_it_does": "Bends the knee and extends the hip. Biarticular — needs BOTH hip hinge exercises (RDLs) and knee flexion exercises (leg curls) for complete development.",
+      "antagonist": "quadriceps",
+      "exercise_count": 19
+    },
+    "glutes": {
+      "full_name": "Glutes (Butt Muscles)",
+      "subgroups": ["glute_max", "glute_med", "glute_min"],
+      "what_it_does": "Extends the hip (standing up, climbing), stabilizes pelvis. Glute med prevents knee cave during squats.",
+      "antagonist": "hip_flexors",
+      "exercise_count": 15
+    },
+    "calves": {
+      "full_name": "Calves (Lower Leg)",
+      "subgroups": ["gastrocnemius", "soleus"],
+      "what_it_does": "Points toes down, pushes off when walking/running. Gastrocnemius (straight knee) and soleus (bent knee) need different exercises.",
+      "exercise_count": 4
+    },
+    "core": {
+      "full_name": "Core (Abs, Obliques, Lower Back)",
+      "subgroups": ["rectus_abdominis", "obliques", "transverse_abdominis", "erector_spinae"],
+      "what_it_does": "Stabilizes your spine, transfers force between upper and lower body. Trained through 6 paradigms: spinal flexion, anti-extension, anti-rotation, active rotation, anti-lateral flexion, and hip flexion.",
+      "exercise_count": 20
+    },
+    "adductors": {
+      "full_name": "Inner Thigh (Adductors)",
+      "subgroups": ["adductor_magnus", "adductor_longus"],
+      "what_it_does": "Squeezes legs together, stabilizes the knee",
+      "antagonist": "abductors",
+      "exercise_count": 2
+    },
+    "abductors": {
+      "full_name": "Outer Hip (Abductors)",
+      "subgroups": ["glute_med", "tfl"],
+      "what_it_does": "Pushes legs apart, stabilizes hips when walking",
+      "antagonist": "adductors",
+      "exercise_count": 2
+    }
+  },
+
+  "equipment_types": {
+    "barbell": "Standard Olympic barbell (45 lbs / 20 kg). The long bar you load plates onto.",
+    "dumbbell": "Individual weights you hold in each hand. Available in many sizes.",
+    "ez_bar": "Shorter curved bar that's easier on the wrists for curls and extensions.",
+    "cable_machine": "Machine with adjustable pulleys and a weight stack. Very versatile — different attachments change the exercise.",
+    "smith_machine": "Barbell on a fixed vertical track. Good for solo lifting without a spotter.",
+    "leg_press_machine": "Seated machine where you push a platform away with your legs. 45-degree and horizontal (seated) variants.",
+    "hack_squat_machine": "Angled machine where you squat with your back against a pad.",
+    "pendulum_squat_machine": "Lever-arm squat machine with an arc path. Excellent quad isolation with minimal balance demands.",
+    "belt_squat_machine": "Machine that loads weight from a belt at the hips — zero spinal compression. Great for back issues.",
+    "leg_extension_machine": "Seated machine that works quads by straightening your legs.",
+    "leg_curl_machine": "Machine that works hamstrings by bending your knees (lying or seated versions).",
+    "chest_press_machine": "Seated machine for pressing — like a bench press but guided. Some gyms have incline variants.",
+    "shoulder_press_machine": "Seated machine for overhead pressing.",
+    "lat_pulldown_machine": "Cable machine with a wide bar for pulling down toward your chest. Multiple grip attachments available.",
+    "seated_row_machine": "Seated cable or plate-loaded station for rowing.",
+    "pec_deck_machine": "Machine for chest flyes — arms come together in front of you.",
+    "reverse_fly_machine": "Same as pec deck but reversed — arms go behind you for rear delts.",
+    "pullover_machine": "Nautilus-style machine for lat isolation through shoulder extension. Not in every gym.",
+    "lateral_raise_machine": "Seated machine with pads for strict lateral raises. Not in every gym.",
+    "hip_adduction_machine": "Seated machine that squeezes legs together (inner thigh).",
+    "hip_abduction_machine": "Seated machine that pushes legs apart (outer hip/glute med).",
+    "calf_raise_machine": "Machine for standing or seated calf raises.",
+    "assisted_pull_up_machine": "Counterweight machine that reduces bodyweight for pull-ups and dips. More weight = more assistance.",
+    "pull_up_bar": "Overhead bar for pull-ups and chin-ups.",
+    "dip_station": "Parallel bars for dips.",
+    "flat_bench": "Standard flat weight bench.",
+    "adjustable_bench": "Bench that can be set to incline, flat, or decline.",
+    "preacher_curl_bench": "Angled pad for strict bicep curls.",
+    "roman_chair": "Angled bench for back extensions (hyperextensions).",
+    "ab_wheel": "Small wheel with handles for rollout exercises. Cheap, portable, brutally effective.",
+    "kettlebell": "Cast iron weight with a handle. Used for swings, carries, and goblet squats.",
+    "resistance_band": "Elastic bands for warmups, assistance, and added resistance.",
+    "trap_bar": "Hexagonal bar you stand inside of. Also called a hex bar.",
+    "medicine_ball": "Weighted ball for throwing and core work.",
+    "battle_ropes": "Heavy ropes for cardio and conditioning.",
+    "bodyweight": "No equipment needed."
+  },
+
+  "workout_position_guide": {
+    "early": "Do FIRST (exercises 1-2). Big heavy compound lifts. Need full energy and fresh nervous system.",
+    "early_mid": "Do SECOND (exercises 2-3). Still demanding but can follow the main lift.",
+    "mid": "MIDDLE of workout (exercises 3-5). Moderate effort. Compounds or heavy isolations.",
+    "mid_late": "AFTER compounds (exercises 4-6). Transitioning to lighter accessory work.",
+    "late": "Do LAST. Small isolation, finishers, abs, calves, grip work. Safe when fatigued."
+  },
+
+  "progression_chains": {
+    "description": "Ordered sequences from easiest to hardest within a movement pattern. Use these to suggest the next exercise when a user masters their current level. Each chain represents a clear difficulty or loading progression.",
+    "chains": [
+      {
+        "pattern": "squat",
+        "chain": ["bodyweight_squat", "goblet_squat", "dumbbell_squat", "leg_press", "smith_machine_squat", "hack_squat_machine", "barbell_back_squat", "barbell_front_squat"],
+        "notes": "Leg press and smith machine are parallel options (both easier than free barbell), not strictly sequential."
+      },
+      {
+        "pattern": "horizontal_push",
+        "chain": ["incline_push_up", "push_up", "decline_push_up", "machine_chest_press", "dumbbell_bench_press", "barbell_bench_press"],
+        "notes": "Push-up variations build baseline. Machine bridges to free weights."
+      },
+      {
+        "pattern": "incline_push",
+        "chain": ["incline_machine_press", "smith_machine_incline_press", "incline_dumbbell_press", "incline_barbell_press"],
+        "notes": "Machine and smith machine are parallel beginner options."
+      },
+      {
+        "pattern": "vertical_push",
+        "chain": ["machine_shoulder_press", "smith_machine_overhead_press", "dumbbell_shoulder_press", "arnold_press", "overhead_press"],
+        "notes": "Standing barbell press is hardest — requires full core stability."
+      },
+      {
+        "pattern": "vertical_pull",
+        "chain": ["lat_pulldown", "assisted_pull_up", "band_assisted_pull_up", "chin_up", "neutral_grip_pull_up", "pull_up"],
+        "notes": "Chin-ups are easier than pull-ups due to bicep involvement. Neutral grip is between the two."
+      },
+      {
+        "pattern": "horizontal_pull",
+        "chain": ["bodyweight_row", "machine_row", "cable_row", "chest_supported_row", "dumbbell_row", "barbell_row", "pendlay_row"],
+        "notes": "Supported rows (machine, chest-supported) before unsupported. Pendlay row demands the most back strength and hip hinge control."
+      },
+      {
+        "pattern": "hip_hinge",
+        "chain": ["cable_pull_through", "kettlebell_swing", "dumbbell_rdl", "trap_bar_deadlift", "romanian_deadlift", "conventional_deadlift", "sumo_deadlift"],
+        "notes": "Cable pull-through teaches the pattern. Trap bar is the safest loaded hinge. Conventional and sumo are parallel — body proportions determine which suits a lifter."
+      },
+      {
+        "pattern": "lunge",
+        "chain": ["stationary_lunge", "reverse_lunge", "walking_lunge", "step_up", "bulgarian_split_squat"],
+        "notes": "Reverse lunge is easier on knees than forward. Bulgarian is the most demanding due to balance and single-leg loading."
+      },
+      {
+        "pattern": "hip_extension",
+        "chain": ["glute_bridge", "smith_machine_hip_thrust", "hip_thrust", "cable_kickback"],
+        "notes": "Glute bridge is bodyweight foundation. Smith machine simplifies barbell setup."
+      },
+      {
+        "pattern": "core_anti_extension",
+        "chain": ["dead_bug", "bird_dog", "plank", "hollow_body_hold", "ab_wheel_rollout"],
+        "notes": "Dead bug and bird dog are warmup-level. Ab wheel rollout is advanced — master 60-second planks first."
+      },
+      {
+        "pattern": "core_flexion",
+        "chain": ["crunch", "decline_crunch", "cable_crunch", "lying_leg_raise", "hanging_knee_raise", "hanging_leg_raise"],
+        "notes": "Cable crunch allows progressive overload. Hanging variations progress through bent-knee to straight-leg."
+      },
+      {
+        "pattern": "core_anti_rotation_and_rotation",
+        "chain": ["pallof_press", "woodchop", "russian_twist"],
+        "notes": "Pallof press (anti-rotation) is safest. Russian twist involves spinal rotation under load — caution with back issues."
+      },
+      {
+        "pattern": "core_lateral",
+        "chain": ["side_plank", "suitcase_carry"],
+        "notes": "Side plank is isometric. Suitcase carry adds dynamic anti-lateral flexion under heavy load while walking."
+      },
+      {
+        "pattern": "plyometric",
+        "chain": ["squat_jump", "box_jump"],
+        "notes": "Always do plyometrics when fresh (beginning of workout). Step down from box jumps, don't jump down."
+      }
+    ]
+  },
+
+  "workout_templates": {
+    "full_body_beginner_3x_week": {
+      "description": "Best starting point. Hit every muscle 3x per week. Rest a day between sessions. ~45-60 minutes per session.",
+      "session": "Squat variation → Bench or Press → Row variation → Pulldown or Pull-Up → Leg Curl → Face Pull → Calf Raise → Abs",
+      "sets_per_exercise": "2-3 sets each",
+      "total_sets": "16-24 per session",
+      "superset_opportunities": "Face pulls between pressing sets. Calf raises between squat sets. Abs between any compound.",
+      "notes": "Start with beginner-difficulty exercises from each pattern. Progress through progression_chains as movements are mastered."
+    },
+    "upper_lower_4x_week": {
+      "description": "Great intermediate split. Alternate upper and lower body across 4 days (e.g., Mon Upper, Tue Lower, Thu Upper, Fri Lower).",
+      "upper_a": "Barbell Bench Press → Barbell Row → Overhead Press → Lat Pulldown → Lateral Raise → Tricep Pushdown → Barbell Curl → Face Pull",
+      "upper_b": "Incline Dumbbell Press → Dumbbell Row → Dumbbell Shoulder Press → Cable Row → Rear Delt Flye → Overhead Extension → Hammer Curl → Face Pull",
+      "lower_a": "Barbell Back Squat → Romanian Deadlift → Leg Press → Leg Curl → Walking Lunge → Calf Raise → Cable Crunch",
+      "lower_b": "Trap Bar Deadlift → Bulgarian Split Squat → Hip Thrust → Leg Extension → Leg Curl → Calf Raise → Hanging Leg Raise",
+      "sets_per_exercise": "3-4 sets each",
+      "total_sets": "24-32 per session",
+      "superset_opportunities": "Bench ↔ Row, OHP ↔ Pulldown, Curls ↔ Pushdowns, Leg Extension ↔ Leg Curl",
+      "notes": "A/B variants provide exercise variety across the week while hitting the same muscle groups."
+    },
+    "push_pull_legs_6x_week": {
+      "description": "Popular advanced split. Each session focuses on one movement type. Run twice per week (Push A, Pull A, Legs A, Push B, Pull B, Legs B).",
+      "push": "Bench Press → Incline Press → Shoulder Press → Lateral Raise → Cable Flye → Tricep Pushdown → Overhead Extension",
+      "pull": "Pull-Up or Pulldown → Barbell Row → Cable Row → Face Pull → Barbell Curl → Hammer Curl → Rear Delt Flye",
+      "legs": "Squat → Romanian Deadlift → Leg Press → Leg Curl → Lunge variation → Leg Extension → Calf Raise → Abs",
+      "sets_per_exercise": "3-4 sets each",
+      "total_sets": "21-28 per session",
+      "superset_opportunities": "Within push: lateral raise ↔ tricep pushdown. Within pull: face pull ↔ curls. Within legs: leg extension ↔ leg curl. Core exercises between heavy compounds.",
+      "notes": "Complements arrays are most useful here — all exercises in a push session should appear in each other's complement lists."
+    }
+  },
+
+  "scientific_principles_simplified": {
+    "exercise_order": "Big compounds first, small isolations last. Maximizes safety and strength gains. This is reflected in the workout_position field.",
+    "push_pull_balance": "Match pushing volume with pulling volume across the week. Prevents imbalances and shoulder injuries. Face pulls and band pull-aparts should be in every program.",
+    "compound_to_isolation": "60-70% compounds, 30-40% isolations for most people. Compounds build the most muscle per unit time.",
+    "frequency": "Hit each muscle 2x per week minimum. Better than 1x per week for growth (Schoenfeld et al., 2016). Full body and upper/lower splits naturally achieve this.",
+    "progressive_overload": "Gradually increase weight, reps, or sets over time. The #1 rule of getting stronger. Cable crunches and cable curls allow fine-grained loading increases.",
+    "rep_ranges": "1-5 = strength focus. 6-12 = strength + size. 12-20 = endurance + size. All build muscle if effort is high enough (within ~3 reps of failure).",
+    "rest_periods": "Heavy compounds: 2-5 min. Moderate work: 90-120 sec. Isolations: 60-90 sec. Use rest periods for supersets (antagonist work or core filler).",
+    "weekly_volume": "10-20 sets per muscle group per week. Beginners start at 10, advanced up to 20. Count compound sets toward all muscles they train.",
+    "stretch_mediated_hypertrophy": "Exercises that load muscles in their stretched position may produce superior growth (Maeo et al., 2021). Examples: incline curls for biceps, overhead extensions for triceps, deep squats for quads, RDLs for hamstrings.",
+    "core_training_paradigms": "The core functions through 6 distinct paradigms: spinal flexion (crunches), anti-extension (planks), anti-rotation (Pallof press), active rotation (woodchops), anti-lateral flexion (side planks, suitcase carries), and hip flexion (leg raises). A complete program trains at least 3-4 of these.",
+    "unilateral_training": "Single-limb exercises (Bulgarian split squats, single-arm rows, concentration curls) fix left/right imbalances and improve stability. Include at least one unilateral exercise per muscle group in your program."
+  },
+
+  "app_build_notes": {
+    "graph_structure": {
+      "overview": "Each exercise is a node. Substitutes, complements, and superset_candidates are edges. The graph has 162 nodes and 1340 edges (516 substitute, 513 complement, 311 superset).",
+      "edge_weighting": "Weight edges by similarity: same movement_pattern + same primary_muscles = strongest substitute. Same force_type + same workout_position = strongest complement. Opposite force_type + non-competing muscles = strongest superset.",
+      "cross_file_edges": "434 edges cross file boundaries. These are critical for generating multi-muscle-group workouts. Most cross-file edges are in superset_candidates (antagonist pairs) and complements (synergist links from arms to their compound partners)."
+    },
+    "workout_generation": [
+      "1. User picks template (full body, upper/lower, PPL) — determines which muscle groups appear in a session",
+      "2. Use muscle_groups.antagonist to derive which groups pair together for upper/lower and full body splits",
+      "3. Pick 1-2 'early' position compounds for the session's primary muscle groups",
+      "4. Add 1-2 'mid' position compounds via complement edges from the primary exercises",
+      "5. Fill 2-4 'late' position isolations for muscles that need more volume — traverse complement edges",
+      "6. If equipment unavailable, traverse 'substitutes' edges for replacements (same pattern guaranteed)",
+      "7. Optionally pair exercises as supersets using superset_candidates for time efficiency",
+      "8. Validate: push/pull balanced across the week, correct position order within session, 15-25 total sets per session"
+    ],
+    "superset_generation": [
+      "1. For each exercise in the session, check its superset_candidates",
+      "2. If any candidate is ALSO in the session, suggest that pairing first (most convenient)",
+      "3. If no candidates are in the session, suggest adding a superset partner from the candidates list",
+      "4. Prefer antagonist pairs (bench ↔ row) over non-competing fillers (plank between squats)",
+      "5. Core exercises make excellent fillers between any compound — their superset_candidates point to major compounds"
+    ],
+    "equipment_filtering": [
+      "1. User specifies available equipment (home gym vs commercial gym)",
+      "2. Filter exercises by equipment field",
+      "3. For filtered-out exercises, follow substitute edges to find available alternatives",
+      "4. If no substitute is available either, drop the slot and redistribute sets to remaining exercises"
+    ],
+    "beginner_mode": [
+      "Default to 'beginner' difficulty exercises only (124 of 162 exercises)",
+      "Show video_url prominently for every exercise",
+      "Display beginner_tips inline during the workout",
+      "Suggest progression_chains when user can complete all sets at the top of the rep range",
+      "Start with full_body_beginner_3x_week template",
+      "Cap total sets at 15-18 per session (3 sets of 5-6 exercises)",
+      "Always include face_pull or band_pull_apart in every session for shoulder health"
+    ]
+  }
+}
