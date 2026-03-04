@@ -7,6 +7,7 @@ import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { WorkoutList } from '@/components/workout/WorkoutList';
 import { SuggestionPanel } from '@/components/workout/SuggestionPanel';
 import { WorkoutStatusBar } from '@/components/workout/WorkoutStatusBar';
+import { ConflictWarnings } from '@/components/workout/ConflictWarnings';
 import { TemplateSelector } from '@/components/workout/TemplateSelector';
 import { useStore } from '@/store';
 import { WORKOUT_SPLITS } from '@/types';
@@ -90,6 +91,9 @@ export function BuildWorkout() {
         <Plus size={18} />
         Add Exercise
       </button>
+
+      {/* Conflict warnings */}
+      <ConflictWarnings />
 
       {/* Validation bar */}
       <WorkoutStatusBar />

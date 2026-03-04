@@ -1,98 +1,164 @@
-import { memo, useCallback } from 'react';
-import { Zap } from 'lucide-react';
+import { memo, useCallback, useState } from 'react';
+import { Zap, ChevronDown, ChevronUp, Dumbbell } from 'lucide-react';
 import { useStore } from '@/store';
+import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
 import type { ExerciseId } from '@/types';
 
-interface Template {
-  name: string;
+const DIFFICULTY_LABELS: Record<SeededWorkout['difficulty'], string> = {
+  beginner: 'Beginner',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
+const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
+  beginner: 'text-green-400',
+  intermediate: 'text-yellow-400',
+  advanced: 'text-red-400',
+};
+
+const SPLIT_LABELS: Record<string, string> = {
+  push: 'Push',
+  pull: 'Pull',
+  legs: 'Legs',
+  upper: 'Upper',
+  lower: 'Lower',
+  full_body: 'Full Body',
+};
+
+interface CategoryGroup {
+  label: string;
   description: string;
-  exerciseIds: ExerciseId[];
+  workouts: SeededWorkout[];
 }
 
-const templates: Template[] = [
+const CATEGORIES: CategoryGroup[] = [
   {
-    name: 'PPL: Push',
-    description: 'Chest, shoulders, triceps',
-    exerciseIds: [
-      'barbell_bench_press',
-      'incline_dumbbell_press',
-      'dumbbell_shoulder_press',
-      'lateral_raise',
-      'cable_flye',
-      'tricep_pushdown',
-      'overhead_tricep_extension',
-    ] as ExerciseId[],
+    label: 'Easy Machine',
+    description: 'Machine-only, beginner-friendly',
+    workouts: SEEDED_WORKOUTS.filter((w) => w.difficulty === 'beginner'),
   },
   {
-    name: 'PPL: Pull',
-    description: 'Back, biceps, rear delts',
-    exerciseIds: [
-      'pull_up',
-      'barbell_row',
-      'cable_row',
-      'face_pull',
-      'barbell_curl',
-      'hammer_curl',
-      'rear_delt_flye',
-    ] as ExerciseId[],
+    label: 'Intermediate',
+    description: 'Free weight + cable mix',
+    workouts: SEEDED_WORKOUTS.filter(
+      (w) =>
+        w.difficulty === 'intermediate' &&
+        !['Arm Blaster', 'Shoulder Builder', 'Posterior Chain Focus', 'Core & Conditioning'].includes(w.name)
+    ),
   },
   {
-    name: 'PPL: Legs',
-    description: 'Quads, hams, glutes, calves',
-    exerciseIds: [
-      'barbell_back_squat',
-      'romanian_deadlift',
-      'leg_press',
-      'leg_curl_lying',
-      'walking_lunge',
-      'leg_extension',
-      'standing_calf_raise',
-    ] as ExerciseId[],
+    label: 'Advanced',
+    description: 'Heavy compound emphasis',
+    workouts: SEEDED_WORKOUTS.filter((w) => w.difficulty === 'advanced'),
+  },
+  {
+    label: 'Specialty',
+    description: 'Targeted focus sessions',
+    workouts: SEEDED_WORKOUTS.filter((w) =>
+      ['Arm Blaster', 'Shoulder Builder', 'Posterior Chain Focus', 'Core & Conditioning'].includes(w.name)
+    ),
   },
 ];
 
 const TemplateCard = memo(function TemplateCard({
-  template,
+  workout,
   onSelect,
 }: {
-  template: Template;
-  onSelect: (t: Template) => void;
+  workout: SeededWorkout;
+  onSelect: (w: SeededWorkout) => void;
 }) {
   return (
     <button
-      onClick={() => onSelect(template)}
-      className="flex items-center gap-3 rounded-xl border border-border-subtle bg-bg-surface px-4 py-3 text-left transition-colors hover:border-accent-primary hover:bg-accent-glow"
-      style={{ minHeight: '56px' }}
-      aria-label={`Start from ${template.name} template`}
+      onClick={() => onSelect(workout)}
+      className="flex items-center gap-3 rounded-xl border border-border-subtle bg-bg-surface px-3 py-2.5 text-left transition-colors hover:border-accent-primary hover:bg-accent-glow w-full"
+      style={{ minHeight: '48px' }}
+      aria-label={`Start from ${workout.name} template`}
     >
-      <Zap size={18} className="flex-shrink-0 text-accent-primary" />
-      <div>
-        <div className="text-sm font-medium text-text-primary">
-          {template.name}
+      <Dumbbell size={16} className="flex-shrink-0 text-accent-primary" />
+      <div className="flex-1 min-w-0">
+        <div className="text-sm font-medium text-text-primary truncate">
+          {workout.name}
         </div>
-        <div className="text-xs text-text-tertiary">{template.description}</div>
+        <div className="flex items-center gap-2 mt-0.5">
+          <span className="text-[10px] text-text-tertiary">
+            {SPLIT_LABELS[workout.split] ?? workout.split}
+          </span>
+          <span className="text-[10px] text-text-tertiary">·</span>
+          <span className={`text-[10px] ${DIFFICULTY_COLORS[workout.difficulty]}`}>
+            {DIFFICULTY_LABELS[workout.difficulty]}
+          </span>
+          <span className="text-[10px] text-text-tertiary">·</span>
+          <span className="text-[10px] text-text-tertiary">
+            {workout.exercises.length} exercises
+          </span>
+        </div>
       </div>
     </button>
   );
 });
 
-export function TemplateSelector() {
-  const addExercise = useStore((state) => state.builderActions.addExercise);
-  const setWorkoutName = useStore(
-    (state) => state.builderActions.setWorkoutName
+function CategorySection({
+  group,
+  onSelect,
+}: {
+  group: CategoryGroup;
+  onSelect: (w: SeededWorkout) => void;
+}) {
+  const [open, setOpen] = useState(group.label === 'Easy Machine');
+
+  return (
+    <div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between px-1 py-1.5"
+      >
+        <div className="flex items-center gap-2">
+          <Zap size={14} className="text-accent-primary" />
+          <span className="text-xs font-medium text-text-secondary">
+            {group.label}
+          </span>
+          <span className="text-[10px] text-text-tertiary">
+            {group.description}
+          </span>
+        </div>
+        {open ? (
+          <ChevronUp size={14} className="text-text-tertiary" />
+        ) : (
+          <ChevronDown size={14} className="text-text-tertiary" />
+        )}
+      </button>
+      {open && (
+        <div className="space-y-1.5 mt-1">
+          {group.workouts.map((workout) => (
+            <TemplateCard
+              key={workout.name}
+              workout={workout}
+              onSelect={onSelect}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
-  const graph = useStore((state) => state.graph);
+}
+
+export function TemplateSelector() {
+  const loadTemplate = useStore((state) => state.builderActions.loadTemplate);
 
   const handleSelect = useCallback(
-    (template: Template) => {
-      setWorkoutName(template.name);
-      for (const id of template.exerciseIds) {
-        if (graph.exercises.has(id)) {
-          addExercise(id);
-        }
-      }
+    (workout: SeededWorkout) => {
+      loadTemplate(
+        workout.name,
+        workout.split,
+        workout.exercises.map((e) => ({
+          exerciseId: e.exerciseId as ExerciseId,
+          sets: e.sets,
+          reps: e.reps,
+          restSeconds: e.restSeconds,
+        }))
+      );
     },
-    [addExercise, setWorkoutName, graph.exercises]
+    [loadTemplate]
   );
 
   return (
@@ -100,11 +166,11 @@ export function TemplateSelector() {
       <h3 className="text-xs font-medium text-text-tertiary uppercase tracking-wider px-1">
         Start from template
       </h3>
-      <div className="space-y-2">
-        {templates.map((template) => (
-          <TemplateCard
-            key={template.name}
-            template={template}
+      <div className="space-y-3">
+        {CATEGORIES.map((group) => (
+          <CategorySection
+            key={group.label}
+            group={group}
             onSelect={handleSelect}
           />
         ))}

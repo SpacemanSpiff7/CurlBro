@@ -54,6 +54,7 @@ interface AppState {
     swapExercise: (index: number, newExerciseId: ExerciseId) => void;
     resetWorkout: () => void;
     loadWorkout: (workout: SavedWorkout) => void;
+    loadTemplate: (name: string, split: WorkoutSplit | null, exercises: { exerciseId: ExerciseId; sets: number; reps: number; restSeconds: number }[]) => void;
   };
 
   // Library (persisted)
@@ -245,6 +246,29 @@ export const useStore = create<AppState>()(
               ...workout,
               updatedAt: new Date().toISOString(),
             };
+          });
+        },
+        loadTemplate: (name, split, exercises) => {
+          const graph = get().graph;
+          const now = new Date().toISOString();
+          set((state) => {
+            state.builder.workout = {
+              id: uuidv4() as WorkoutId,
+              name,
+              exercises: exercises
+                .filter((e) => graph.exercises.has(e.exerciseId))
+                .map((e) => ({
+                  exerciseId: e.exerciseId,
+                  sets: e.sets,
+                  reps: e.reps,
+                  weight: null,
+                  restSeconds: e.restSeconds,
+                  notes: '',
+                })),
+              createdAt: now,
+              updatedAt: now,
+            };
+            state.builder.workoutSplit = split;
           });
         },
       },
