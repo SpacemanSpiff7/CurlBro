@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
+import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
@@ -11,13 +12,29 @@ function AppContent() {
 
   switch (activeTab) {
     case 'build':
-      return <BuildWorkout />;
+      return (
+        <ErrorBoundary fallbackTitle="Builder Error" key="build">
+          <BuildWorkout />
+        </ErrorBoundary>
+      );
     case 'library':
-      return <MyWorkouts />;
+      return (
+        <ErrorBoundary fallbackTitle="Library Error" key="library">
+          <MyWorkouts />
+        </ErrorBoundary>
+      );
     case 'active':
-      return <ActiveWorkout />;
+      return (
+        <ErrorBoundary fallbackTitle="Session Error" key="active">
+          <ActiveWorkout />
+        </ErrorBoundary>
+      );
     case 'settings':
-      return <SettingsPage />;
+      return (
+        <ErrorBoundary fallbackTitle="Settings Error" key="settings">
+          <SettingsPage />
+        </ErrorBoundary>
+      );
   }
 }
 

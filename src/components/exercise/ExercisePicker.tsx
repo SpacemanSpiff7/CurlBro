@@ -119,7 +119,7 @@ export function ExercisePicker({ open, onOpenChange }: ExercisePickerProps) {
         </div>
 
         <div className="px-4 pb-2">
-          <ScrollArea className="w-full" orientation="horizontal">
+          <ScrollArea className="w-full">
             <div className="flex gap-1.5 pb-1">
               {MUSCLE_GROUPS.map((muscle) => (
                 <Badge
