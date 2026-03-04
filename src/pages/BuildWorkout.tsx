@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { WorkoutList } from '@/components/workout/WorkoutList';
+import { SuggestionPanel } from '@/components/workout/SuggestionPanel';
+import { WorkoutStatusBar } from '@/components/workout/WorkoutStatusBar';
+import { TemplateSelector } from '@/components/workout/TemplateSelector';
 import { useStore } from '@/store';
 
 export function BuildWorkout() {
@@ -21,10 +24,7 @@ export function BuildWorkout() {
     saveWorkout({ ...workout, name });
   }, [workout, setWorkoutName, saveWorkout]);
 
-  const handleSwapRequest = useCallback((index: number) => {
-    // Phase 3 will open the substitute panel for this index
-    void index;
-  }, []);
+  const hasExercises = workout.exercises.length > 0;
 
   return (
     <div className="flex flex-col gap-4 px-4 py-4">
@@ -37,20 +37,29 @@ export function BuildWorkout() {
         aria-label="Workout name"
       />
 
+      {/* Templates (only shown when empty) */}
+      {!hasExercises && <TemplateSelector />}
+
       {/* Exercise list */}
-      <WorkoutList onSwapRequest={handleSwapRequest} />
+      <WorkoutList />
+
+      {/* Validation bar */}
+      <WorkoutStatusBar />
+
+      {/* Suggestions */}
+      <SuggestionPanel />
 
       {/* Empty state */}
-      {workout.exercises.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="text-text-tertiary text-sm mb-4">
-            No exercises yet. Tap the button below to add some.
+      {!hasExercises && (
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div className="text-text-tertiary text-sm">
+            Pick a template above or tap + to add exercises.
           </div>
         </div>
       )}
 
       {/* Action buttons */}
-      {workout.exercises.length > 0 && (
+      {hasExercises && (
         <div className="flex gap-2">
           <Button
             variant="outline"

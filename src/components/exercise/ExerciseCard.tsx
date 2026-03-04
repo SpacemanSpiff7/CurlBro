@@ -6,7 +6,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MuscleTags } from './MuscleTags';
-import type { Exercise, WorkoutExercise } from '@/types';
+import { SubstitutePanel } from './SubstitutePanel';
+import type { Exercise, ExerciseId, WorkoutExercise } from '@/types';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -14,7 +15,7 @@ interface ExerciseCardProps {
   index: number;
   onUpdate: (index: number, updates: Partial<WorkoutExercise>) => void;
   onRemove: (index: number) => void;
-  onSwapRequest: (index: number) => void;
+  onSwap: (index: number, newId: ExerciseId) => void;
 }
 
 export const ExerciseCard = memo(function ExerciseCard({
@@ -23,9 +24,10 @@ export const ExerciseCard = memo(function ExerciseCard({
   index,
   onUpdate,
   onRemove,
-  onSwapRequest,
+  onSwap,
 }: ExerciseCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [showSubstitutes, setShowSubstitutes] = useState(false);
   const {
     attributes,
     listeners,
@@ -66,6 +68,14 @@ export const ExerciseCard = memo(function ExerciseCard({
       }
     },
     [index, onUpdate]
+  );
+
+  const handleSwap = useCallback(
+    (newId: ExerciseId) => {
+      onSwap(index, newId);
+      setShowSubstitutes(false);
+    },
+    [index, onSwap]
   );
 
   return (
@@ -161,8 +171,10 @@ export const ExerciseCard = memo(function ExerciseCard({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => onSwapRequest(index)}
-                className="text-text-secondary hover:text-accent-primary"
+                onClick={() => setShowSubstitutes(!showSubstitutes)}
+                className={`text-text-secondary hover:text-accent-primary ${
+                  showSubstitutes ? 'text-accent-primary' : ''
+                }`}
                 aria-label="Swap exercise"
               >
                 <Repeat size={14} className="mr-1" />
@@ -183,6 +195,13 @@ export const ExerciseCard = memo(function ExerciseCard({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Inline substitute panel */}
+      <SubstitutePanel
+        exerciseId={workoutExercise.exerciseId}
+        open={showSubstitutes}
+        onSwap={handleSwap}
+      />
     </motion.div>
   );
 });

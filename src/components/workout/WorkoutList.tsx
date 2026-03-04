@@ -16,16 +16,12 @@ import {
 import { AnimatePresence } from 'framer-motion';
 import { ExerciseCard } from '@/components/exercise/ExerciseCard';
 import { useStore } from '@/store';
-import type { WorkoutExercise } from '@/types';
+import type { WorkoutExercise, ExerciseId } from '@/types';
 
-interface WorkoutListProps {
-  onSwapRequest: (index: number) => void;
-}
-
-export function WorkoutList({ onSwapRequest }: WorkoutListProps) {
+export function WorkoutList() {
   const workout = useStore((state) => state.builder.workout);
   const graph = useStore((state) => state.graph);
-  const { removeExercise, reorderExercises, updateExercise } =
+  const { removeExercise, reorderExercises, updateExercise, swapExercise } =
     useStore((state) => state.builderActions);
 
   const sensors = useSensors(
@@ -69,6 +65,13 @@ export function WorkoutList({ onSwapRequest }: WorkoutListProps) {
     [removeExercise]
   );
 
+  const handleSwap = useCallback(
+    (index: number, newId: ExerciseId) => {
+      swapExercise(index, newId);
+    },
+    [swapExercise]
+  );
+
   if (workout.exercises.length === 0) {
     return null;
   }
@@ -97,7 +100,7 @@ export function WorkoutList({ onSwapRequest }: WorkoutListProps) {
                   index={index}
                   onUpdate={handleUpdate}
                   onRemove={handleRemove}
-                  onSwapRequest={onSwapRequest}
+                  onSwap={handleSwap}
                 />
               );
             })}
