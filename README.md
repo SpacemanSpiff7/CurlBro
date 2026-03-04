@@ -1,73 +1,209 @@
-# React + TypeScript + Vite
+# CurlBro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A client-side gym workout builder powered by an exercise graph of 162 exercises and 1,340 relationships. Build workouts with intelligent suggestions, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
 
-Currently, two official plugins are available:
+Mobile-first. Dark mode. No server required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Scripts
+
+| Command                | Description                          |
+|------------------------|--------------------------------------|
+| `npm run dev`          | Start Vite dev server                |
+| `npm run build`        | Typecheck + production build         |
+| `npm run preview`      | Preview production build locally     |
+| `npm run test`         | Run all tests (Vitest)               |
+| `npm run test:watch`   | Run tests in watch mode              |
+| `npm run test:coverage`| Run tests with coverage report       |
+| `npm run lint`         | Lint with ESLint                     |
+| `npx tsc --noEmit`    | Typecheck without emitting           |
+
+---
+
+## Features
+
+### Build Tab
+- Search 162 exercises with fuzzy matching (Fuse.js)
+- Filter by muscle group
+- Drag-to-reorder exercises
+- Inline set/rep/weight editing
+- One-tap exercise substitution from the graph
+- Smart suggestions: complements, muscle gap analysis, superset candidates
+- Push/pull balance indicator
+- Quick-start templates (Push, Pull, Legs)
+
+### My Workouts Tab
+- Save and manage workouts
+- Copy workout to clipboard in a human-readable format
+- Import workouts from text (round-trip compatible)
+- Start live sessions from saved workouts
+
+### Active Workout Tab
+- Exercise-by-exercise navigation
+- Per-set weight and rep tracking with completion toggle
+- Circular rest timer with audio beep and haptic vibration
+- +/- 15 second timer adjustment
+- Progress bar and dot indicators
+
+### Settings Tab
+- Default rest timer durations (compound vs. isolation)
+- Reset settings
+- Clear all saved data
+
+---
+
+## Tech Stack
+
+| Layer       | Technology                                         |
+|-------------|----------------------------------------------------|
+| Framework   | React 19 + TypeScript (strict)                     |
+| Build       | Vite 7                                             |
+| Styling     | Tailwind CSS 4 + shadcn/ui                         |
+| State       | Zustand + Immer (persisted to localStorage)        |
+| Validation  | Zod (runtime schemas = TypeScript types)           |
+| Animation   | Framer Motion                                      |
+| Drag & Drop | @dnd-kit                                           |
+| Search      | Fuse.js                                            |
+| Testing     | Vitest + React Testing Library                     |
+
+---
+
+## Project Structure
+
 ```
+src/
+  components/
+    exercise/      # ExerciseCard, ExercisePicker, SubstitutePanel, MuscleTags
+    session/       # SetTracker, RestTimer
+    shared/        # BottomNav, ErrorBoundary
+    ui/            # shadcn/ui primitives
+    workout/       # WorkoutList, SuggestionPanel, WorkoutStatusBar, TemplateSelector
+  data/
+    exercises.ts   # Merges 7 JSON files (162 exercises)
+    graphBuilder.ts# Pure function: raw JSON -> ExerciseGraph
+    exercises/     # JSON files by muscle group
+  hooks/           # useExerciseSearch, useSubstitutes, useSuggestions,
+                   # useWorkoutValidation, useRestTimer
+  pages/           # BuildWorkout, MyWorkouts, ActiveWorkout, SettingsPage
+  store/           # Single Zustand store (graph, builder, library, session, settings)
+  types/           # Branded types, Zod schemas, all interfaces
+  utils/           # formatExport, parseImport, audio, haptics
+tests/
+  fixtures/        # Test exercise graph (8 exercises)
+  integration/     # Import/export round-trip, session flow
+docs/              # Architecture, graph spec, design system, testing strategy
+```
+
+---
+
+## Exercise Graph
+
+The app is built on a pre-computed exercise graph:
+
+- **162 exercises** across 7 muscle-group JSON files
+- **3 edge types**: substitutes, complements, superset candidates
+- **1,340 total edges** with full bidirectional integrity
+- **4 indexes**: by muscle, equipment, movement pattern, force type
+
+The graph is loaded once at startup and treated as immutable. All queries go through custom hooks -- components never access the graph directly.
+
+---
+
+## Import/Export Format
+
+Workouts can be copied and shared as plain text:
+
+```
+## Push Day | 2026-03-04
+---
+Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s
+  tip: Eyes under bar.
+Cable Flye (Mid-Height) [cable_flye] | 3x12 | | Rest: 60s
+  tip: Pulleys at chest height.
+```
+
+The `[exercise_id]` in brackets enables perfect round-trip fidelity -- paste an exported workout back in and it maps to the exact same exercises.
+
+---
+
+## Testing
+
+87 tests across 10 test files:
+
+```bash
+# Run all tests
+npm run test
+
+# Run a specific test file
+npx vitest run src/hooks/useRestTimer.test.ts
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+```
+
+**What's tested:**
+- Type system and Zod schemas
+- Graph construction, edge integrity, indexes
+- Store actions (add, remove, reorder, swap exercises)
+- Fuzzy search and muscle filtering
+- Substitutes, suggestions, validation hooks
+- Rest timer lifecycle
+- Import/export parsing and round-trip fidelity
+- Full session flow (start, track sets, navigate, finish)
+
+---
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+### First Run
+
+```bash
+npm install
+npm run dev
+```
+
+### Before Committing
+
+```bash
+npx tsc --noEmit  # Typecheck
+npm run lint       # Lint
+npm run test       # Tests
+npm run build      # Full production build
+```
+
+All four must pass with zero errors.
+
+---
+
+## Data Persistence
+
+All data is stored in the browser's `localStorage` under the key `curlbro-storage`. Persisted data includes:
+
+- Saved workouts
+- Workout logs (completed sessions)
+- Settings (rest timer defaults)
+
+On load, each stored object is validated with its Zod schema. Invalid data is silently dropped -- the app never crashes on corrupt storage.

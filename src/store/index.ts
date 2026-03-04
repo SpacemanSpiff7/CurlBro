@@ -426,7 +426,7 @@ export const useStore = create<AppState>()(
       },
     })),
     {
-      name: 'workout-builder-storage',
+      name: 'curlbro-storage',
       partialize: (state) => ({
         library: state.library,
         settings: state.settings,

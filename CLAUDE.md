@@ -1,4 +1,4 @@
-# Workout Builder App
+# CurlBro
 
 ## What
 Client-side React workout builder using an exercise graph (162 exercises, 1340 edges).
