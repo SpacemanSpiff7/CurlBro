@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
-import { Play, Pencil, Trash2, Upload, Download, Copy } from 'lucide-react';
+import { Play, Pencil, Trash2, Upload, Download, Copy, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -11,7 +13,41 @@ import {
 import { useStore } from '@/store';
 import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
-import type { SavedWorkout, WorkoutId } from '@/types';
+import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
+import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
+
+const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
+  beginner: 'text-green-400',
+  intermediate: 'text-yellow-400',
+  advanced: 'text-red-400',
+};
+
+const SPLIT_LABELS: Record<string, string> = {
+  push: 'Push',
+  pull: 'Pull',
+  legs: 'Legs',
+  upper: 'Upper',
+  lower: 'Lower',
+  full_body: 'Full Body',
+};
+
+function seededToSaved(workout: SeededWorkout): SavedWorkout {
+  const now = new Date().toISOString();
+  return {
+    id: uuidv4() as WorkoutId,
+    name: workout.name,
+    exercises: workout.exercises.map((e) => ({
+      exerciseId: e.exerciseId as ExerciseId,
+      sets: e.sets,
+      reps: e.reps,
+      weight: null,
+      restSeconds: e.restSeconds,
+      notes: '',
+    })),
+    createdAt: now,
+    updatedAt: now,
+  };
+}
 
 function ImportSheet({
   open,
@@ -89,11 +125,110 @@ function ImportSheet({
   );
 }
 
+function SeededWorkoutCard({
+  workout,
+  onStart,
+  onEdit,
+}: {
+  workout: SeededWorkout;
+  onStart: (w: SeededWorkout) => void;
+  onEdit: (w: SeededWorkout) => void;
+}) {
+  return (
+    <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+      <div className="flex items-center gap-2">
+        <Dumbbell size={16} className="flex-shrink-0 text-accent-primary" />
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-medium text-text-primary truncate">
+            {workout.name}
+          </div>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <span className="text-[10px] text-text-tertiary">
+              {SPLIT_LABELS[workout.split] ?? workout.split}
+            </span>
+            <span className="text-[10px] text-text-tertiary">·</span>
+            <span className={`text-[10px] ${DIFFICULTY_COLORS[workout.difficulty]}`}>
+              {workout.difficulty}
+            </span>
+            <span className="text-[10px] text-text-tertiary">·</span>
+            <span className="text-[10px] text-text-tertiary">
+              {workout.exercises.length} exercises
+            </span>
+          </div>
+        </div>
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onStart(workout)}
+            aria-label={`Start ${workout.name}`}
+            className="h-9 w-9"
+          >
+            <Play size={14} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onEdit(workout)}
+            aria-label={`Customize ${workout.name}`}
+            className="h-9 w-9"
+          >
+            <Pencil size={14} />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TemplateSection({
+  onStart,
+  onEdit,
+}: {
+  onStart: (w: SeededWorkout) => void;
+  onEdit: (w: SeededWorkout) => void;
+}) {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between py-1"
+      >
+        <h2 className="text-sm font-semibold text-text-secondary">
+          Templates
+        </h2>
+        {open ? (
+          <ChevronUp size={16} className="text-text-tertiary" />
+        ) : (
+          <ChevronDown size={16} className="text-text-tertiary" />
+        )}
+      </button>
+      <p className="text-[11px] text-text-tertiary mb-2">
+        Science-backed templates. Tap edit to customize a copy.
+      </p>
+      {open && (
+        <div className="space-y-2">
+          {SEEDED_WORKOUTS.map((workout) => (
+            <SeededWorkoutCard
+              key={workout.name}
+              workout={workout}
+              onStart={onStart}
+              onEdit={onEdit}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function MyWorkouts() {
   const [importOpen, setImportOpen] = useState(false);
   const workouts = useStore((state) => state.library.workouts);
   const graph = useStore((state) => state.graph);
-  const { deleteWorkout } = useStore((state) => state.libraryActions);
+  const { deleteWorkout, saveWorkout } = useStore((state) => state.libraryActions);
   const { loadWorkout } = useStore((state) => state.builderActions);
   const { startSession } = useStore((state) => state.sessionActions);
   const setActiveTab = useStore((state) => state.setActiveTab);
@@ -117,6 +252,7 @@ export function MyWorkouts() {
     async (workout: SavedWorkout) => {
       const text = formatExport(workout, graph);
       await navigator.clipboard.writeText(text);
+      toast.success('Copied to clipboard');
     },
     [graph]
   );
@@ -126,6 +262,27 @@ export function MyWorkouts() {
       deleteWorkout(id);
     },
     [deleteWorkout]
+  );
+
+  // Seeded workout handlers — duplicate into user library
+  const handleSeededEdit = useCallback(
+    (seeded: SeededWorkout) => {
+      const saved = seededToSaved(seeded);
+      saveWorkout(saved);
+      loadWorkout(saved);
+      setActiveTab('build');
+      toast.success(`Created editable copy of "${seeded.name}"`);
+    },
+    [saveWorkout, loadWorkout, setActiveTab]
+  );
+
+  const handleSeededStart = useCallback(
+    (seeded: SeededWorkout) => {
+      const saved = seededToSaved(seeded);
+      saveWorkout(saved);
+      startSession(saved);
+    },
+    [saveWorkout, startSession]
   );
 
   return (
@@ -142,14 +299,12 @@ export function MyWorkouts() {
         </Button>
       </div>
 
-      {workouts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="text-text-tertiary text-sm">
-            No saved workouts yet. Build one and save it.
-          </div>
-        </div>
-      ) : (
+      {/* User-created workouts */}
+      {workouts.length > 0 && (
         <div className="space-y-2">
+          <h2 className="text-sm font-semibold text-text-secondary">
+            My Workouts
+          </h2>
           <AnimatePresence mode="popLayout">
             {workouts.map((workout) => (
               <motion.div
@@ -213,6 +368,12 @@ export function MyWorkouts() {
           </AnimatePresence>
         </div>
       )}
+
+      {/* Seeded workout templates */}
+      <TemplateSection
+        onStart={handleSeededStart}
+        onEdit={handleSeededEdit}
+      />
 
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
     </div>
