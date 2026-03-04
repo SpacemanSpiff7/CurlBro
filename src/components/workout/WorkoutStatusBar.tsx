@@ -6,13 +6,22 @@ const muscleLabels: Record<string, string> = {
   chest: 'Chest',
   upper_back: 'Back',
   shoulders: 'Shoulders',
+  traps: 'Traps',
+  biceps: 'Biceps',
+  triceps: 'Triceps',
+  forearms: 'Forearms',
   quadriceps: 'Quads',
   hamstrings: 'Hams',
   glutes: 'Glutes',
+  calves: 'Calves',
+  core: 'Core',
+  adductors: 'Adductors',
+  abductors: 'Abductors',
 };
 
 export function WorkoutStatusBar() {
   const exercises = useStore((state) => state.builder.workout.exercises);
+  const workoutSplit = useStore((state) => state.builder.workoutSplit);
   const validation = useWorkoutValidation();
 
   if (exercises.length === 0) return null;
@@ -34,8 +43,8 @@ export function WorkoutStatusBar() {
         </Badge>
       </div>
 
-      {/* Missing muscles */}
-      {validation.missingMuscles.length > 0 && (
+      {/* Missing muscles — only show when a workout split is selected */}
+      {workoutSplit && validation.missingMuscles.length > 0 && (
         <div className="flex items-center gap-1">
           <span className="text-[10px] font-medium text-text-tertiary">
             Missing:

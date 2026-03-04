@@ -38,13 +38,18 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
-        "barbell_bench_press",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "barbell_bench_press",
-        "incline_barbell_press"
+        "incline_barbell_press",
+        "incline_dumbbell_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Major back builder. Grip width matters more than over/underhand for targeting: wider grip with elbows flared hits mid-traps and rhomboids, narrower grip with elbows tucked emphasizes lats. Underhand grip increases bicep involvement and allows heavier weight for some people. Torso angle also matters \u2014 more upright = more traps, more bent over = more lats."
     },
@@ -79,11 +84,15 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
-        "barbell_bench_press"
+        "barbell_curl",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
-        "barbell_bench_press"
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "overhead_press"
       ],
       "notes": "Named after weightlifting coach Glenn Pendlay. The dead stop eliminates the stretch reflex, making every rep harder and stricter than a standard bent-over row. The parallel torso position maximizes lat recruitment. Excellent for building explosive pulling power. Requires good hip hinge mechanics \u2014 master the bent-over row first."
     },
@@ -120,13 +129,18 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
-        "dumbbell_bench_press"
+        "barbell_curl",
+        "hammer_curl",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "dumbbell_bench_press",
-        "hex_press",
-        "incline_dumbbell_press"
+        "incline_dumbbell_press",
+        "machine_chest_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Best row for beginners \u2014 bench supports lower back. Great for fixing left/right imbalances since each side works independently. Can go quite heavy with some controlled body english for an overload effect (sometimes called a Kroc row)."
     },
@@ -161,11 +175,16 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
-        "incline_dumbbell_press"
+        "incline_dumbbell_press",
+        "dumbbell_bench_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "If bent-over rows hurt your lower back, use these instead. 100% back focus with zero cheating. The bench angle affects which back muscles are emphasized: steeper angle = more mid-traps/rhomboids, flatter angle = more lats."
     },
@@ -200,11 +219,15 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
-        "barbell_bench_press"
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "overhead_press"
       ],
       "notes": "The ultimate anti-cheat row. Your entire body is supported so the ONLY way to move the weight is with your back muscles. Allows heavier loading than dumbbell chest-supported rows. Setup can be awkward if your gym doesn't have a dedicated station \u2014 stacking the bench on blocks works but takes time. Growing in popularity for good reason."
     },
@@ -239,12 +262,18 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "machine_chest_press",
-        "smith_machine_bench_press"
+        "dumbbell_bench_press",
+        "overhead_press",
+        "smith_machine_bench_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Constant cable tension throughout the movement. Different attachments change the emphasis: V-handle (neutral grip) = more lat emphasis with elbows tucked, wide bar = more mid-traps/rhomboids with elbows flared. The cable's constant tension profile makes this a great complement to barbell rows where the resistance curve is different."
     },
@@ -280,11 +309,17 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
-        "barbell_bench_press"
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Neutral grip allows most people to row heavier than with a barbell. Classic bodybuilding exercise. The fixed end of the barbell creates a natural arc that many find more comfortable than straight barbell rows. If your gym doesn't have a T-bar station, wedge a barbell in a corner and use a V-handle."
     },
@@ -319,12 +354,17 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "machine_chest_press",
-        "incline_machine_press"
+        "incline_machine_press",
+        "overhead_press",
+        "machine_shoulder_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Very beginner-friendly. Chest pad supports you so you can focus entirely on pulling. Plate-loaded versions (like Hammer Strength) allow independent arm movement on some models, which helps identify and fix left/right imbalances."
     },
@@ -359,13 +399,17 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
-        "smith_machine_bench_press"
+        "barbell_curl",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "smith_machine_bench_press",
         "smith_machine_incline_press",
-        "smith_machine_overhead_press"
+        "smith_machine_overhead_press",
+        "machine_chest_press",
+        "machine_shoulder_press"
       ],
       "notes": "Good entry point for learning the barbell row pattern with added safety. The fixed bar path means you can't cheat by swinging the bar outward, which teaches a clean vertical pull to the torso. Pairs naturally with Smith machine pressing for efficient supersets."
     },
@@ -400,10 +444,14 @@
       "complements": [
         "landmine_press",
         "lat_pulldown",
-        "face_pull"
+        "pull_up",
+        "face_pull",
+        "barbell_curl"
       ],
       "superset_candidates": [
-        "landmine_press"
+        "landmine_press",
+        "incline_dumbbell_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "The arcing bar path creates a unique pulling angle that hits the back differently from standard rows. Sometimes called a Meadows row when performed standing perpendicular to the bar. Great variation to cycle in when standard rows feel stale."
     },
@@ -439,13 +487,15 @@
       "complements": [
         "push_up",
         "lat_pulldown",
-        "face_pull"
+        "face_pull",
+        "barbell_curl"
       ],
       "superset_candidates": [
         "push_up",
         "incline_push_up",
         "decline_push_up",
-        "diamond_push_up"
+        "diamond_push_up",
+        "machine_chest_press"
       ],
       "notes": "The pulling equivalent of a push-up. Great stepping stone toward barbell rows and pull-ups. Can also be done with gymnastics rings or TRX straps, which add instability and allow grip rotation. Progression: high bar (easy) \u2192 low bar \u2192 feet elevated \u2192 weighted vest."
     },
@@ -479,11 +529,16 @@
       ],
       "complements": [
         "lat_pulldown",
+        "pull_up",
         "face_pull",
+        "barbell_curl",
         "single_arm_lat_pulldown"
       ],
       "superset_candidates": [
-        "landmine_press"
+        "landmine_press",
+        "incline_dumbbell_press",
+        "machine_chest_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Fixes left/right back imbalances. The slight rotation allowed at the cable station actually increases ROM and matches how the lats function (they assist with torso rotation). Constant cable tension throughout. Pairs well with single-arm lat pulldown for a complete unilateral back session."
     },
@@ -521,14 +576,18 @@
       ],
       "complements": [
         "barbell_row",
+        "cable_row",
         "face_pull",
-        "overhead_press",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "dip_chest",
         "overhead_press",
-        "dip_tricep"
+        "dip_tricep",
+        "machine_shoulder_press",
+        "hanging_leg_raise"
       ],
       "notes": "The ultimate back exercise. Overhand grip emphasizes the lats and teres major with less bicep involvement compared to chin-ups. Research shows similar lat activation across grip types (Youdas et al., 2010), so the best grip is the one that lets you do the most quality reps. Add weight with a belt or dumbbell between feet once bodyweight becomes easy for 12+ reps."
     },
@@ -565,14 +624,18 @@
       ],
       "complements": [
         "barbell_row",
+        "cable_row",
         "face_pull",
-        "dip_chest",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "dip_chest",
         "dip_tricep",
-        "overhead_press"
+        "overhead_press",
+        "machine_shoulder_press",
+        "hanging_leg_raise"
       ],
       "notes": "Equally effective as pull-ups for lat development \u2014 EMG research shows no significant difference in lat activation between grips. The higher bicep involvement makes these a great two-for-one exercise on pull days. Usually the first bodyweight vertical pull people master due to the mechanical advantage."
     },
@@ -609,13 +672,18 @@
       ],
       "complements": [
         "barbell_row",
+        "cable_row",
         "face_pull",
-        "overhead_press",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "dip_chest",
-        "overhead_press"
+        "overhead_press",
+        "machine_shoulder_press",
+        "machine_chest_press",
+        "hanging_leg_raise"
       ],
       "notes": "The most joint-friendly pull-up variation. The neutral grip places the shoulder in a packed, stable position and eliminates the wrist/forearm rotation stress of pronated and supinated grips. If pull-ups or chin-ups bother your shoulders or elbows, try these first. Requires a bar with parallel handles (common on most pull-up stations)."
     },
@@ -650,12 +718,18 @@
         "chin_up"
       ],
       "complements": [
+        "barbell_row",
         "cable_row",
+        "lat_pulldown",
         "face_pull",
+        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
-        "machine_shoulder_press"
+        "machine_shoulder_press",
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "machine_chest_press"
       ],
       "notes": "The bridge between lat pulldowns and real pull-ups. Track your assistance weight and reduce it by 5-10 lbs every week or two. Once you can do the movement with less than ~25% of your bodyweight in assistance, try unassisted negatives."
     },
@@ -692,12 +766,16 @@
       ],
       "complements": [
         "cable_row",
+        "lat_pulldown",
         "face_pull",
+        "barbell_curl",
         "bodyweight_row"
       ],
       "superset_candidates": [
         "dip_chest",
-        "push_up"
+        "push_up",
+        "machine_chest_press",
+        "overhead_press"
       ],
       "notes": "Differs from the machine in an important way: the band provides the most assistance at the bottom (where the band is most stretched and you're weakest) and the least at the top (where the band is slack and you're strongest). This resistance profile more closely matches the actual pull-up than a machine does. Progress by using thinner bands until you don't need one."
     },
@@ -731,16 +809,19 @@
         "reverse_grip_pulldown"
       ],
       "complements": [
+        "barbell_row",
         "cable_row",
         "face_pull",
-        "barbell_row",
+        "barbell_curl",
+        "hammer_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "overhead_press",
         "dumbbell_shoulder_press",
         "arnold_press",
-        "smith_machine_overhead_press"
+        "smith_machine_overhead_press",
+        "machine_shoulder_press"
       ],
       "notes": "Machine version of the pull-up. Adjustable weight makes it accessible for any level. Different grips shift emphasis slightly: wide overhand increases the stretch on the lats, close neutral increases ROM and bicep involvement, underhand mimics a chin-up. All grips produce similar lat activation \u2014 variation keeps things fresh and hits slightly different angles."
     },
@@ -774,13 +855,17 @@
         "reverse_grip_pulldown"
       ],
       "complements": [
+        "barbell_row",
         "cable_row",
         "face_pull",
+        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "overhead_press",
-        "dumbbell_shoulder_press"
+        "dumbbell_shoulder_press",
+        "machine_shoulder_press",
+        "machine_chest_press"
       ],
       "notes": "The neutral grip is easiest on the shoulders and wrists. The longer range of motion compared to wide-grip may actually be superior for lat growth. Good default pulldown variation for anyone with shoulder or wrist discomfort."
     },
@@ -813,12 +898,17 @@
         "close_grip_pulldown"
       ],
       "complements": [
+        "barbell_row",
         "cable_row",
         "face_pull",
-        "barbell_row"
+        "barbell_curl",
+        "hammer_curl"
       ],
       "superset_candidates": [
-        "overhead_press"
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "machine_shoulder_press",
+        "machine_chest_press"
       ],
       "notes": "The cable chin-up. Great for people who can't do bodyweight chin-ups yet but want the same grip and muscle emphasis. The supinated grip puts the biceps in a strong position, so most people can pull more weight than with an overhand grip. Counts as both back and bicep work \u2014 useful on pull days when time is limited."
     },
@@ -852,11 +942,18 @@
         "single_arm_cable_row"
       ],
       "complements": [
+        "barbell_row",
         "single_arm_cable_row",
+        "cable_row",
         "face_pull",
-        "cable_row"
+        "barbell_curl",
+        "hammer_curl"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "machine_shoulder_press"
+      ],
       "notes": "The best way to identify and fix left/right lat imbalances \u2014 most people have a dominant side that takes over during bilateral pulldowns. The single-arm position allows a slight rotation that increases the range of motion. Pairs naturally with single-arm cable rows for a complete unilateral back session."
     },
     {
@@ -887,12 +984,16 @@
       ],
       "complements": [
         "pull_up",
-        "barbell_row",
         "lat_pulldown",
-        "cable_row"
+        "barbell_row",
+        "cable_row",
+        "face_pull",
+        "barbell_curl"
       ],
       "superset_candidates": [
-        "cable_flye"
+        "cable_flye",
+        "machine_pec_deck",
+        "dumbbell_bench_press"
       ],
       "notes": "Isolates the lats without any bicep involvement \u2014 the biceps can't contribute because the elbow doesn't bend. Excellent for building the mind-muscle connection with your lats, which many beginners struggle with. Great as a lat activation exercise before pull-ups or pulldowns, or as a finisher after heavy rowing."
     },
@@ -926,11 +1027,16 @@
       "complements": [
         "lat_pulldown",
         "barbell_row",
-        "cable_row"
+        "cable_row",
+        "face_pull",
+        "barbell_curl",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "cable_flye",
-        "machine_pec_deck"
+        "machine_pec_deck",
+        "dumbbell_bench_press",
+        "incline_dumbbell_press"
       ],
       "notes": "Not every gym has one, but if yours does, it provides something no other exercise can: true lat isolation with a deep stretch under load through a full range of motion, all on a guided path. The machine handles the stability so you can focus entirely on the lat contraction. Originally designed by Arthur Jones for Nautilus. Having a resurgence in well-equipped gyms."
     },
@@ -964,13 +1070,17 @@
       ],
       "complements": [
         "lat_pulldown",
+        "barbell_row",
+        "cable_row",
         "face_pull",
-        "barbell_bench_press",
-        "incline_dumbbell_press"
+        "barbell_curl",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "barbell_bench_press",
-        "incline_dumbbell_press"
+        "incline_dumbbell_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Hits upper back and rear delts simultaneously. Great for posture since it strengthens the muscles that pull your shoulders back and down. The high cable angle targets the mid-traps and rhomboids more than a standard low cable row."
     }

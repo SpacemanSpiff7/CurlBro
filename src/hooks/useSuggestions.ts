@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 import { useStore } from '@/store';
+import { WORKOUT_SPLIT_MUSCLES } from '@/types';
 import type { ExerciseId, MuscleGroup, SuggestionGroups } from '@/types';
 
-const MAJOR_MUSCLE_GROUPS: MuscleGroup[] = [
+const DEFAULT_MAJOR_MUSCLES: MuscleGroup[] = [
   'chest', 'upper_back', 'shoulders', 'quadriceps', 'hamstrings', 'glutes',
 ];
 
 export function useSuggestions(): SuggestionGroups {
   const graph = useStore((state) => state.graph);
   const exercises = useStore((state) => state.builder.workout.exercises);
+  const workoutSplit = useStore((state) => state.builder.workoutSplit);
 
   return useMemo(() => {
     if (exercises.length === 0) {
@@ -43,7 +45,7 @@ export function useSuggestions(): SuggestionGroups {
       }
     }
 
-    // Still need to hit: major muscles not covered by current exercises
+    // Still need to hit: muscles not covered, based on selected split or defaults
     const coveredMuscles = new Set<string>();
     for (const ex of exercises) {
       const exercise = graph.exercises.get(ex.exerciseId);
@@ -54,14 +56,17 @@ export function useSuggestions(): SuggestionGroups {
       }
     }
 
-    const missingMuscles = MAJOR_MUSCLE_GROUPS.filter(
+    const targetMuscles = workoutSplit
+      ? WORKOUT_SPLIT_MUSCLES[workoutSplit].primary
+      : DEFAULT_MAJOR_MUSCLES;
+
+    const missingMuscles = targetMuscles.filter(
       (m) => !coveredMuscles.has(m)
     );
     const gapExercises = new Set<ExerciseId>();
     for (const muscle of missingMuscles) {
       const muscleExercises = graph.byMuscle.get(muscle);
       if (muscleExercises) {
-        // Pick up to 3 exercises per missing muscle, preferring compounds
         const candidates = Array.from(muscleExercises)
           .filter((id) => !inWorkout.has(id))
           .slice(0, 3);
@@ -85,5 +90,5 @@ export function useSuggestions(): SuggestionGroups {
       stillNeedToHit: Array.from(gapExercises).slice(0, 6),
       supersetWith: Array.from(supersetCandidates).slice(0, 4),
     };
-  }, [exercises, graph]);
+  }, [exercises, graph, workoutSplit]);
 }

@@ -39,9 +39,15 @@
         "leg_press",
         "leg_curl_lying",
         "lat_pulldown",
-        "barbell_row"
+        "barbell_row",
+        "barbell_shrug",
+        "farmer_walk"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "dead_bug",
+        "bird_dog",
+        "plank"
+      ],
       "notes": "Works more muscles than any other exercise. Very taxing \u2014 don't do heavy deadlifts and heavy squats same day when starting out."
     },
     {
@@ -78,9 +84,15 @@
       "complements": [
         "leg_curl_lying",
         "leg_press",
-        "lat_pulldown"
+        "lat_pulldown",
+        "barbell_row",
+        "barbell_shrug"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "dead_bug",
+        "bird_dog",
+        "plank"
+      ],
       "notes": "Shorter range of motion, easier on lower back. Great for people with longer torsos. Higher adductor demand than conventional."
     },
     {
@@ -118,9 +130,16 @@
       "complements": [
         "leg_curl_lying",
         "leg_extension",
-        "lat_pulldown"
+        "lat_pulldown",
+        "barbell_row",
+        "farmer_walk",
+        "barbell_shrug"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "dead_bug",
+        "bird_dog",
+        "plank"
+      ],
       "notes": "THE BEST deadlift for beginners. Neutral grip, centered weight, lower injury risk. Start here if your gym has one."
     },
     {
@@ -234,9 +253,13 @@
       "complements": [
         "bulgarian_split_squat",
         "leg_curl_lying",
-        "single_leg_leg_press"
+        "single_leg_leg_press",
+        "step_up"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "leg_extension",
+        "leg_curl_lying"
+      ],
       "notes": "Amazing for fixing left/right imbalances and building hip stability. Pair with single-leg leg press for a complete unilateral leg session."
     },
     {
@@ -304,10 +327,13 @@
       ],
       "complements": [
         "barbell_back_squat",
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "conventional_deadlift",
+        "hip_thrust"
       ],
       "superset_candidates": [
-        "leg_extension"
+        "leg_extension",
+        "leg_press"
       ],
       "notes": "Excellent posterior chain builder. Demands good hip hinge mechanics. Commonly used as a squat accessory in powerlifting programs."
     },
@@ -342,9 +368,15 @@
       ],
       "complements": [
         "leg_press",
-        "lat_pulldown"
+        "lat_pulldown",
+        "barbell_row",
+        "barbell_shrug",
+        "trap_bar_shrug"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "barbell_curl",
+        "hammer_curl"
+      ],
       "notes": "Overloads the top half of the deadlift. Great for back/trap development and grip training."
     },
     {

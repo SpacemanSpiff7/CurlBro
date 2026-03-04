@@ -129,7 +129,7 @@ export function MyWorkouts() {
   );
 
   return (
-    <div className="flex flex-col gap-4 px-4 py-4">
+    <div className="flex flex-col gap-4 px-4 py-4 pb-20">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-text-primary">My Workouts</h1>
         <Button

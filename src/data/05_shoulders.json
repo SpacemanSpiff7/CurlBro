@@ -35,16 +35,19 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
-        "barbell_row",
-        "pull_up"
+        "rear_delt_flye",
+        "tricep_pushdown",
+        "overhead_tricep_extension"
       ],
       "superset_candidates": [
         "pull_up",
         "lat_pulldown",
         "chin_up",
         "close_grip_pulldown",
-        "reverse_grip_pulldown"
+        "barbell_row",
+        "cable_row"
       ],
       "notes": "Best overall shoulder builder. Standing requires significantly more core than seated \u2014 the core demand is one of the main advantages. If you find yourself leaning back excessively, the weight is too heavy. The strict standing press is one of the best measures of real-world upper body strength."
     },
@@ -79,13 +82,16 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye",
-        "lat_pulldown"
+        "tricep_pushdown",
+        "overhead_tricep_extension"
       ],
       "superset_candidates": [
         "lat_pulldown",
         "close_grip_pulldown",
+        "cable_row",
         "face_pull",
         "band_pull_apart"
       ],
@@ -121,12 +127,15 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye",
-        "lat_pulldown"
+        "tricep_pushdown"
       ],
       "superset_candidates": [
-        "lat_pulldown"
+        "lat_pulldown",
+        "cable_row",
+        "face_pull"
       ],
       "notes": "Named after Arnold Schwarzenegger. The rotation through the pressing motion means the front delt works at the bottom (palms toward you) and the side delt gets more work through the middle and top of the press. Effectively combines a front raise into a shoulder press. Uses lighter weight than standard presses due to the mechanical disadvantage of the rotation."
     },
@@ -159,13 +168,18 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye",
-        "lat_pulldown"
+        "tricep_pushdown",
+        "overhead_tricep_extension"
       ],
       "superset_candidates": [
         "lat_pulldown",
-        "close_grip_pulldown"
+        "close_grip_pulldown",
+        "cable_row",
+        "machine_row",
+        "face_pull"
       ],
       "notes": "Safest overhead press. Great for beginners learning the pressing pattern, for training to failure safely, and for drop sets. Some machines offer converging paths that feel more natural than straight-up tracks."
     },
@@ -199,13 +213,17 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye",
-        "lat_pulldown"
+        "tricep_pushdown"
       ],
       "superset_candidates": [
         "lat_pulldown",
-        "smith_machine_row"
+        "cable_row",
+        "machine_row",
+        "smith_machine_row",
+        "face_pull"
       ],
       "notes": "Safe overhead pressing alone without a spotter. The fixed path eliminates the stabilization demand, letting you focus on pure overhead pressing force. Allows heavier loading than free-weight presses for some people. Good option for gyms without a dedicated shoulder press machine."
     },
@@ -238,13 +256,18 @@
       ],
       "complements": [
         "overhead_press",
+        "dumbbell_shoulder_press",
+        "cable_lateral_raise",
+        "machine_lateral_raise",
         "face_pull",
         "rear_delt_flye"
       ],
       "superset_candidates": [
         "face_pull",
         "rear_delt_flye",
-        "band_pull_apart"
+        "cable_rear_delt_flye",
+        "band_pull_apart",
+        "lat_pulldown"
       ],
       "notes": "THE exercise for wider shoulders. The side delts are the most visible part of the shoulder and respond well to high volume (15-20+ sets per week across the training week). Recent research on lengthened partials suggests that the bottom portion of the movement (where the side delt is stretched) may be the most growth-producing part \u2014 so don't neglect the bottom half of the range. #1 mistake = going too heavy and turning it into a trap exercise."
     },
@@ -276,12 +299,18 @@
       ],
       "complements": [
         "overhead_press",
+        "dumbbell_shoulder_press",
+        "lateral_raise",
+        "machine_lateral_raise",
         "face_pull",
         "rear_delt_flye"
       ],
       "superset_candidates": [
         "face_pull",
-        "cable_rear_delt_flye"
+        "rear_delt_flye",
+        "cable_rear_delt_flye",
+        "band_pull_apart",
+        "lat_pulldown"
       ],
       "notes": "Better constant tension than dumbbells, especially at the bottom of the movement where the side delt is in a stretched position. The behind-the-body cable path provides tension even at the starting position. One arm at a time allows better mind-muscle connection. Many coaches consider this superior to dumbbell laterals for side delt growth."
     },
@@ -313,12 +342,18 @@
       ],
       "complements": [
         "overhead_press",
+        "dumbbell_shoulder_press",
+        "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye"
       ],
       "superset_candidates": [
         "face_pull",
-        "reverse_fly_machine"
+        "reverse_fly_machine",
+        "band_pull_apart",
+        "lat_pulldown",
+        "cable_rear_delt_flye"
       ],
       "notes": "Not every gym has one. If yours does, it's excellent for strict side delt isolation \u2014 impossible to cheat. Great for drop sets since you just move the pin. The fixed path means you can train closer to failure with less injury risk."
     },
@@ -350,12 +385,17 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
+        "machine_lateral_raise",
         "face_pull",
-        "rear_delt_flye"
+        "rear_delt_flye",
+        "overhead_press"
       ],
       "superset_candidates": [
         "rear_delt_flye",
-        "face_pull"
+        "cable_rear_delt_flye",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Often unnecessary if you already bench press and overhead press \u2014 both hit the front delts heavily. The front delt is typically the most developed part of the shoulder in most trainees due to all the pressing they do. Add front raises only if your front delts are specifically underdeveloped (rare) or for physique balance."
     },
@@ -387,12 +427,17 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
+        "machine_lateral_raise",
         "face_pull",
-        "rear_delt_flye"
+        "rear_delt_flye",
+        "overhead_press"
       ],
       "superset_candidates": [
         "cable_rear_delt_flye",
-        "face_pull"
+        "rear_delt_flye",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Cable version maintains tension at the bottom of the movement where dumbbells have none. Same caveat as dumbbell front raises applies \u2014 most people don't need direct front delt work. If you do add them, the cable version is mechanically superior to dumbbells."
     },
@@ -428,7 +473,9 @@
         "barbell_bench_press",
         "overhead_press",
         "incline_dumbbell_press",
-        "dumbbell_shoulder_press"
+        "dumbbell_shoulder_press",
+        "lateral_raise",
+        "rear_delt_flye"
       ],
       "superset_candidates": [
         "barbell_bench_press",
@@ -437,7 +484,8 @@
         "incline_dumbbell_press",
         "dumbbell_bench_press",
         "incline_barbell_press",
-        "dip_chest"
+        "dip_chest",
+        "lateral_raise"
       ],
       "notes": "The single most important exercise for shoulder health in any program. Trains external rotation and scapular retraction \u2014 the exact movements that counterbalance all the internal rotation from pressing. Should be in EVERY program, regardless of goals. Do 2-4 sets of 15-20 on every upper body or push day. The rear delts and external rotators can handle very high weekly volume without recovery issues."
     },
@@ -472,11 +520,15 @@
       "complements": [
         "machine_pec_deck",
         "overhead_press",
-        "lateral_raise"
+        "dumbbell_shoulder_press",
+        "lateral_raise",
+        "cable_lateral_raise"
       ],
       "superset_candidates": [
         "machine_pec_deck",
-        "machine_lateral_raise"
+        "machine_lateral_raise",
+        "dumbbell_bench_press",
+        "incline_dumbbell_press"
       ],
       "notes": "Same machine as pec deck but you sit the other way. One of the most efficient supersets in the gym: chest flyes \u2192 immediately turn around \u2192 reverse flyes for rear delts. Great for drop sets since you just move the pin. The fixed path ensures strict rear delt isolation."
     },
@@ -510,13 +562,17 @@
       ],
       "complements": [
         "lateral_raise",
+        "cable_lateral_raise",
         "overhead_press",
-        "dumbbell_shoulder_press"
+        "dumbbell_shoulder_press",
+        "face_pull"
       ],
       "superset_candidates": [
         "lateral_raise",
+        "cable_lateral_raise",
         "dumbbell_flye",
         "incline_dumbbell_flye",
+        "cable_flye",
         "front_raise"
       ],
       "notes": "Targets rear delts \u2014 the most commonly underdeveloped part of the shoulder. Light weights and high reps are the key. The rear delts are small muscles that fatigue quickly but also recover quickly, so high frequency (3-4x per week) works well. Can also be done lying face down on an incline bench to eliminate any momentum."
@@ -552,12 +608,16 @@
       "complements": [
         "lateral_raise",
         "cable_lateral_raise",
-        "overhead_press"
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "face_pull"
       ],
       "superset_candidates": [
         "cable_lateral_raise",
+        "lateral_raise",
         "cable_flye",
-        "cable_front_raise"
+        "cable_front_raise",
+        "rear_delt_flye"
       ],
       "notes": "Constant cable tension throughout the entire movement \u2014 unlike dumbbells which have no tension at the bottom and peak tension only at the top. The cables also allow easy angle adjustment to find the exact line of pull that hits your rear delts best. Pairs naturally with cable lateral raises for an efficient cable-only shoulder finisher."
     },
@@ -591,7 +651,10 @@
       "complements": [
         "barbell_bench_press",
         "overhead_press",
-        "incline_dumbbell_press"
+        "incline_dumbbell_press",
+        "lateral_raise",
+        "rear_delt_flye",
+        "face_pull"
       ],
       "superset_candidates": [
         "barbell_bench_press",
@@ -599,7 +662,8 @@
         "dumbbell_shoulder_press",
         "push_up",
         "incline_dumbbell_press",
-        "dip_chest"
+        "dip_chest",
+        "lateral_raise"
       ],
       "notes": "Do these every single training day as a warmup or between pressing sets. 2-3 sets of 15-30 reps costs almost nothing in terms of fatigue but accumulates massive rear delt and external rotator volume over time. A resistance band is a $10 investment that can save your shoulders. The simplest and most effective prehab tool in the gym."
     },
@@ -634,12 +698,17 @@
       "complements": [
         "face_pull",
         "lateral_raise",
+        "cable_lateral_raise",
         "overhead_press",
+        "dumbbell_shoulder_press",
         "barbell_bench_press"
       ],
       "superset_candidates": [
         "face_pull",
-        "band_pull_apart"
+        "band_pull_apart",
+        "barbell_bench_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
       ],
       "notes": "Targets the lower traps and the rotator cuff \u2014 two muscle groups that are critical for shoulder health but rarely trained directly. The lower traps depress and upwardly rotate the scapula, which is essential for safe overhead pressing. Widely used in physical therapy and sports medicine. If you have any history of shoulder impingement or pain, these should be a staple. Can also do T-raises (arms straight to sides) and W-raises (bent elbows, external rotation) in the same position for complete scapular stabilizer coverage."
     },
@@ -674,11 +743,17 @@
       ],
       "complements": [
         "overhead_press",
+        "dumbbell_shoulder_press",
+        "lateral_raise",
+        "cable_lateral_raise",
         "face_pull",
         "rear_delt_flye"
       ],
       "superset_candidates": [
-        "face_pull"
+        "face_pull",
+        "lat_pulldown",
+        "cable_row",
+        "reverse_fly_machine"
       ],
       "notes": "Controversial exercise. The concern is subacromial impingement \u2014 when you pull a weight upward with internally rotated shoulders (narrow grip, high pull), the supraspinatus tendon can get pinched. The FIX: use a wide grip (reduces internal rotation), pull to chest height only (not chin), and use cables or dumbbells instead of a barbell (allows natural wrist rotation). With these modifications, the exercise is reasonably safe and hits both side delts and upper traps. If it still irritates your shoulders, replace with lateral raises + shrugs \u2014 you get the same muscles without the risk."
     },
@@ -710,11 +785,16 @@
       ],
       "complements": [
         "face_pull",
+        "dumbbell_shrug",
+        "trap_bar_shrug",
         "barbell_row",
-        "conventional_deadlift"
+        "conventional_deadlift",
+        "farmer_walk"
       ],
       "superset_candidates": [
-        "face_pull"
+        "face_pull",
+        "barbell_curl",
+        "hammer_curl"
       ],
       "notes": "The upper traps respond well to heavy loads with moderate reps. However, many people find that heavy deadlifts and rows already build their traps sufficiently without direct shrug work. Add shrugs if you want extra trap development or if you don't deadlift. Focus on the squeeze at the top, not the weight."
     },
@@ -746,11 +826,17 @@
       ],
       "complements": [
         "face_pull",
+        "barbell_shrug",
+        "trap_bar_shrug",
         "barbell_row",
+        "conventional_deadlift",
         "farmer_walk"
       ],
       "superset_candidates": [
-        "face_pull"
+        "face_pull",
+        "barbell_curl",
+        "hammer_curl",
+        "lateral_raise"
       ],
       "notes": "Dumbbells at your sides allow a slightly greater range of motion than a barbell in front. The neutral hand position is also more comfortable for most people. Pair with farmer's walks for complete trap development \u2014 shrugs hit the upper traps, heavy carries build the mid and lower traps."
     },
@@ -782,12 +868,18 @@
       ],
       "complements": [
         "face_pull",
+        "barbell_shrug",
+        "dumbbell_shrug",
         "barbell_row",
+        "conventional_deadlift",
         "trap_bar_deadlift",
         "farmer_walk"
       ],
       "superset_candidates": [
-        "face_pull"
+        "face_pull",
+        "barbell_curl",
+        "hammer_curl",
+        "lateral_raise"
       ],
       "notes": "Allows the heaviest shrug loading of any variation \u2014 the centered weight and neutral grip eliminate the barbell's tendency to pull you forward or the dumbbell's tendency to bump your thighs. The trap bar was literally named after the trapezius muscle. If your gym has one, this is the optimal shrug tool."
     }

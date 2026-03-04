@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 import { useStore } from '@/store';
+import { WORKOUT_SPLIT_MUSCLES } from '@/types';
 import type { MuscleGroup, WorkoutValidation } from '@/types';
 
-const MAJOR_MUSCLE_GROUPS: MuscleGroup[] = [
+const DEFAULT_MAJOR_MUSCLES: MuscleGroup[] = [
   'chest', 'upper_back', 'shoulders', 'quadriceps', 'hamstrings', 'glutes',
 ];
 
 export function useWorkoutValidation(): WorkoutValidation {
   const graph = useStore((state) => state.graph);
   const exercises = useStore((state) => state.builder.workout.exercises);
+  const workoutSplit = useStore((state) => state.builder.workoutSplit);
 
   return useMemo(() => {
     if (exercises.length === 0) {
@@ -52,7 +54,13 @@ export function useWorkoutValidation(): WorkoutValidation {
     const ratio = total > 0 ? pushCount / total : 1;
     const isBalanced = total < 2 || (ratio >= 0.3 && ratio <= 0.7);
 
-    const missingMuscles = MAJOR_MUSCLE_GROUPS.filter(
+    // Use split-specific primary muscles when a split is selected,
+    // otherwise fall back to default major muscle groups
+    const targetMuscles = workoutSplit
+      ? WORKOUT_SPLIT_MUSCLES[workoutSplit].primary
+      : DEFAULT_MAJOR_MUSCLES;
+
+    const missingMuscles = targetMuscles.filter(
       (m) => !coveredMuscles.has(m)
     );
 
@@ -64,5 +72,5 @@ export function useWorkoutValidation(): WorkoutValidation {
       coveredMuscles: Array.from(coveredMuscles),
       missingMuscles,
     };
-  }, [exercises, graph]);
+  }, [exercises, graph, workoutSplit]);
 }

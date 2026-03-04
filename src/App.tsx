@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
+import { Toaster } from '@/components/ui/sonner';
 import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
@@ -60,6 +61,7 @@ export default function App() {
         <AppContent />
       </main>
       <BottomNav />
+      <Toaster position="top-center" />
     </div>
   );
 }

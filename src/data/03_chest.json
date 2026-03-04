@@ -35,16 +35,20 @@
       ],
       "complements": [
         "incline_dumbbell_press",
+        "incline_barbell_press",
         "cable_flye",
         "dumbbell_flye",
         "tricep_pushdown",
+        "overhead_tricep_extension",
         "face_pull"
       ],
       "superset_candidates": [
         "barbell_row",
+        "cable_row",
         "face_pull",
         "band_pull_apart",
-        "pendlay_row"
+        "pendlay_row",
+        "ab_wheel_rollout"
       ],
       "notes": "Most popular upper body exercise. Wider grip = more chest stretch, narrower = more tricep emphasis. Grip around 1.5x shoulder width is a good starting point for most people. The arch is not cheating \u2014 a slight natural arch protects the shoulders."
     },
@@ -82,11 +86,15 @@
         "incline_barbell_press",
         "cable_flye",
         "dip_chest",
+        "tricep_pushdown",
+        "overhead_tricep_extension",
         "face_pull"
       ],
       "superset_candidates": [
         "dumbbell_row",
-        "face_pull"
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Better chest stretch at bottom than barbell. Fixes left/right imbalances since each arm works independently. Many people find these produce better chest development than barbell because of the greater ROM."
     },
@@ -123,13 +131,17 @@
       ],
       "complements": [
         "barbell_bench_press",
+        "dumbbell_bench_press",
         "cable_flye",
+        "low_to_high_cable_flye",
         "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
         "face_pull",
-        "barbell_row"
+        "barbell_row",
+        "cable_row",
+        "band_pull_apart"
       ],
       "notes": "~30 degrees maximizes upper chest emphasis (Lauver et al., 2016). At 45 degrees, the front deltoids take over significantly \u2014 if your gym bench only goes to 45, use dumbbells or cables for upper chest instead. Most people have a weak upper chest relative to mid/lower."
     },
@@ -166,15 +178,20 @@
       ],
       "complements": [
         "barbell_bench_press",
+        "dumbbell_bench_press",
         "dumbbell_flye",
         "incline_dumbbell_flye",
+        "low_to_high_cable_flye",
         "tricep_pushdown",
+        "overhead_tricep_extension",
         "face_pull"
       ],
       "superset_candidates": [
         "face_pull",
         "dumbbell_row",
-        "chest_supported_row"
+        "chest_supported_row",
+        "band_pull_apart",
+        "cable_row"
       ],
       "notes": "Many coaches consider this the single best chest exercise for complete development. Combines upper chest emphasis with a deep stretch under load \u2014 two key drivers of hypertrophy. The stretch-mediated hypertrophy research (Pedrosa et al., 2023) supports exercises that load muscles at long lengths."
     },
@@ -210,10 +227,14 @@
       "complements": [
         "incline_dumbbell_press",
         "cable_flye",
+        "chest_crossover",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
-        "barbell_row"
+        "barbell_row",
+        "cable_row",
+        "face_pull"
       ],
       "notes": "Targets lower chest / sternal fibers. Reduced shoulder stress compared to flat bench. Some research suggests similar overall chest activation to flat bench with less anterior deltoid involvement. Dips are a bodyweight alternative for this angle."
     },
@@ -249,10 +270,14 @@
       "complements": [
         "incline_dumbbell_press",
         "cable_flye",
+        "chest_crossover",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
-        "dumbbell_row"
+        "dumbbell_row",
+        "cable_row",
+        "face_pull"
       ],
       "notes": "Dumbbell version allows greater ROM and is easier to set up solo than barbell decline. Good option if your gym doesn't have a dedicated decline bench with a barbell rack."
     },
@@ -286,12 +311,17 @@
       ],
       "complements": [
         "cable_flye",
+        "machine_pec_deck",
         "tricep_pushdown",
+        "overhead_tricep_extension",
+        "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
         "machine_row",
-        "cable_row"
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Safest pressing option. Great for training to absolute failure without a spotter, for drop sets, and for building confidence before moving to free weights. Research shows machines and free weights produce similar hypertrophy when effort is matched."
     },
@@ -327,10 +357,15 @@
       "complements": [
         "machine_chest_press",
         "cable_flye",
+        "low_to_high_cable_flye",
+        "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
-        "machine_row"
+        "machine_row",
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Not every gym has a dedicated incline press machine, but if yours does, it's an excellent beginner-friendly way to target the upper chest. Safe for going to failure. Good option on days where you want upper chest work without the setup of free weights."
     },
@@ -366,11 +401,15 @@
       "complements": [
         "cable_flye",
         "dumbbell_flye",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
         "cable_row",
-        "smith_machine_row"
+        "machine_row",
+        "smith_machine_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Good spotterless option. Fixed path lets you focus on pushing hard without worrying about balance. Position the bench so the bar touches mid-chest naturally \u2014 don't force an unnatural path."
     },
@@ -406,14 +445,18 @@
       ],
       "complements": [
         "barbell_bench_press",
+        "dumbbell_bench_press",
         "cable_flye",
         "low_to_high_cable_flye",
+        "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
         "cable_row",
+        "machine_row",
         "face_pull",
-        "smith_machine_row"
+        "smith_machine_row",
+        "band_pull_apart"
       ],
       "notes": "The safest way to do heavy incline pressing alone. Very common in gyms that don't have a dedicated incline bench station. Set the bench angle to ~30 degrees \u2014 the Smith bar path works well at this angle."
     },
@@ -567,6 +610,8 @@
       "complements": [
         "barbell_bench_press",
         "incline_dumbbell_press",
+        "incline_barbell_press",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
@@ -574,7 +619,8 @@
         "rear_delt_flye",
         "band_pull_apart",
         "straight_arm_pulldown",
-        "cable_rear_delt_flye"
+        "cable_rear_delt_flye",
+        "cable_row"
       ],
       "notes": "Superior to dumbbell flyes because the cable keeps constant tension throughout the entire range of motion \u2014 including at the top where dumbbells lose tension. Adjust pulley height: high = lower chest emphasis, mid = mid chest, low = upper chest."
     },
@@ -607,12 +653,17 @@
       ],
       "complements": [
         "incline_barbell_press",
+        "incline_dumbbell_press",
         "barbell_bench_press",
+        "tricep_pushdown",
+        "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
         "face_pull",
-        "band_pull_apart"
+        "band_pull_apart",
+        "cable_row",
+        "rear_delt_flye"
       ],
       "notes": "Excellent upper chest isolation without heavy pressing. The low-to-high arc matches the fiber direction of the clavicular (upper) chest. Great as a warmup to activate upper chest before pressing, or as a finisher."
     },
@@ -646,11 +697,16 @@
       ],
       "complements": [
         "incline_dumbbell_press",
+        "incline_barbell_press",
+        "cable_flye",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
         "face_pull",
-        "band_pull_apart"
+        "band_pull_apart",
+        "cable_row",
+        "rear_delt_flye"
       ],
       "notes": "The high-to-low arc targets the sternal (lower) chest fibers. Great finisher after pressing. Between this, mid-height cable flyes, and low-to-high flyes, you can target every region of the chest with cables alone."
     },
@@ -684,11 +740,15 @@
       "complements": [
         "barbell_bench_press",
         "incline_dumbbell_press",
+        "cable_flye",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
         "reverse_fly_machine",
-        "pullover_machine"
+        "pullover_machine",
+        "face_pull",
+        "cable_rear_delt_flye"
       ],
       "notes": "Very beginner-friendly fixed path. Constant tension like cables. Focus entirely on squeezing the chest. Excellent for drop sets \u2014 just move the pin. The pec deck + reverse pec deck superset is one of the most efficient shoulder-health combos in the gym."
     },
@@ -725,12 +785,16 @@
       "complements": [
         "incline_dumbbell_press",
         "cable_flye",
+        "overhead_tricep_extension",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
         "chin_up",
         "pull_up",
-        "neutral_grip_pull_up"
+        "neutral_grip_pull_up",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "Loads the chest in a deep stretch at the bottom, making it an excellent hypertrophy exercise. Use the assisted dip machine or a resistance band looped under your knees if you can't do bodyweight. Add a weight belt or hold a dumbbell between your feet to progress beyond bodyweight."
     },
@@ -766,13 +830,15 @@
       "complements": [
         "bodyweight_row",
         "dip_chest",
+        "diamond_push_up",
         "plank",
         "band_pull_apart",
         "face_pull"
       ],
       "superset_candidates": [
         "bodyweight_row",
-        "band_pull_apart"
+        "band_pull_apart",
+        "face_pull"
       ],
       "notes": "Most accessible chest exercise. Progression: wall \u2192 incline \u2192 floor \u2192 decline (feet elevated) \u2192 weighted. Push-ups with handles or on fists allow deeper range of motion. EMG research shows push-ups produce comparable chest activation to bench press at similar relative intensities."
     },
@@ -806,12 +872,14 @@
       ],
       "complements": [
         "bodyweight_row",
+        "push_up",
         "plank",
         "band_pull_apart",
         "face_pull"
       ],
       "superset_candidates": [
-        "bodyweight_row"
+        "bodyweight_row",
+        "band_pull_apart"
       ],
       "notes": "Better than knee push-ups for building toward full push-ups because the movement pattern is identical \u2014 you're just reducing the load. Progressively lower the surface height over weeks: wall \u2192 counter \u2192 bench \u2192 floor. Also useful as a high-rep finisher for experienced lifters."
     },
@@ -848,12 +916,14 @@
         "push_up",
         "dip_chest",
         "bodyweight_row",
+        "diamond_push_up",
         "band_pull_apart",
         "face_pull"
       ],
       "superset_candidates": [
         "bodyweight_row",
-        "band_pull_apart"
+        "band_pull_apart",
+        "face_pull"
       ],
       "notes": "The bodyweight equivalent of an incline press \u2014 targets upper chest and front delts more than regular push-ups. Feet on a standard bench (~18 inches) provides a good challenge. Progress by adding a weight vest or elevating feet higher."
     },
@@ -888,11 +958,15 @@
       "complements": [
         "incline_dumbbell_press",
         "dumbbell_flye",
+        "cable_flye",
+        "tricep_pushdown",
         "face_pull"
       ],
       "superset_candidates": [
         "dumbbell_row",
-        "face_pull"
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "The constant inward squeezing force creates chest activation throughout the entire ROM \u2014 unlike dumbbell flyes where tension drops at the top, or regular presses where the chest can coast at lockout. Very joint-friendly since the neutral grip and adduction force stabilize the shoulder. Good option for people with shoulder discomfort during regular pressing."
     },
@@ -928,11 +1002,15 @@
       ],
       "complements": [
         "barbell_bench_press",
+        "incline_dumbbell_press",
         "cable_flye",
+        "lateral_raise",
         "face_pull"
       ],
       "superset_candidates": [
-        "landmine_row"
+        "landmine_row",
+        "face_pull",
+        "band_pull_apart"
       ],
       "notes": "The natural arc path is exceptionally easy on shoulders. Great option if regular pressing causes shoulder pain. Single-arm version adds core demand. The pressing angle is somewhere between a flat and incline press, hitting both regions."
     },
@@ -967,11 +1045,15 @@
       ],
       "complements": [
         "overhead_tricep_extension",
+        "cable_overhead_extension",
+        "tricep_pushdown",
         "barbell_curl",
         "face_pull"
       ],
       "superset_candidates": [
-        "barbell_curl"
+        "barbell_curl",
+        "ez_bar_curl",
+        "face_pull"
       ],
       "notes": "Shoulder-width grip is ideal \u2014 going narrower adds wrist strain without extra tricep benefit. Great compound tricep builder and bench press accessory. Helps strengthen the lockout portion of the bench press."
     },
@@ -1006,10 +1088,16 @@
       ],
       "complements": [
         "lat_pulldown",
+        "barbell_row",
         "barbell_bench_press",
+        "straight_arm_pulldown",
         "face_pull"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "cable_flye",
+        "machine_pec_deck",
+        "lat_pulldown"
+      ],
       "notes": "A unique exercise that stretches both the lats and chest under load simultaneously. Whether it biases lats or chest depends partly on intent: thinking about pulling with your lats shifts the emphasis toward back, thinking about squeezing your chest shifts it toward pecs. EMG data is mixed \u2014 treat it as a general upper body exercise rather than a targeted chest or back move. Great for shoulder mobility and thoracic extension."
     }
   ]

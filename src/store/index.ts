@@ -19,6 +19,7 @@ import type {
   SetLog,
   ExerciseLog,
   LogId,
+  WorkoutSplit,
 } from '@/types';
 import {
   DEFAULT_SETTINGS,
@@ -39,11 +40,13 @@ interface AppState {
   // Builder
   builder: {
     workout: WorkoutDraft;
+    workoutSplit: WorkoutSplit | null;
     suggestions: SuggestionGroups;
     validation: WorkoutValidation;
   };
   builderActions: {
     setWorkoutName: (name: string) => void;
+    setWorkoutSplit: (split: WorkoutSplit | null) => void;
     addExercise: (exerciseId: ExerciseId) => void;
     removeExercise: (index: number) => void;
     reorderExercises: (from: number, to: number) => void;
@@ -158,10 +161,16 @@ export const useStore = create<AppState>()(
       // Builder
       builder: {
         workout: createEmptyDraft(),
+        workoutSplit: null,
         suggestions: emptySuggestions,
         validation: emptyValidation,
       },
       builderActions: {
+        setWorkoutSplit: (split: WorkoutSplit | null) => {
+          set((state) => {
+            state.builder.workoutSplit = split;
+          });
+        },
         setWorkoutName: (name: string) => {
           set((state) => {
             state.builder.workout.name = name;
@@ -225,6 +234,7 @@ export const useStore = create<AppState>()(
         resetWorkout: () => {
           set((state) => {
             state.builder.workout = createEmptyDraft();
+            state.builder.workoutSplit = null;
             state.builder.suggestions = emptySuggestions;
             state.builder.validation = emptyValidation;
           });

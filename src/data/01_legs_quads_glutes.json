@@ -34,9 +34,14 @@
       "complements": [
         "glute_bridge",
         "walking_lunge",
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "calf_raise_standing",
+        "banded_clamshell"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "plank",
+        "dead_bug"
+      ],
       "notes": "The starting point for all beginners. Great warmup before heavy squats."
     },
     {
@@ -70,11 +75,15 @@
       ],
       "complements": [
         "leg_curl_lying",
-        "calf_raise_standing"
+        "romanian_deadlift",
+        "hip_thrust",
+        "calf_raise_standing",
+        "banded_clamshell"
       ],
       "superset_candidates": [
         "leg_curl_lying",
         "plank",
+        "dead_bug",
         "kettlebell_swing"
       ],
       "notes": "The front-loaded weight prevents leaning forward. Perfect learning tool. Practical loading ceiling \u2014 most people outgrow it and move to barbell or leg press."
@@ -110,10 +119,13 @@
       ],
       "complements": [
         "leg_curl_lying",
+        "romanian_deadlift",
+        "hip_thrust",
         "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Simpler grip than goblet squat for heavier loads."
     },
@@ -155,11 +167,16 @@
         "romanian_deadlift",
         "leg_extension",
         "leg_curl_lying",
-        "walking_lunge"
+        "hip_thrust",
+        "walking_lunge",
+        "calf_raise_standing",
+        "banded_clamshell"
       ],
       "superset_candidates": [
         "leg_curl_lying",
-        "hanging_leg_raise"
+        "hanging_leg_raise",
+        "plank",
+        "dead_bug"
       ],
       "notes": "The king of leg exercises. Wider stance increases adductor demand, narrower increases knee travel and quad ROM. If you can only do one leg exercise, do this."
     },
@@ -196,10 +213,15 @@
       ],
       "complements": [
         "romanian_deadlift",
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank",
+        "hanging_leg_raise"
       ],
       "notes": "More quad-focused and easier on the lower back than back squat. The upright torso makes it self-correcting. Difficulty is intermediate, not advanced \u2014 the cross-arm grip makes it accessible."
     },
@@ -236,10 +258,13 @@
       "complements": [
         "romanian_deadlift",
         "leg_curl_lying",
-        "leg_extension"
+        "hip_thrust",
+        "leg_extension",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Safe solo squatting option. The fixed bar path removes the balance demand, letting you focus on pushing hard."
     },
@@ -275,10 +300,14 @@
       "complements": [
         "romanian_deadlift",
         "leg_curl_lying",
-        "leg_extension"
+        "hip_thrust",
+        "leg_extension",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank",
+        "hanging_leg_raise"
       ],
       "notes": "Foot placement changes everything: high/wide = glute emphasis, low/narrow = quad emphasis."
     },
@@ -353,10 +382,13 @@
       "complements": [
         "romanian_deadlift",
         "leg_curl_lying",
-        "leg_extension"
+        "hip_thrust",
+        "leg_extension",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Zero spinal compression \u2014 the best squat option for anyone with back issues or for adding squat volume without taxing recovery. Allows heavy loading with the spine completely unloaded. Not every gym has one, but more are adding them."
     },
@@ -393,10 +425,15 @@
       "complements": [
         "leg_curl_lying",
         "leg_extension",
-        "calf_raise_on_leg_press"
+        "hip_thrust",
+        "romanian_deadlift",
+        "calf_raise_on_leg_press",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "calf_raise_on_leg_press"
+        "calf_raise_on_leg_press",
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Handles very heavy weight with almost zero spinal stress. High foot = more glute, low foot = more quad."
     },
@@ -433,10 +470,14 @@
       "complements": [
         "leg_curl_lying",
         "leg_extension",
+        "hip_thrust",
+        "romanian_deadlift",
         "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_seated"
+        "leg_curl_seated",
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Many gyms have these alongside 45-degree presses. The horizontal path creates a slightly different resistance curve \u2014 tends to be harder at the bottom. Very beginner-friendly since you sit upright."
     },
@@ -470,10 +511,13 @@
       ],
       "complements": [
         "single_leg_rdl",
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "bulgarian_split_squat",
+        "step_up"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "leg_extension"
       ],
       "notes": "Best way to find and fix left/right strength imbalances with measurable loading. Much more stable than single-leg squats \u2014 the machine handles the balance for you."
     },
@@ -655,10 +699,14 @@
       "complements": [
         "leg_press",
         "leg_curl_lying",
+        "romanian_deadlift",
+        "hip_thrust",
         "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "leg_extension",
+        "plank"
       ],
       "notes": "Longer stride = more glute, shorter stride = more quad."
     },
@@ -693,10 +741,15 @@
       ],
       "complements": [
         "leg_curl_lying",
-        "leg_extension"
+        "leg_extension",
+        "hip_thrust",
+        "romanian_deadlift",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "leg_extension",
+        "plank"
       ],
       "notes": "Recommended over forward lunges for beginners \u2014 less knee stress and easier to balance."
     },
@@ -732,10 +785,13 @@
       ],
       "complements": [
         "leg_curl_lying",
+        "leg_extension",
+        "hip_thrust",
         "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "plank"
       ],
       "notes": "Simplest lunge variation. Perfect starting point before walking or Bulgarian."
     },
@@ -773,10 +829,16 @@
       ],
       "complements": [
         "romanian_deadlift",
-        "leg_curl_lying"
+        "single_leg_rdl",
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "leg_extension",
+        "plank"
       ],
       "notes": "Research shows these build quads as well as back squats (Speirs et al., 2016). Excellent for fixing left/right imbalances. Also loads glutes in a deep stretch which may be superior for hypertrophy."
     },
@@ -813,10 +875,14 @@
       ],
       "complements": [
         "leg_curl_lying",
-        "leg_press"
+        "single_leg_rdl",
+        "hip_thrust",
+        "leg_press",
+        "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "leg_extension"
       ],
       "notes": "Higher box = more glute. Very functional \u2014 mimics stair climbing. Common mistake: pushing off with the trailing leg, which defeats the purpose."
     },
@@ -852,10 +918,14 @@
       "complements": [
         "barbell_back_squat",
         "romanian_deadlift",
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "hip_abduction_machine",
+        "banded_clamshell"
       ],
       "superset_candidates": [
-        "leg_extension"
+        "leg_extension",
+        "banded_clamshell",
+        "leg_curl_lying"
       ],
       "notes": "Research shows very high peak glute activation (Contreras et al.). However, exercises that load glutes in a deep stretch \u2014 like deep squats, Bulgarian split squats, and RDLs \u2014 may produce comparable or superior glute growth. Best used alongside stretch-focused exercises, not instead of them."
     },
@@ -889,10 +959,14 @@
       ],
       "complements": [
         "barbell_back_squat",
-        "romanian_deadlift"
+        "romanian_deadlift",
+        "leg_curl_lying",
+        "banded_clamshell"
       ],
       "superset_candidates": [
-        "leg_extension"
+        "leg_extension",
+        "banded_clamshell",
+        "leg_curl_lying"
       ],
       "notes": "Easier to get into position than free barbell. The Smith bar stays in place \u2014 no rolling. Great for beginners who find barbell hip thrust setup awkward."
     },
@@ -924,11 +998,15 @@
       ],
       "complements": [
         "barbell_back_squat",
-        "romanian_deadlift"
+        "romanian_deadlift",
+        "hip_thrust",
+        "leg_curl_lying",
+        "banded_clamshell"
       ],
       "superset_candidates": [
         "leg_extension",
-        "banded_clamshell"
+        "banded_clamshell",
+        "leg_curl_lying"
       ],
       "notes": "Perfect warmup for activating glutes before squats/deadlifts. Add a barbell across hips for more resistance. Same movement pattern as hip thrust, just from the floor."
     },
@@ -963,10 +1041,13 @@
       "complements": [
         "barbell_back_squat",
         "leg_curl_lying",
+        "hip_thrust",
+        "romanian_deadlift",
         "dumbbell_rdl"
       ],
       "superset_candidates": [
-        "leg_extension"
+        "leg_extension",
+        "leg_curl_lying"
       ],
       "notes": "If you can't feel your glutes/hamstrings during deadlifts, do these first to learn the pattern. Can also serve as a primary hip hinge for beginners not ready for barbell work."
     },
@@ -998,10 +1079,14 @@
       ],
       "complements": [
         "barbell_back_squat",
-        "romanian_deadlift"
+        "romanian_deadlift",
+        "hip_thrust",
+        "leg_curl_lying",
+        "hip_abduction_machine"
       ],
       "superset_candidates": [
-        "leg_extension"
+        "leg_extension",
+        "leg_curl_lying"
       ],
       "notes": "Targets one glute at a time. Constant cable tension throughout the movement."
     },
@@ -1037,10 +1122,13 @@
       ],
       "complements": [
         "leg_curl_lying",
+        "hip_adduction_machine",
+        "hip_thrust",
         "calf_raise_standing"
       ],
       "superset_candidates": [
-        "leg_curl_lying"
+        "leg_curl_lying",
+        "hip_abduction_machine"
       ],
       "notes": "Wide stance hits inner thighs (adductors) and glutes more than regular squat."
     },

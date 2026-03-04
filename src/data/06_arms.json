@@ -75,11 +75,14 @@
       "complements": [
         "tricep_pushdown",
         "hammer_curl",
-        "incline_dumbbell_curl"
+        "incline_dumbbell_curl",
+        "lat_pulldown",
+        "cable_row"
       ],
       "superset_candidates": [
         "tricep_pushdown",
-        "skull_crusher"
+        "skull_crusher",
+        "overhead_tricep_extension"
       ],
       "notes": "Preferred by most people over straight barbell for wrist comfort. The slight pronation of the wrist shifts a small amount of work to the brachialis and brachioradialis, which some argue makes it a slightly more complete arm exercise than the straight bar. Practically, the difference is minimal \u2014 use whichever bar feels better on your joints."
     },
@@ -391,7 +394,9 @@
         "cable_row"
       ],
       "superset_candidates": [
-        "tricep_pushdown"
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "cable_overhead_extension"
       ],
       "notes": "Combines the benefits of hammer curls (brachialis and brachioradialis emphasis) with constant cable tension. The rope also allows you to spread the ends at peak contraction, which some people find gives a better squeeze than a fixed handle. Good finishing exercise after heavier free-weight curls."
     },
@@ -466,7 +471,9 @@
         "barbell_row"
       ],
       "superset_candidates": [
-        "tricep_pushdown"
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "dip_tricep"
       ],
       "notes": "The most direct exercise for the brachioradialis \u2014 the thick forearm muscle on the thumb side that's visible when your arms are at your sides. This muscle is responsible for the 'thick forearm' look and is only partially hit by hammer curls (neutral grip) and barely hit by regular curls (supinated grip). Reverse curls also strengthen the wrist extensors isometrically, which helps prevent tennis elbow. Include if forearm size is a priority."
     },
@@ -781,7 +788,10 @@
         "hammer_curl"
       ],
       "superset_candidates": [
-        "bodyweight_row"
+        "bodyweight_row",
+        "chin_up",
+        "barbell_curl",
+        "hammer_curl"
       ],
       "notes": "EMG research consistently shows this as one of the highest tricep activation exercises. No equipment needed \u2014 excellent for home training or as a finisher at the end of a gym session. The close hand position shifts work from the chest to the triceps compared to a standard push-up. Progression: knees \u2192 incline \u2192 floor \u2192 feet elevated \u2192 weighted vest."
     },
@@ -894,7 +904,10 @@
         "trap_bar_shrug",
         "dead_hang"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "dead_hang",
+        "plank"
+      ],
       "notes": "One of the best exercises most people never do. Builds grip, traps, core stability, and mental toughness simultaneously. Also trains your body to maintain posture under load while moving \u2014 which is how your body actually functions in real life. Variations: single-arm (suitcase carry) adds anti-lateral flexion core work, overhead carry adds shoulder stability. The trap bar is the best implement for heavy farmer's walks."
     },
     {
@@ -929,7 +942,11 @@
         "chin_up",
         "farmer_walk"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "farmer_walk",
+        "lat_pulldown",
+        "plank"
+      ],
       "notes": "Deceptively simple but extremely effective. Builds grip endurance, decompresses the spine after heavy training, and gently stretches the lats and shoulders. Also builds the specific grip strength needed for pull-ups and heavy deadlifts. Great end-of-workout exercise. Can be progressed: two-hand \u2192 thick bar \u2192 towel hang \u2192 single-arm."
     }
   ]

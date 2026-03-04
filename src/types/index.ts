@@ -215,3 +215,97 @@ export const DEFAULT_SETTINGS: AppSettings = {
 
 // ─── Navigation ──────────────────────────────────────────
 export type TabId = 'build' | 'library' | 'active' | 'settings';
+
+// ─── Workout Split Muscle Groups ─────────────────────────
+// Evidence base: Schoenfeld (2010, 2017 meta-analyses), NSCA Essentials of
+// Strength Training (4th ed.), Renaissance Periodization RP Hypertrophy,
+// Jeff Nippard PPL programming.
+//
+// Split semantics:
+//   push    = all horizontal + vertical pressing work (chest/shoulder/tricep day)
+//   pull    = all vertical + horizontal pulling work (back/bicep day)
+//   legs    = all lower body work (quad/hamstring/glute/calf day)
+//   upper   = push + pull combined into one session (antagonist-pair day)
+//   lower   = same as legs but explicitly paired with an upper day
+//   full_body = every major muscle group trained each session
+//
+// Classification logic:
+//   primary   = the split day is explicitly designed to develop this muscle;
+//               the session is INCOMPLETE without hitting it
+//   secondary = the muscle is meaningfully stressed as a synergist/stabilizer
+//               but is not the primary target of the split designation
+
+export const WORKOUT_SPLITS = [
+  'push', 'pull', 'legs', 'upper', 'lower', 'full_body',
+] as const;
+export type WorkoutSplit = typeof WORKOUT_SPLITS[number];
+
+export const WORKOUT_SPLIT_MUSCLES: Record<WorkoutSplit, {
+  primary: MuscleGroup[];
+  secondary: MuscleGroup[];
+}> = {
+  // ── Push Day ────────────────────────────────────────────
+  // Bench press, OHP, dips, flyes, tricep isolations.
+  // Chest = primary; shoulders = primary (OHP is a push day staple);
+  // triceps = primary (close-grip pressing + isolations).
+  // Traps assist OHP lockout; core braces all pressing; front delts
+  // are part of "shoulders" so not listed separately.
+  push: {
+    primary: ['chest', 'shoulders', 'triceps'],
+    secondary: ['traps', 'core'],
+  },
+
+  // ── Pull Day ────────────────────────────────────────────
+  // Rows, pull-ups/pulldowns, face pulls, curls, shrugs.
+  // Upper back = primary (lats, rhomboids, mid-traps via rows/pulldowns);
+  // biceps = primary (curls are a pull-day staple);
+  // traps = primary (shrugs, rack pulls, heavy rows work all trap fibers);
+  // rear delts = part of "shoulders" secondary;
+  // forearms = secondary (grip demands from all pulling);
+  // core = secondary (anti-flexion bracing during bent-over rows).
+  pull: {
+    primary: ['upper_back', 'biceps', 'traps'],
+    secondary: ['shoulders', 'forearms', 'core'],
+  },
+
+  // ── Legs Day ────────────────────────────────────────────
+  // Squats, deadlift variations, leg press, lunges, leg curls, calf raises,
+  // hip thrusts, hip adduction/abduction.
+  // Quads/hamstrings/glutes = primary;
+  // calves = secondary (heavy loaded carries and squat variants);
+  // adductors/abductors = secondary (wide-stance squats, isolation machines);
+  // core = secondary (bracing throughout all compound leg work).
+  legs: {
+    primary: ['quadriceps', 'hamstrings', 'glutes'],
+    secondary: ['calves', 'adductors', 'abductors', 'core'],
+  },
+
+  // ── Upper Body Day ──────────────────────────────────────
+  // Combines push + pull into antagonist supersets (bench ↔ row, OHP ↔ pulldown).
+  // All pressing and pulling muscles become primary; arms = secondary
+  // since bilateral upper sessions typically include compound pressing/pulling
+  // but may not include isolation arm work.
+  upper: {
+    primary: ['chest', 'upper_back', 'shoulders', 'traps'],
+    secondary: ['biceps', 'triceps', 'forearms', 'core'],
+  },
+
+  // ── Lower Body Day ──────────────────────────────────────
+  // Identical target muscles to legs day in a PPL/UL context.
+  // Separating it from "legs" lets the UI distinguish PPL vs. Upper/Lower split
+  // while the muscle coverage remains the same.
+  lower: {
+    primary: ['quadriceps', 'hamstrings', 'glutes'],
+    secondary: ['calves', 'adductors', 'abductors', 'core'],
+  },
+
+  // ── Full Body ───────────────────────────────────────────
+  // Every major muscle group is trained in a single session.
+  // All 14 muscle groups are at least secondary; the "primary" list covers
+  // the six major muscle groups that Schoenfeld identifies as requiring
+  // direct training stimulus for complete development (2x/week minimum).
+  full_body: {
+    primary: ['chest', 'upper_back', 'shoulders', 'quadriceps', 'hamstrings', 'glutes'],
+    secondary: ['biceps', 'triceps', 'traps', 'forearms', 'calves', 'core', 'adductors', 'abductors'],
+  },
+};

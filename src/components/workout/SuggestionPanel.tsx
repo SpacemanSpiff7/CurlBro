@@ -100,6 +100,7 @@ function SuggestionGroup({
 
 export function SuggestionPanel() {
   const suggestions = useSuggestions();
+  const workoutSplit = useStore((state) => state.builder.workoutSplit);
   const addExercise = useStore((state) => state.builderActions.addExercise);
 
   const handleAdd = useCallback(
@@ -109,9 +110,12 @@ export function SuggestionPanel() {
     [addExercise]
   );
 
+  // Only show "still need to hit" when a workout split is selected
+  const showGaps = workoutSplit !== null;
+
   const hasAnySuggestions =
     suggestions.pairsWellWith.length > 0 ||
-    suggestions.stillNeedToHit.length > 0 ||
+    (showGaps && suggestions.stillNeedToHit.length > 0) ||
     suggestions.supersetWith.length > 0;
 
   if (!hasAnySuggestions) return null;
@@ -127,11 +131,13 @@ export function SuggestionPanel() {
         onAdd={handleAdd}
         defaultOpen
       />
-      <SuggestionGroup
-        title="Still need to hit"
-        exerciseIds={suggestions.stillNeedToHit}
-        onAdd={handleAdd}
-      />
+      {showGaps && (
+        <SuggestionGroup
+          title="Still need to hit"
+          exerciseIds={suggestions.stillNeedToHit}
+          onAdd={handleAdd}
+        />
+      )}
       <SuggestionGroup
         title="Superset with"
         exerciseIds={suggestions.supersetWith}

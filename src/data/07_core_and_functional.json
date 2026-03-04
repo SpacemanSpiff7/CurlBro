@@ -189,7 +189,12 @@
         "crunch",
         "side_plank"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift",
+        "overhead_press",
+        "plank"
+      ],
       "notes": "Easier version of hanging leg raises \u2014 no pull-up bar needed and no grip limitation. The same pelvic curl cue applies: the abs only work when you curl your pelvis off the floor, not when you simply lift your legs (which is hip flexion). If your lower back hurts, you're not bracing properly \u2014 either bend your knees or switch to dead bugs until your core is stronger."
     },
     {
@@ -620,7 +625,11 @@
         "push_up",
         "squat_jump"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "push_up",
+        "squat_jump",
+        "plank"
+      ],
       "notes": "Great core and cardio finisher that requires zero equipment. The plank position with alternating leg movement combines anti-extension core work with hip flexor conditioning and cardiovascular demand. Slow mountain climbers (2-3 second hold per leg) are a legitimate core exercise; fast mountain climbers are primarily cardio conditioning. Can be used as a warmup before training or a finisher after."
     },
     {
@@ -658,7 +667,11 @@
         "push_up",
         "goblet_squat"
       ],
-      "superset_candidates": [],
+      "superset_candidates": [
+        "goblet_squat",
+        "plank",
+        "kettlebell_swing"
+      ],
       "notes": "Great cardio finisher after strength training. Different wave patterns hit different muscles: alternating waves emphasize shoulders, slams emphasize core and lats, circles emphasize shoulder rotation. The constant core bracing in the athletic stance makes this double as core work. Heart rate spikes very quickly \u2014 3-5 rounds of 30 seconds is a brutally effective conditioning session."
     },
     {

@@ -29,7 +29,7 @@ export function SettingsPage() {
   );
 
   return (
-    <div className="flex flex-col gap-6 px-4 py-4">
+    <div className="flex flex-col gap-6 px-4 py-4 pb-20">
       <h1 className="text-xl font-bold text-text-primary">Settings</h1>
 
       {/* Rest Timer Defaults */}
@@ -50,7 +50,7 @@ export function SettingsPage() {
                 value={settings.restTimerCompoundSeconds}
                 onChange={handleCompoundChange}
                 min={0}
-                className="w-16 rounded bg-bg-elevated border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>
@@ -69,7 +69,7 @@ export function SettingsPage() {
                 value={settings.restTimerIsolationSeconds}
                 onChange={handleIsolationChange}
                 min={0}
-                className="w-16 rounded bg-bg-elevated border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>

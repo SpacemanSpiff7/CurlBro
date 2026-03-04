@@ -89,7 +89,7 @@ export const RestTimer = memo(function RestTimer({
           onClick={() => onAddTime(-15)}
           disabled={isDone || remainingSeconds <= 15}
           aria-label="Subtract 15 seconds"
-          className="h-9 w-16"
+          className="h-11 w-16"
         >
           <Minus size={14} className="mr-1" />
           15s
@@ -99,7 +99,7 @@ export const RestTimer = memo(function RestTimer({
           size="icon"
           onClick={onStop}
           aria-label="Stop timer"
-          className="h-9 w-9"
+          className="h-11 w-11"
         >
           <X size={14} />
         </Button>
@@ -109,7 +109,7 @@ export const RestTimer = memo(function RestTimer({
           onClick={() => onAddTime(15)}
           disabled={isDone}
           aria-label="Add 15 seconds"
-          className="h-9 w-16"
+          className="h-11 w-16"
         >
           <Plus size={14} className="mr-1" />
           15s

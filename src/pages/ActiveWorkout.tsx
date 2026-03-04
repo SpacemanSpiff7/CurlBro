@@ -111,7 +111,7 @@ export function ActiveWorkout() {
   );
 
   return (
-    <div className="flex flex-col gap-4 px-4 py-4">
+    <div className="flex flex-col gap-4 px-4 py-4 pb-20">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
