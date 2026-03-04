@@ -37,18 +37,14 @@ export function WorkoutList() {
       const { active, over } = event;
       if (!over || active.id === over.id) return;
 
-      const oldIndex = workout.exercises.findIndex(
-        (ex) => ex.exerciseId === active.id
-      );
-      const newIndex = workout.exercises.findIndex(
-        (ex) => ex.exerciseId === over.id
-      );
+      const oldIndex = Number(active.id);
+      const newIndex = Number(over.id);
 
-      if (oldIndex !== -1 && newIndex !== -1) {
+      if (oldIndex >= 0 && newIndex >= 0) {
         reorderExercises(oldIndex, newIndex);
       }
     },
-    [workout.exercises, reorderExercises]
+    [reorderExercises]
   );
 
   const handleUpdate = useCallback(
@@ -83,7 +79,7 @@ export function WorkoutList() {
       onDragEnd={handleDragEnd}
     >
       <SortableContext
-        items={workout.exercises.map((ex) => ex.exerciseId)}
+        items={workout.exercises.map((_, i) => i)}
         strategy={verticalListSortingStrategy}
       >
         <div className="space-y-2">
@@ -94,7 +90,7 @@ export function WorkoutList() {
 
               return (
                 <ExerciseCard
-                  key={workoutExercise.exerciseId}
+                  key={index}
                   exercise={exercise}
                   workoutExercise={workoutExercise}
                   index={index}

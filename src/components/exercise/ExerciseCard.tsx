@@ -37,7 +37,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: workoutExercise.exerciseId });
+  } = useSortable({ id: index });
 
   const style = {
     transform: CSS.Transform.toString(transform),
