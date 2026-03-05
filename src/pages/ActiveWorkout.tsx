@@ -1,9 +1,12 @@
-import { useCallback, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Square, Timer } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
+import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { SetTracker } from '@/components/session/SetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
+import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
+import { TopBar } from '@/components/shared/TopBar';
 import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
 import type { SetLog, ExerciseId } from '@/types';
@@ -11,12 +14,13 @@ import type { SetLog, ExerciseId } from '@/types';
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, goToExercise, endSession } = useStore(
+  const { completeSet, addSet, goToExercise, endSession, swapExercise } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
 
 
+  const [swapOpen, setSwapOpen] = useState(false);
   const timer = useRestTimer();
 
   // Find the original workout to get restSeconds per exercise
@@ -84,17 +88,33 @@ export function ActiveWorkout() {
     [timer]
   );
 
+  const handleSwap = useCallback(
+    (newId: ExerciseId) => {
+      if (!session) return;
+      const newExercise = graph.exercises.get(newId);
+      swapExercise(session.currentExerciseIndex, newId);
+      setSwapOpen(false);
+      toast.success(`Swapped to ${newExercise?.name ?? 'new exercise'}`);
+    },
+    [session, graph, swapExercise]
+  );
+
   // No active session
   if (!session) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-        <Timer size={40} className="text-text-tertiary mb-3" />
-        <h2 className="text-lg font-semibold text-text-primary mb-1">
-          No Active Workout
-        </h2>
-        <p className="text-sm text-text-tertiary">
-          Go to My Workouts and tap play to start a session.
-        </p>
+      <div className="flex flex-col pb-20">
+        <TopBar>
+          <h1 className="text-xl font-bold text-text-primary">Active</h1>
+        </TopBar>
+        <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+          <Timer size={40} className="text-text-tertiary mb-3" />
+          <h2 className="text-lg font-semibold text-text-primary mb-1">
+            No Active Workout
+          </h2>
+          <p className="text-sm text-text-tertiary">
+            Go to Library and tap play to start a session.
+          </p>
+        </div>
       </div>
     );
   }
@@ -108,27 +128,30 @@ export function ActiveWorkout() {
   );
 
   return (
-    <div className="flex flex-col gap-4 px-4 py-4 pb-20">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-bold text-text-primary">
-            {session.workoutName || 'Workout'}
-          </h1>
-          <div className="text-xs text-text-tertiary">
-            {completedSets}/{totalSets} sets completed
+    <div className="flex flex-col gap-4 pb-20">
+      <TopBar>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-bold text-text-primary">
+              {session.workoutName || 'Workout'}
+            </h1>
+            <div className="text-xs text-text-tertiary">
+              {completedSets}/{totalSets} sets completed
+            </div>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleFinish}
+            className="text-destructive border-destructive/30 hover:bg-destructive/10"
+          >
+            <Square size={14} className="mr-1" />
+            Finish
+          </Button>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleFinish}
-          className="text-destructive border-destructive/30 hover:bg-destructive/10"
-        >
-          <Square size={14} className="mr-1" />
-          Finish
-        </Button>
-      </div>
+      </TopBar>
+
+      <div className="flex flex-col gap-4 px-4">
 
       {/* Progress bar */}
       <div className="h-1 w-full rounded-full bg-bg-elevated overflow-hidden">
@@ -153,14 +176,25 @@ export function ActiveWorkout() {
         <div className="text-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentIndex}
+              key={`${currentIndex}-${currentExercise?.exerciseId}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
             >
-              <div className="text-base font-semibold text-text-primary">
-                {exerciseInfo?.name ?? 'Unknown Exercise'}
+              <div className="flex items-center justify-center gap-1.5">
+                <div className="text-base font-semibold text-text-primary">
+                  {exerciseInfo?.name ?? 'Unknown Exercise'}
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSwapOpen((o) => !o)}
+                  aria-label="Swap exercise"
+                  className="h-7 w-7"
+                >
+                  <ArrowRightLeft size={14} className={swapOpen ? 'text-accent-primary' : ''} />
+                </Button>
               </div>
               <div className="text-xs text-text-tertiary">
                 {currentIndex + 1} of {totalExercises}
@@ -179,6 +213,15 @@ export function ActiveWorkout() {
           <ChevronRight size={18} />
         </Button>
       </div>
+
+      {/* Substitute panel */}
+      {currentExercise && (
+        <SubstitutePanel
+          exerciseId={currentExercise.exerciseId as ExerciseId}
+          open={swapOpen}
+          onSwap={handleSwap}
+        />
+      )}
 
       {/* Beginner tip */}
       {exerciseInfo?.beginner_tips && (
@@ -249,6 +292,7 @@ export function ActiveWorkout() {
             />
           );
         })}
+      </div>
       </div>
     </div>
   );

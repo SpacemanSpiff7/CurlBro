@@ -3,7 +3,8 @@ import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../fixtures/testGraph';
-import type { SavedWorkout, WorkoutId, ExerciseId, ExerciseGraph } from '@/types';
+import type { SavedWorkout, WorkoutId, ExerciseId, ExerciseGraph, AppSettings } from '@/types';
+import { DEFAULT_SETTINGS } from '@/types';
 
 describe('Import/Export', () => {
   let graph: ExerciseGraph;
@@ -98,20 +99,22 @@ describe('Import/Export', () => {
 
       const result = parseImport(text, graph);
       expect(result.warnings.length).toBeGreaterThan(0);
-      expect(result.warnings[0]).toContain('unknown_id');
+      expect(result.warnings.some((w) => w.includes('unknown_id'))).toBe(true);
       // Should still parse the exercise
       expect(result.workout!.exercises.length).toBe(1);
     });
 
-    it('errors on malformed lines', () => {
+    it('skips unparseable lines with warning', () => {
       const text = [
         '## Test | 2026-03-04',
         '---',
-        'This is not a valid exercise line',
+        'not valid',
       ].join('\n');
 
       const result = parseImport(text, graph);
-      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.warnings.some((w) => w.includes('Skipped'))).toBe(true);
+      // No exercises found → error
+      expect(result.errors).toContain('No exercises found in input');
     });
 
     it('errors on empty input', () => {
@@ -129,6 +132,134 @@ describe('Import/Export', () => {
       expect(result.warnings).toContain('No header found, using defaults');
       expect(result.workout).not.toBeNull();
       expect(result.workout!.name).toBe('Imported Workout');
+    });
+
+    it('parses header without date', () => {
+      const text = [
+        '## Push Day',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout).not.toBeNull();
+      expect(result.workout!.name).toBe('Push Day');
+      expect(result.workout!.exercises.length).toBe(1);
+    });
+
+    it('resolves exercise by name when [id] is missing', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) | 4x8 | 155lb | Rest: 120s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises.length).toBe(1);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
+      expect(result.workout!.exercises[0].sets).toBe(4);
+    });
+
+    it('resolves exercise by name without parenthetical', () => {
+      const text = [
+        '## Test',
+        '---',
+        'Barbell Bench Press | 4x8 | 155lb | Rest: 120s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
+    });
+
+    it('uses defaults for missing fields with [id] present', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press]',
+      ].join('\n');
+
+      const result = parseImport(text, graph, DEFAULT_SETTINGS);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises.length).toBe(1);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
+      expect(result.workout!.exercises[0].sets).toBe(4); // defaultSetsCompound
+      expect(result.workout!.exercises[0].reps).toBe(10); // hypertrophy goal default
+      expect(result.workout!.exercises[0].restSeconds).toBe(120); // restTimerCompoundSeconds
+    });
+
+    it('resolves name-only lines with default sets/reps', () => {
+      const text = [
+        '## Test',
+        '---',
+        'Barbell Row',
+      ].join('\n');
+
+      const result = parseImport(text, graph, DEFAULT_SETTINGS);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises.length).toBe(1);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_row');
+      expect(result.workout!.exercises[0].sets).toBe(4); // compound
+      expect(result.workout!.exercises[0].reps).toBe(10); // hypertrophy goal default
+    });
+
+    it('uses strength defaults when settings have strength goal', () => {
+      const strengthSettings: AppSettings = {
+        ...DEFAULT_SETTINGS,
+        trainingGoal: 'strength',
+        defaultSetsCompound: 5,
+      };
+      const text = [
+        '## Strength Test',
+        '---',
+        'Barbell Row',
+      ].join('\n');
+
+      const result = parseImport(text, graph, strengthSettings);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].sets).toBe(5);
+      expect(result.workout!.exercises[0].reps).toBe(5); // strength goal default
+    });
+
+    it('uses isolation defaults for name-only isolation exercises', () => {
+      const text = [
+        '## Test',
+        '---',
+        'Cable Flye',
+      ].join('\n');
+
+      const result = parseImport(text, graph, DEFAULT_SETTINGS);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].sets).toBe(3); // defaultSetsIsolation
+      expect(result.workout!.exercises[0].restSeconds).toBe(60); // restTimerIsolationSeconds
+    });
+
+    it('skips unknown name-only exercises', () => {
+      const text = [
+        '## Test',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s',
+        'Nonexistent Magic Exercise',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises.length).toBe(1);
+      expect(result.warnings.some((w) => w.includes('Nonexistent Magic Exercise'))).toBe(true);
+    });
+
+    it('resolves by name when [id] is unknown', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [wrong_id] | 4x8 | 155lb | Rest: 120s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
     });
   });
 

@@ -197,20 +197,39 @@ export const WorkoutLogSchema = z.object({
   durationMinutes: z.number(),
 });
 
+// ─── Training Goals ──────────────────────────────────────
+export const TRAINING_GOALS = ['strength', 'hypertrophy', 'endurance'] as const;
+export type TrainingGoal = typeof TRAINING_GOALS[number];
+
+export const TRAINING_GOAL_LABELS: Record<TrainingGoal, string> = {
+  strength: 'Strength',
+  hypertrophy: 'Hypertrophy',
+  endurance: 'Endurance',
+};
+
 // ─── Settings ────────────────────────────────────────────
 export interface AppSettings {
   restTimerCompoundSeconds: number;
   restTimerIsolationSeconds: number;
+  trainingGoal: TrainingGoal;
+  defaultSetsCompound: number;
+  defaultSetsIsolation: number;
 }
 
 export const AppSettingsSchema = z.object({
   restTimerCompoundSeconds: z.number().int().min(0).default(120),
   restTimerIsolationSeconds: z.number().int().min(0).default(60),
+  trainingGoal: z.enum(TRAINING_GOALS).default('hypertrophy'),
+  defaultSetsCompound: z.number().int().min(1).default(4),
+  defaultSetsIsolation: z.number().int().min(1).default(3),
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
   restTimerCompoundSeconds: 120,
   restTimerIsolationSeconds: 60,
+  trainingGoal: 'hypertrophy',
+  defaultSetsCompound: 4,
+  defaultSetsIsolation: 3,
 };
 
 // ─── Navigation ──────────────────────────────────────────

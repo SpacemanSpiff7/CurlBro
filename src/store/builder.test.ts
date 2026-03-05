@@ -3,6 +3,7 @@ import { useStore } from './index';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../../tests/fixtures/testGraph';
 import type { ExerciseId, WorkoutId } from '@/types';
+import { DEFAULT_SETTINGS } from '@/types';
 
 describe('builderSlice', () => {
   beforeEach(() => {
@@ -126,6 +127,43 @@ describe('builderSlice', () => {
     builderActions.addExercise('nonexistent_exercise' as ExerciseId);
 
     expect(useStore.getState().builder.workout.exercises.length).toBe(0);
+  });
+
+  it('uses settings for default sets', () => {
+    useStore.setState({
+      settings: { ...DEFAULT_SETTINGS, defaultSetsCompound: 5, defaultSetsIsolation: 4 },
+    });
+    const { builderActions } = useStore.getState();
+    builderActions.addExercise('barbell_bench_press' as ExerciseId); // compound
+    builderActions.addExercise('cable_flye' as ExerciseId); // isolation
+
+    const workout = useStore.getState().builder.workout;
+    expect(workout.exercises[0].sets).toBe(5);
+    expect(workout.exercises[1].sets).toBe(4);
+  });
+
+  it('uses strength goal for default reps', () => {
+    useStore.setState({
+      settings: { ...DEFAULT_SETTINGS, trainingGoal: 'strength' as const },
+    });
+    const { builderActions } = useStore.getState();
+    builderActions.addExercise('barbell_bench_press' as ExerciseId);
+
+    const workout = useStore.getState().builder.workout;
+    // barbell_bench_press has rep_range_strength: "1-5", so first number = 1
+    expect(workout.exercises[0].reps).toBe(1);
+  });
+
+  it('uses endurance goal for default reps', () => {
+    useStore.setState({
+      settings: { ...DEFAULT_SETTINGS, trainingGoal: 'endurance' as const },
+    });
+    const { builderActions } = useStore.getState();
+    builderActions.addExercise('barbell_bench_press' as ExerciseId);
+
+    const workout = useStore.getState().builder.workout;
+    // barbell_bench_press has rep_range_hypertrophy: "6-12", so last number = 12
+    expect(workout.exercises[0].reps).toBe(12);
   });
 
   it('updates updatedAt on modifications', () => {

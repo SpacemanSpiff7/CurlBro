@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Play, Pencil, Trash2, Upload, Download, Copy, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
+import { TopBar } from '@/components/shared/TopBar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
@@ -56,10 +57,11 @@ function ImportSheet({
     count?: number;
   } | null>(null);
   const graph = useStore((state) => state.graph);
+  const settings = useStore((state) => state.settings);
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
 
   const handlePreview = useCallback(() => {
-    const parsed = parseImport(text, graph);
+    const parsed = parseImport(text, graph, settings);
     setResult({
       warnings: parsed.warnings,
       errors: parsed.errors,
@@ -72,7 +74,7 @@ function ImportSheet({
       setResult(null);
       onOpenChange(false);
     }
-  }, [text, graph, saveWorkout, onOpenChange]);
+  }, [text, graph, settings, saveWorkout, onOpenChange]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -189,7 +191,7 @@ function TemplateSection({
         className="flex w-full items-center justify-between py-1"
       >
         <h2 className="text-sm font-semibold text-text-secondary">
-          Templates
+          Quick Start
         </h2>
         {open ? (
           <ChevronUp size={16} className="text-text-tertiary" />
@@ -243,8 +245,25 @@ export function MyWorkouts() {
   const handleExport = useCallback(
     async (workout: SavedWorkout) => {
       const text = formatExport(workout, graph);
-      await navigator.clipboard.writeText(text);
-      toast.success('Copied to clipboard');
+
+      // Try native share sheet first (mobile)
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: workout.name, text });
+          return;
+        } catch (err) {
+          // User cancelled — silently ignore AbortError
+          if (err instanceof Error && err.name === 'AbortError') return;
+        }
+      }
+
+      // Fall back to clipboard
+      try {
+        await navigator.clipboard.writeText(text);
+        toast.success('Copied to clipboard', { duration: 1500 });
+      } catch {
+        toast.error('Could not copy to clipboard');
+      }
     },
     [graph]
   );
@@ -278,19 +297,22 @@ export function MyWorkouts() {
   );
 
   return (
-    <div className="flex flex-col gap-4 px-4 py-4 pb-20">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-text-primary">My Workouts</h1>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setImportOpen(true)}
-        >
-          <Download size={14} className="mr-1" />
-          Import
-        </Button>
-      </div>
+    <div className="flex flex-col gap-4 pb-20">
+      <TopBar>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold text-text-primary">Library</h1>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setImportOpen(true)}
+          >
+            <Download size={14} className="mr-1" />
+            Import
+          </Button>
+        </div>
+      </TopBar>
 
+      <div className="flex flex-col gap-4 px-4">
       {/* User-created workouts */}
       {workouts.length > 0 && (
         <div className="space-y-2">
@@ -313,7 +335,7 @@ export function MyWorkouts() {
                       {workout.name || 'Untitled'}
                     </div>
                     <div className="text-xs text-text-tertiary">
-                      {workout.exercises.length} exercises
+                      {workout.exercises.length} exercises | {workout.updatedAt.slice(0, 10)}
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
@@ -367,6 +389,7 @@ export function MyWorkouts() {
         onEdit={handleSeededEdit}
       />
 
+      </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
     </div>
   );

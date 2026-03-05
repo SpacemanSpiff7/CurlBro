@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { v4 as uuidv4 } from 'uuid';
 import type {
+  Exercise,
   ExerciseGraph,
   ExerciseId,
   WorkoutDraft,
@@ -13,6 +14,7 @@ import type {
   ActiveSession,
   TimerState,
   AppSettings,
+  TrainingGoal,
   SuggestionGroups,
   WorkoutValidation,
   TabId,
@@ -143,6 +145,20 @@ const emptyTimer: TimerState = {
   totalSeconds: 0,
 };
 
+/** Pick the default rep count for an exercise based on training goal */
+export function getDefaultReps(exercise: Exercise, goal: TrainingGoal): number {
+  const fallback = 8;
+  if (goal === 'strength') {
+    return parseInt(exercise.rep_range_strength.split('-')[0]) || fallback;
+  }
+  if (goal === 'endurance') {
+    const parts = exercise.rep_range_hypertrophy.split('-');
+    return parseInt(parts[parts.length - 1]) || fallback;
+  }
+  // hypertrophy (default)
+  return parseInt(exercise.rep_range_hypertrophy.split('-')[0]) || fallback;
+}
+
 // ─── Store ───────────────────────────────────────────────
 export const useStore = create<AppState>()(
   persist(
@@ -188,11 +204,16 @@ export const useStore = create<AppState>()(
             ? settings.restTimerCompoundSeconds
             : settings.restTimerIsolationSeconds;
 
+          const sets = exercise.category === 'compound'
+            ? settings.defaultSetsCompound
+            : settings.defaultSetsIsolation;
+          const reps = getDefaultReps(exercise, settings.trainingGoal);
+
           set((state) => {
             state.builder.workout.exercises.push({
               exerciseId,
-              sets: exercise.category === 'compound' ? 4 : 3,
-              reps: parseInt(exercise.rep_range_hypertrophy.split('-')[0]) || 8,
+              sets,
+              reps,
               weight: null,
               restSeconds,
               notes: '',
