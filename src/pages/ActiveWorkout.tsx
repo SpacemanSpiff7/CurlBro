@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer } from 'lucide-react';
+import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Sun, Timer } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
 import { TopBar } from '@/components/shared/TopBar';
 import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
+import { useWakeLock } from '@/hooks/useWakeLock';
 import type { SetLog, ExerciseId } from '@/types';
 
 export function ActiveWorkout() {
@@ -22,6 +23,7 @@ export function ActiveWorkout() {
 
   const [swapOpen, setSwapOpen] = useState(false);
   const timer = useRestTimer();
+  const wakeLock = useWakeLock();
 
   // Find the original workout to get restSeconds per exercise
   const workouts = useStore((state) => state.library.workouts);
@@ -139,15 +141,28 @@ export function ActiveWorkout() {
               {completedSets}/{totalSets} sets completed
             </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleFinish}
-            className="text-destructive border-destructive/30 hover:bg-destructive/10"
-          >
-            <Square size={14} className="mr-1" />
-            Finish
-          </Button>
+          <div className="flex items-center gap-1.5">
+            {wakeLock.isSupported && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={wakeLock.toggle}
+                aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
+                className={`h-9 w-9 ${wakeLock.isActive ? 'text-warning' : 'text-text-tertiary'}`}
+              >
+                <Sun size={16} />
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleFinish}
+              className="text-destructive border-destructive/30 hover:bg-destructive/10"
+            >
+              <Square size={14} className="mr-1" />
+              Finish
+            </Button>
+          </div>
         </div>
       </TopBar>
 
