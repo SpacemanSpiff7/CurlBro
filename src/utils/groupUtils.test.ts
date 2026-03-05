@@ -1,13 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import { deriveGroups, getGroupLabel } from './groupUtils';
 
+interface TestExercise {
+  name: string;
+  supersetGroupId?: string;
+}
+
 describe('deriveGroups', () => {
   it('returns empty array for empty input', () => {
-    expect(deriveGroups([])).toEqual([]);
+    expect(deriveGroups<TestExercise>([])).toEqual([]);
   });
 
   it('creates solo groups for exercises without supersetGroupId', () => {
-    const exercises = [
+    const exercises: TestExercise[] = [
       { name: 'A' },
       { name: 'B' },
       { name: 'C' },
@@ -23,7 +28,7 @@ describe('deriveGroups', () => {
   });
 
   it('groups consecutive exercises with the same supersetGroupId', () => {
-    const exercises = [
+    const exercises: TestExercise[] = [
       { name: 'A', supersetGroupId: 'g1' },
       { name: 'B', supersetGroupId: 'g1' },
       { name: 'C' },
@@ -38,7 +43,7 @@ describe('deriveGroups', () => {
   });
 
   it('splits non-consecutive exercises with the same supersetGroupId into separate groups', () => {
-    const exercises = [
+    const exercises: TestExercise[] = [
       { name: 'A', supersetGroupId: 'g1' },
       { name: 'B' },
       { name: 'C', supersetGroupId: 'g1' },
@@ -54,7 +59,7 @@ describe('deriveGroups', () => {
   });
 
   it('handles multiple different groups', () => {
-    const exercises = [
+    const exercises: TestExercise[] = [
       { name: 'A', supersetGroupId: 'g1' },
       { name: 'B', supersetGroupId: 'g1' },
       { name: 'C', supersetGroupId: 'g2' },
@@ -73,7 +78,7 @@ describe('deriveGroups', () => {
   });
 
   it('handles a single exercise', () => {
-    const groups = deriveGroups([{ name: 'A' }]);
+    const groups = deriveGroups<TestExercise>([{ name: 'A' }]);
 
     expect(groups).toHaveLength(1);
     expect(groups[0].groupId).toBe('solo-0');
@@ -81,7 +86,7 @@ describe('deriveGroups', () => {
   });
 
   it('handles a single grouped exercise', () => {
-    const groups = deriveGroups([{ name: 'A', supersetGroupId: 'g1' }]);
+    const groups = deriveGroups<TestExercise>([{ name: 'A', supersetGroupId: 'g1' }]);
 
     expect(groups).toHaveLength(1);
     expect(groups[0].groupId).toBe('g1');
@@ -89,7 +94,7 @@ describe('deriveGroups', () => {
   });
 
   it('handles mixed solo and grouped exercises', () => {
-    const exercises = [
+    const exercises: TestExercise[] = [
       { name: 'A' },
       { name: 'B', supersetGroupId: 'g1' },
       { name: 'C', supersetGroupId: 'g1' },
@@ -109,8 +114,8 @@ describe('deriveGroups', () => {
   });
 
   it('preserves exercise references', () => {
-    const a = { name: 'A', supersetGroupId: 'g1' };
-    const b = { name: 'B', supersetGroupId: 'g1' };
+    const a: TestExercise = { name: 'A', supersetGroupId: 'g1' };
+    const b: TestExercise = { name: 'B', supersetGroupId: 'g1' };
     const groups = deriveGroups([a, b]);
 
     expect(groups[0].exercises[0]).toBe(a);
