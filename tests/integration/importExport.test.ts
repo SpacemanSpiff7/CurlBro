@@ -51,10 +51,27 @@ describe('Import/Export', () => {
       expect(text).toContain('Cable Flye (Mid-Height) [cable_flye] | 3x12 |  | Rest: 60s');
     });
 
-    it('includes tips', () => {
+    it('includes tips by default', () => {
       const workout = createTestWorkout();
       const text = formatExport(workout, graph);
       expect(text).toContain('  tip:');
+    });
+
+    it('omits tips when includeTips is false', () => {
+      const workout = createTestWorkout();
+      const text = formatExport(workout, graph, { includeTips: false });
+      expect(text).not.toContain('  tip:');
+    });
+
+    it('adds blank lines between exercises', () => {
+      const workout = createTestWorkout();
+      const text = formatExport(workout, graph, { includeTips: false });
+      const lines = text.split('\n');
+      // After header + separator + first exercise, expect a blank line before second exercise
+      const benchIdx = lines.findIndex((l) => l.includes('barbell_bench_press'));
+      const flyeIdx = lines.findIndex((l) => l.includes('cable_flye'));
+      expect(lines[flyeIdx - 1]).toBe('');
+      expect(flyeIdx).toBeGreaterThan(benchIdx);
     });
 
     it('handles empty weight', () => {

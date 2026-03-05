@@ -184,6 +184,37 @@ export function SettingsPage() {
         </div>
       </div>
 
+      {/* Export */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Export
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-sm text-text-primary">Include tips</div>
+              <div className="text-[11px] text-text-tertiary">
+                Adds form cues below each exercise
+              </div>
+            </div>
+            <button
+              role="switch"
+              aria-checked={settings.exportIncludeTips}
+              onClick={() => updateSettings({ exportIncludeTips: !settings.exportIncludeTips })}
+              className={`relative h-7 w-12 rounded-full transition-colors ${
+                settings.exportIncludeTips ? 'bg-accent-primary' : 'bg-bg-elevated'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
+                  settings.exportIncludeTips ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Actions */}
       <div className="space-y-3">
         <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">

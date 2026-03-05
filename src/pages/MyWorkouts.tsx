@@ -242,22 +242,12 @@ export function MyWorkouts() {
     [startSession]
   );
 
+  const exportIncludeTips = useStore((state) => state.settings.exportIncludeTips);
+
   const handleExport = useCallback(
     async (workout: SavedWorkout) => {
-      const text = formatExport(workout, graph);
+      const text = formatExport(workout, graph, { includeTips: exportIncludeTips });
 
-      // Try native share sheet first (mobile)
-      if (navigator.share) {
-        try {
-          await navigator.share({ title: workout.name, text });
-          return;
-        } catch (err) {
-          // User cancelled — silently ignore AbortError
-          if (err instanceof Error && err.name === 'AbortError') return;
-        }
-      }
-
-      // Fall back to clipboard
       try {
         await navigator.clipboard.writeText(text);
         toast.success('Copied to clipboard', { duration: 1500 });
@@ -265,7 +255,7 @@ export function MyWorkouts() {
         toast.error('Could not copy to clipboard');
       }
     },
-    [graph]
+    [graph, exportIncludeTips]
   );
 
   const handleDelete = useCallback(
