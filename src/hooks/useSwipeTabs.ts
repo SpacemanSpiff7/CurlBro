@@ -27,6 +27,12 @@ export function useSwipeTabs(): (node: HTMLElement | null) => void {
       nodeRef.current = node;
 
       function handleTouchStart(e: TouchEvent) {
+        // Skip tab navigation when touch starts inside a swipe-to-delete row
+        const target = e.target as HTMLElement;
+        if (target.closest('[data-swipe-row]')) {
+          touchStart.current = null;
+          return;
+        }
         const touch = e.touches[0];
         touchStart.current = { x: touch.clientX, y: touch.clientY };
       }

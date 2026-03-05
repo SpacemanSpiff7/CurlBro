@@ -81,10 +81,12 @@ interface AppState {
     endSession: () => WorkoutLog | null;
     completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
     addSet: (exerciseIndex: number) => void;
+    removeSet: (exerciseIndex: number, setIndex: number) => void;
     goToExercise: (index: number) => void;
     swapExercise: (exerciseIndex: number, newExerciseId: ExerciseId) => void;
     startTimer: (seconds: number) => void;
     stopTimer: () => void;
+    pauseTimer: () => void;
     tickTimer: () => void;
     adjustTimer: (delta: number) => void;
   };
@@ -406,6 +408,14 @@ export const useStore = create<AppState>()(
             }
           });
         },
+        removeSet: (exerciseIndex: number, setIndex: number) => {
+          set((state) => {
+            const exercise = state.session.active?.exercises[exerciseIndex];
+            if (exercise && exercise.sets.length > 1) {
+              exercise.sets.splice(setIndex, 1);
+            }
+          });
+        },
         goToExercise: (index: number) => {
           set((state) => {
             if (state.session.active) {
@@ -433,6 +443,11 @@ export const useStore = create<AppState>()(
         stopTimer: () => {
           set((state) => {
             state.session.timer = emptyTimer;
+          });
+        },
+        pauseTimer: () => {
+          set((state) => {
+            state.session.timer.isRunning = false;
           });
         },
         tickTimer: () => {

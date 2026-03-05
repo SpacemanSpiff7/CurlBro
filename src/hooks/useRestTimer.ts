@@ -5,7 +5,7 @@ import { vibrateTimerDone } from '@/utils/haptics';
 
 export function useRestTimer() {
   const timer = useStore((state) => state.session.timer);
-  const { startTimer, stopTimer, tickTimer, adjustTimer } = useStore(
+  const { startTimer, stopTimer, pauseTimer, tickTimer, adjustTimer } = useStore(
     (state) => state.sessionActions
   );
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -53,6 +53,10 @@ export function useRestTimer() {
     stopTimer();
   }, [stopTimer]);
 
+  const pause = useCallback(() => {
+    pauseTimer();
+  }, [pauseTimer]);
+
   const addTime = useCallback(
     (delta: number) => {
       adjustTimer(delta);
@@ -72,6 +76,7 @@ export function useRestTimer() {
     isDone: !timer.isRunning && timer.totalSeconds > 0 && timer.remainingSeconds <= 0,
     start,
     stop,
+    pause,
     addTime,
   };
 }

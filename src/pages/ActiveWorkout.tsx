@@ -8,8 +8,10 @@ import { RestTimer } from '@/components/session/RestTimer';
 import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
 import { VideoSheet } from '@/components/exercise/VideoSheet';
 import { TopBar } from '@/components/shared/TopBar';
+import { MarqueeText } from '@/components/shared/MarqueeText';
 import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
+import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import type { SetLog, ExerciseId } from '@/types';
 
@@ -52,7 +54,7 @@ function WakeLockToggle({ isActive, isSupported, onToggle }: {
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, goToExercise, endSession, swapExercise } = useStore(
+  const { completeSet, addSet, removeSet, goToExercise, endSession, swapExercise } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
@@ -62,6 +64,7 @@ export function ActiveWorkout() {
   const [videoOpen, setVideoOpen] = useState(false);
   const timer = useRestTimer();
   const wakeLock = useWakeLock();
+  const elapsed = useElapsedTimer(session?.startedAt ?? null);
 
   // Find the original workout to get restSeconds per exercise
   const workouts = useStore((state) => state.library.workouts);
@@ -103,6 +106,15 @@ export function ActiveWorkout() {
     if (!session) return;
     addSet(session.currentExerciseIndex);
   }, [session, addSet]);
+
+  const handleRemoveSet = useCallback(
+    (setIndex: number) => {
+      if (!session) return;
+      removeSet(session.currentExerciseIndex, setIndex);
+      toast('Set removed', { duration: 2000 });
+    },
+    [session, removeSet]
+  );
 
   const handlePrev = useCallback(() => {
     if (!session || session.currentExerciseIndex <= 0) return;
@@ -163,24 +175,30 @@ export function ActiveWorkout() {
   return (
     <div className="flex flex-col gap-4 pb-20">
       <TopBar>
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-text-primary">
-              {session.workoutName || 'Workout'}
-            </h1>
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <MarqueeText
+              text={session.workoutName || 'Workout'}
+              className="text-lg font-bold text-text-primary"
+            />
             <div className="text-xs text-text-tertiary">
               {completedSets}/{totalSets} sets completed
             </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleFinish}
-            className="text-destructive border-destructive/30 hover:bg-destructive/10"
-          >
-            <Square size={14} className="mr-1" />
-            Finish
-          </Button>
+          <div className="flex flex-col items-end gap-0.5 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleFinish}
+              className="text-destructive border-destructive/30 hover:bg-destructive/10"
+            >
+              <Square size={14} className="mr-1" />
+              Finish
+            </Button>
+            <span className="text-[10px] tabular-nums text-text-tertiary">
+              {elapsed}
+            </span>
+          </div>
         </div>
       </TopBar>
 
@@ -278,6 +296,7 @@ export function ActiveWorkout() {
           restSeconds={restSeconds}
           onStart={timer.start}
           onStop={timer.stop}
+          onPause={timer.pause}
           onAddTime={timer.addTime}
         />
         <WakeLockToggle
@@ -302,10 +321,27 @@ export function ActiveWorkout() {
               defaultWeight={defaultWeight}
               onCompleteSet={handleCompleteSet}
               onAddSet={handleAddSet}
+              onRemoveSet={handleRemoveSet}
             />
           </motion.div>
         </AnimatePresence>
       )}
+
+      {/* Beginner tip — below sets/Add Set */}
+      <AnimatePresence mode="wait">
+        {exerciseInfo?.beginner_tips && (
+          <motion.div
+            key={currentExercise?.exerciseId}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2"
+          >
+            <span className="text-xs text-accent-primary">{exerciseInfo.beginner_tips}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Exercise dots */}
       <div className="flex items-center justify-center gap-1.5 pt-2">
@@ -332,12 +368,6 @@ export function ActiveWorkout() {
             />
           );
         })}
-      {/* Beginner tip */}
-      {exerciseInfo?.beginner_tips && (
-        <div className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2">
-          <span className="text-xs text-accent-primary">{exerciseInfo.beginner_tips}</span>
-        </div>
-      )}
       </div>
 
       <VideoSheet
@@ -345,6 +375,7 @@ export function ActiveWorkout() {
         open={videoOpen}
         onOpenChange={setVideoOpen}
       />
+      </div>
     </div>
   );
 }

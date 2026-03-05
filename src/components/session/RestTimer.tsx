@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Minus, Pause, Play, Plus, RotateCcw } from 'lucide-react';
+import { Minus, Plus, RotateCcw } from 'lucide-react';
 
 interface RestTimerProps {
   remainingSeconds: number;
@@ -11,6 +11,7 @@ interface RestTimerProps {
   restSeconds: number;
   onStart: (seconds: number) => void;
   onStop: () => void;
+  onPause: () => void;
   onAddTime: (delta: number) => void;
 }
 
@@ -27,17 +28,37 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 export const RestTimer = memo(function RestTimer({
   remainingSeconds,
+  totalSeconds,
   progress,
   isRunning,
   isDone,
   restSeconds,
   onStart,
   onStop,
+  onPause,
   onAddTime,
 }: RestTimerProps) {
-  const isIdle = !isRunning && !isDone;
+  // States: idle (never started), running, paused (started then paused), done
+  const isPaused = !isRunning && !isDone && totalSeconds > 0 && remainingSeconds > 0;
+  const isIdle = !isRunning && !isDone && !isPaused;
   const strokeDashoffset = isIdle ? 0 : CIRCUMFERENCE * (1 - progress);
   const displayTime = isIdle ? restSeconds : remainingSeconds;
+
+  const handleRingTap = () => {
+    if (isDone) {
+      // Reset to idle
+      onStop();
+    } else if (isRunning) {
+      // Pause
+      onPause();
+    } else if (isPaused) {
+      // Resume from remaining time
+      onStart(remainingSeconds);
+    } else {
+      // Idle → start
+      onStart(restSeconds);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center gap-2">
@@ -63,78 +84,90 @@ export const RestTimer = memo(function RestTimer({
         </button>
       </div>
 
-      {/* Center: timer ring */}
-      <div className="relative" style={{ width: RING_SIZE, height: RING_SIZE }}>
-        <svg
-          width={RING_SIZE}
-          height={RING_SIZE}
-          className="rotate-[-90deg]"
+      {/* Center: tappable timer ring */}
+      <div className="relative" style={{ width: RING_SIZE + 16, height: RING_SIZE + 16 }}>
+        <button
+          onClick={handleRingTap}
+          aria-label={
+            isDone ? 'Reset timer'
+              : isRunning ? 'Pause timer'
+              : isPaused ? 'Resume timer'
+              : 'Start timer'
+          }
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ left: 8, top: 8, width: RING_SIZE, height: RING_SIZE }}
         >
-          <circle
-            cx={RING_SIZE / 2}
-            cy={RING_SIZE / 2}
-            r={RADIUS}
-            fill="none"
-            stroke="var(--color-bg-elevated)"
-            strokeWidth={STROKE_WIDTH}
-          />
-          <circle
-            cx={RING_SIZE / 2}
-            cy={RING_SIZE / 2}
-            r={RADIUS}
-            fill="none"
-            stroke={isDone ? 'var(--color-success)' : 'var(--color-accent-primary)'}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-            strokeDasharray={CIRCUMFERENCE}
-            strokeDashoffset={strokeDashoffset}
-            style={{ transition: 'stroke-dashoffset 0.3s ease' }}
-          />
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          {isDone ? (
-            <span className="text-lg font-bold text-success">GO!</span>
-          ) : (
-            <span className="text-lg font-bold tabular-nums text-text-primary">
-              {formatTime(displayTime)}
-            </span>
-          )}
-        </div>
-      </div>
+          <svg
+            width={RING_SIZE}
+            height={RING_SIZE}
+            className="rotate-[-90deg] absolute inset-0"
+          >
+            <circle
+              cx={RING_SIZE / 2}
+              cy={RING_SIZE / 2}
+              r={RADIUS}
+              fill="none"
+              stroke="var(--color-bg-elevated)"
+              strokeWidth={STROKE_WIDTH}
+            />
+            {isRunning ? (
+              <motion.circle
+                cx={RING_SIZE / 2}
+                cy={RING_SIZE / 2}
+                r={RADIUS}
+                fill="none"
+                stroke="var(--color-accent-primary)"
+                strokeWidth={STROKE_WIDTH}
+                strokeLinecap="round"
+                strokeDasharray={CIRCUMFERENCE}
+                strokeDashoffset={strokeDashoffset}
+                animate={{ opacity: [1, 0.6, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+              />
+            ) : (
+              <circle
+                cx={RING_SIZE / 2}
+                cy={RING_SIZE / 2}
+                r={RADIUS}
+                fill="none"
+                stroke={isDone ? 'var(--color-success)' : 'var(--color-accent-primary)'}
+                strokeWidth={STROKE_WIDTH}
+                strokeLinecap="round"
+                strokeDasharray={CIRCUMFERENCE}
+                strokeDashoffset={strokeDashoffset}
+                style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+              />
+            )}
+          </svg>
+          <div className="relative flex flex-col items-center justify-center">
+            {isDone ? (
+              <span className="text-lg font-bold text-success">GO!</span>
+            ) : (
+              <span className="text-lg font-bold tabular-nums text-text-primary">
+                {formatTime(displayTime)}
+              </span>
+            )}
+          </div>
+        </button>
 
-      {/* Right: play/pause + reset */}
-      <div className="flex flex-col gap-1">
-        <button
-          onClick={() => {
-            if (isRunning) {
+        {/* Reset icon — appears when paused, positioned top-right outside ring */}
+        {isPaused && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            onClick={(e) => {
+              e.stopPropagation();
               onStop();
-            } else {
-              onStart(isIdle ? restSeconds : remainingSeconds);
-            }
-          }}
-          disabled={isDone}
-          aria-label={isRunning ? 'Pause timer' : 'Start timer'}
-          className="flex items-center justify-center h-8 w-10 rounded-lg transition-colors disabled:opacity-30"
-        >
-          {isRunning ? (
-            <motion.div
-              animate={{ opacity: [1, 0.4, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <Pause size={16} className="text-accent-primary" />
-            </motion.div>
-          ) : (
-            <Play size={16} className="text-text-tertiary hover:text-text-secondary" />
-          )}
-        </button>
-        <button
-          onClick={onStop}
-          disabled={isIdle}
-          aria-label="Reset timer"
-          className="flex items-center justify-center h-8 w-10 rounded-lg text-text-tertiary hover:text-text-secondary disabled:opacity-30 transition-colors"
-        >
-          <RotateCcw size={14} />
-        </button>
+            }}
+            aria-label="Reset timer"
+            className="absolute flex items-center justify-center h-6 w-6 rounded-full bg-bg-elevated border border-border-subtle text-text-tertiary hover:text-text-secondary"
+            style={{ top: 0, right: 0 }}
+          >
+            <RotateCcw size={12} />
+          </motion.button>
+        )}
       </div>
     </div>
   );

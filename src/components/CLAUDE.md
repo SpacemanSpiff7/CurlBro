@@ -21,3 +21,4 @@
 - VideoSheet — YouTube embed with external link fallback
 - WorkoutStatusBar — push/pull ratio + missing muscle badges
 - SuggestionPanel — complement, gap, and superset suggestions
+- MarqueeText — auto-scrolling text when content overflows its container (uses ResizeObserver + framer-motion)

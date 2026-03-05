@@ -11,5 +11,6 @@ Components never access store.graph directly — always through a hook.
 - useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount)
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts
 - useAutoWorkoutName generates a default name from the most common muscle group + date
-- useSwipeTabs returns a callback ref for horizontal swipe-to-navigate between bottom nav tabs
+- useSwipeTabs returns a callback ref for horizontal swipe-to-navigate between bottom nav tabs; skips tab swipe when touch starts inside `[data-swipe-row]`
+- useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore
 - Custom hooks go in src/hooks/, not colocated with components
