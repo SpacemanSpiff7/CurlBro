@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Plus, Save, RotateCcw } from 'lucide-react';
+import { AdSlot } from '@/components/ads/AdSlot';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,6 +48,9 @@ export function BuildWorkout() {
       </TopBar>
 
       <div className="flex flex-col gap-4 px-4">
+        {/* Ad slot */}
+        <AdSlot slotKey="build" />
+
         {/* Add Exercise card */}
         <button
           onClick={() => setPickerOpen(true)}

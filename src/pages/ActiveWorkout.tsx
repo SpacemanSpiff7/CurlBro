@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer, Video } from 'lucide-react';
+import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -357,6 +358,7 @@ export function ActiveWorkout() {
       {/* Rest timer */}
       <div className="flex flex-col items-center gap-2">
         <RestTimer
+
           remainingSeconds={timer.remainingSeconds}
           totalSeconds={timer.totalSeconds}
           progress={timer.progress}
@@ -385,6 +387,9 @@ export function ActiveWorkout() {
           }
         />
       </div>
+
+      {/* Rest timer ad */}
+      {isActive && <AdSlot slotKey="rest_timer" className="mt-1" />}
 
       {/* Group set tracker */}
       {currentGroup && (
@@ -500,6 +505,7 @@ export function ActiveWorkout() {
                     <div className="text-sm font-medium text-text-primary">{stats.totalWeight.toLocaleString()} lb</div>
                   </div>
                 </div>
+                <AdSlot slotKey="post_workout" />
                 <Button
                   variant="outline"
                   onClick={() => {

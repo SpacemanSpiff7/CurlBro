@@ -21,4 +21,11 @@ Components never access store.graph directly — always through a hook.
 - useBuilderGroups — wraps `deriveGroups()` for the builder tab, returns `ExerciseGroup<WorkoutExercise>[]` from the current workout draft
 - useSessionGroups — wraps `deriveGroups()` for the active session, returns `ExerciseGroup<ExerciseLog>[]` from the current session
 - useSuggestions — superset suggestions now return `SupersetSuggestion[]` (with `exerciseId` and `parentExerciseId`) instead of plain `ExerciseId[]`
+- useHouseAd — selects random house ad from filtered category pool. Module-level `Set<string>`
+  prevents repeats within a session (resets on reload). Supports optional rotation via
+  `setInterval` for long-visible slots. Auto-resets pool when category exhausted.
+- useAdSlot — manages AdSense `<ins>` lifecycle per slot. When `ADSENSE_ENABLED` is false
+  (current default), immediately returns `showHouseAd: true`. When enabled: detects ad
+  blockers, pushes ad once per mount, falls back on no-fill after 2s. Uses `requestAnimationFrame`
+  to defer setState (React 19 strict mode compliance).
 - Custom hooks go in src/hooks/, not colocated with components

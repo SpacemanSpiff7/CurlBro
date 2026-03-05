@@ -45,3 +45,14 @@
 - SupersetContainer (`workout/`) — visual wrapper for grouped exercises with accent border, group label (Superset/Tri-set/Circuit), ungroup button, and sortable drag handle for the whole group
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
 - ExerciseCard — includes superset/ungroup actions in its action menu. "Add to superset" opens ExercisePicker to select an exercise to group with.
+- AdSlot (`ads/`) — Reusable ad component accepting `slotKey: AdSlotKey`. Renders AdSense
+  `<ins>` when enabled or HouseAdComponent fallback. 6 placements across all pages.
+  See `ads/CLAUDE.md` for full details.
+- HouseAdComponent (`ads/`) — Memo'd presenter for house ads. Renders label, headline, body,
+  optional CTA link. Uses `role="complementary"` + accent color left border.
+- PrivacyPolicyPage — Bottom sheet (85dvh) with privacy policy content. Opened from Settings.
+- AboutPage — Bottom sheet (60dvh) with app info, credits, contact links. Opened from Settings.
+- CookieConsent (`shared/`) — EU cookie consent banner for Consent Mode v2. Fixed bottom bar
+  above BottomNav. Accept/Reject with equal visual weight (EU compliance). Stores choice in
+  `localStorage` key `curlbro_cookie_consent`. Exports `resetCookieConsent()` for Settings
+  "Manage Cookies" button. Updates `gtag('consent', 'update', ...)` on accept.

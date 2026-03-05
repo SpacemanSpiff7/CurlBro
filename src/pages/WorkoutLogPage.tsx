@@ -1,5 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, Fragment } from 'react';
 import { ClipboardList, Trash2, Copy, Save } from 'lucide-react';
+import { AdSlot } from '@/components/ads/AdSlot';
 import { toast } from 'sonner';
 import { useStore } from '@/store';
 import { TopBar } from '@/components/shared/TopBar';
@@ -267,13 +268,17 @@ export function WorkoutLogPage() {
             </div>
           </div>
         ) : (
-          sortedLogs.map((log) => (
-            <LogRow
-              key={log.id}
-              log={log}
-              onSelect={handleSelect}
-              onDelete={handleDelete}
-            />
+          sortedLogs.map((log, index) => (
+            <Fragment key={log.id}>
+              <LogRow
+                log={log}
+                onSelect={handleSelect}
+                onDelete={handleDelete}
+              />
+              {sortedLogs.length >= 5 && (index + 1) % 4 === 0 && index < sortedLogs.length - 1 && (
+                <AdSlot slotKey="log_feed" />
+              )}
+            </Fragment>
           ))
         )}
       </div>

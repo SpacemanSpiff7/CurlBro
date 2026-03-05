@@ -52,6 +52,7 @@ exercise filtering (warm-up, cool-down, recovery, light day).
 Each major directory has its own CLAUDE.md with specific conventions:
 - `src/store/CLAUDE.md` — Zustand slice patterns, persistence rules
 - `src/components/CLAUDE.md` — component architecture, key components
+- `src/components/ads/CLAUDE.md` — ad system architecture, placements, AdSense activation checklist
 - `src/hooks/CLAUDE.md` — hook patterns, memoization rules
 - `src/utils/CLAUDE.md` — utility function conventions
 - `tests/CLAUDE.md` — testing conventions and patterns
@@ -66,7 +67,13 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/utils/groupUtils.ts` — superset group derivation (deriveGroups, getGroupLabel, ExerciseGroup interface)
 - `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
 - `public/llms.txt` — LLM workout generation instructions (import format + guidance)
-- `public/robots.txt` — points crawlers to llms.txt and exercises.json
+- `public/robots.txt` — points crawlers to llms.txt, exercises.json, and sitemap.xml
+- `public/sitemap.xml` — sitemap for search engine crawlers
+- `public/manifest.json` — PWA web app manifest
+- `public/ads.txt` — AdSense publisher verification (placeholder until approved)
+- `src/config/ads.ts` — ad slot definitions, AdSense kill switch (`import.meta.env.PROD && false`), publisher ID
+- `src/data/houseAds.ts` — 30 house ads across 6 categories (tips + portfolio promos)
+- `src/components/shared/CookieConsent.tsx` — EU cookie consent banner + Consent Mode v2 integration
 
 ## Custom Agents
 - `@exercise-validator` — Validates all exercise JSON files: schema completeness, ID uniqueness, cross-reference integrity, scientific plausibility (movement patterns, muscle targeting, workout position). Run after adding/modifying exercise data.
@@ -111,3 +118,18 @@ Agent definitions live in `.claude/agents/`.
 - Cardio equipment types: `treadmill`, `elliptical`, `stationary_bike`, `rowing_machine`, `stair_climber`, `jump_rope`
 - Public asset paths in JSX must use `import.meta.env.BASE_URL` prefix — hardcoded `/foo.png`
   breaks in production where base is `/curlbro/`. Vite only rewrites paths in index.html, not JSX.
+- Ad system uses a two-tier approach: Google AdSense (programmatic, behind `ADSENSE_ENABLED`
+  kill switch) with house ad fallbacks. Currently house ads only — see
+  `src/components/ads/CLAUDE.md` for activation checklist. `ADSENSE_ENABLED` uses
+  `import.meta.env.PROD && false` to prevent loading in dev mode.
+- Consent Mode v2 defaults in `index.html` must come BEFORE the gtag.js script load.
+  Cookie consent banner updates consent via `gtag('consent', 'update', ...)`.
+- `index.html` has SEO meta tags, OG/Twitter cards, JSON-LD structured data, and a
+  `<noscript>` fallback with indexable content. OG image URLs are absolute (social
+  crawlers don't resolve relative URLs). Google Search Console verification meta tag
+  needs `REPLACE_WITH_YOUR_CODE` replaced after setup.
+- Dynamic `document.title` updates per tab via `TAB_TITLES` map in `App.tsx`.
+- Test files under `src/` are compiled by `tsc -b` via `tsconfig.app.json` — they must NOT
+  use jest-dom matchers (`toBeInTheDocument`, `toHaveAttribute`). Use vitest-native assertions
+  (`toBeTruthy`, `toBeNull`, `getAttribute()`) instead. Jest-dom types are only available at
+  vitest runtime via `vitest.setup.ts`, not during `tsc -b`.

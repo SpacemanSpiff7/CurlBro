@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
+import { CookieConsent } from '@/components/shared/CookieConsent';
 import { Toaster } from '@/components/ui/sonner';
 import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
@@ -11,6 +12,14 @@ import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeTabs } from '@/hooks/useSwipeTabs';
 import { deriveGroups } from '@/utils/groupUtils';
 import type { TabId } from '@/types';
+
+const TAB_TITLES: Record<TabId, string> = {
+  build: 'Build Workout — CurlBro',
+  library: 'My Workouts — CurlBro',
+  active: 'Active Session — CurlBro',
+  log: 'Workout Log — CurlBro',
+  settings: 'Settings — CurlBro',
+};
 
 function AppContent() {
   const activeTab = useStore((state) => state.activeTab);
@@ -94,6 +103,10 @@ export default function App() {
   }, [activeTab]);
 
   useEffect(() => {
+    document.title = TAB_TITLES[activeTab];
+  }, [activeTab]);
+
+  useEffect(() => {
     initGraph();
   }, [initGraph]);
 
@@ -111,6 +124,7 @@ export default function App() {
         <AppContent />
       </main>
       <BottomNav />
+      <CookieConsent />
       <Toaster position="top-center" />
     </div>
   );

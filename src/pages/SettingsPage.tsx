@@ -1,12 +1,18 @@
-import { useCallback } from 'react';
-import { RotateCcw } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { RotateCcw, Info, Shield, ExternalLink, Cookie } from 'lucide-react';
+import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
+import { AdSlot } from '@/components/ads/AdSlot';
+import { AboutPage } from './AboutPage';
+import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { useStore } from '@/store';
 import { TRAINING_GOALS, TRAINING_GOAL_LABELS } from '@/types';
 import type { TrainingGoal } from '@/types';
 
 export function SettingsPage() {
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
   const { clearAll } = useStore((state) => state.libraryActions);
@@ -241,7 +247,66 @@ export function SettingsPage() {
           </Button>
         </div>
       </div>
+      {/* Ad slot */}
+      <AdSlot slotKey="settings" />
+
+      {/* About */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          About
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setAboutOpen(true)}
+            className="w-full justify-start text-text-secondary"
+          >
+            <Info size={14} className="mr-2" />
+            About CurlBro
+          </Button>
+          <a
+            href="https://simonelongo.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+          >
+            <ExternalLink size={14} />
+            simonelongo.com
+          </a>
+        </div>
       </div>
+
+      {/* Legal */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Legal
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setPrivacyOpen(true)}
+            className="w-full justify-start text-text-secondary"
+          >
+            <Shield size={14} className="mr-2" />
+            Privacy Policy
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={resetCookieConsent}
+            className="w-full justify-start text-text-secondary"
+          >
+            <Cookie size={14} className="mr-2" />
+            Manage Cookies
+          </Button>
+        </div>
+      </div>
+      </div>
+
+      <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
+      <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
     </div>
   );
 }
