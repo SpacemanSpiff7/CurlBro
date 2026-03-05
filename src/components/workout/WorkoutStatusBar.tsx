@@ -1,23 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { useWorkoutValidation } from '@/hooks/useWorkoutValidation';
 import { useStore } from '@/store';
-
-const muscleLabels: Record<string, string> = {
-  chest: 'Chest',
-  upper_back: 'Back',
-  shoulders: 'Shoulders',
-  traps: 'Traps',
-  biceps: 'Biceps',
-  triceps: 'Triceps',
-  forearms: 'Forearms',
-  quadriceps: 'Quads',
-  hamstrings: 'Hams',
-  glutes: 'Glutes',
-  calves: 'Calves',
-  core: 'Core',
-  adductors: 'Adductors',
-  abductors: 'Abductors',
-};
+import { MUSCLE_LABELS } from '@/types';
 
 export function WorkoutStatusBar() {
   const exercises = useStore((state) => state.builder.workout.exercises);
@@ -56,7 +40,7 @@ export function WorkoutStatusBar() {
                 variant="outline"
                 className="text-[10px] px-1 py-0 border-warning/40 text-warning/80"
               >
-                {muscleLabels[muscle] ?? muscle}
+                {MUSCLE_LABELS[muscle as keyof typeof MUSCLE_LABELS] ?? muscle}
               </Badge>
             ))}
           </div>

@@ -49,19 +49,21 @@ export function useWorkoutConflicts(): ActiveConflict[] {
         const [patternA, patternB] = conflict.exercises;
 
         if (patternA === patternB) {
-          // Self-conflict: find two different exercises with the same pattern
+          // Self-conflict: report all unique pairs with the same pattern
           const matching = resolved.filter(
             (r) => r.meta.movement_pattern === patternA
           );
-          if (matching.length >= 2) {
-            const key = `pattern:${patternA}:${matching[0].id}|${matching[1].id}`;
-            if (!seen.has(key)) {
-              seen.add(key);
-              active.push({
-                conflict,
-                exerciseNameA: matching[0].meta.name,
-                exerciseNameB: matching[1].meta.name,
-              });
+          for (let i = 0; i < matching.length; i++) {
+            for (let j = i + 1; j < matching.length; j++) {
+              const key = `pattern:${patternA}:${matching[i].id}|${matching[j].id}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                active.push({
+                  conflict,
+                  exerciseNameA: matching[i].meta.name,
+                  exerciseNameB: matching[j].meta.name,
+                });
+              }
             }
           }
         } else {

@@ -9,18 +9,10 @@ import { SuggestionPanel } from '@/components/workout/SuggestionPanel';
 import { WorkoutStatusBar } from '@/components/workout/WorkoutStatusBar';
 import { ConflictWarnings } from '@/components/workout/ConflictWarnings';
 import { TemplateSelector } from '@/components/workout/TemplateSelector';
+import { useAutoWorkoutName } from '@/hooks/useAutoWorkoutName';
 import { useStore } from '@/store';
-import { WORKOUT_SPLITS } from '@/types';
+import { WORKOUT_SPLITS, SPLIT_LABELS } from '@/types';
 import type { WorkoutSplit } from '@/types';
-
-const SPLIT_LABELS: Record<WorkoutSplit, string> = {
-  push: 'Push',
-  pull: 'Pull',
-  legs: 'Legs',
-  upper: 'Upper',
-  lower: 'Lower',
-  full_body: 'Full Body',
-};
 
 export function BuildWorkout() {
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -30,14 +22,16 @@ export function BuildWorkout() {
     (state) => state.builderActions
   );
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
+  const autoName = useAutoWorkoutName();
 
   const handleSave = useCallback(() => {
     if (workout.exercises.length === 0) return;
-    const name = workout.name.trim() || 'Untitled Workout';
+    const name = workout.name.trim() || autoName || 'Untitled Workout';
     setWorkoutName(name);
-    saveWorkout({ ...workout, name });
+    const now = new Date().toISOString();
+    saveWorkout({ ...workout, name, updatedAt: now });
     toast.success(`Saved "${name}"`);
-  }, [workout, setWorkoutName, saveWorkout]);
+  }, [workout, autoName, setWorkoutName, saveWorkout]);
 
   const handleSplitToggle = useCallback(
     (split: WorkoutSplit) => {
@@ -54,7 +48,7 @@ export function BuildWorkout() {
       <Input
         value={workout.name}
         onChange={(e) => setWorkoutName(e.target.value)}
-        placeholder="Workout name..."
+        placeholder={autoName || 'Workout name...'}
         className="text-lg font-medium bg-transparent border-none px-0 placeholder:text-text-tertiary focus-visible:ring-0"
         aria-label="Workout name"
       />

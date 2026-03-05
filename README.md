@@ -1,6 +1,6 @@
 # CurlBro
 
-A client-side gym workout builder powered by an exercise graph of 162 exercises and 1,340 relationships. Build workouts with intelligent suggestions, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
+A client-side gym workout builder powered by an exercise graph of 162 exercises and 1,340 relationships. Build workouts with intelligent suggestions, exercise conflict warnings, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
 
 Mobile-first. Dark mode. No server required.
 
@@ -45,13 +45,18 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 - One-tap exercise substitution from the graph
 - Smart suggestions: complements, muscle gap analysis, superset candidates
 - Push/pull balance indicator
-- Quick-start templates (Push, Pull, Legs)
+- Workout split selector (Push/Pull/Legs/Upper/Lower/Full Body)
+- Exercise conflict warnings with scientific citations
+- Auto-generated workout names based on dominant muscle group
+- Embedded exercise videos (YouTube + external links)
 
 ### My Workouts Tab
-- Save and manage workouts
+- Save and manage user-created workouts
+- 16 pre-built templates across 4 difficulty tiers (beginner to advanced)
+- Edit a template to create a customizable copy
 - Copy workout to clipboard in a human-readable format
 - Import workouts from text (round-trip compatible)
-- Start live sessions from saved workouts
+- Start live sessions from any workout
 
 ### Active Workout Tab
 - Exercise-by-exercise navigation
@@ -79,6 +84,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | Animation   | Framer Motion                                      |
 | Drag & Drop | @dnd-kit                                           |
 | Search      | Fuse.js                                            |
+| Toasts      | sonner                                             |
 | Testing     | Vitest + React Testing Library                     |
 
 ---
@@ -88,20 +94,24 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ```
 src/
   components/
-    exercise/      # ExerciseCard, ExercisePicker, SubstitutePanel, MuscleTags
+    exercise/      # ExerciseCard, ExercisePicker, SubstitutePanel, MuscleTags, VideoSheet
     session/       # SetTracker, RestTimer
     shared/        # BottomNav, ErrorBoundary
     ui/            # shadcn/ui primitives
-    workout/       # WorkoutList, SuggestionPanel, WorkoutStatusBar, TemplateSelector
+    workout/       # WorkoutList, SuggestionPanel, WorkoutStatusBar, TemplateSelector,
+                   # ConflictWarnings
   data/
     exercises.ts   # Merges 7 JSON files (162 exercises)
     graphBuilder.ts# Pure function: raw JSON -> ExerciseGraph
-    exercises/     # JSON files by muscle group
+    exerciseConflicts.ts  # 33 exercise conflict rules with scientific citations
+    seededWorkouts.ts     # 16 pre-built workout templates
+    exercises/     # JSON files by muscle group (01-07)
   hooks/           # useExerciseSearch, useSubstitutes, useSuggestions,
-                   # useWorkoutValidation, useRestTimer
+                   # useWorkoutValidation, useWorkoutConflicts, useRestTimer,
+                   # useAutoWorkoutName
   pages/           # BuildWorkout, MyWorkouts, ActiveWorkout, SettingsPage
   store/           # Single Zustand store (graph, builder, library, session, settings)
-  types/           # Branded types, Zod schemas, all interfaces
+  types/           # Branded types, Zod schemas, all interfaces, shared label constants
   utils/           # formatExport, parseImport, audio, haptics
 tests/
   fixtures/        # Test exercise graph (8 exercises)
@@ -124,6 +134,38 @@ The graph is loaded once at startup and treated as immutable. All queries go thr
 
 ---
 
+## Exercise Conflicts
+
+33 exercise conflicts across 8 categories warn users about potentially unsafe or suboptimal exercise combinations:
+
+- Spinal compression stacking (e.g., heavy squat + heavy deadlift)
+- Shoulder impingement (e.g., bench press before overhead press)
+- Elbow stress accumulation
+- Lumbar stabilizer pre-fatigue
+- Rotator cuff fatigue
+- Knee joint stress
+- Grip/forearm fatigue before heavy pulls
+- Pattern-level conflicts (e.g., two hip hinges)
+
+All conflicts include scientific citations (McGill, NSCA, Cools, Kolber, Willardson).
+
+---
+
+## Seeded Workouts
+
+16 pre-built templates targeting a moderately active adult:
+
+| Category | Count | Description |
+|----------|-------|-------------|
+| Easy Machine | 4 | Machine-only, beginner-friendly (legs, push, pull, full body) |
+| Intermediate | 5 | Free weight + cable mix (PPL + upper/lower) |
+| Advanced | 4 | Heavy compound emphasis (push, pull, legs, power full body) |
+| Specialty | 4 | Targeted focus (arms, shoulders, posterior chain, core) |
+
+Evidence-based programming from Schoenfeld, RP, Nippard, NSCA.
+
+---
+
 ## Import/Export Format
 
 Workouts can be copied and shared as plain text:
@@ -143,7 +185,7 @@ The `[exercise_id]` in brackets enables perfect round-trip fidelity -- paste an 
 
 ## Testing
 
-87 tests across 10 test files:
+93 tests across 11 test files:
 
 ```bash
 # Run all tests
@@ -165,6 +207,7 @@ npm run test:coverage
 - Store actions (add, remove, reorder, swap exercises)
 - Fuzzy search and muscle filtering
 - Substitutes, suggestions, validation hooks
+- Exercise conflict detection (ID-based and pattern-based)
 - Rest timer lifecycle
 - Import/export parsing and round-trip fidelity
 - Full session flow (start, track sets, navigate, finish)
@@ -207,3 +250,5 @@ All data is stored in the browser's `localStorage` under the key `curlbro-storag
 - Settings (rest timer defaults)
 
 On load, each stored object is validated with its Zod schema. Invalid data is silently dropped -- the app never crashes on corrupt storage.
+
+Seeded workout templates are NOT persisted -- they are always available from the bundled data. When a user edits or starts a template, a copy is created in their personal library.

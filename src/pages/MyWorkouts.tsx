@@ -14,21 +14,13 @@ import { useStore } from '@/store';
 import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
 import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
+import { SPLIT_LABELS } from '@/types';
 import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
 
 const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
   beginner: 'text-green-400',
   intermediate: 'text-yellow-400',
   advanced: 'text-red-400',
-};
-
-const SPLIT_LABELS: Record<string, string> = {
-  push: 'Push',
-  pull: 'Pull',
-  legs: 'Legs',
-  upper: 'Upper',
-  lower: 'Lower',
-  full_body: 'Full Body',
 };
 
 function seededToSaved(workout: SeededWorkout): SavedWorkout {

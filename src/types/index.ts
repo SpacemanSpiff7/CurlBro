@@ -216,6 +216,24 @@ export const DEFAULT_SETTINGS: AppSettings = {
 // ─── Navigation ──────────────────────────────────────────
 export type TabId = 'build' | 'library' | 'active' | 'settings';
 
+// ─── Display Labels ─────────────────────────────────────
+export const MUSCLE_LABELS: Record<MuscleGroup, string> = {
+  chest: 'Chest',
+  upper_back: 'Back',
+  shoulders: 'Shoulders',
+  traps: 'Traps',
+  biceps: 'Biceps',
+  triceps: 'Triceps',
+  forearms: 'Forearms',
+  quadriceps: 'Quads',
+  hamstrings: 'Hams',
+  glutes: 'Glutes',
+  calves: 'Calves',
+  core: 'Core',
+  adductors: 'Adductors',
+  abductors: 'Abductors',
+};
+
 // ─── Workout Split Muscle Groups ─────────────────────────
 // Evidence base: Schoenfeld (2010, 2017 meta-analyses), NSCA Essentials of
 // Strength Training (4th ed.), Renaissance Periodization RP Hypertrophy,
@@ -239,6 +257,15 @@ export const WORKOUT_SPLITS = [
   'push', 'pull', 'legs', 'upper', 'lower', 'full_body',
 ] as const;
 export type WorkoutSplit = typeof WORKOUT_SPLITS[number];
+
+export const SPLIT_LABELS: Record<WorkoutSplit, string> = {
+  push: 'Push',
+  pull: 'Pull',
+  legs: 'Legs',
+  upper: 'Upper',
+  lower: 'Lower',
+  full_body: 'Full Body',
+};
 
 export const WORKOUT_SPLIT_MUSCLES: Record<WorkoutSplit, {
   primary: MuscleGroup[];

@@ -15,7 +15,7 @@ export function ActiveWorkout() {
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
-  const addLog = useStore((state) => state.libraryActions.addLog);
+
 
   const timer = useRestTimer();
 
@@ -73,12 +73,9 @@ export function ActiveWorkout() {
   }, [session, goToExercise, timer]);
 
   const handleFinish = useCallback(() => {
-    const log = endSession();
-    if (log) {
-      addLog(log);
-    }
+    endSession(); // endSession already pushes the log to library.logs
     setActiveTab('library');
-  }, [endSession, addLog, setActiveTab]);
+  }, [endSession, setActiveTab]);
 
   const handleStartTimer = useCallback(
     (seconds: number) => {

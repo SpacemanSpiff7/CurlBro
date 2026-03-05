@@ -12,30 +12,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { MuscleTags } from './MuscleTags';
 import { useExerciseSearch } from '@/hooks/useExerciseSearch';
 import { useStore } from '@/store';
+import { MUSCLE_GROUPS, MUSCLE_LABELS } from '@/types';
 import type { Exercise, ExerciseId, MuscleGroup } from '@/types';
-import { MUSCLE_GROUPS } from '@/types';
 
 interface ExercisePickerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-
-const muscleLabels: Record<string, string> = {
-  chest: 'Chest',
-  upper_back: 'Back',
-  shoulders: 'Shoulders',
-  traps: 'Traps',
-  biceps: 'Biceps',
-  triceps: 'Triceps',
-  forearms: 'Forearms',
-  quadriceps: 'Quads',
-  hamstrings: 'Hams',
-  glutes: 'Glutes',
-  calves: 'Calves',
-  core: 'Core',
-  adductors: 'Adductors',
-  abductors: 'Abductors',
-};
 
 const ExerciseRow = memo(function ExerciseRow({
   exercise,
@@ -128,7 +111,7 @@ export function ExercisePicker({ open, onOpenChange }: ExercisePickerProps) {
                   className="cursor-pointer whitespace-nowrap text-xs select-none"
                   onClick={() => toggleMuscle(muscle)}
                 >
-                  {muscleLabels[muscle] ?? muscle}
+                  {MUSCLE_LABELS[muscle] ?? muscle}
                 </Badge>
               ))}
             </div>

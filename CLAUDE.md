@@ -5,11 +5,12 @@ Client-side React workout builder using an exercise graph (162 exercises, 1340 e
 Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
 
 ## Tech Stack
-- React 18+ / TypeScript (strict) / Vite
+- React 19 / TypeScript (strict) / Vite 7
 - Zustand (state) + Immer (immutable updates) + Zod (validation)
 - shadcn/ui + Tailwind CSS 4 + Framer Motion
 - @dnd-kit for drag-to-reorder
 - Fuse.js for fuzzy search
+- sonner for toast notifications
 - Vitest + React Testing Library (unit/integration)
 - Playwright (E2E)
 
@@ -32,6 +33,7 @@ Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
 - Zod schemas double as runtime validators AND TypeScript types
 - All graph queries go through custom hooks — components never access the graph directly
 - All state mutations go through Zustand actions — components never mutate state directly
+- Shared display labels live in src/types/index.ts (MUSCLE_LABELS, SPLIT_LABELS) — never duplicate
 
 ## Architecture Docs (read before working on related areas)
 - `docs/architecture.md` — system architecture, data flow, component hierarchy
@@ -44,10 +46,15 @@ Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
 ## Directory-Level Docs
 Each major directory has its own CLAUDE.md with specific conventions:
 - `src/store/CLAUDE.md` — Zustand slice patterns, persistence rules
-- `src/components/CLAUDE.md` — component architecture, compound component API
+- `src/components/CLAUDE.md` — component architecture, key components
 - `src/hooks/CLAUDE.md` — hook patterns, memoization rules
 - `src/utils/CLAUDE.md` — utility function conventions
 - `tests/CLAUDE.md` — testing conventions and patterns
+
+## Key Data Files
+- `src/data/exercises/` — 7 JSON files with 162 exercises
+- `src/data/exerciseConflicts.ts` — 33 exercise conflicts with scientific citations
+- `src/data/seededWorkouts.ts` — 16 pre-built workout templates across 4 difficulty tiers
 
 ## Workflow
 1. Read relevant docs before starting work on any area
@@ -59,6 +66,16 @@ Each major directory has its own CLAUDE.md with specific conventions:
 7. Commit with conventional commits: feat:, fix:, test:, docs:, refactor:
 
 ## Git Strategy
-- Branch per phase: `phase-1/foundation`, `phase-2/core-builder`, etc.
+- Work on main branch (initial development phase)
 - Commit after each meaningful unit of work
 - Never commit failing tests or type errors
+
+## Known Quirks
+- `endSession()` already pushes the workout log to library.logs — do NOT call `addLog()` separately
+- WorkoutExercise uses index-based React keys (allows duplicate exercises) — local component
+  state (expanded, video open) may not follow items on drag reorder. A future fix is to add
+  unique instance IDs to WorkoutExercise
+- The Immer middleware wraps `set()` automatically — no explicit `produce()` call needed
+- `navigator.clipboard` requires HTTPS — wrap in try/catch for HTTP dev environments
+- Exercise JSON `equipment` and `primary_muscles` fields are validated as `z.string()` arrays,
+  not typed enums — the Zod schema is looser than the TypeScript types

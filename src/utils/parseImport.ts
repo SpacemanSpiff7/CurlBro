@@ -28,7 +28,12 @@ export function parseImport(text: string, graph: ExerciseGraph): ParseResult {
   const headerMatch = lines[0].match(HEADER_RE);
   if (headerMatch) {
     name = headerMatch[1];
-    date = new Date(headerMatch[2]).toISOString();
+    const parsed = new Date(headerMatch[2]);
+    if (!isNaN(parsed.getTime())) {
+      date = parsed.toISOString();
+    } else {
+      warnings.push(`Invalid date "${headerMatch[2]}", using today`);
+    }
   } else {
     warnings.push('No header found, using defaults');
   }
