@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { RotateCcw, Info, Shield, FileText, ExternalLink, Cookie, Mail } from 'lucide-react';
+import { RotateCcw, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell } from 'lucide-react';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
@@ -73,6 +73,35 @@ export function SettingsPage() {
       </TopBar>
 
       <div className="flex flex-col gap-4 px-4">
+
+      {/* Help */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Help
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+          <a
+            href={`${import.meta.env.BASE_URL}guide/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+          >
+            <BookOpen size={14} />
+            User Guide
+            <ExternalLink size={12} className="ml-auto opacity-50" />
+          </a>
+          <a
+            href={`${import.meta.env.BASE_URL}programming/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+          >
+            <Dumbbell size={14} />
+            Workout Programming
+            <ExternalLink size={12} className="ml-auto opacity-50" />
+          </a>
+        </div>
+      </div>
 
       {/* Training Goal */}
       <div className="space-y-3">

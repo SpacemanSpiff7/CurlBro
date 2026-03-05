@@ -99,10 +99,10 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
             <p>
               For privacy questions, contact{' '}
               <a
-                href="mailto:contact@simonelongo.com"
+                href="mailto:contact@curlbro.com"
                 className="text-accent-primary underline"
               >
-                contact@simonelongo.com
+                contact@curlbro.com
               </a>
               .
             </p>

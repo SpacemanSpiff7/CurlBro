@@ -128,10 +128,10 @@ export function TermsOfUsePage({ open, onOpenChange }: TermsOfUsePageProps) {
             <p>
               For questions about these terms, contact{' '}
               <a
-                href="mailto:contact@simonelongo.com"
+                href="mailto:contact@curlbro.com"
                 className="text-accent-primary underline"
               >
-                contact@simonelongo.com
+                contact@curlbro.com
               </a>
               .
             </p>

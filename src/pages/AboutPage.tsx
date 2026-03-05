@@ -61,14 +61,14 @@ export function AboutPage({ open, onOpenChange }: AboutPageProps) {
             </a>
 
             <a
-              href="mailto:contact@simonelongo.com"
+              href="mailto:contact@curlbro.com"
               className="flex items-center gap-3 rounded-xl border border-border-subtle bg-bg-elevated p-3 min-h-[44px] active:bg-bg-surface transition-colors"
-              aria-label="Send email to contact@simonelongo.com"
+              aria-label="Send email to contact@curlbro.com"
             >
               <Mail size={16} className="text-accent-primary flex-shrink-0" />
               <div>
                 <div className="text-sm font-medium text-text-primary">Contact</div>
-                <div className="text-xs text-text-tertiary">contact@simonelongo.com</div>
+                <div className="text-xs text-text-tertiary">contact@curlbro.com</div>
               </div>
             </a>
 

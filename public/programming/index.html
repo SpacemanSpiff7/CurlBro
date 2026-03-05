@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Consent Mode v2 defaults — MUST come before any Google tags -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0MTXEF3SY"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-W0MTXEF3SY');
+  </script>
+
+  <!-- SEO Meta -->
+  <title>Workout Programming Guide &mdash; CurlBro</title>
+  <meta name="description" content="How to actually structure a week of training. Evidence-based workout programming: exercise order, split selection, stretch-mediated hypertrophy, and advanced techniques." />
+  <meta name="author" content="Simone Longo" />
+  <meta name="keywords" content="workout programming, exercise order, workout split, push pull legs, stretch mediated hypertrophy, science based training, curlbro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://curlbro.com/programming/" />
+
+  <!-- Viewport & Theme -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://curlbro.com/programming/" />
+  <meta property="og:title" content="Workout Programming Guide &mdash; CurlBro" />
+  <meta property="og:description" content="How to actually structure a week of training. Evidence-based exercise ordering, split selection, and advanced programming techniques." />
+  <meta property="og:image" content="https://curlbro.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="CurlBro" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Workout Programming Guide &mdash; CurlBro" />
+  <meta name="twitter:description" content="Evidence-based workout programming: exercise order, split selection, and advanced techniques." />
+  <meta name="twitter:image" content="https://curlbro.com/og-image.png" />
+
+  <!-- JSON-LD Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Anatomy of a Workout: Programming Without the BS",
+    "description": "Evidence-based workout programming guide covering exercise ordering, split selection, stretch-mediated hypertrophy, and advanced training techniques.",
+    "author": {
+      "@type": "Person",
+      "name": "Simone Longo",
+      "url": "https://simonelongo.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CurlBro",
+      "url": "https://curlbro.com"
+    },
+    "datePublished": "2026-03-05",
+    "dateModified": "2026-03-05",
+    "mainEntityOfPage": "https://curlbro.com/programming/",
+    "image": "https://curlbro.com/og-image.png",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Custom Properties ──────────────────────────────────── */
+    :root {
+      --bg-root: #09090b;
+      --bg-surface: #18181b;
+      --bg-elevated: #27272a;
+      --accent-primary: #06b6d4;
+      --accent-hover: #22d3ee;
+      --accent-muted: #164e63;
+      --accent-muted-bg: rgba(6, 182, 212, 0.08);
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(6, 182, 212, 0.3);
+      --content-max: 720px;
+      --radius: 12px;
+      --radius-sm: 8px;
+      /* Split calendar colors */
+      --split-push: #06b6d4;
+      --split-pull: #3b82f6;
+      --split-legs: #475569;
+      --split-rest: #3f3f46;
+    }
+
+    /* ── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Base ───────────────────────────────────────────────── */
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg-root);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Typography ─────────────────────────────────────────── */
+    h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }
+    h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin-top: 3.5rem; margin-bottom: 1rem; }
+    h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; margin-top: 2rem; margin-bottom: 0.75rem; }
+    p { margin-bottom: 1rem; color: var(--text-secondary); }
+    strong { color: var(--text-primary); font-weight: 600; }
+    a { color: var(--accent-primary); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent-hover); }
+    ul { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text-secondary); }
+    li { margin-bottom: 0.75rem; }
+    li::marker { color: var(--accent-primary); }
+
+    /* ── Icons ──────────────────────────────────────────────── */
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: -0.2em;
+      flex-shrink: 0;
+    }
+    .icon-accent { color: var(--accent-primary); }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem 1.5rem 2.5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('hero-barbell.jpg') center top / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(9, 9, 11, 0.25) 0%,
+        rgba(9, 9, 11, 0.55) 35%,
+        rgba(9, 9, 11, 0.9) 65%,
+        var(--bg-root) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent-primary);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { margin-bottom: 0.75rem; }
+    .hero h1 .accent { color: var(--accent-primary); }
+    .hero-sub {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ── Content Container ─────────────────────────────────── */
+    .content-wrap {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Section Heading with Icon ─────────────────────────── */
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-rule .icon { color: var(--accent-primary); width: 24px; height: 24px; }
+
+    /* ── Rule Cards ─────────────────────────────────────────── */
+    .rule-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .rule-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .rule-card p { margin-bottom: 0; font-size: 0.9375rem; }
+
+    /* ── Stretch Image ─────────────────────────────────────── */
+    .stretch-figure { margin: 1.5rem 0 2rem; }
+    .stretch-figure img {
+      width: 100%;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-subtle);
+      display: block;
+    }
+    .stretch-caption {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* ── Split Cards ───────────────────────────────────────── */
+    .split-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .split-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .split-name { font-weight: 700; font-size: 1.125rem; }
+    .split-freq { font-size: 0.8125rem; color: var(--text-tertiary); font-weight: 500; }
+    .split-reality { color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 1rem; }
+    .split-reality strong { color: var(--text-primary); }
+
+    /* ── "The Catch" Callout ───────────────────────────────── */
+    .catch-callout {
+      display: flex;
+      gap: 0.75rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+    }
+    .catch-callout .icon { color: var(--accent-primary); flex-shrink: 0; margin-top: 0.15rem; }
+    .catch-callout p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); }
+    .catch-callout strong { color: var(--accent-primary); font-weight: 600; }
+
+    /* ── Split Calendar ────────────────────────────────────── */
+    .calendar-section { margin: 2.5rem 0; }
+    .calendar-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.75rem;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .cal-day {
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.25rem;
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+    }
+    .cal-day-name {
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.375rem;
+      opacity: 0.7;
+    }
+    .cal-day-type { font-size: 0.75rem; font-weight: 600; }
+    .cal-push { background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.2); }
+    .cal-push .cal-day-name, .cal-push .cal-day-type { color: var(--split-push); }
+    .cal-pull { background: rgba(59, 130, 246, 0.12); border-color: rgba(59, 130, 246, 0.2); }
+    .cal-pull .cal-day-name, .cal-pull .cal-day-type { color: var(--split-pull); }
+    .cal-legs { background: rgba(71, 85, 105, 0.2); border-color: rgba(71, 85, 105, 0.3); }
+    .cal-legs .cal-day-name, .cal-legs .cal-day-type { color: #94a3b8; }
+    .cal-rest { background: rgba(63, 63, 70, 0.3); border-color: rgba(63, 63, 70, 0.4); }
+    .cal-rest .cal-day-name { color: var(--text-tertiary); }
+    .cal-rest .cal-day-type { color: var(--text-tertiary); font-weight: 400; font-style: italic; }
+
+    .calendar-legend {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* ── Advanced Cards ─────────────────────────────────────── */
+    .adv-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .adv-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .adv-card p { margin-bottom: 0; font-size: 0.9375rem; }
+
+    /* ── Sources ────────────────────────────────────────────── */
+    .sources {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
+    .sources h3 {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    .sources ul { list-style: none; padding: 0; }
+    .sources li {
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      font-style: italic;
+      padding: 0.25rem 0;
+      margin: 0;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .guide-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 0.8125rem;
+    }
+    .guide-footer a { color: var(--accent-primary); }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-sep { color: var(--text-tertiary); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
+      .hero { min-height: 340px; padding: 2rem 1rem 2rem; }
+      .content-wrap { padding: 0 1rem 3rem; }
+      .rule-card, .split-card, .adv-card { padding: 1rem; }
+      .catch-callout { padding: 0.875rem 1rem; }
+      .cal-day { padding: 0.5rem 0.125rem; }
+      .cal-day-name { font-size: 0.5rem; }
+      .cal-day-type { font-size: 0.625rem; }
+      .calendar-legend { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-bg" role="img" aria-label="Close-up of a knurled barbell on a gym rack with cinematic cyan edge lighting"></div>
+    <div class="hero-content">
+      <a href="../" class="hero-logo">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+        CurlBro
+      </a>
+      <h1>The Anatomy of a Workout<br><span class="accent">Programming Without the BS</span></h1>
+      <p class="hero-sub">
+        Whether you just figured out how to adjust the bench or you've been lifting for a decade, the trap is exactly the same: doing whatever machine happens to be open, hoping it eventually results in a better physique.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <main class="content-wrap">
+    <article>
+
+      <p>
+        You cannot out-work bad programming. Here is how you actually structure a week of training to maximize growth, manage joint stress, and get out of the gym in under an hour.
+      </p>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- SECTION 1: SESSION ORGANIZATION                       -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <h2 class="section-rule">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+        The Immutable Rules of Session Organization
+      </h2>
+
+      <p>
+        The order of your exercises isn't a creative choice; it's a biomechanical requirement.
+      </p>
+
+      <!-- Rule 1: Axial Load -->
+      <div class="rule-card">
+        <div class="rule-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          Respect the Axial Load
+        </div>
+        <p>
+          Heavy, multi-joint compounds (Squats, Deadlifts, Overhead Presses) happen first. You absolutely do not want your lumbar stabilizers and core pre-fatigued when you have a heavy barbell hovering over your windpipe.
+        </p>
+      </div>
+
+      <!-- Rule 2: Exploit the Stretch -->
+      <div class="rule-card">
+        <div class="rule-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+          Exploit the Stretch
+        </div>
+        <p>
+          Current sports science heavily favors <strong>"stretch-mediated hypertrophy"</strong>&mdash;loading a muscle when it is in its most lengthened position. This is why Incline Dumbbell Curls and Seated Leg Curls often trigger more growth than their standard counterparts. Prioritize deep range-of-motion movements early in the workout.
+        </p>
+      </div>
+
+      <!-- Bicep stretch/contract illustration -->
+      <figure class="stretch-figure">
+        <img
+          src="bicep-stretch.jpg"
+          alt="Anatomical wireframe illustration showing a bicep in stretched (relaxed) position versus contracted (flexed) position, highlighting the difference in muscle length under load"
+          width="1500"
+          height="796"
+          loading="lazy"
+        />
+        <figcaption class="stretch-caption">
+          Stretch-mediated hypertrophy: loading at full muscle length (left) produces superior growth stimulus compared to peak contraction alone (right). &mdash; Maeo et al., 2021
+        </figcaption>
+      </figure>
+
+      <!-- Rule 3: Save the Rails -->
+      <div class="rule-card">
+        <div class="rule-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Save the Rails for Last
+        </div>
+        <p>
+          By the end of your session, your central nervous system is cooked and your form is slipping. This is the exact time to sit down on a machine that balances the weight for you (like a Leg Extension or Pec Deck). Machines let you push to failure safely when free-weight technique would break down.
+        </p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- SECTION 2: PICKING YOUR SPLIT                         -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <h2 class="section-rule">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+        Picking Your Split (Be Honest With Yourself)
+      </h2>
+
+      <p>
+        A "split" is just how you allocate muscular fatigue across the week. The optimal split is simply the one your schedule allows you to actually recover from.
+      </p>
+
+      <!-- Full Body -->
+      <div class="split-card">
+        <div class="split-header">
+          <span class="split-name">Full Body</span>
+          <span class="split-freq">3 Days / Week</span>
+        </div>
+        <p class="split-reality">
+          <strong>The Reality:</strong> Best for busy people. You hit every major muscle group 3x a week. Research shows training each muscle 2&ndash;3x weekly produces significantly better hypertrophy than once per week, even at matched volume (Schoenfeld, 2016).
+        </p>
+        <div class="catch-callout">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          <p><strong>The Catch:</strong> You have to be economical. One heavy push, one heavy pull, one leg movement. You don't have time for five chest isolation exercises. Every slot needs to count.</p>
+        </div>
+      </div>
+
+      <!-- Upper / Lower -->
+      <div class="split-card">
+        <div class="split-header">
+          <span class="split-name">Upper / Lower</span>
+          <span class="split-freq">4 Days / Week</span>
+        </div>
+        <p class="split-reality">
+          <strong>The Reality:</strong> The sweet spot for intermediate lifters. Great balance of volume and nervous system recovery. Antagonist supersets (bench + row) fit naturally into upper days, halving your rest time without sacrificing performance.
+        </p>
+        <div class="catch-callout">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          <p><strong>The Catch:</strong> Lower body days are brutally taxing because you are stacking squats, hinges, and lunges into a single 60-minute window. Your cardiovascular system may tap out before your legs do.</p>
+        </div>
+      </div>
+
+      <!-- Push / Pull / Legs -->
+      <div class="split-card">
+        <div class="split-header">
+          <span class="split-name">Push / Pull / Legs</span>
+          <span class="split-freq">6 Days / Week</span>
+        </div>
+        <p class="split-reality">
+          <strong>The Reality:</strong> The choice for volume junkies. Push (Chest/Shoulders/Triceps), Pull (Back/Biceps), Legs (Quads/Hams/Calves). Each session is focused, so you can pile on the isolation work without running out of time.
+        </p>
+        <div class="catch-callout">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          <p><strong>The Catch:</strong> You literally have to train six days a week. If you routinely sleep five hours a night, this split will run you into the ground. Recovery is non-negotiable.</p>
+        </div>
+      </div>
+
+      <!-- Split Calendar (CSS grid) -->
+      <div class="calendar-section">
+        <div class="calendar-label">Example PPL Weekly Schedule</div>
+        <div class="calendar-grid">
+          <div class="cal-day cal-push">
+            <div class="cal-day-name">Mon</div>
+            <div class="cal-day-type">Push</div>
+          </div>
+          <div class="cal-day cal-pull">
+            <div class="cal-day-name">Tue</div>
+            <div class="cal-day-type">Pull</div>
+          </div>
+          <div class="cal-day cal-legs">
+            <div class="cal-day-name">Wed</div>
+            <div class="cal-day-type">Legs</div>
+          </div>
+          <div class="cal-day cal-push">
+            <div class="cal-day-name">Thu</div>
+            <div class="cal-day-type">Push</div>
+          </div>
+          <div class="cal-day cal-pull">
+            <div class="cal-day-name">Fri</div>
+            <div class="cal-day-type">Pull</div>
+          </div>
+          <div class="cal-day cal-legs">
+            <div class="cal-day-name">Sat</div>
+            <div class="cal-day-type">Legs</div>
+          </div>
+          <div class="cal-day cal-rest">
+            <div class="cal-day-name">Sun</div>
+            <div class="cal-day-type">Rest</div>
+          </div>
+        </div>
+        <div class="calendar-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--split-push);"></div>
+            Push
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--split-pull);"></div>
+            Pull
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: #94a3b8;"></div>
+            Legs
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--split-rest);"></div>
+            Rest
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- SECTION 3: ADVANCED MECHANICS                         -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <h2 class="section-rule">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        Advanced Mechanics: Moving Beyond the Basics
+      </h2>
+
+      <p>
+        If you want to keep growing past the beginner phase, you have to stop looking at the weight on the bar and start looking at how the muscle is working.
+      </p>
+
+      <!-- EMG -->
+      <div class="adv-card">
+        <div class="adv-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+          EMG Data Isn't Everything
+        </div>
+        <p>
+          Just because an exercise creates a massive "burn" or shows high activation on an EMG study (like the Concentration Curl) doesn't automatically mean it's the ultimate mass builder. Activation does not perfectly predict growth; <strong>mechanical tension under a heavy load does.</strong> A heavy barbell curl with controlled eccentrics will build more bicep mass than a light concentration curl with a monster pump.
+        </p>
+      </div>
+
+      <!-- Unilateral -->
+      <div class="adv-card">
+        <div class="adv-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+          The Unilateral Advantage
+        </div>
+        <p>
+          Barbell rows and bilateral leg presses are great, but they mask imbalances. Introducing single-arm cable rows or single-leg presses forces the lagging side to work without the dominant side taking over. If your left arm always fails first on barbell curls, you have an imbalance that bilateral work will never fix&mdash;only expose.
+        </p>
+      </div>
+
+      <!-- Prehab Tax -->
+      <div class="adv-card">
+        <div class="adv-card-header">
+          <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+          The Prehab Tax
+        </div>
+        <p>
+          You have to pay the toll for heavy lifting. Incorporating banded clamshells for glute medius activation, or face pulls for scapular retraction, takes 3 minutes but prevents months of joint pain down the line. Treat external rotation as a <strong>non-negotiable part of your Pull days.</strong> Your rotator cuffs will thank you in your 40s.
+        </p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- SOURCES                                                -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="sources">
+        <h3>Sources &mdash; CurlBro Database Literature</h3>
+        <ul>
+          <li>Maeo et al., 2021 &mdash; Stretch-mediated hypertrophy and the effect of muscle length on growth</li>
+          <li>Schoenfeld, B.J. (2010, 2016, 2017) &mdash; Mechanisms of hypertrophy, training frequency meta-analysis, volume dose-response</li>
+          <li>McGill, S. (2016) &mdash; Low Back Disorders: spinal stability, lumbar pre-fatigue, and cumulative compressive load</li>
+          <li>Cools, A.M. et al. (2008) &mdash; Scapular muscle balance and shoulder impingement rehabilitation</li>
+          <li>Kolber, M.J. et al. (2010) &mdash; Shoulder injuries attributed to resistance training</li>
+          <li>Willardson, J.M. (2007) &mdash; Core stability training applications and stabilizer fatigue sequencing</li>
+          <li>NSCA Essentials of Strength Training and Conditioning, 4th ed. (Haff &amp; Triplett, 2016)</li>
+          <li>Weakley et al. (2017) &mdash; Antagonist superset performance and training time efficiency</li>
+          <li>Pedrosa et al. (2023) &mdash; Stretch position training and muscle hypertrophy</li>
+        </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <footer class="guide-footer">
+    <div class="footer-links">
+      <a href="../">Open CurlBro</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="../guide/">User Guide</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://simonelongo.com" target="_blank" rel="noopener noreferrer">Simone Longo</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://simonelongo.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+    </div>
+    <p style="margin-top:0.5rem">&copy; 2026 CurlBro. Free and open for everyone.</p>
+  </footer>
+
+</body>
+</html>

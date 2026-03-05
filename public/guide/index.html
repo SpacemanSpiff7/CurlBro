@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Consent Mode v2 defaults — MUST come before any Google tags -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0MTXEF3SY"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-W0MTXEF3SY');
+  </script>
+
+  <!-- SEO Meta -->
+  <title>User Guide &mdash; CurlBro Workout Builder</title>
+  <meta name="description" content="Complete guide to CurlBro, the free science-backed workout builder. Learn about 201 exercises, smart conflict detection, superset grouping, gap analysis, and 16 pre-built templates." />
+  <meta name="author" content="Simone Longo" />
+  <meta name="keywords" content="curlbro guide, workout builder tutorial, exercise conflict detection, superset workout, gap analysis, workout templates, science-based workout" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://curlbro.com/guide/" />
+
+  <!-- Viewport & Theme -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://curlbro.com/guide/" />
+  <meta property="og:title" content="User Guide &mdash; CurlBro Workout Builder" />
+  <meta property="og:description" content="Complete guide to CurlBro, the free science-backed workout builder with 201 exercises, smart conflict detection, and 16 pre-built templates." />
+  <meta property="og:image" content="https://curlbro.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="CurlBro" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="User Guide &mdash; CurlBro Workout Builder" />
+  <meta name="twitter:description" content="Complete guide to the free science-backed workout builder with 201 exercises and smart programming tools." />
+  <meta name="twitter:image" content="https://curlbro.com/og-image.png" />
+
+  <!-- JSON-LD Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CurlBro User Guide — Complete Workout Builder Documentation",
+    "description": "Comprehensive guide covering all features of CurlBro: 201 exercises, conflict detection, gap analysis, superset grouping, workout templates, and more.",
+    "author": {
+      "@type": "Person",
+      "name": "Simone Longo",
+      "url": "https://simonelongo.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CurlBro",
+      "url": "https://curlbro.com"
+    },
+    "datePublished": "2026-03-05",
+    "dateModified": "2026-03-05",
+    "mainEntityOfPage": "https://curlbro.com/guide/",
+    "image": "https://curlbro.com/og-image.png",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Custom Properties ──────────────────────────────────── */
+    :root {
+      --bg-root: #09090b;
+      --bg-surface: #18181b;
+      --bg-elevated: #27272a;
+      --accent-primary: #06b6d4;
+      --accent-hover: #22d3ee;
+      --accent-muted: #164e63;
+      --accent-muted-bg: rgba(6, 182, 212, 0.08);
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(6, 182, 212, 0.3);
+      --caution-color: #f59e0b;
+      --caution-bg: rgba(245, 158, 11, 0.08);
+      --caution-border: rgba(245, 158, 11, 0.3);
+      --warning-color: #ef4444;
+      --warning-bg: rgba(239, 68, 68, 0.08);
+      --warning-border: rgba(239, 68, 68, 0.3);
+      --success-color: #22c55e;
+      --success-bg: rgba(34, 197, 94, 0.08);
+      --success-border: rgba(34, 197, 94, 0.3);
+      --content-max: 720px;
+      --sidebar-width: 240px;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    /* ── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Base ───────────────────────────────────────────────── */
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg-root);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Typography ─────────────────────────────────────────── */
+    h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin-top: 3rem; margin-bottom: 1rem; color: var(--text-primary); }
+    h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--text-primary); }
+    p { margin-bottom: 1rem; color: var(--text-secondary); }
+    strong { color: var(--text-primary); font-weight: 600; }
+    a { color: var(--accent-primary); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent-hover); }
+    ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text-secondary); }
+    li { margin-bottom: 0.5rem; }
+    li::marker { color: var(--accent-primary); }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875em;
+      background: var(--bg-elevated);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      color: var(--accent-primary);
+    }
+    pre {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+    pre code { background: none; padding: 0; color: var(--text-secondary); }
+    hr { border: none; border-top: 1px solid var(--border-subtle); margin: 2rem 0; }
+
+    /* ── Icons ──────────────────────────────────────────────── */
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: -0.2em;
+      flex-shrink: 0;
+    }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-lg { width: 28px; height: 28px; vertical-align: -0.3em; }
+    .icon-accent { color: var(--accent-primary); }
+    .icon-caution { color: var(--caution-color); }
+    .icon-warning { color: var(--warning-color); }
+    .icon-success { color: var(--success-color); }
+
+    /* ── Header / Hero ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .hero-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent-primary);
+      text-decoration: none;
+      margin-bottom: 1rem;
+    }
+    .hero h1 { margin-bottom: 0.75rem; }
+    .hero h1 span { color: var(--accent-primary); }
+    .hero-sub { font-size: 1.0625rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 2rem; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1rem 0.75rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.6875rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* ── Page Layout ───────────────────────────────────────── */
+    .page-layout {
+      max-width: calc(var(--content-max) + var(--sidebar-width) + 4rem);
+      margin: 0 auto;
+      display: flex;
+      gap: 2.5rem;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── TOC Sidebar ───────────────────────────────────────── */
+    .toc {
+      display: none;
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      position: sticky;
+      top: 1rem;
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      align-self: flex-start;
+    }
+    .toc-title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.75rem;
+      padding-left: 0.75rem;
+    }
+    .toc a {
+      display: block;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+    .toc a:hover, .toc a.active {
+      color: var(--text-primary);
+      border-left-color: var(--accent-primary);
+      background: var(--accent-muted-bg);
+    }
+
+    /* ── Mobile TOC ────────────────────────────────────────── */
+    .toc-mobile {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-root);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.75rem 1.5rem;
+    }
+    .toc-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.625rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .toc-toggle:hover { border-color: var(--accent-primary); }
+    .toc-toggle svg { transition: transform 0.2s; }
+    .toc-toggle.open svg { transform: rotate(180deg); }
+    .toc-dropdown {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-top: 0.5rem;
+      padding: 0.5rem 0;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .toc-dropdown.open { display: block; }
+    .toc-dropdown a {
+      display: block;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .toc-dropdown a:hover { background: var(--bg-elevated); color: var(--text-primary); }
+
+    /* ── Main Content ──────────────────────────────────────── */
+    .content { flex: 1; min-width: 0; max-width: var(--content-max); }
+    .content section { margin-bottom: 2rem; }
+    .content section:first-child h2 { margin-top: 0; }
+
+    /* ── Cards ──────────────────────────────────────────────── */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    /* ── Callouts ──────────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--accent-primary);
+      background: var(--accent-muted-bg);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout-caution {
+      border-left-color: var(--caution-color);
+      background: var(--caution-bg);
+    }
+    .callout-warning {
+      border-left-color: var(--warning-color);
+      background: var(--warning-bg);
+    }
+    .callout-success {
+      border-left-color: var(--success-color);
+      background: var(--success-bg);
+    }
+
+    /* ── Badges ─────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2em 0.6em;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .badge-accent { background: var(--accent-muted-bg); color: var(--accent-primary); border: 1px solid var(--border-accent); }
+    .badge-caution { background: var(--caution-bg); color: var(--caution-color); border: 1px solid var(--caution-border); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning-color); border: 1px solid var(--warning-border); }
+    .badge-success { background: var(--success-bg); color: var(--success-color); border: 1px solid var(--success-border); }
+
+    /* ── Tier Grid ──────────────────────────────────────────── */
+    .tier-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .tier-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .tier-card h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .tier-card .tier-count {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      margin-bottom: 0.5rem;
+    }
+    .tier-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.8125rem;
+    }
+    .tier-card li {
+      padding: 0.2rem 0;
+      margin: 0;
+      color: var(--text-secondary);
+    }
+
+    /* ── Conflict Cards ────────────────────────────────────── */
+    .conflict-example {
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .conflict-example.caution {
+      background: var(--caution-bg);
+      border: 1px solid var(--caution-border);
+    }
+    .conflict-example.warning {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+    }
+    .conflict-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+    .conflict-example p { font-size: 0.8125rem; margin-bottom: 0; }
+
+    /* ── Step List ──────────────────────────────────────────── */
+    .step-list { counter-reset: steps; list-style: none; padding-left: 0; }
+    .step-list li {
+      counter-increment: steps;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding: 0;
+    }
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-muted-bg);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 0.25rem; }
+
+    /* ── Tables ─────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    th {
+      text-align: left;
+      padding: 0.625rem 0.75rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+    td {
+      padding: 0.625rem 0.75rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Definition List ───────────────────────────────────── */
+    dl { margin-bottom: 1.5rem; }
+    dt {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      padding-top: 0.75rem;
+    }
+    dt:first-child { padding-top: 0; }
+    dd {
+      color: var(--text-secondary);
+      margin-left: 0;
+      margin-bottom: 0.5rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--border-subtle);
+    }
+
+    /* ── Session Flow ──────────────────────────────────────── */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.875rem 1rem;
+    }
+    .flow-step .icon { color: var(--accent-primary); }
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      color: var(--text-tertiary);
+      font-size: 0.875rem;
+    }
+
+    /* ── Group Example ─────────────────────────────────────── */
+    .group-example {
+      border-left: 3px solid var(--accent-primary);
+      background: var(--bg-surface);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .group-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+    }
+    .group-exercises { list-style: none; padding: 0; margin: 0; }
+    .group-exercises li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ── Log Entry Example ─────────────────────────────────── */
+    .log-entry {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .log-entry-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .log-entry-title { font-weight: 600; font-size: 0.9375rem; }
+    .log-entry-date { font-size: 0.75rem; color: var(--text-tertiary); }
+    .log-stats {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.8125rem;
+    }
+    .log-stat-label { color: var(--text-tertiary); }
+    .log-stat-value { color: var(--text-primary); font-weight: 600; }
+
+    /* ── Gap Bar ────────────────────────────────────────────── */
+    .gap-bar-container { margin-bottom: 1.5rem; }
+    .gap-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .gap-bar-label { font-size: 0.8125rem; color: var(--text-secondary); width: 80px; text-align: right; flex-shrink: 0; }
+    .gap-bar-track {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .gap-bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+    .gap-bar-fill.hit { background: var(--success-color); }
+    .gap-bar-fill.partial { background: var(--caution-color); }
+    .gap-bar-fill.missing { background: var(--bg-elevated); width: 0 !important; }
+
+    /* ── Tip Cards ──────────────────────────────────────────── */
+    .tip-grid { display: grid; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .tip-card {
+      display: flex;
+      gap: 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+    }
+    .tip-card .icon { margin-top: 0.15rem; }
+    .tip-card p { margin-bottom: 0; font-size: 0.9375rem; }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .guide-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 0.8125rem;
+    }
+    .guide-footer a { color: var(--accent-primary); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 767px) {
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .tier-grid { grid-template-columns: 1fr; }
+      .page-layout { padding: 1rem 1rem 3rem; }
+      .gap-bar-label { width: 60px; font-size: 0.75rem; }
+    }
+    @media (min-width: 768px) {
+      .toc { display: block; }
+      .toc-mobile { display: none; }
+    }
+    @media (max-width: 767px) {
+      .toc-mobile { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <a href="../" class="hero-logo">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+      CurlBro
+    </a>
+    <h1>User <span>Guide</span></h1>
+    <p class="hero-sub">
+      Everything you need to build smarter, science-backed workouts. From your first session to advanced programming techniques, this guide covers every feature in CurlBro.
+    </p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number">201</div>
+        <div class="stat-label">Exercises</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">14</div>
+        <div class="stat-label">Muscle Groups</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">16</div>
+        <div class="stat-label">Templates</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">33</div>
+        <div class="stat-label">Conflict Checks</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MOBILE TOC                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="toc-mobile">
+    <button class="toc-toggle" id="toc-toggle" aria-expanded="false" aria-controls="toc-dropdown">
+      <span>Table of Contents</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <nav class="toc-dropdown" id="toc-dropdown" role="navigation" aria-label="Table of contents">
+      <a href="#getting-started">Getting Started</a>
+      <a href="#exercise-database">Exercise Database</a>
+      <a href="#building-a-workout">Building a Workout</a>
+      <a href="#exercise-picker">Exercise Picker &amp; Smart Filters</a>
+      <a href="#templates">Pre-built Templates</a>
+      <a href="#conflict-detection">Conflict Detection</a>
+      <a href="#gap-analysis">Gap Analysis</a>
+      <a href="#supersets">Supersets, Tri-sets &amp; Circuits</a>
+      <a href="#active-session">Active Workout Session</a>
+      <a href="#workout-log">Workout Log</a>
+      <a href="#import-export">Import &amp; Export</a>
+      <a href="#settings">Settings Reference</a>
+      <a href="#privacy">Privacy &amp; Data</a>
+      <a href="#tips">Tips &amp; Best Practices</a>
+    </nav>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- PAGE LAYOUT                                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="page-layout">
+
+    <!-- ── Desktop TOC Sidebar ─────────────────────────────── -->
+    <nav class="toc" role="navigation" aria-label="Table of contents">
+      <div class="toc-title">Contents</div>
+      <a href="#getting-started">Getting Started</a>
+      <a href="#exercise-database">Exercise Database</a>
+      <a href="#building-a-workout">Building a Workout</a>
+      <a href="#exercise-picker">Exercise Picker &amp; Filters</a>
+      <a href="#templates">Pre-built Templates</a>
+      <a href="#conflict-detection">Conflict Detection</a>
+      <a href="#gap-analysis">Gap Analysis</a>
+      <a href="#supersets">Supersets &amp; Circuits</a>
+      <a href="#active-session">Active Session</a>
+      <a href="#workout-log">Workout Log</a>
+      <a href="#import-export">Import &amp; Export</a>
+      <a href="#settings">Settings</a>
+      <a href="#privacy">Privacy &amp; Data</a>
+      <a href="#tips">Tips &amp; Practices</a>
+    </nav>
+
+    <!-- ── Main Content ────────────────────────────────────── -->
+    <main class="content">
+      <article>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 1: GETTING STARTED                        -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="getting-started">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Getting Started
+          </h2>
+          <p>
+            CurlBro is a free, client-side workout builder that runs entirely in your browser. There is no account to create, no subscription, and no data ever leaves your device. Every workout you build, every log you save, and every setting you configure stays stored locally in your browser using <code>localStorage</code>.
+          </p>
+          <p>
+            The app is designed around evidence-based resistance training principles drawn from peer-reviewed research by Brad Schoenfeld, Renaissance Periodization (RP), Jeff Nippard, the NSCA, and Stronger By Science. Whether you are a beginner stepping into a gym for the first time or an experienced lifter looking for smarter programming tools, CurlBro gives you the building blocks to create balanced, effective workouts.
+          </p>
+
+          <h3>Your First Workout in Five Steps</h3>
+          <ol class="step-list">
+            <li>
+              <span class="step-num">1</span>
+              <div class="step-content">
+                <strong>Open the Build tab</strong>
+                This is your workout builder. You start here with an empty canvas. Tap the workout name at the top to rename it, or CurlBro will auto-generate a name based on the primary muscle groups you choose.
+              </div>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <div class="step-content">
+                <strong>Choose a workout split (optional)</strong>
+                Select a split like Push, Pull, Legs, Upper, Lower, or Full Body. This tells CurlBro which muscle groups to expect, enabling gap analysis that flags muscles you have not covered yet. You can skip this step and build a freeform workout instead.
+              </div>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <div class="step-content">
+                <strong>Add exercises</strong>
+                Tap the <strong>Add Exercise</strong> button to open the Exercise Picker. Search by name, filter by category (compound, isolation, stretch, mobility, cardio), or use smart context filters based on your current body state. Tap an exercise to add it to your workout.
+              </div>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <div class="step-content">
+                <strong>Configure sets, reps, and rest</strong>
+                Expand any exercise card to adjust the number of sets, the rep target, weight, rest period between sets, and optional notes. CurlBro pre-fills sensible defaults based on your training goal setting and whether the exercise is a compound or isolation movement.
+              </div>
+            </li>
+            <li>
+              <span class="step-num">5</span>
+              <div class="step-content">
+                <strong>Save or start your workout</strong>
+                When you are happy with your workout, save it to your library for future use, or tap <strong>Start Workout</strong> to begin an active session with set tracking and rest timers.
+              </div>
+            </li>
+          </ol>
+
+          <div class="callout">
+            <p><strong>Quick start alternative:</strong> If you do not want to build from scratch, head to the Library tab and choose one of the 16 pre-built templates. These are science-backed programs designed for different experience levels and split types. Tap any template to preview it, then start it directly or copy it to customize.</p>
+          </div>
+
+          <h3>Navigating the App</h3>
+          <p>
+            CurlBro has five main tabs, accessible from the bottom navigation bar. You can also swipe left and right on the main content area to navigate between adjacent tabs.
+          </p>
+          <ul>
+            <li><strong>Build</strong> &mdash; Create and edit your current workout draft. This is where you add exercises, set parameters, and organize your routine.</li>
+            <li><strong>Library</strong> &mdash; Browse your saved workouts and the 16 built-in templates. Saved workouts persist across sessions. Templates are always available and cannot be deleted.</li>
+            <li><strong>Active</strong> &mdash; Your in-progress workout session. Appears when you start a workout. Track sets, log weights and reps, and use the built-in rest timer.</li>
+            <li><strong>Log</strong> &mdash; View your workout history. Each completed session is saved here with detailed statistics including total volume, completion percentage, and duration.</li>
+            <li><strong>Settings</strong> &mdash; Configure your training goal, default sets and reps, rest timer durations, export preferences, and manage your data.</li>
+          </ul>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 2: EXERCISE DATABASE                      -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="exercise-database">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Exercise Database
+          </h2>
+          <p>
+            CurlBro includes a curated database of <strong>201 exercises</strong> organized across six categories. Every exercise has been selected for its training value and includes detailed metadata: primary and secondary muscles targeted, equipment required, movement pattern, difficulty level, recommended rep ranges for both hypertrophy and strength goals, superset candidates, complementary exercises, and substitutes.
+          </p>
+
+          <h3>Exercise Categories</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Count</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-accent">Compound</span></td>
+                  <td>~90</td>
+                  <td>Multi-joint movements that train multiple muscle groups simultaneously. Examples: barbell back squat, bench press, deadlift, pull-up, overhead press.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-accent">Isolation</span></td>
+                  <td>~72</td>
+                  <td>Single-joint movements that target one primary muscle group. Examples: bicep curl, tricep pushdown, lateral raise, leg extension, leg curl.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-accent">Dynamic Stretch</span></td>
+                  <td>~16</td>
+                  <td>Active stretching movements ideal for warm-ups. Move through range of motion with controlled, repetitive movements to prepare muscles for work.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-accent">Static Stretch</span></td>
+                  <td>~10</td>
+                  <td>Held-position stretches for cool-downs and flexibility. Hold each stretch for 20&ndash;60 seconds to promote recovery and improve range of motion.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-accent">Mobility</span></td>
+                  <td>~6</td>
+                  <td>Joint mobility drills using foam rollers, bands, and bodyweight. Focus on improving joint function, reducing stiffness, and addressing movement restrictions.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-accent">Cardio</span></td>
+                  <td>7</td>
+                  <td>Cardiovascular warm-up exercises on common gym equipment: treadmill, elliptical, stationary bike, rowing machine, stair climber, jump rope, and battle ropes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>14 Muscle Groups</h3>
+          <p>
+            CurlBro tracks exercise coverage across 14 distinct muscle groups. When you build a workout, the app analyzes which muscles are being targeted as primary movers and which are working as secondary stabilizers.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Muscle Group</th>
+                  <th>Label</th>
+                  <th>Example Exercises</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Chest</td><td>Chest</td><td>Bench press, incline press, cable flye, dip</td></tr>
+                <tr><td>Upper Back</td><td>Back</td><td>Barbell row, pull-up, lat pulldown, cable row</td></tr>
+                <tr><td>Shoulders</td><td>Shoulders</td><td>Overhead press, lateral raise, face pull, Arnold press</td></tr>
+                <tr><td>Traps</td><td>Traps</td><td>Barbell shrug, rack pull, face pull, upright row</td></tr>
+                <tr><td>Biceps</td><td>Biceps</td><td>Barbell curl, incline dumbbell curl, hammer curl</td></tr>
+                <tr><td>Triceps</td><td>Triceps</td><td>Tricep pushdown, skull crusher, overhead extension</td></tr>
+                <tr><td>Forearms</td><td>Forearms</td><td>Wrist curl, reverse wrist curl, farmer walk</td></tr>
+                <tr><td>Quadriceps</td><td>Quads</td><td>Back squat, front squat, leg press, leg extension</td></tr>
+                <tr><td>Hamstrings</td><td>Hams</td><td>Romanian deadlift, leg curl, Nordic curl, good morning</td></tr>
+                <tr><td>Glutes</td><td>Glutes</td><td>Hip thrust, Bulgarian split squat, glute bridge</td></tr>
+                <tr><td>Calves</td><td>Calves</td><td>Standing calf raise, seated calf raise, calf press</td></tr>
+                <tr><td>Core</td><td>Core</td><td>Plank, hanging leg raise, ab wheel, Pallof press</td></tr>
+                <tr><td>Adductors</td><td>Adductors</td><td>Hip adduction machine, Copenhagen plank, sumo squat</td></tr>
+                <tr><td>Abductors</td><td>Abductors</td><td>Hip abduction machine, side-lying leg raise, band walks</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Exercise Metadata</h3>
+          <p>
+            Each exercise in the database includes the following attributes, which CurlBro uses to power its intelligent features like conflict detection, superset suggestions, and gap analysis:
+          </p>
+          <ul>
+            <li><strong>Movement pattern</strong> &mdash; Categorizes how the exercise moves (e.g., hip hinge, vertical push, horizontal pull, squat, isolation). Used for pattern-level conflict detection.</li>
+            <li><strong>Force type</strong> &mdash; Push, pull, or isometric. Used for push/pull balance analysis.</li>
+            <li><strong>Equipment</strong> &mdash; All required equipment (barbell, dumbbell, cable machine, etc.). CurlBro supports over 40 equipment types including machines, free weights, bodyweight, and cardio equipment.</li>
+            <li><strong>Workout position</strong> &mdash; Where the exercise should ideally appear in a session (early, early-mid, mid, mid-late, late). Compounds go early; isolations go late.</li>
+            <li><strong>Difficulty</strong> &mdash; Beginner, intermediate, or advanced. Helps filter exercises appropriate for your experience level.</li>
+            <li><strong>Rep ranges</strong> &mdash; Separate recommendations for hypertrophy and strength goals, drawn from current evidence (Schoenfeld 2017 meta-analysis).</li>
+            <li><strong>Relationships</strong> &mdash; Each exercise lists substitutes (alternatives that target the same muscles), complements (exercises that pair well), and superset candidates (exercises suitable for back-to-back pairing with minimal rest).</li>
+          </ul>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 3: BUILDING A WORKOUT                     -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="building-a-workout">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+            Building a Workout
+          </h2>
+          <p>
+            The Build tab is your primary workspace. Here you construct workouts exercise by exercise, configuring every parameter to match your training goals. CurlBro provides real-time feedback as you build: conflict warnings when exercise pairings are risky, gap analysis showing which muscles still need attention, and smart suggestions for complementary exercises.
+          </p>
+
+          <h3>Naming Your Workout</h3>
+          <p>
+            Tap the workout name at the top of the Build tab to edit it. If you leave it blank, CurlBro auto-generates a name based on the most common primary muscle group in your workout combined with the current date (for example, "Chest &mdash; Mar 5"). This automatic naming gives you a useful reference when browsing your saved workouts later.
+          </p>
+
+          <h3>Selecting a Split</h3>
+          <p>
+            Below the workout name, you will find the optional split selector. CurlBro supports six standard workout splits, each with defined primary and secondary muscle group targets:
+          </p>
+          <ul>
+            <li><strong>Push</strong> &mdash; Chest, shoulders, and triceps as primary targets. Traps and core as secondary.</li>
+            <li><strong>Pull</strong> &mdash; Back, biceps, and traps as primary targets. Shoulders, forearms, and core as secondary.</li>
+            <li><strong>Legs</strong> &mdash; Quads, hamstrings, and glutes as primary targets. Calves, adductors, abductors, and core as secondary.</li>
+            <li><strong>Upper</strong> &mdash; Chest, back, shoulders, and traps as primary. Biceps, triceps, forearms, and core as secondary.</li>
+            <li><strong>Lower</strong> &mdash; Same primary targets as Legs (quads, hamstrings, glutes), designed to pair with Upper in an Upper/Lower rotation.</li>
+            <li><strong>Full Body</strong> &mdash; All six major groups (chest, back, shoulders, quads, hamstrings, glutes) as primary. All remaining muscles as secondary.</li>
+          </ul>
+          <p>
+            Selecting a split enables gap analysis, which shows you in real time which primary muscles you have covered and which you still need to target. You can change or remove the split at any time without losing your exercises.
+          </p>
+
+          <h3>Adding and Configuring Exercises</h3>
+          <p>
+            Tap <strong>Add Exercise</strong> to open the Exercise Picker (covered in detail in the next section). Once you add an exercise, it appears as a card in your workout. Tap any exercise card to expand it and reveal the full configuration panel:
+          </p>
+          <ul>
+            <li><strong>Sets</strong> &mdash; Number of working sets. CurlBro defaults to your configured default (typically 4 for compounds, 3 for isolations), but you can adjust from 1 to 10.</li>
+            <li><strong>Reps</strong> &mdash; Rep target per set. Pre-filled based on your training goal (strength: lower range, hypertrophy: moderate range, endurance: higher range) and the exercise's recommended rep range data.</li>
+            <li><strong>Weight</strong> &mdash; Optional weight in pounds or kilograms. Leave blank for bodyweight exercises or if you prefer not to pre-plan weights.</li>
+            <li><strong>Rest</strong> &mdash; Rest period between sets in seconds. Defaults are based on your settings: compounds typically get 90&ndash;180 seconds, isolations get 45&ndash;90 seconds. These follow NSCA rest period guidelines for different training goals.</li>
+            <li><strong>Notes</strong> &mdash; Free-text field for form cues, tempo prescriptions, or any personal reminders. Notes appear during active sessions alongside the exercise.</li>
+          </ul>
+
+          <h3>Reordering Exercises</h3>
+          <p>
+            Drag exercises up and down to reorder them. Exercise order matters: compound movements should generally come before isolation work (NSCA Essentials, 4th ed., Chapter 22), and exercises requiring the most neuromuscular precision should be performed when you are freshest. CurlBro's conflict detection will warn you if you place exercises in a suboptimal order that could increase injury risk.
+          </p>
+
+          <h3>Removing Exercises</h3>
+          <p>
+            Swipe left on any exercise card to reveal the delete action, or tap the remove button when the card is expanded. Removing an exercise updates the gap analysis and conflict checks immediately.
+          </p>
+
+          <h3>Saving to Library</h3>
+          <p>
+            When your workout is ready, tap <strong>Save</strong> to store it in your library. Saved workouts persist across browser sessions. You can load, edit, duplicate, and delete saved workouts at any time. Each saved workout tracks its creation and last-modified timestamps.
+          </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 4: EXERCISE PICKER & SMART FILTERS        -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="exercise-picker">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Exercise Picker &amp; Smart Filters
+          </h2>
+          <p>
+            The Exercise Picker is where you browse and search the full database of 201 exercises. It opens as a full-screen panel with a search bar at the top and filter options below. CurlBro uses Fuse.js for fuzzy search, so you do not need to type exact exercise names &mdash; close matches and partial terms work well.
+          </p>
+
+          <h3>Category Filters</h3>
+          <p>
+            At the top of the picker, category filter chips let you quickly narrow the exercise list by type:
+          </p>
+          <ul>
+            <li><span class="badge badge-accent">Strength</span> &mdash; Shows compound and isolation exercises. This is the default view and covers the core of most workouts.</li>
+            <li><span class="badge badge-accent">Warm-up</span> &mdash; Shows dynamic stretches, mobility drills, and cardio warm-up exercises. Perfect for building a warm-up sequence before your main workout.</li>
+            <li><span class="badge badge-accent">Cool-down</span> &mdash; Shows static stretches and mobility exercises. These are designed for post-workout recovery and flexibility development.</li>
+          </ul>
+
+          <h3>Context-Aware Smart Filters</h3>
+          <p>
+            CurlBro's most powerful feature in the Exercise Picker is its context-aware filtering system. These filters use information from the Body State Input panel (available on the Build tab) to intelligently recommend or exclude exercises based on your current physical state.
+          </p>
+
+          <h4>Body State Input</h4>
+          <p>
+            Before opening the Exercise Picker, you can optionally record your current body state. This involves two inputs:
+          </p>
+          <ul>
+            <li><strong>Muscle soreness</strong> &mdash; Rate soreness for each of the 14 muscle groups on a four-level scale: None, Mild, Moderate, or Severe. This data persists between sessions so you only need to update what has changed.</li>
+            <li><strong>Recent activities</strong> &mdash; Log any recent physical activity outside of gym training: running, cycling, swimming, hiking, sports, or yoga. You can specify whether the activity happened yesterday, today, or is planned for tomorrow. Each activity type is mapped to the muscle groups it impacts (for example, running impacts quads, hamstrings, glutes, and calves).</li>
+          </ul>
+
+          <h4>Smart Filter Types</h4>
+          <p>
+            When body state data is present, CurlBro generates smart filter chips that appear in the Exercise Picker:
+          </p>
+          <ul>
+            <li><span class="badge badge-caution">Avoid sore Chest</span> &mdash; Excludes exercises that primarily target a muscle group you have marked as moderately or severely sore. Mildly sore muscles are still included but flagged.</li>
+            <li><span class="badge badge-accent">Post-run recovery</span> &mdash; If you logged a run yesterday, this filter surfaces dynamic stretches and mobility exercises targeting the muscles impacted by running (quads, hamstrings, glutes, calves).</li>
+            <li><span class="badge badge-accent">Pre-hike warm-up</span> &mdash; If you have a hike planned for tomorrow, this filter shows warm-up exercises for the muscle groups you will need, helping you prepare the day before.</li>
+            <li><span class="badge badge-success">Light day</span> &mdash; Filters to lower-intensity exercises only. Useful when you want to train but your body needs a reduced workload. Excludes heavy compound movements in favor of machine work, isolations, and mobility.</li>
+          </ul>
+
+          <h4>Recovery Badges</h4>
+          <p>
+            When smart filters are active, exercise cards in the search results display colored recovery badges indicating how appropriate each exercise is given your current body state. Green badges indicate fully appropriate exercises, amber badges flag exercises that target muscles with mild soreness (proceed with caution), and exercises targeting severely sore muscles are excluded entirely from the results.
+          </p>
+
+          <div class="callout">
+            <p><strong>How it works under the hood:</strong> The smart filter system cross-references your soreness data and activity log against each exercise's primary and secondary muscle targets. It also considers the muscle impact mapping for each activity type. For example, if you swam yesterday, the system knows your upper back, shoulders, and core were stressed, and will suggest recovery exercises accordingly.</p>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 5: PRE-BUILT TEMPLATES                    -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="templates">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            Pre-built Templates
+          </h2>
+          <p>
+            CurlBro ships with <strong>16 pre-built workout templates</strong> organized into four tiers. Every template has been designed using evidence-based programming principles from the scientific literature (Schoenfeld, RP, Nippard, NSCA). Templates are bundled with the app and are always available &mdash; they cannot be accidentally deleted.
+          </p>
+          <p>
+            When you open a template, you get a complete, ready-to-use workout with exercises, sets, reps, and rest periods already configured. You can start training immediately, or tap <strong>Copy to Builder</strong> to customize the template to your preferences.
+          </p>
+
+          <div class="tier-grid">
+            <div class="tier-card">
+              <h4>
+                <span class="badge badge-success" style="margin-right:0.25rem">Beginner</span>
+                Easy Machine
+              </h4>
+              <div class="tier-count">4 workouts &mdash; Machine &amp; cable only</div>
+              <ul>
+                <li>Easy Machine Legs</li>
+                <li>Easy Machine Push</li>
+                <li>Easy Machine Pull</li>
+                <li>Easy Machine Full Body</li>
+              </ul>
+            </div>
+            <div class="tier-card">
+              <h4>
+                <span class="badge badge-accent" style="margin-right:0.25rem">Intermediate</span>
+                Free Weight
+              </h4>
+              <div class="tier-count">5 workouts &mdash; Barbell, dumbbell &amp; cable</div>
+              <ul>
+                <li>Push Day</li>
+                <li>Pull Day</li>
+                <li>Leg Day</li>
+                <li>Upper Body</li>
+                <li>Lower Body</li>
+              </ul>
+            </div>
+            <div class="tier-card">
+              <h4>
+                <span class="badge badge-warning" style="margin-right:0.25rem">Advanced</span>
+                Compound-Heavy
+              </h4>
+              <div class="tier-count">4 workouts &mdash; High intensity</div>
+              <ul>
+                <li>Heavy Push</li>
+                <li>Heavy Pull</li>
+                <li>Heavy Legs</li>
+                <li>Power Full Body</li>
+              </ul>
+            </div>
+            <div class="tier-card">
+              <h4>
+                <span class="badge badge-caution" style="margin-right:0.25rem">Specialty</span>
+                Targeted Sessions
+              </h4>
+              <div class="tier-count">4 workouts &mdash; Focused goals</div>
+              <ul>
+                <li>Arm Blaster</li>
+                <li>Shoulder Builder</li>
+                <li>Posterior Chain Focus</li>
+                <li>Core &amp; Conditioning</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>Programming Principles Behind the Templates</h3>
+          <p>
+            All templates follow these evidence-based principles:
+          </p>
+          <ul>
+            <li><strong>Compound exercises first</strong> &mdash; Exercises with the highest neural demand and heaviest loading are placed early in the session when the lifter is freshest (NSCA Essentials, Ch. 22).</li>
+            <li><strong>Isolation and machine work last</strong> &mdash; Lower systemic fatigue exercises finish the session, allowing targeted volume accumulation without compromising safety.</li>
+            <li><strong>Rep ranges matched to exercise type</strong> &mdash; Compounds: 5&ndash;8 reps (strength-hypertrophy overlap). Accessories: 8&ndash;12 reps (hypertrophy). Isolations: 12&ndash;15 reps (hypertrophy-endurance).</li>
+            <li><strong>Rest periods by exercise type</strong> &mdash; Compounds: 120&ndash;180 seconds. Accessories: 60&ndash;90 seconds. Isolations: 45&ndash;60 seconds.</li>
+            <li><strong>Shoulder health built in</strong> &mdash; Face pulls and rear delt work are included in every push and upper-body session, per recommendations from Greg Nuckols and RP.</li>
+            <li><strong>Beginner-friendly machines</strong> &mdash; The Easy Machine tier uses only machines, cables, and bodyweight to eliminate the technique barrier and make the gym less intimidating for new lifters.</li>
+          </ul>
+
+          <div class="callout">
+            <p><strong>Templates are never overwritten.</strong> They are bundled in the app's code, not stored in your browser. Editing a template always creates a personal copy in your library, leaving the original intact for future reference.</p>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 6: CONFLICT DETECTION                     -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="conflict-detection">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Conflict Detection
+          </h2>
+          <p>
+            One of CurlBro's most distinctive features is its <strong>exercise conflict detection system</strong>. As you add exercises to your workout, CurlBro checks every pair of exercises against a database of 33 known conflicts, each backed by peer-reviewed research. When a conflict is detected, you see an inline warning explaining the risk and suggesting alternatives.
+          </p>
+
+          <h3>Severity Levels</h3>
+          <p>
+            Conflicts come in two severity levels:
+          </p>
+          <div class="conflict-example caution">
+            <div class="conflict-header">
+              <svg class="icon icon-caution" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+              Caution
+            </div>
+            <p>Evidence indicates a meaningfully elevated injury risk or severe performance degradation. These are strong recommendations to avoid or restructure the session. For example, pairing heavy conventional deadlifts with heavy barbell squats imposes cumulative spinal compressive forces that exceed safe intra-session limits for most lifters.</p>
+          </div>
+          <div class="conflict-example warning">
+            <div class="conflict-header">
+              <svg class="icon icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              Warning
+            </div>
+            <p>The combination is suboptimal: it increases fatigue, reduces output on the second exercise, or elevates joint stress in a way that is manageable for healthy individuals but worth flagging. For example, performing both barbell curls and EZ bar curls doubles elbow stress with minimal additional stimulus.</p>
+          </div>
+
+          <h3>Conflict Categories</h3>
+          <p>
+            The 33 conflicts are organized into seven evidence-based categories:
+          </p>
+          <ol>
+            <li><strong>Spinal compression stacking</strong> &mdash; Combining exercises that impose peak lumbar compressive forces (squats + deadlifts, good mornings + any heavy spinal loading). Based on McGill (2016) cumulative load research.</li>
+            <li><strong>Shoulder impingement stacking</strong> &mdash; Horizontal pressing before overhead pressing, or multiple overhead press variations in one session. Based on Cools et al. (2008) and Kolber et al. (2010) rotator cuff fatigue research.</li>
+            <li><strong>Elbow joint stress accumulation</strong> &mdash; Stacking multiple heavy bilateral curl or heavy tricep extension exercises. Protects the distal bicep tendon, ulnar collateral ligament, and lateral epicondyle.</li>
+            <li><strong>Lumbar stabilizer pre-fatigue</strong> &mdash; Performing high-demand lumbar stabilizer exercises (deadlift, barbell row, good morning) before other exercises that also require maximal lumbar stability. Based on Willardson (2007).</li>
+            <li><strong>Rotator cuff and scapular stabilizer fatigue</strong> &mdash; Heavy overhead pressing before pull-ups or chin-ups, where the same stabilizers are needed for safe performance.</li>
+            <li><strong>Knee joint stress accumulation</strong> &mdash; Multiple heavy knee-extension exercises (squats + leg extensions, hack squats + leg extensions) that accumulate patellofemoral compressive forces.</li>
+            <li><strong>Grip and forearm fatigue</strong> &mdash; Forearm isolation work (wrist curls) before heavy pulling exercises (deadlifts, rows, pull-ups) that depend on grip integrity for safety.</li>
+          </ol>
+
+          <h3>How Conflicts Are Matched</h3>
+          <p>
+            CurlBro uses three matching strategies to detect conflicts:
+          </p>
+          <ul>
+            <li><strong>ID-based</strong> &mdash; Exact exercise pairs. For example, <code>conventional_deadlift</code> + <code>barbell_back_squat</code>. These are specific, research-backed pairings.</li>
+            <li><strong>Pattern-based</strong> &mdash; Movement pattern pairs. For example, any two <code>hip_hinge</code> exercises, or any two <code>vertical_push</code> exercises. These catch broader categories of conflicts.</li>
+            <li><strong>Tag-based</strong> &mdash; Logical groupings defined by exercise properties. For example, "heavy axial spinal load" maps to any exercise that imposes significant lumbar compression.</li>
+          </ul>
+
+          <div class="callout-caution callout">
+            <p><strong>Conflicts are advisory, not prohibitions.</strong> Advanced lifters who know their limits may manage caution-level pairings with reduced loading. The conflict system is designed to protect beginners and intermediate lifters from common injury mechanisms, and to prompt experienced lifters to make conscious decisions about their exercise pairings.</p>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 7: GAP ANALYSIS                           -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="gap-analysis">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            Gap Analysis
+          </h2>
+          <p>
+            When you select a workout split, CurlBro enables <strong>gap analysis</strong> &mdash; a real-time visualization of which muscle groups your workout covers versus which ones the chosen split expects you to train. This helps you build balanced workouts that do not leave any target muscles behind.
+          </p>
+
+          <h3>How It Works</h3>
+          <p>
+            Each workout split defines a set of primary and secondary muscle groups (see the "Selecting a Split" section above). As you add exercises to your workout, CurlBro checks each exercise's primary and secondary muscle targets against the split's expected coverage. The result is a status display for each muscle group:
+          </p>
+          <ul>
+            <li><span class="badge badge-success">Covered</span> &mdash; At least one exercise in your workout targets this muscle group as a primary mover. You are good to go.</li>
+            <li><span class="badge badge-caution">Secondary only</span> &mdash; The muscle is being trained as a secondary stabilizer but not as a primary target. You may want to add a direct exercise for full development.</li>
+            <li><span class="badge badge-warning">Missing</span> &mdash; No exercise in your workout targets this muscle group. If it is a primary target for your split, consider adding coverage.</li>
+          </ul>
+
+          <h3>Example: Push Day Gap Analysis</h3>
+          <p>
+            A push day expects chest, shoulders, and triceps as primary targets. If you have added a bench press (chest) and a lateral raise (shoulders) but no tricep exercise, the gap analysis would show:
+          </p>
+          <div class="gap-bar-container">
+            <div class="gap-bar-row">
+              <span class="gap-bar-label">Chest</span>
+              <div class="gap-bar-track"><div class="gap-bar-fill hit" style="width:100%"></div></div>
+            </div>
+            <div class="gap-bar-row">
+              <span class="gap-bar-label">Shoulders</span>
+              <div class="gap-bar-track"><div class="gap-bar-fill hit" style="width:100%"></div></div>
+            </div>
+            <div class="gap-bar-row">
+              <span class="gap-bar-label">Triceps</span>
+              <div class="gap-bar-track"><div class="gap-bar-fill missing" style="width:0%"></div></div>
+            </div>
+            <div class="gap-bar-row">
+              <span class="gap-bar-label">Traps</span>
+              <div class="gap-bar-track"><div class="gap-bar-fill partial" style="width:50%"></div></div>
+            </div>
+            <div class="gap-bar-row">
+              <span class="gap-bar-label">Core</span>
+              <div class="gap-bar-track"><div class="gap-bar-fill partial" style="width:50%"></div></div>
+            </div>
+          </div>
+          <p>
+            This visual feedback helps you catch gaps before you save or start the workout. In this example, you would want to add a tricep exercise (like tricep pushdowns or overhead extensions) to complete the push day coverage.
+          </p>
+
+          <div class="callout">
+            <p><strong>Gap analysis is a guide, not a rule.</strong> Not every session needs to cover every target muscle. Some programs intentionally emphasize certain muscle groups over others. The gap analysis is there to inform your decisions, not dictate them.</p>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 8: SUPERSETS, TRI-SETS & CIRCUITS         -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="supersets">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+            Supersets, Tri-sets &amp; Circuits
+          </h2>
+          <p>
+            CurlBro supports <strong>exercise grouping</strong> &mdash; linking two or more exercises together so they are performed back-to-back with no rest between them. This is one of the most effective techniques for increasing workout density (more work in less time) without sacrificing training quality.
+          </p>
+
+          <h3>Group Types</h3>
+          <ul>
+            <li><strong>Superset</strong> (2 exercises) &mdash; Two exercises performed consecutively with rest only after both are completed. Most effective with antagonist pairs (e.g., bench press + barbell row) where one muscle group rests while the other works.</li>
+            <li><strong>Tri-set</strong> (3 exercises) &mdash; Three exercises performed in sequence. Often used for shoulder training (overhead press + lateral raise + rear delt flye) or arm work (barbell curl + skull crusher + hammer curl).</li>
+            <li><strong>Giant set / Circuit</strong> (4+ exercises) &mdash; Four or more exercises in a row. Used for conditioning, pump-focused finishers, or time-efficient full-body sessions.</li>
+          </ul>
+
+          <h3>Creating Groups in CurlBro</h3>
+          <p>
+            To group exercises, select two or more exercise cards in the Build tab and tap the <strong>Group</strong> action. CurlBro assigns a shared group identifier to the selected exercises and visually links them with a colored accent border and a group label. The group label automatically updates based on the number of exercises: "Superset" for two, "Tri-set" for three, and "Circuit" for four or more.
+          </p>
+
+          <div class="group-example">
+            <div class="group-label">Superset A</div>
+            <ul class="group-exercises">
+              <li>
+                <svg class="icon icon-sm icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+                Barbell Bench Press &mdash; 4 &times; 7 @ 180s rest
+              </li>
+              <li>
+                <svg class="icon icon-sm icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+                Barbell Row &mdash; 4 &times; 7 @ 150s rest
+              </li>
+            </ul>
+          </div>
+
+          <h3>During Active Sessions</h3>
+          <p>
+            Grouped exercises are navigated as a unit during active workout sessions. When you reach a superset, CurlBro presents the exercises in sequence: complete one set of Exercise A, then immediately proceed to one set of Exercise B. The rest timer starts only after you have completed sets of all exercises in the group. This matches how supersets are intended to be performed &mdash; the rest is between rounds, not between exercises within a round.
+          </p>
+
+          <h3>Superset Suggestions</h3>
+          <p>
+            Each exercise in the CurlBro database includes a list of superset candidates &mdash; exercises that pair well for back-to-back performance. These suggestions prioritize antagonist pairings (opposing muscle groups) and non-competing movements, following the evidence that antagonist supersets maintain performance levels comparable to straight sets while significantly reducing total training time (Weakley et al., 2017).
+          </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 9: ACTIVE WORKOUT SESSION                 -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="active-session">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            Active Workout Session
+          </h2>
+          <p>
+            The Active tab is where your workout plan becomes reality. When you start a workout (either from a saved workout in your Library or directly from the Builder), CurlBro creates an active session that guides you through each exercise with set tracking, weight logging, and an automatic rest timer.
+          </p>
+
+          <h3>Session Flow</h3>
+          <p>
+            Here is the typical flow of an active workout session:
+          </p>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              <div><strong>Start workout</strong> &mdash; Timer begins, session is recorded as in-progress.</div>
+            </div>
+            <div class="flow-step">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+              <div><strong>Log each set</strong> &mdash; Enter weight and reps for each set. Mark sets as completed or skip them.</div>
+            </div>
+            <div class="flow-step">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div><strong>Rest timer</strong> &mdash; After completing a set, the rest timer automatically counts down. The duration is based on the exercise's rest setting.</div>
+            </div>
+            <div class="flow-step">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div><strong>Finish &amp; save</strong> &mdash; When done, tap Finish to end the session, then Save to record it in your workout log.</div>
+            </div>
+          </div>
+
+          <h3>Set Tracking</h3>
+          <p>
+            For each exercise, CurlBro displays a row of set indicators based on the planned number of sets. Tap a set to expand it and log:
+          </p>
+          <ul>
+            <li><strong>Weight</strong> &mdash; The weight used for this set. CurlBro remembers the last weight you entered and pre-fills subsequent sets, since most lifters use the same weight across working sets.</li>
+            <li><strong>Reps</strong> &mdash; The number of reps completed. Pre-filled with the planned rep target but adjustable if you hit more or fewer reps than planned.</li>
+            <li><strong>Completed</strong> &mdash; Mark the set as completed. Incomplete sets are tracked separately in your log for accurate volume analysis.</li>
+          </ul>
+
+          <h3>Rest Timer</h3>
+          <p>
+            After you complete a set, the rest timer starts automatically. The countdown is based on the rest period configured for that exercise (typically 120&ndash;180 seconds for compounds and 45&ndash;90 seconds for isolations). You can:
+          </p>
+          <ul>
+            <li><strong>Skip</strong> &mdash; Dismiss the timer and proceed immediately to your next set if you feel ready.</li>
+            <li><strong>Extend</strong> &mdash; Add additional time if you need more recovery, common after heavy compound sets near maximal effort.</li>
+          </ul>
+          <p>
+            The timer uses your device's notification system when available, giving you an audible alert when rest is complete so you can focus on recovery without watching the screen.
+          </p>
+
+          <h3>Navigating Between Exercises</h3>
+          <p>
+            The Active tab displays your current exercise or exercise group prominently. Navigate forward and backward through your workout using the navigation controls or by swiping. The progress indicator at the top shows how far through the session you are.
+          </p>
+          <p>
+            For grouped exercises (supersets, tri-sets, circuits), all exercises in the group are displayed together. You cycle through sets within the group before moving to the next group or standalone exercise.
+          </p>
+
+          <h3>Two-Step Save Process</h3>
+          <p>
+            Finishing a session is a deliberate two-step process:
+          </p>
+          <ol>
+            <li><strong>Finish</strong> &mdash; Tap the Finish button to end the session and stop the timer. This marks the session with a completion timestamp but does not yet create a log entry.</li>
+            <li><strong>Save</strong> &mdash; After finishing, tap Save to create a permanent workout log entry. This records all your set data, weights, reps, and the total session duration. The save has built-in duplicate prevention, so you will not accidentally create two log entries for the same session.</li>
+          </ol>
+          <p>
+            This two-step process gives you a moment to review your session data before committing it to your log. You can also discard the session if it was just a test run.
+          </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 10: WORKOUT LOG                           -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="workout-log">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+            Workout Log
+          </h2>
+          <p>
+            The Log tab stores your complete workout history. Every session you save creates a detailed log entry that includes every exercise performed, every set logged, all weights and reps recorded, and summary statistics for the session.
+          </p>
+
+          <h3>Log Entry Details</h3>
+          <p>
+            Each log entry shows:
+          </p>
+
+          <div class="log-entry">
+            <div class="log-entry-header">
+              <span class="log-entry-title">Push Day</span>
+              <span class="log-entry-date">Mar 5, 2026</span>
+            </div>
+            <div class="log-stats">
+              <div>
+                <span class="log-stat-label">Duration</span>
+                <span class="log-stat-value"> 62 min</span>
+              </div>
+              <div>
+                <span class="log-stat-label">Volume</span>
+                <span class="log-stat-value"> 18,240 lbs</span>
+              </div>
+              <div>
+                <span class="log-stat-label">Completion</span>
+                <span class="log-stat-value"> 96%</span>
+              </div>
+            </div>
+          </div>
+
+          <ul>
+            <li><strong>Duration</strong> &mdash; Total time from session start to finish, in minutes.</li>
+            <li><strong>Total volume</strong> &mdash; Calculated as the sum of (weight &times; reps) across all completed sets. This is the standard volume metric used in training research for tracking progressive overload (Schoenfeld 2017).</li>
+            <li><strong>Completion percentage</strong> &mdash; The percentage of planned sets that were completed. A session with 23 of 24 sets completed shows 96%. This metric helps you identify when you are overreaching (consistently low completion) or ready to increase volume.</li>
+            <li><strong>Exercise breakdown</strong> &mdash; Tap any log entry to see the full exercise-by-exercise breakdown with individual set data.</li>
+          </ul>
+
+          <h3>Converting Logs to Workouts</h3>
+          <p>
+            You can convert any past log entry back into a workout template. This is useful for repeating a session that worked well &mdash; tap the convert button on a log entry, and CurlBro creates a new saved workout in your library with the same exercises, sets, reps, and rest periods. Any weights you logged are preserved, giving you a ready-to-use template based on your actual performance.
+          </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 11: IMPORT & EXPORT                       -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="import-export">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            Import &amp; Export
+          </h2>
+          <p>
+            CurlBro supports a text-based import and export format that makes it easy to share workouts with friends, save them outside the app, or generate them using an AI assistant like ChatGPT.
+          </p>
+
+          <h3>Export Format</h3>
+          <p>
+            When you export a workout, CurlBro generates a human-readable text representation. Each exercise appears on its own line with sets, reps, and rest period:
+          </p>
+          <pre><code>Workout: Push Day
+Split: push
+
+Barbell Bench Press  4x7  @180s rest
+Incline Dumbbell Press  3x10  @120s rest
+Dumbbell Shoulder Press  3x10  @120s rest
+Cable Lateral Raise  3x15  @60s rest
+Cable Flye  3x12  @60s rest
+Tricep Pushdown  3x12  @60s rest
+Overhead Tricep Extension  3x12  @60s rest
+Face Pull  3x15  @45s rest</code></pre>
+          <p>
+            If you have the "Include tips" export setting enabled, beginner tips and form cues are appended below each exercise for reference.
+          </p>
+
+          <h3>Import Format</h3>
+          <p>
+            You can import workouts by pasting text in the same format. CurlBro's parser is flexible &mdash; it handles minor variations in formatting. The core grammar for each exercise line is:
+          </p>
+          <pre><code>Exercise Name  SETSxREPS  @RESTs rest</code></pre>
+          <p>
+            The parser matches exercise names against the database using fuzzy search, so exact names are not required. If a match cannot be found, the exercise is skipped with a warning message telling you which line failed.
+          </p>
+
+          <h3>AI-Generated Workouts</h3>
+          <p>
+            CurlBro publishes an LLM-friendly exercise catalog at <code>/exercises.json</code> and detailed import instructions at <code>/llms.txt</code>. These files are designed to be consumed by AI assistants (ChatGPT, Claude, etc.) to generate workouts in CurlBro's import format. The workflow:
+          </p>
+          <ol>
+            <li>Give your AI assistant the CurlBro exercise catalog URL or paste the contents of <code>llms.txt</code>.</li>
+            <li>Describe the workout you want (e.g., "Create a push day focusing on upper chest with 30-minute time constraint").</li>
+            <li>The AI generates a workout in CurlBro's text format.</li>
+            <li>Paste the generated text into CurlBro's import panel.</li>
+            <li>CurlBro parses the text, matches exercises against the database, and creates a workout ready to edit or start.</li>
+          </ol>
+
+          <h3>Sharing with Friends</h3>
+          <p>
+            The export text is designed to be easily sharable. Copy it to your clipboard and send it via text message, email, or social media. Your friend can paste it into their CurlBro import panel to load the same workout. Since CurlBro is a free web app with no accounts, there are no sharing restrictions &mdash; anyone can import any workout text.
+          </p>
+
+          <div class="callout">
+            <p><strong>Clipboard access note:</strong> The copy-to-clipboard feature requires a secure context (HTTPS). If you are running CurlBro locally over HTTP during development, the clipboard copy may not work. In production at curlbro.com, clipboard access works normally.</p>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 12: SETTINGS REFERENCE                    -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="settings">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Settings Reference
+          </h2>
+          <p>
+            The Settings tab lets you configure CurlBro's defaults to match your training style. All settings persist in your browser's local storage.
+          </p>
+
+          <dl>
+            <dt>Training Goal</dt>
+            <dd>Choose between <strong>Strength</strong>, <strong>Hypertrophy</strong>, or <strong>Endurance</strong>. This affects the default rep ranges when adding exercises. Strength uses lower rep ranges (e.g., 1&ndash;5), hypertrophy uses moderate ranges (e.g., 6&ndash;12), and endurance uses higher ranges (e.g., 12&ndash;15+). Based on Schoenfeld's 2017 meta-analysis on rep range dose-response.</dd>
+
+            <dt>Default Sets &mdash; Compound Exercises</dt>
+            <dd>The default number of sets pre-filled when you add a compound exercise. Default: 4 sets. Adjust based on your training volume preferences and recovery capacity.</dd>
+
+            <dt>Default Sets &mdash; Isolation Exercises</dt>
+            <dd>The default number of sets pre-filled when you add an isolation exercise. Default: 3 sets. Isolations typically need fewer sets than compounds for adequate stimulus.</dd>
+
+            <dt>Rest Timer &mdash; Compound Exercises</dt>
+            <dd>Default rest period in seconds for compound movements. Default: 120 seconds. NSCA guidelines recommend 2&ndash;5 minutes for strength-focused compound work and 1&ndash;2 minutes for hypertrophy.</dd>
+
+            <dt>Rest Timer &mdash; Isolation Exercises</dt>
+            <dd>Default rest period in seconds for isolation movements. Default: 60 seconds. Shorter rest periods for isolations maintain metabolic stress, which is one of the three primary mechanisms of hypertrophy (Schoenfeld 2010).</dd>
+
+            <dt>Include Tips in Export</dt>
+            <dd>When enabled, exported workout text includes beginner form tips and cues below each exercise. Useful when sharing workouts with less experienced training partners. Default: enabled.</dd>
+
+            <dt>Reset Settings</dt>
+            <dd>Restores all settings to their default values without affecting your saved workouts or logs.</dd>
+
+            <dt>Clear All Data</dt>
+            <dd>Permanently deletes all saved workouts and workout logs from your browser. This action cannot be undone. Pre-built templates are not affected since they are bundled with the app.</dd>
+          </dl>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 13: PRIVACY & DATA                        -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="privacy">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            Privacy &amp; Data
+          </h2>
+
+          <div class="card" style="border-left: 3px solid var(--success-color);">
+            <div class="card-header">
+              <svg class="icon icon-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+              Your data never leaves your device
+            </div>
+            <p>CurlBro is a fully client-side application. There is no server, no database, no user accounts, and no data transmission. Everything you create &mdash; workouts, logs, settings, body state data &mdash; is stored in your browser's <code>localStorage</code> and never sent anywhere.</p>
+          </div>
+
+          <h3>What CurlBro Stores</h3>
+          <ul>
+            <li>Your saved workouts and their exercise configurations</li>
+            <li>Workout log entries (completed sessions with set data)</li>
+            <li>App settings (training goal, default sets, rest timer preferences)</li>
+            <li>Body state data (muscle soreness levels and recent activities)</li>
+            <li>Cookie consent preference</li>
+          </ul>
+
+          <h3>What CurlBro Does Not Store</h3>
+          <ul>
+            <li>No personal information (name, email, age, etc.)</li>
+            <li>No authentication credentials or account data</li>
+            <li>No data on any server or cloud service</li>
+            <li>No tracking data beyond anonymous Google Analytics (with explicit consent)</li>
+          </ul>
+
+          <h3>Analytics and Cookies</h3>
+          <p>
+            CurlBro uses Google Analytics to understand aggregate usage patterns (which features are popular, how long sessions last, etc.). Analytics data collection is <strong>disabled by default</strong> and only activated if you explicitly accept cookies via the consent banner. This implementation follows <strong>Google Consent Mode v2</strong>, which ensures that no analytics or advertising data is collected or stored until consent is granted.
+          </p>
+          <p>
+            You can review and change your cookie preferences at any time from the Settings tab under "Manage Cookies." Revoking consent immediately stops all analytics data collection.
+          </p>
+
+          <h3>Data Portability</h3>
+          <p>
+            Since all data is stored locally, you control it completely. Export your workouts as text to back them up externally. If you clear your browser's localStorage or switch devices, your data will not carry over &mdash; export any workouts you want to keep before clearing browser data.
+          </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 14: TIPS & BEST PRACTICES                 -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="tips">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+            Tips &amp; Best Practices
+          </h2>
+          <p>
+            Make the most of CurlBro with these evidence-based training tips. Each recommendation is grounded in the same scientific literature that powers CurlBro's programming tools.
+          </p>
+
+          <div class="tip-grid">
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+              <div>
+                <p><strong>Put compound movements first.</strong> Exercises that demand the most coordination and load the most weight should come when you are freshest. Bench press, squat, deadlift, overhead press, and rows should open your workout, not close it. This is the single most important exercise ordering rule (NSCA Essentials, Ch. 22).</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div>
+                <p><strong>Rest periods matter more than you think.</strong> Research consistently shows that longer rest periods (2&ndash;3 minutes) for compound exercises produce better strength and hypertrophy outcomes than short rest (30&ndash;60 seconds). Short rest is appropriate for isolation finishers and metabolic-stress techniques, but not for your primary lifts (Schoenfeld et al., 2016).</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <div>
+                <p><strong>Track progressive overload.</strong> The most reliable driver of muscle growth is doing more work over time. Use CurlBro's workout log to track your total volume (weight &times; reps &times; sets). Aim to increase total volume by 5&ndash;10% per week through adding weight, reps, or sets. When all three stall, consider a deload week.</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div>
+                <p><strong>Train each muscle at least twice per week.</strong> Schoenfeld's 2016 meta-analysis found that training each muscle group 2&ndash;3 times per week produces significantly better hypertrophy than once per week, even when total weekly volume is matched. A PPL split trained 6 days or an Upper/Lower split trained 4 days achieves this naturally.</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+              <div>
+                <p><strong>Pay attention to conflict warnings.</strong> CurlBro's conflict detection is based on injury epidemiology research, not arbitrary rules. When you see a caution warning, take it seriously &mdash; these pairings are the most commonly cited injury mechanisms in the strength training literature. Restructure your session or reduce loading on one of the exercises.</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+              <div>
+                <p><strong>Use the body state tracker honestly.</strong> Recording your soreness and recent activities takes 30 seconds but gives CurlBro the context to make intelligent exercise recommendations. Training with moderate chest soreness from yesterday's bench session? The smart filters will steer you toward recovery exercises and away from additional chest volume.</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+              <div>
+                <p><strong>Supersets are a time-saving superpower.</strong> Antagonist supersets (e.g., bench press + barbell row) allow you to maintain full performance on both exercises while cutting your workout time nearly in half. Research shows no significant strength loss compared to straight sets (Weakley et al., 2017). Use CurlBro's superset suggestions to find optimal pairings.</p>
+              </div>
+            </div>
+
+            <div class="tip-card">
+              <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              <div>
+                <p><strong>Use gap analysis to avoid imbalances.</strong> Muscle imbalances develop gradually and are hard to notice until they cause problems. Selecting a workout split and checking the gap analysis before every session ensures you consistently cover all target muscle groups. Neglected muscle groups are a leading cause of overuse injuries and postural problems over time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout-success callout">
+            <p><strong>Remember:</strong> The best workout program is the one you actually follow consistently. CurlBro gives you the tools to build smart workouts, but consistency and effort over months and years matter more than any single session's perfection. Start with the pre-built templates if you are unsure, and gradually customize as you learn your body's responses.</p>
+          </div>
+        </section>
+
+      </article>
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <footer class="guide-footer">
+    <p>
+      <a href="../">Open CurlBro</a> &middot;
+      Built by <a href="https://simonelongo.com" target="_blank" rel="noopener noreferrer">Simone Longo</a> &middot;
+      <a href="https://simonelongo.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+    </p>
+    <p style="margin-top:0.5rem">&copy; 2026 CurlBro. Free and open for everyone.</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SCRIPTS                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // Mobile TOC toggle
+    const toggle = document.getElementById('toc-toggle');
+    const dropdown = document.getElementById('toc-dropdown');
+    if (toggle && dropdown) {
+      toggle.addEventListener('click', function () {
+        const isOpen = dropdown.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      // Close dropdown when a link is tapped
+      dropdown.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          dropdown.classList.remove('open');
+          toggle.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Scroll spy for desktop TOC
+    (function () {
+      var tocLinks = document.querySelectorAll('.toc a');
+      if (!tocLinks.length) return;
+      var sections = [];
+      tocLinks.forEach(function (link) {
+        var id = link.getAttribute('href');
+        if (id && id.startsWith('#')) {
+          var el = document.getElementById(id.slice(1));
+          if (el) sections.push({ el: el, link: link });
+        }
+      });
+      function onScroll() {
+        var scrollY = window.scrollY + 100;
+        var current = null;
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i].el.offsetTop <= scrollY) current = sections[i];
+        }
+        tocLinks.forEach(function (l) { l.classList.remove('active'); });
+        if (current) current.link.classList.add('active');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
