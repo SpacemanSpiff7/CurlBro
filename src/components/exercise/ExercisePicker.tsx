@@ -147,11 +147,11 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: Exercis
         className="flex h-[85dvh] flex-col bg-bg-surface p-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <div className="flex-shrink-0">
-          <SheetHeader className="px-4 pt-4 pb-2">
-            <SheetTitle className="text-text-primary">Add Exercise</SheetTitle>
-          </SheetHeader>
+        <SheetHeader className="flex-shrink-0 px-4 pt-4 pb-2">
+          <SheetTitle className="text-text-primary">Add Exercise</SheetTitle>
+        </SheetHeader>
 
+        <ScrollArea className="min-h-0 flex-1">
           <div className="px-4 pb-2">
             <div className="relative">
               <Search
@@ -200,10 +200,8 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: Exercis
           <BodyStateInput expanded={bodyStateExpanded} onToggle={toggleBodyState} />
 
           <ContextFilters activeFilter={contextFilter} onFilterChange={setContextFilter} />
-        </div>
 
-        <ScrollArea className="min-h-0 flex-1 px-2">
-          <div className="space-y-0.5 pb-8">
+          <div className="space-y-0.5 px-2 pb-8">
             {results.length === 0 ? (
               <div className="py-12 text-center text-text-tertiary text-sm">
                 No exercises found
