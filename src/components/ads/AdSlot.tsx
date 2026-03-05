@@ -1,5 +1,5 @@
 import type { AdSlotKey } from '../../config/ads';
-import { AD_PUBLISHER_ID, ADSENSE_ENABLED } from '../../config/ads';
+import { AD_PUBLISHER_ID, ADSENSE_ENABLED, ADSENSE_TEST_MODE } from '../../config/ads';
 import { useAdSlot } from '../../hooks/useAdSlot';
 import { useHouseAd } from '../../hooks/useHouseAd';
 import { HouseAdComponent } from './HouseAd';
@@ -34,6 +34,7 @@ export function AdSlot({ slotKey, className = '' }: AdSlotProps) {
               data-ad-slot={config.slotId}
               data-ad-format={config.format}
               data-full-width-responsive="true"
+              {...(ADSENSE_TEST_MODE ? { 'data-adtest': 'on' } : {})}
             />
           </div>
         </div>

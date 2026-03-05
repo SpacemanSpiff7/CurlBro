@@ -12,6 +12,10 @@ export interface AdSlotConfig {
 export const AD_PUBLISHER_ID = 'ca-pub-2480873220343955';
 export const ADSENSE_ENABLED = import.meta.env.PROD && false; // Kill switch — false until approved; never loads in dev
 
+// Test mode: adds data-adtest="on" to ad units so impressions/clicks don't count.
+// Set to true when testing ads on production, false for real traffic.
+export const ADSENSE_TEST_MODE = true;
+
 export const AD_SLOTS: Record<AdSlotKey, AdSlotConfig> = {
   build:         { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'challenge', 'portfolio'], rotateHouseAds: false, rotateIntervalMs: 0 },
   rest_timer:    { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'portfolio', 'general'], rotateHouseAds: true, rotateIntervalMs: 30_000 },
