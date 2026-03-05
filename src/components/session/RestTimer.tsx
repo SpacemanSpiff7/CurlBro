@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Minus, Plus, X } from 'lucide-react';
+import { Minus, Pause, Play, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface RestTimerProps {
@@ -9,6 +9,8 @@ interface RestTimerProps {
   progress: number;
   isRunning: boolean;
   isDone: boolean;
+  restSeconds: number;
+  onStart: (seconds: number) => void;
   onStop: () => void;
   onAddTime: (delta: number) => void;
 }
@@ -19,8 +21,8 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-const RING_SIZE = 100;
-const STROKE_WIDTH = 5;
+const RING_SIZE = 88;
+const STROKE_WIDTH = 4;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
@@ -29,33 +31,43 @@ export const RestTimer = memo(function RestTimer({
   progress,
   isRunning,
   isDone,
+  restSeconds,
+  onStart,
   onStop,
   onAddTime,
 }: RestTimerProps) {
-  if (!isRunning && !isDone) return null;
-
-  const strokeDashoffset = CIRCUMFERENCE * (1 - progress);
+  const isIdle = !isRunning && !isDone;
+  const strokeDashoffset = isIdle ? 0 : CIRCUMFERENCE * (1 - progress);
+  const displayTime = isIdle ? restSeconds : remainingSeconds;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      className="flex items-center justify-center gap-3"
-    >
+    <div className="flex items-center justify-center gap-3">
       <Button
-        variant="outline"
+        variant="ghost"
         size="sm"
         onClick={() => onAddTime(-15)}
-        disabled={isDone || remainingSeconds <= 15}
+        disabled={isIdle || isDone || remainingSeconds <= 15}
         aria-label="Subtract 15 seconds"
-        className="h-9 w-14 text-xs"
+        className="h-8 w-12 text-xs text-text-tertiary"
       >
         <Minus size={12} className="mr-0.5" />
-        15s
+        15
       </Button>
 
-      <div className="relative" style={{ width: RING_SIZE, height: RING_SIZE }}>
+      <button
+        onClick={() => {
+          if (isDone) {
+            onStop();
+          } else if (isRunning) {
+            onStop();
+          } else {
+            onStart(isIdle ? restSeconds : remainingSeconds);
+          }
+        }}
+        aria-label={isRunning ? 'Stop timer' : isDone ? 'Reset timer' : 'Start rest timer'}
+        className="relative"
+        style={{ width: RING_SIZE, height: RING_SIZE }}
+      >
         <svg
           width={RING_SIZE}
           height={RING_SIZE}
@@ -83,37 +95,42 @@ export const RestTimer = memo(function RestTimer({
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-xl font-bold tabular-nums text-text-primary">
-            {isDone ? 'GO!' : formatTime(remainingSeconds)}
-          </span>
-          {isDone && (
-            <span className="text-[10px] text-success">Rest done</span>
+          {isDone ? (
+            <>
+              <span className="text-lg font-bold text-success">GO!</span>
+              <RotateCcw size={12} className="text-text-tertiary mt-0.5" />
+            </>
+          ) : (
+            <>
+              <span className="text-lg font-bold tabular-nums text-text-primary">
+                {formatTime(displayTime)}
+              </span>
+              {isIdle ? (
+                <Play size={12} className="text-text-tertiary mt-0.5" />
+              ) : (
+                <motion.div
+                  animate={{ opacity: [1, 0.4, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <Pause size={12} className="text-accent-primary mt-0.5" />
+                </motion.div>
+              )}
+            </>
           )}
         </div>
-      </div>
+      </button>
 
-      <div className="flex flex-col gap-1.5">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onAddTime(15)}
-          disabled={isDone}
-          aria-label="Add 15 seconds"
-          className="h-9 w-14 text-xs"
-        >
-          <Plus size={12} className="mr-0.5" />
-          15s
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={onStop}
-          aria-label="Stop timer"
-          className="h-9 w-14"
-        >
-          <X size={14} />
-        </Button>
-      </div>
-    </motion.div>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onAddTime(15)}
+        disabled={isDone}
+        aria-label="Add 15 seconds"
+        className="h-8 w-12 text-xs text-text-tertiary"
+      >
+        <Plus size={12} className="mr-0.5" />
+        15
+      </Button>
+    </div>
   );
 });

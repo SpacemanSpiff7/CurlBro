@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer } from 'lucide-react';
+import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer, Video } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { SetTracker } from '@/components/session/SetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
 import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
+import { VideoSheet } from '@/components/exercise/VideoSheet';
 import { TopBar } from '@/components/shared/TopBar';
 import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
@@ -58,6 +59,7 @@ export function ActiveWorkout() {
 
 
   const [swapOpen, setSwapOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
   const timer = useRestTimer();
   const wakeLock = useWakeLock();
 
@@ -118,13 +120,6 @@ export function ActiveWorkout() {
     endSession(); // endSession already pushes the log to library.logs
     setActiveTab('library');
   }, [endSession, setActiveTab]);
-
-  const handleStartTimer = useCallback(
-    (seconds: number) => {
-      timer.start(seconds);
-    },
-    [timer]
-  );
 
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
@@ -224,6 +219,17 @@ export function ActiveWorkout() {
                 <div className="text-base font-semibold text-text-primary">
                   {exerciseInfo?.name ?? 'Unknown Exercise'}
                 </div>
+                {exerciseInfo?.video_url && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setVideoOpen(true)}
+                    aria-label="Watch video"
+                    className="h-7 w-7"
+                  >
+                    <Video size={14} className="text-text-tertiary" />
+                  </Button>
+                )}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -263,19 +269,17 @@ export function ActiveWorkout() {
 
       {/* Rest timer + wake lock */}
       <div className="flex flex-col items-center gap-2">
-        <AnimatePresence>
-          {(timer.isRunning || timer.isDone) && (
-            <RestTimer
-              remainingSeconds={timer.remainingSeconds}
-              totalSeconds={timer.totalSeconds}
-              progress={timer.progress}
-              isRunning={timer.isRunning}
-              isDone={timer.isDone}
-              onStop={timer.stop}
-              onAddTime={timer.addTime}
-            />
-          )}
-        </AnimatePresence>
+        <RestTimer
+          remainingSeconds={timer.remainingSeconds}
+          totalSeconds={timer.totalSeconds}
+          progress={timer.progress}
+          isRunning={timer.isRunning}
+          isDone={timer.isDone}
+          restSeconds={restSeconds}
+          onStart={timer.start}
+          onStop={timer.stop}
+          onAddTime={timer.addTime}
+        />
         <WakeLockToggle
           isActive={wakeLock.isActive}
           isSupported={wakeLock.isSupported}
@@ -305,8 +309,6 @@ export function ActiveWorkout() {
               defaultWeight={defaultWeight}
               onCompleteSet={handleCompleteSet}
               onAddSet={handleAddSet}
-              onStartTimer={handleStartTimer}
-              restSeconds={restSeconds}
             />
           </motion.div>
         </AnimatePresence>
@@ -339,6 +341,12 @@ export function ActiveWorkout() {
         })}
       </div>
       </div>
+
+      <VideoSheet
+        exercise={exerciseInfo}
+        open={videoOpen}
+        onOpenChange={setVideoOpen}
+      />
     </div>
   );
 }

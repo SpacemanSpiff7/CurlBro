@@ -9,8 +9,6 @@ interface SetTrackerProps {
   defaultWeight: number | null;
   onCompleteSet: (setIndex: number, data: SetLog) => void;
   onAddSet: () => void;
-  onStartTimer: (seconds: number) => void;
-  restSeconds: number;
 }
 
 const SetRow = memo(function SetRow({
@@ -109,20 +107,7 @@ export const SetTracker = memo(function SetTracker({
   defaultWeight,
   onCompleteSet,
   onAddSet,
-  onStartTimer,
-  restSeconds,
 }: SetTrackerProps) {
-  const handleComplete = useCallback(
-    (setIndex: number, data: SetLog) => {
-      const wasIncomplete = !sets[setIndex].completed;
-      onCompleteSet(setIndex, data);
-      // Auto-start rest timer when marking a set as complete
-      if (data.completed && wasIncomplete && restSeconds > 0) {
-        onStartTimer(restSeconds);
-      }
-    },
-    [sets, onCompleteSet, onStartTimer, restSeconds]
-  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -140,7 +125,7 @@ export const SetTracker = memo(function SetTracker({
           set={set}
           index={i}
           defaultWeight={defaultWeight}
-          onComplete={handleComplete}
+          onComplete={onCompleteSet}
         />
       ))}
       <Button
