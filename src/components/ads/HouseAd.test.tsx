@@ -24,11 +24,11 @@ const portfolioAd: HouseAd = {
 };
 
 describe('HouseAdComponent', () => {
-  it('renders label, headline, and body', () => {
+  it('renders headline, body, and category tag', () => {
     render(<HouseAdComponent ad={tipAd} />);
-    expect(screen.getByText('CURLBRO TIP')).toBeTruthy();
     expect(screen.getByText('Test Headline')).toBeTruthy();
     expect(screen.getByText('Test body text')).toBeTruthy();
+    expect(screen.getByText('Tip')).toBeTruthy();
   });
 
   it('renders as a div when no href', () => {
@@ -57,12 +57,12 @@ describe('HouseAdComponent', () => {
   it('has complementary role and aria-label', () => {
     render(<HouseAdComponent ad={tipAd} />);
     const el = screen.getByRole('complementary');
-    expect(el.getAttribute('aria-label')).toBe('Sponsored content');
+    expect(el.getAttribute('aria-label')).toBe('Tip');
   });
 
-  it('applies the accent color class', () => {
+  it('applies category-derived background class', () => {
     render(<HouseAdComponent ad={tipAd} />);
     const el = screen.getByRole('complementary');
-    expect(el.className).toContain('border-l-cyan-500');
+    expect(el.className).toContain('bg-cyan-500/8');
   });
 });

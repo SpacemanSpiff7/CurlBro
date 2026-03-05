@@ -281,6 +281,8 @@ export function WorkoutLogPage() {
             </Fragment>
           ))
         )}
+        {/* Bottom ad — always visible */}
+        <AdSlot slotKey="log_feed" className="mt-2" />
       </div>
 
       <LogDetailSheet

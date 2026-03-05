@@ -179,6 +179,9 @@ export function ActiveWorkout() {
             Go to Library and tap play to start a session.
           </p>
         </div>
+        <div className="px-4">
+          <AdSlot slotKey="rest_timer" />
+        </div>
       </div>
     );
   }
@@ -358,7 +361,6 @@ export function ActiveWorkout() {
       {/* Rest timer */}
       <div className="flex flex-col items-center gap-2">
         <RestTimer
-
           remainingSeconds={timer.remainingSeconds}
           totalSeconds={timer.totalSeconds}
           progress={timer.progress}

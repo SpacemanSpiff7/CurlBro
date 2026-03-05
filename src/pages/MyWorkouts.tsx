@@ -384,6 +384,9 @@ export function MyWorkouts() {
         onEdit={handleSeededEdit}
       />
 
+      {/* Bottom ad — always visible */}
+      <AdSlot slotKey="library_feed" />
+
       </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
     </div>

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { RotateCcw, Info, Shield, ExternalLink, Cookie } from 'lucide-react';
+import { RotateCcw, Info, Shield, ExternalLink, Cookie, Mail } from 'lucide-react';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
@@ -273,6 +273,15 @@ export function SettingsPage() {
           >
             <ExternalLink size={14} />
             simonelongo.com
+          </a>
+          <a
+            href="https://simonelongo.com/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+          >
+            <Mail size={14} />
+            Contact
           </a>
         </div>
       </div>

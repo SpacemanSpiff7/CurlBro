@@ -9,7 +9,7 @@ describe('AdSlot', () => {
     render(<AdSlot slotKey="build" />);
     const ad = screen.getByRole('complementary');
     expect(ad).toBeTruthy();
-    expect(ad.getAttribute('aria-label')).toBe('Sponsored content');
+    expect(ad.getAttribute('aria-label')).toBe('Tip');
   });
 
   it('does not render SPONSORED label when AdSense is disabled', () => {
