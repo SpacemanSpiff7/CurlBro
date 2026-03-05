@@ -287,13 +287,6 @@ export function ActiveWorkout() {
         />
       </div>
 
-      {/* Beginner tip */}
-      {exerciseInfo?.beginner_tips && (
-        <div className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2">
-          <span className="text-xs text-accent-primary">{exerciseInfo.beginner_tips}</span>
-        </div>
-      )}
-
       {/* Set tracker */}
       {currentExercise && (
         <AnimatePresence mode="wait">
@@ -339,7 +332,12 @@ export function ActiveWorkout() {
             />
           );
         })}
-      </div>
+      {/* Beginner tip */}
+      {exerciseInfo?.beginner_tips && (
+        <div className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2">
+          <span className="text-xs text-accent-primary">{exerciseInfo.beginner_tips}</span>
+        </div>
+      )}
       </div>
 
       <VideoSheet
