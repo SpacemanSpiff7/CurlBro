@@ -1,13 +1,13 @@
 # CurlBro — LLM Workout Generation Guide
 
-> CurlBro is a client-side gym workout builder at simonelongo.com/curlbro/.
+> CurlBro is a client-side gym workout builder at curlbro.com.
 > Users can import workouts by pasting text into the app's import sheet.
 > This file describes how to generate importable workout routines.
 
 ## Exercise Catalog
 
 The full catalog of 162 exercises is available as JSON:
-  /curlbro/exercises.json
+  /exercises.json
 
 Each exercise includes: id, name, category, movement_pattern, force_type,
 equipment, primary_muscles, secondary_muscles, workout_position, difficulty,

@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
-import { RotateCcw, Info, Shield, ExternalLink, Cookie, Mail } from 'lucide-react';
+import { RotateCcw, Info, Shield, FileText, ExternalLink, Cookie, Mail } from 'lucide-react';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AboutPage } from './AboutPage';
 import { PrivacyPolicyPage } from './PrivacyPolicyPage';
+import { TermsOfUsePage } from './TermsOfUsePage';
 import { useStore } from '@/store';
 import { TRAINING_GOALS, TRAINING_GOAL_LABELS } from '@/types';
 import type { TrainingGoal } from '@/types';
@@ -13,6 +14,7 @@ import type { TrainingGoal } from '@/types';
 export function SettingsPage() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
   const { clearAll } = useStore((state) => state.libraryActions);
@@ -304,6 +306,15 @@ export function SettingsPage() {
           <Button
             variant="ghost"
             size="sm"
+            onClick={() => setTermsOpen(true)}
+            className="w-full justify-start text-text-secondary"
+          >
+            <FileText size={14} className="mr-2" />
+            Terms of Use
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={resetCookieConsent}
             className="w-full justify-start text-text-secondary"
           >
@@ -316,6 +327,7 @@ export function SettingsPage() {
 
       <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
       <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
+      <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />
     </div>
   );
 }

@@ -62,7 +62,7 @@ for (const file of files) {
 const catalog = {
   description:
     'CurlBro exercise catalog — strength, stretching, and mobility exercises for gym workout building',
-  import_instructions_url: '/curlbro/llms.txt',
+  import_instructions_url: '/llms.txt',
   exercise_count: exercises.length,
   exercises,
 };
