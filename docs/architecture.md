@@ -59,6 +59,7 @@ JSON files (7)
 
 ## Navigation
 - Tab-based navigation via BottomNav
+- Horizontal swipe on main content area also navigates between tabs (useSwipeTabs hook)
 - No URL routing — state-driven tab switching via `activeTab` in store
 - Each tab is an independent subtree with its own error boundary
 

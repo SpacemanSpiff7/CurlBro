@@ -7,6 +7,7 @@ import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { useSwipeTabs } from '@/hooks/useSwipeTabs';
 
 function AppContent() {
   const activeTab = useStore((state) => state.activeTab);
@@ -42,6 +43,7 @@ function AppContent() {
 export default function App() {
   const initGraph = useStore((state) => state.initGraph);
   const graphReady = useStore((state) => state.graphReady);
+  const swipeRef = useSwipeTabs();
 
   useEffect(() => {
     initGraph();
@@ -57,7 +59,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-dvh flex-col pb-16">
-      <main className="flex-1">
+      <main ref={swipeRef} className="flex-1">
         <AppContent />
       </main>
       <BottomNav />

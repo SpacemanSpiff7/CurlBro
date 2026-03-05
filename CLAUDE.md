@@ -16,7 +16,7 @@ Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
 
 ## Critical Commands
 - Dev: `npm run dev`
-- Build: `npm run build` (runs tsc && vite build)
+- Build: `npm run build` (runs prebuild → tsc → vite build)
 - Typecheck: `npx tsc --noEmit`
 - Lint: `npm run lint`
 - Test (unit): `npm run test` (Vitest)
@@ -52,9 +52,12 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `tests/CLAUDE.md` — testing conventions and patterns
 
 ## Key Data Files
-- `src/data/exercises/` — 7 JSON files with 162 exercises
+- `src/data/01-07_*.json` — 7 JSON files with 162 exercises
 - `src/data/exerciseConflicts.ts` — 33 exercise conflicts with scientific citations
 - `src/data/seededWorkouts.ts` — 16 pre-built workout templates across 4 difficulty tiers
+- `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
+- `public/llms.txt` — LLM workout generation instructions (import format + guidance)
+- `public/robots.txt` — points crawlers to llms.txt and exercises.json
 
 ## Workflow
 1. Read relevant docs before starting work on any area
@@ -79,3 +82,5 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `navigator.clipboard` requires HTTPS — wrap in try/catch for HTTP dev environments
 - Exercise JSON `equipment` and `primary_muscles` fields are validated as `z.string()` arrays,
   not typed enums — the Zod schema is looser than the TypeScript types
+- Public asset paths in JSX must use `import.meta.env.BASE_URL` prefix — hardcoded `/foo.png`
+  breaks in production where base is `/curlbro/`. Vite only rewrites paths in index.html, not JSX.
