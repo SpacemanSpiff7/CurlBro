@@ -126,8 +126,7 @@ Agent definitions live in `.claude/agents/`.
   Cookie consent banner updates consent via `gtag('consent', 'update', ...)`.
 - `index.html` has SEO meta tags, OG/Twitter cards, JSON-LD structured data, and a
   `<noscript>` fallback with indexable content. OG image URLs are absolute (social
-  crawlers don't resolve relative URLs). Google Search Console verification meta tag
-  needs `REPLACE_WITH_YOUR_CODE` replaced after setup.
+  crawlers don't resolve relative URLs). Google Search Console verified via DNS.
 - Dynamic `document.title` updates per tab via `TAB_TITLES` map in `App.tsx`.
 - Test files under `src/` are compiled by `tsc -b` via `tsconfig.app.json` — they must NOT
   use jest-dom matchers (`toBeInTheDocument`, `toHaveAttribute`). Use vitest-native assertions

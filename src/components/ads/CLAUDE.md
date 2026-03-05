@@ -102,7 +102,7 @@ Additional precautions:
 4. Fill all 6 `slotId` values from AdSense dashboard
 5. Update `public/ads.txt` with actual publisher ID: `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
 6. Block inappropriate ad categories in AdSense dashboard
-7. Google Search Console verification meta tag is already in `index.html` (replace `REPLACE_WITH_YOUR_CODE`)
+7. Google Search Console verified via DNS (no HTML meta tag needed)
 
 ## Testing
 

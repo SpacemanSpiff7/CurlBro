@@ -237,20 +237,62 @@
     }
     .rule-card p { margin-bottom: 0; font-size: 0.9375rem; }
 
-    /* ── Stretch Image ─────────────────────────────────────── */
-    .stretch-figure { margin: 1.5rem 0 2rem; }
-    .stretch-figure img {
+    /* ── Stretch Comparison ────────────────────────────────── */
+    .stretch-comparison {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0 2rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .stretch-comparison {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 2rem;
+      }
+    }
+    .stretch-comparison img {
       width: 100%;
       border-radius: var(--radius);
       border: 1px solid var(--border-subtle);
       display: block;
     }
-    .stretch-caption {
+    .stretch-comparison .stretch-text {
       text-align: center;
+      padding: 1rem 0;
+    }
+    @media (min-width: 768px) {
+      .stretch-comparison .stretch-text {
+        max-width: 200px;
+        padding: 0;
+      }
+    }
+    .stretch-comparison .stretch-text h3 {
+      font-size: 1rem;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .stretch-comparison .stretch-text p {
       font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+    .stretch-comparison .stretch-text .stretch-cite {
+      font-size: 0.75rem;
       color: var(--text-tertiary);
-      margin-top: 0.75rem;
       font-style: italic;
+      margin-top: 0.75rem;
+      display: block;
+    }
+    .stretch-comparison .img-label {
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--text-tertiary);
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     /* ── Split Cards ───────────────────────────────────────── */
@@ -422,10 +464,10 @@
   <header class="hero">
     <div class="hero-bg" role="img" aria-label="Close-up of a knurled barbell on a gym rack with cinematic cyan edge lighting"></div>
     <div class="hero-content">
-      <a href="../" class="hero-logo">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+      <span class="hero-logo">
+        <img src="../logo.png" alt="CurlBro logo" style="height:1.5em;width:auto;">
         CurlBro
-      </a>
+      </span>
       <h1>The Anatomy of a Workout<br><span class="accent">Programming Without the BS</span></h1>
       <p class="hero-sub">
         Whether you just figured out how to adjust the bench or you've been lifting for a decade, the trap is exactly the same: doing whatever machine happens to be open, hoping it eventually results in a better physique.
@@ -477,19 +519,32 @@
         </p>
       </div>
 
-      <!-- Bicep stretch/contract illustration -->
-      <figure class="stretch-figure">
-        <img
-          src="bicep-stretch.jpg"
-          alt="Anatomical wireframe illustration showing a bicep in stretched (relaxed) position versus contracted (flexed) position, highlighting the difference in muscle length under load"
-          width="1500"
-          height="796"
-          loading="lazy"
-        />
-        <figcaption class="stretch-caption">
-          Stretch-mediated hypertrophy: loading at full muscle length (left) produces superior growth stimulus compared to peak contraction alone (right). &mdash; Maeo et al., 2021
-        </figcaption>
-      </figure>
+      <!-- Bicep stretch/contract split illustration -->
+      <div class="stretch-comparison">
+        <div>
+          <img
+            src="bicep-stretched.jpg"
+            alt="Anatomical wireframe of a bicep in the stretched (relaxed) position, arm extended, showing the muscle at full length"
+            loading="lazy"
+          />
+          <div class="img-label">Stretched (Relaxed)</div>
+        </div>
+
+        <div class="stretch-text">
+          <h3>Why Stretch Wins</h3>
+          <p>Loading a muscle at its longest position&mdash;where sarcomeres are fully elongated&mdash;triggers more mechanical tension and greater hypertrophy signaling than peak contraction alone.</p>
+          <span class="stretch-cite">Maeo et al., 2021</span>
+        </div>
+
+        <div>
+          <img
+            src="bicep-contracted.jpg"
+            alt="Anatomical wireframe of a bicep in the contracted (flexed) position, arm curled, showing the shortened muscle belly"
+            loading="lazy"
+          />
+          <div class="img-label">Contracted (Flexed)</div>
+        </div>
+      </div>
 
       <!-- Rule 3: Save the Rails -->
       <div class="rule-card">
