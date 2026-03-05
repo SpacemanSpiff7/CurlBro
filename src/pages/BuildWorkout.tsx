@@ -12,14 +12,11 @@ import { TemplateSelector } from '@/components/workout/TemplateSelector';
 import { TopBar } from '@/components/shared/TopBar';
 import { useAutoWorkoutName } from '@/hooks/useAutoWorkoutName';
 import { useStore } from '@/store';
-import { WORKOUT_SPLITS, SPLIT_LABELS } from '@/types';
-import type { WorkoutSplit } from '@/types';
 
 export function BuildWorkout() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const workout = useStore((state) => state.builder.workout);
-  const workoutSplit = useStore((state) => state.builder.workoutSplit);
-  const { setWorkoutName, setWorkoutSplit, resetWorkout } = useStore(
+  const { setWorkoutName, resetWorkout } = useStore(
     (state) => state.builderActions
   );
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
@@ -33,13 +30,6 @@ export function BuildWorkout() {
     saveWorkout({ ...workout, name, updatedAt: now });
     toast.success(`Saved "${name}"`);
   }, [workout, autoName, setWorkoutName, saveWorkout]);
-
-  const handleSplitToggle = useCallback(
-    (split: WorkoutSplit) => {
-      setWorkoutSplit(workoutSplit === split ? null : split);
-    },
-    [workoutSplit, setWorkoutSplit]
-  );
 
   const hasExercises = workout.exercises.length > 0;
 
@@ -57,29 +47,6 @@ export function BuildWorkout() {
       </TopBar>
 
       <div className="flex flex-col gap-4 px-4">
-        {/* Workout split selector */}
-        <div className="flex gap-1.5 flex-wrap">
-          {WORKOUT_SPLITS.map((split) => (
-            <button
-              key={split}
-              onClick={() => handleSplitToggle(split)}
-              className={`rounded-full px-3 py-2 min-h-[44px] text-xs font-medium transition-colors flex items-center ${
-                workoutSplit === split
-                  ? 'bg-accent-primary text-bg-root'
-                  : 'bg-bg-elevated text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              {SPLIT_LABELS[split]}
-            </button>
-          ))}
-        </div>
-
-        {/* Templates (only shown when empty) */}
-        {!hasExercises && <TemplateSelector />}
-
-        {/* Exercise list */}
-        <WorkoutList />
-
         {/* Add Exercise card */}
         <button
           onClick={() => setPickerOpen(true)}
@@ -89,6 +56,12 @@ export function BuildWorkout() {
           <Plus size={18} />
           Add Exercise
         </button>
+
+        {/* Templates (only shown when empty) */}
+        {!hasExercises && <TemplateSelector />}
+
+        {/* Exercise list */}
+        <WorkoutList />
 
         {/* Conflict warnings */}
         <ConflictWarnings />

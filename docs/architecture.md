@@ -10,6 +10,7 @@ App
     ├── BuildWorkout (Tab 1)
     │   ├── TemplateSelector
     │   ├── WorkoutList
+    │   │   ├── SupersetContainer[] (grouped exercises)
     │   │   └── ExerciseCard[] (compound component)
     │   │       ├── ExerciseCard.Header
     │   │       ├── ExerciseCard.SetRepsInputs
@@ -24,7 +25,7 @@ App
     │   ├── WorkoutList (saved)
     │   └── ImportExport
     ├── ActiveWorkout (Tab 3)
-    │   ├── SetTracker
+    │   ├── SetTracker / GroupSetTracker
     │   ├── RestTimer
     │   ├── SessionProgress
     │   ├── ExercisePicker (Sheet, mid-session add)
@@ -75,6 +76,38 @@ JSON files (7)
 4. User taps Finish → `endSession()` sets `completedAt`, freezes timer
 5. User taps Save → `saveSession()` creates WorkoutLog, pushes to `library.logs`, shows summary sheet
 6. Logs are viewable on the Log tab with full breakdown, clipboard export, and "Save as Workout" conversion
+
+## Superset Grouping
+
+### Data Model
+- `WorkoutExercise.supersetGroupId?: string` — exercises sharing the same ID form a group (superset/tri-set/circuit)
+- `ExerciseLog.supersetGroupId?: string` — preserves grouping in completed workout logs
+- Groups are implicit: any exercises with the same `supersetGroupId` are grouped
+- No separate "group" entity — grouping is derived at render time via `deriveGroups()`
+
+### Group Derivation
+`deriveGroups()` in `src/utils/groupUtils.ts` scans the exercise list and produces an `ExerciseGroup<T>[]` array:
+- Consecutive exercises with the same `supersetGroupId` form a group
+- Exercises without a `supersetGroupId` become solo groups
+- `getGroupLabel()` returns "Superset" (2 exercises), "Tri-set" (3), or "Circuit" (4+)
+- Used by both `useBuilderGroups` (build tab) and `useSessionGroups` (active session)
+
+### Group-Aware Navigation
+- `ActiveSession.currentGroupIndex` tracks the current group (renamed from `currentExerciseIndex`)
+- `goToGroup(index)` navigates between groups during active workout
+- Groups are navigated as a unit — all exercises in a group are visible simultaneously
+
+### Round-Based Set Tracking
+- `GroupSetTracker` renders all exercises in a group side-by-side for each round
+- A "round" corresponds to one pass through all exercises in the group
+- Users complete sets for each exercise in the group before advancing to the next round
+
+### Builder Integration
+- `SupersetContainer` wraps grouped exercises with an accent border and group label
+- Users group exercises via ExerciseCard actions or by accepting superset suggestions
+- `addExerciseToGroup(exerciseIndex, exerciseId)` creates/extends a group
+- `ungroupExercise(exerciseIndex)` removes an exercise from its group
+- Drag-and-drop reordering is group-aware (reorders entire groups)
 
 ## Error Boundaries
 - One per tab/page

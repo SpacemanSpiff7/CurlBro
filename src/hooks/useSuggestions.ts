@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useStore } from '@/store';
 import { WORKOUT_SPLIT_MUSCLES } from '@/types';
-import type { ExerciseId, MuscleGroup, SuggestionGroups } from '@/types';
+import type { ExerciseId, MuscleGroup, SuggestionGroups, SupersetSuggestion } from '@/types';
 
 const DEFAULT_MAJOR_MUSCLES: MuscleGroup[] = [
   'chest', 'upper_back', 'shoulders', 'quadriceps', 'hamstrings', 'glutes',
@@ -33,17 +33,21 @@ export function useSuggestions(): SuggestionGroups {
     }
 
     // Superset with: superset candidates of current exercises, not already in workout
-    const supersetCandidates = new Set<ExerciseId>();
+    const supersetCandidateMap = new Map<ExerciseId, SupersetSuggestion>();
     for (const ex of exercises) {
       const ss = graph.supersets.get(ex.exerciseId);
       if (ss) {
         for (const ssId of ss) {
-          if (!inWorkout.has(ssId)) {
-            supersetCandidates.add(ssId);
+          if (!inWorkout.has(ssId) && !supersetCandidateMap.has(ssId)) {
+            supersetCandidateMap.set(ssId, {
+              exerciseId: ssId,
+              parentExerciseId: ex.exerciseId,
+            });
           }
         }
       }
     }
+    const supersetCandidates = new Set<ExerciseId>(supersetCandidateMap.keys());
 
     // Still need to hit: muscles not covered, based on selected split or defaults
     const coveredMuscles = new Set<string>();
@@ -85,10 +89,19 @@ export function useSuggestions(): SuggestionGroups {
       supersetCandidates.delete(id);
     }
 
+    // Build final supersetWith list from the map, excluding removed candidates
+    const finalSupersetWith: SupersetSuggestion[] = [];
+    for (const [id, suggestion] of supersetCandidateMap) {
+      if (supersetCandidates.has(id)) {
+        finalSupersetWith.push(suggestion);
+        if (finalSupersetWith.length >= 4) break;
+      }
+    }
+
     return {
       pairsWellWith: Array.from(complementCandidates).slice(0, 6),
       stillNeedToHit: Array.from(gapExercises).slice(0, 6),
-      supersetWith: Array.from(supersetCandidates).slice(0, 4),
+      supersetWith: finalSupersetWith,
     };
   }, [exercises, graph, workoutSplit]);
 }

@@ -1,4 +1,5 @@
 import type { WorkoutLog, SavedWorkout, ExerciseGraph, ExerciseId, WorkoutId } from '@/types';
+import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface LogStats {
@@ -59,6 +60,7 @@ export function logToSavedWorkout(log: WorkoutLog): SavedWorkout {
         weight: lastCompleted?.weight ?? null,
         restSeconds: 60,
         notes: '',
+        ...(ex.supersetGroupId && { supersetGroupId: ex.supersetGroupId }),
       };
     }),
     createdAt: now,
@@ -79,18 +81,29 @@ export function formatLogForClipboard(
   lines.push(`Duration: ${stats.durationMinutes} min | Total: ${totalWeightStr} lb`);
   lines.push('---');
 
-  for (const ex of log.exercises) {
-    const exercise = graph.exercises.get(ex.exerciseId as ExerciseId);
-    const name = exercise?.name ?? ex.exerciseId;
-    lines.push(`${name} [${ex.exerciseId}]`);
+  const groups = deriveGroups(log.exercises);
 
-    const setParts = ex.sets.map((s) => {
-      const w = s.weight != null ? `${s.weight}lb` : 'BW';
-      const r = s.reps ?? 0;
-      const mark = s.completed ? '\u2713' : '\u2717';
-      return `${w} \u00d7 ${r} ${mark}`;
-    });
-    lines.push(`  ${setParts.join(' | ')}`);
+  for (const group of groups) {
+    const label = getGroupLabel(group.exercises.length);
+
+    if (label) {
+      lines.push('');
+      lines.push(`[${label}]`);
+    }
+
+    for (const ex of group.exercises) {
+      const exercise = graph.exercises.get(ex.exerciseId as ExerciseId);
+      const name = exercise?.name ?? ex.exerciseId;
+      lines.push(`${name} [${ex.exerciseId}]`);
+
+      const setParts = ex.sets.map((s) => {
+        const w = s.weight != null ? `${s.weight}lb` : 'BW';
+        const r = s.reps ?? 0;
+        const mark = s.completed ? '\u2713' : '\u2717';
+        return `${w} \u00d7 ${r} ${mark}`;
+      });
+      lines.push(`  ${setParts.join(' | ')}`);
+    }
   }
 
   return lines.join('\n');

@@ -13,10 +13,11 @@ Cable Flye [cable_flye] | 3x12 | | Rest: 60s
 
 ## Grammar
 ```
-Header: ## {name} | {date}
+Header:   ## {name} | {date}
 Separator: ---
 Exercise: {name} [{id}] | {sets}x{reps} | {weight}{unit}? | Rest: {seconds}s
-Tip:   tip: {text}
+Superset: {name} [{id}] | {sets}x{reps} | {weight}{unit}? | Rest: {seconds}s [superset:{group_id}]
+Tip:      tip: {text}
 ```
 
 ## Rules
@@ -26,6 +27,12 @@ Tip:   tip: {text}
 - Parser is line-based, Zod-validated
 - Unrecognized exercise IDs generate warnings, not errors
 - Malformed lines generate errors
+
+## Superset Grouping
+- Append `[superset:GROUP_ID]` to the end of an exercise line to group it
+- Exercises sharing the same GROUP_ID are grouped (superset/tri-set/circuit)
+- Grouped exercises must be consecutive lines
+- The tag is optional — old format imports without groups (backward compatible)
 
 ## Round-trip Guarantee
 `parseImport(formatExport(workout))` produces identical workout

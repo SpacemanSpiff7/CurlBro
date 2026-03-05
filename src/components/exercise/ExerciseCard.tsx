@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import { GripVertical, Repeat, Trash2, ChevronDown, ChevronUp, Video } from 'lucide-react';
+import { GripVertical, Repeat, Trash2, ChevronDown, ChevronUp, Video, Link, Unlink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { MuscleTags } from './MuscleTags';
 import { SubstitutePanel } from './SubstitutePanel';
 import { VideoSheet } from './VideoSheet';
+import { ExercisePicker } from './ExercisePicker';
+import { useStore } from '@/store';
 import type { Exercise, ExerciseId, WorkoutExercise } from '@/types';
 
 interface ExerciseCardProps {
@@ -17,6 +19,9 @@ interface ExerciseCardProps {
   onUpdate: (index: number, updates: Partial<WorkoutExercise>) => void;
   onRemove: (index: number) => void;
   onSwap: (index: number, newId: ExerciseId) => void;
+  /** When provided, the card registers itself as a sortable item with this ID.
+   *  Omit when the card is inside a SupersetContainer (group handles sorting). */
+  sortableId?: string;
 }
 
 export const ExerciseCard = memo(function ExerciseCard({
@@ -26,10 +31,17 @@ export const ExerciseCard = memo(function ExerciseCard({
   onUpdate,
   onRemove,
   onSwap,
+  sortableId,
 }: ExerciseCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [showSubstitutes, setShowSubstitutes] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
+
+  const addExerciseToGroup = useStore((state) => state.builderActions.addExerciseToGroup);
+  const ungroupExercise = useStore((state) => state.builderActions.ungroupExercise);
+
+  const isSortable = sortableId !== undefined;
   const {
     attributes,
     listeners,
@@ -37,14 +49,16 @@ export const ExerciseCard = memo(function ExerciseCard({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: index });
+  } = useSortable({ id: sortableId ?? index, disabled: !isSortable });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 50 : 'auto' as const,
-  };
+  const style = isSortable
+    ? {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+        zIndex: isDragging ? 50 : ('auto' as const),
+      }
+    : undefined;
 
   const handleSetsChange = useCallback(
     (value: string) => {
@@ -80,10 +94,24 @@ export const ExerciseCard = memo(function ExerciseCard({
     [index, onSwap]
   );
 
+  const handleAddToGroup = useCallback(
+    (id: ExerciseId) => {
+      addExerciseToGroup(id, index);
+      setPickerOpen(false);
+    },
+    [index, addExerciseToGroup]
+  );
+
+  const handleUngroupSelf = useCallback(() => {
+    ungroupExercise(index);
+  }, [index, ungroupExercise]);
+
+  const isInGroup = !!workoutExercise.supersetGroupId;
+
   return (
     <>
       <motion.div
-        ref={setNodeRef}
+        ref={isSortable ? setNodeRef : undefined}
         style={style}
         layout
         initial={{ opacity: 0, y: 20 }}
@@ -94,15 +122,17 @@ export const ExerciseCard = memo(function ExerciseCard({
       >
         {/* Header */}
         <div className="flex items-center gap-2 px-3 py-3">
-          <button
-            {...attributes}
-            {...listeners}
-            className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
-            aria-label="Drag to reorder"
-            style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
-          >
-            <GripVertical size={16} />
-          </button>
+          {isSortable && (
+            <button
+              {...attributes}
+              {...listeners}
+              className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
+              aria-label="Drag to reorder"
+              style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
+            >
+              <GripVertical size={16} />
+            </button>
+          )}
 
           <div className="flex-1 min-w-0">
             <div className="text-sm font-medium text-text-primary truncate">
@@ -181,7 +211,7 @@ export const ExerciseCard = memo(function ExerciseCard({
               transition={{ duration: 0.15 }}
               className="overflow-hidden"
             >
-              <div className="flex items-center gap-2 px-3 pb-3 border-t border-border-subtle pt-2">
+              <div className="flex flex-wrap items-center gap-2 px-3 pb-3 border-t border-border-subtle pt-2">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -194,6 +224,28 @@ export const ExerciseCard = memo(function ExerciseCard({
                   <Repeat size={14} className="mr-1" />
                   Swap
                 </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setPickerOpen(true)}
+                  className="text-text-secondary hover:text-accent-primary"
+                  aria-label="Add superset partner"
+                >
+                  <Link size={14} className="mr-1" />
+                  Superset
+                </Button>
+                {isInGroup && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleUngroupSelf}
+                    className="text-text-secondary hover:text-accent-primary"
+                    aria-label="Remove from group"
+                  >
+                    <Unlink size={14} className="mr-1" />
+                    Ungroup
+                  </Button>
+                )}
                 <div className="flex-1" />
                 <Button
                   variant="ghost"
@@ -223,6 +275,13 @@ export const ExerciseCard = memo(function ExerciseCard({
         exercise={exercise}
         open={videoOpen}
         onOpenChange={setVideoOpen}
+      />
+
+      {/* Exercise picker for superset partner */}
+      <ExercisePicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
+        onAdd={handleAddToGroup}
       />
     </>
   );

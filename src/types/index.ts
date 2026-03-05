@@ -94,6 +94,7 @@ export interface WorkoutExercise {
   weight: number | null;
   restSeconds: number;
   notes: string;
+  supersetGroupId?: string;
 }
 
 export interface WorkoutDraft {
@@ -111,6 +112,7 @@ export const WorkoutExerciseSchema = z.object({
   weight: z.number().nullable(),
   restSeconds: z.number().int().min(0),
   notes: z.string(),
+  supersetGroupId: z.string().optional(),
 });
 
 export const SavedWorkoutSchema = z.object({
@@ -127,10 +129,15 @@ export type SavedWorkout = z.infer<typeof SavedWorkoutSchema> & {
 };
 
 // ─── Suggestion Groups ───────────────────────────────────
+export interface SupersetSuggestion {
+  exerciseId: ExerciseId;
+  parentExerciseId: ExerciseId;
+}
+
 export interface SuggestionGroups {
   pairsWellWith: ExerciseId[];
   stillNeedToHit: ExerciseId[];
-  supersetWith: ExerciseId[];
+  supersetWith: SupersetSuggestion[];
 }
 
 // ─── Workout Validation ──────────────────────────────────
@@ -153,13 +160,14 @@ export interface SetLog {
 export interface ExerciseLog {
   exerciseId: ExerciseId;
   sets: SetLog[];
+  supersetGroupId?: string;
 }
 
 export interface ActiveSession {
   workoutId: WorkoutId;
   workoutName: string;
   exercises: ExerciseLog[];
-  currentExerciseIndex: number;
+  currentGroupIndex: number;
   startedAt: string | null;
   completedAt: string | null;
 }
@@ -192,6 +200,7 @@ export const WorkoutLogSchema = z.object({
       reps: z.number().nullable(),
       completed: z.boolean(),
     })),
+    supersetGroupId: z.string().optional(),
   })),
   startedAt: z.string(),
   completedAt: z.string(),

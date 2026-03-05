@@ -96,7 +96,7 @@ function CategorySection({
   group: CategoryGroup;
   onSelect: (w: SeededWorkout) => void;
 }) {
-  const [open, setOpen] = useState(group.label === 'Easy Machine');
+  const [open, setOpen] = useState(false);
 
   return (
     <div>

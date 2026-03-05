@@ -22,6 +22,9 @@ const EXERCISE_ID_PARTIAL_RE = /^(.+?)\s*\[(\w+)\]\s*(?:\|.*)?$/;
 const EXERCISE_NAME_FIELDS_RE = /^(.+?)\s*\|\s*(\d+)x(\d+)\s*\|\s*([\d.]*)\s*(?:lb)?\s*\|\s*Rest:\s*(\d+)s\s*$/;
 const EXERCISE_NAME_ONLY_RE = /^([A-Z].{2,})$/;
 
+// Superset tag at end of line: [superset:abc123]
+const SUPERSET_TAG_RE = /\s*\[superset:(\S+)\]\s*$/;
+
 const TIP_RE = /^\s+tip:\s+(.+)$/;
 const SEPARATOR_RE = /^---+$/;
 
@@ -131,13 +134,21 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
   const exercises: WorkoutExercise[] = [];
 
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+    let line = lines[i];
 
     // Skip header and non-exercise lines
     if (i === 0 && headerFound) continue;
     if (SEPARATOR_RE.test(line)) continue;
     if (TIP_RE.test(line)) continue;
     if (line.trim() === '') continue;
+
+    // Extract optional superset tag before matching exercise patterns
+    let supersetGroupId: string | undefined;
+    const supersetMatch = line.match(SUPERSET_TAG_RE);
+    if (supersetMatch) {
+      supersetGroupId = supersetMatch[1];
+      line = line.replace(SUPERSET_TAG_RE, '');
+    }
 
     // 1. Full match: Name [id] | 3x10 | 100lb | Rest: 60s
     const fullMatch = line.match(EXERCISE_FULL_RE);
@@ -161,7 +172,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         }
       }
 
-      exercises.push({ exerciseId, sets, reps, weight, restSeconds, notes: '' });
+      exercises.push({ exerciseId, sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
       continue;
     }
 
@@ -187,7 +198,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
       const parts = afterBracket.split('|').map((p) => p.trim()).filter(Boolean);
       const fields = parseFields(parts, settings);
 
-      exercises.push({ exerciseId, ...fields, notes: '' });
+      exercises.push({ exerciseId, ...fields, notes: '', ...(supersetGroupId && { supersetGroupId }) });
       warnings.push(`Used defaults for missing fields (line ${i + 1})`);
       continue;
     }
@@ -204,7 +215,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
 
       const resolved = resolveByName(exerciseName, nameIndex);
       if (resolved) {
-        exercises.push({ exerciseId: resolved, sets, reps, weight, restSeconds, notes: '' });
+        exercises.push({ exerciseId: resolved, sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
         warnings.push(`Resolved "${exerciseName}" by name (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);
@@ -221,7 +232,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         const ex = graph.exercises.get(resolved);
         const defaultSets = ex?.category === 'isolation' ? settings.defaultSetsIsolation : settings.defaultSetsCompound;
         const defaultRest = ex?.category === 'isolation' ? settings.restTimerIsolationSeconds : settings.restTimerCompoundSeconds;
-        exercises.push({ exerciseId: resolved, sets: defaultSets, reps: goalDefaultReps(settings), weight: null, restSeconds: defaultRest, notes: '' });
+        exercises.push({ exerciseId: resolved, sets: defaultSets, reps: goalDefaultReps(settings), weight: null, restSeconds: defaultRest, notes: '', ...(supersetGroupId && { supersetGroupId }) });
         warnings.push(`Resolved "${exerciseName}" by name, using default sets/reps (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);

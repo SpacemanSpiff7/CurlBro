@@ -280,6 +280,124 @@ describe('Import/Export', () => {
     });
   });
 
+  describe('superset export', () => {
+    it('appends superset tag when supersetGroupId is present', () => {
+      const workout = createTestWorkout();
+      workout.exercises[0].supersetGroupId = 'ss1';
+      workout.exercises[1].supersetGroupId = 'ss1';
+      const text = formatExport(workout, graph, { includeTips: false });
+
+      expect(text).toContain('[barbell_bench_press] | 4x8 | 155lb | Rest: 120s [superset:ss1]');
+      expect(text).toContain('[cable_flye] | 3x12 |  | Rest: 60s [superset:ss1]');
+    });
+
+    it('does not append tag for standalone exercises', () => {
+      const workout = createTestWorkout();
+      const text = formatExport(workout, graph, { includeTips: false });
+
+      expect(text).not.toContain('[superset:');
+    });
+
+    it('handles mixed standalone and grouped exercises', () => {
+      const workout = createTestWorkout();
+      workout.exercises[0].supersetGroupId = 'ss1';
+      // exercise[1] is standalone
+      const text = formatExport(workout, graph, { includeTips: false });
+
+      const lines = text.split('\n').filter((l) => l.includes('['));
+      const benchLine = lines.find((l) => l.includes('barbell_bench_press'))!;
+      const flyeLine = lines.find((l) => l.includes('cable_flye'))!;
+      expect(benchLine).toContain('[superset:ss1]');
+      expect(flyeLine).not.toContain('[superset:');
+    });
+  });
+
+  describe('superset import', () => {
+    it('parses superset tags from exercise lines', () => {
+      const text = [
+        '## Upper | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s [superset:ss1]',
+        'Barbell Row [barbell_row] | 4x8 | 135lb | Rest: 120s [superset:ss1]',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].supersetGroupId).toBe('ss1');
+      expect(result.workout!.exercises[1].supersetGroupId).toBe('ss1');
+    });
+
+    it('leaves supersetGroupId undefined for lines without tag', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].supersetGroupId).toBeUndefined();
+    });
+
+    it('parses superset tag on partial lines (id only, no fields)', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] [superset:g1]',
+      ].join('\n');
+
+      const result = parseImport(text, graph, DEFAULT_SETTINGS);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].supersetGroupId).toBe('g1');
+      expect(result.workout!.exercises[0].sets).toBe(4); // default compound
+    });
+
+    it('parses superset tag on name-with-fields lines (no id)', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) | 4x8 | 155lb | Rest: 120s [superset:g2]',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
+      expect(result.workout!.exercises[0].supersetGroupId).toBe('g2');
+    });
+
+    it('handles mixed grouped and standalone exercises', () => {
+      const text = [
+        '## Test | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s [superset:ss1]',
+        'Barbell Row [barbell_row] | 4x8 | 135lb | Rest: 120s [superset:ss1]',
+        'Cable Flye (Mid-Height) [cable_flye] | 3x12 | | Rest: 60s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises[0].supersetGroupId).toBe('ss1');
+      expect(result.workout!.exercises[1].supersetGroupId).toBe('ss1');
+      expect(result.workout!.exercises[2].supersetGroupId).toBeUndefined();
+    });
+
+    it('backward compatible: old format without tags imports fine', () => {
+      const text = [
+        '## Push Day | 2026-03-04',
+        '---',
+        'Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s',
+        '  tip: Eyes under bar.',
+        'Cable Flye (Mid-Height) [cable_flye] | 3x12 | | Rest: 60s',
+      ].join('\n');
+
+      const result = parseImport(text, graph);
+      expect(result.errors).toEqual([]);
+      expect(result.workout!.exercises.length).toBe(2);
+      expect(result.workout!.exercises[0].supersetGroupId).toBeUndefined();
+      expect(result.workout!.exercises[1].supersetGroupId).toBeUndefined();
+    });
+  });
+
   describe('round-trip', () => {
     it('export → import produces equivalent workout', () => {
       const original = createTestWorkout();
@@ -300,6 +418,32 @@ describe('Import/Export', () => {
         expect(imp.weight).toBe(orig.weight);
         expect(imp.restSeconds).toBe(orig.restSeconds);
       }
+    });
+
+    it('export → import preserves superset groups', () => {
+      const original = createTestWorkout();
+      original.exercises[0].supersetGroupId = 'ss1';
+      original.exercises[1].supersetGroupId = 'ss1';
+
+      const exported = formatExport(original, graph);
+      const imported = parseImport(exported, graph);
+
+      expect(imported.errors).toEqual([]);
+      expect(imported.workout!.exercises[0].supersetGroupId).toBe('ss1');
+      expect(imported.workout!.exercises[1].supersetGroupId).toBe('ss1');
+    });
+
+    it('export → import preserves mixed standalone and grouped', () => {
+      const original = createTestWorkout();
+      original.exercises[0].supersetGroupId = 'g1';
+      // exercises[1] remains standalone
+
+      const exported = formatExport(original, graph);
+      const imported = parseImport(exported, graph);
+
+      expect(imported.errors).toEqual([]);
+      expect(imported.workout!.exercises[0].supersetGroupId).toBe('g1');
+      expect(imported.workout!.exercises[1].supersetGroupId).toBeUndefined();
     });
   });
 });

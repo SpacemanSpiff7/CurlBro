@@ -67,7 +67,7 @@ describe('useSuggestions', () => {
     const allSuggested = [
       ...result.current.pairsWellWith,
       ...result.current.stillNeedToHit,
-      ...result.current.supersetWith,
+      ...result.current.supersetWith.map((s) => s.exerciseId),
     ];
     expect(allSuggested).not.toContain('barbell_bench_press');
     expect(allSuggested).not.toContain('incline_dumbbell_press');
@@ -99,7 +99,7 @@ describe('useSuggestions', () => {
     const allSuggested = [
       ...result.current.pairsWellWith,
       ...result.current.stillNeedToHit,
-      ...result.current.supersetWith,
+      ...result.current.supersetWith.map((s) => s.exerciseId),
     ];
     expect(allSuggested).toContain('barbell_row');
   });

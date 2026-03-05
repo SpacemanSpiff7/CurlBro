@@ -21,7 +21,7 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-const RING_SIZE = 80;
+const RING_SIZE = 100;
 const STROKE_WIDTH = 4;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -85,7 +85,7 @@ export const RestTimer = memo(function RestTimer({
       </div>
 
       {/* Center: tappable timer ring */}
-      <div className="relative" style={{ width: RING_SIZE + 16, height: RING_SIZE + 16 }}>
+      <div className="relative" style={{ width: RING_SIZE + 24, height: RING_SIZE + 24 }}>
         <button
           onClick={handleRingTap}
           aria-label={
@@ -95,7 +95,7 @@ export const RestTimer = memo(function RestTimer({
               : 'Start timer'
           }
           className="absolute inset-0 flex items-center justify-center"
-          style={{ left: 8, top: 8, width: RING_SIZE, height: RING_SIZE }}
+          style={{ left: 12, top: 12, width: RING_SIZE, height: RING_SIZE }}
         >
           <svg
             width={RING_SIZE}
@@ -163,7 +163,7 @@ export const RestTimer = memo(function RestTimer({
             }}
             aria-label="Reset timer"
             className="absolute flex items-center justify-center h-6 w-6 rounded-full bg-bg-elevated border border-border-subtle text-text-tertiary hover:text-text-secondary"
-            style={{ top: 0, right: 0 }}
+            style={{ top: -4, right: -4 }}
           >
             <RotateCcw size={12} />
           </motion.button>

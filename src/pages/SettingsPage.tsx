@@ -59,12 +59,12 @@ export function SettingsPage() {
   );
 
   return (
-    <div className="flex flex-col gap-6 pb-20">
+    <div className="flex flex-col gap-4 pb-20">
       <TopBar>
         <h1 className="text-xl font-bold text-text-primary">Settings</h1>
       </TopBar>
 
-      <div className="flex flex-col gap-6 px-4">
+      <div className="flex flex-col gap-4 px-4">
 
       {/* Training Goal */}
       <div className="space-y-3">

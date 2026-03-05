@@ -3,6 +3,8 @@
 ## What
 Client-side React workout builder using an exercise graph (162 exercises, 1340 edges).
 Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
+Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
+grouped visually and navigated as a unit during active sessions.
 
 ## Tech Stack
 - React 19 / TypeScript (strict) / Vite 7
@@ -56,6 +58,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/data/exerciseConflicts.ts` — 33 exercise conflicts with scientific citations
 - `src/data/seededWorkouts.ts` — 16 pre-built workout templates across 4 difficulty tiers
 - `src/utils/logUtils.ts` — log display/export helpers (computeLogStats, logToSavedWorkout, formatLogForClipboard)
+- `src/utils/groupUtils.ts` — superset group derivation (deriveGroups, getGroupLabel, ExerciseGroup interface)
 - `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
 - `public/llms.txt` — LLM workout generation instructions (import format + guidance)
 - `public/robots.txt` — points crawlers to llms.txt and exercises.json

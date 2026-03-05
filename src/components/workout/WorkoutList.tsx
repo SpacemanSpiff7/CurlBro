@@ -15,14 +15,17 @@ import {
 } from '@dnd-kit/sortable';
 import { AnimatePresence } from 'framer-motion';
 import { ExerciseCard } from '@/components/exercise/ExerciseCard';
+import { SupersetContainer } from '@/components/workout/SupersetContainer';
 import { useStore } from '@/store';
+import { useBuilderGroups } from '@/hooks/useBuilderGroups';
 import type { WorkoutExercise, ExerciseId } from '@/types';
 
 export function WorkoutList() {
-  const workout = useStore((state) => state.builder.workout);
   const graph = useStore((state) => state.graph);
   const { removeExercise, reorderExercises, updateExercise, swapExercise } =
     useStore((state) => state.builderActions);
+
+  const groups = useBuilderGroups();
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -37,14 +40,16 @@ export function WorkoutList() {
       const { active, over } = event;
       if (!over || active.id === over.id) return;
 
-      const oldIndex = Number(active.id);
-      const newIndex = Number(over.id);
+      // IDs are group-level: use the first index of each group
+      const fromGroupIdx = groups.findIndex((g) => g.groupId === active.id);
+      const toGroupIdx = groups.findIndex((g) => g.groupId === over.id);
+      if (fromGroupIdx < 0 || toGroupIdx < 0) return;
 
-      if (oldIndex >= 0 && newIndex >= 0) {
-        reorderExercises(oldIndex, newIndex);
-      }
+      const fromIndex = groups[fromGroupIdx].indices[0];
+      const toIndex = groups[toGroupIdx].indices[0];
+      reorderExercises(fromIndex, toIndex);
     },
-    [reorderExercises]
+    [groups, reorderExercises]
   );
 
   const handleUpdate = useCallback(
@@ -68,7 +73,7 @@ export function WorkoutList() {
     [swapExercise]
   );
 
-  if (workout.exercises.length === 0) {
+  if (groups.length === 0) {
     return null;
   }
 
@@ -79,26 +84,47 @@ export function WorkoutList() {
       onDragEnd={handleDragEnd}
     >
       <SortableContext
-        items={workout.exercises.map((_, i) => i)}
+        items={groups.map((g) => g.groupId)}
         strategy={verticalListSortingStrategy}
       >
         <div className="space-y-2">
           <AnimatePresence mode="popLayout">
-            {workout.exercises.map((workoutExercise, index) => {
-              const exercise = graph.exercises.get(workoutExercise.exerciseId);
-              if (!exercise) return null;
+            {groups.map((group) => {
+              const isGrouped = group.exercises.length > 1;
 
-              return (
-                <ExerciseCard
-                  key={index}
-                  exercise={exercise}
-                  workoutExercise={workoutExercise}
-                  index={index}
-                  onUpdate={handleUpdate}
-                  onRemove={handleRemove}
-                  onSwap={handleSwap}
-                />
-              );
+              const cards = group.exercises.map((workoutExercise, i) => {
+                const realIndex = group.indices[i];
+                const exercise = graph.exercises.get(workoutExercise.exerciseId);
+                if (!exercise) return null;
+
+                return (
+                  <ExerciseCard
+                    key={realIndex}
+                    exercise={exercise}
+                    workoutExercise={workoutExercise}
+                    index={realIndex}
+                    onUpdate={handleUpdate}
+                    onRemove={handleRemove}
+                    onSwap={handleSwap}
+                    sortableId={isGrouped ? undefined : group.groupId}
+                  />
+                );
+              });
+
+              if (isGrouped) {
+                return (
+                  <SupersetContainer
+                    key={group.groupId}
+                    sortableId={group.groupId}
+                    indices={group.indices}
+                  >
+                    {cards}
+                  </SupersetContainer>
+                );
+              }
+
+              // Standalone exercise — render directly (ExerciseCard handles its own sortable)
+              return cards[0];
             })}
           </AnimatePresence>
         </div>

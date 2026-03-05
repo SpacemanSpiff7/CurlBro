@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Square, Timer, Video } from 'lucide-react';
+import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer, Video } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { SetTracker } from '@/components/session/SetTracker';
+import { GroupSetTracker } from '@/components/session/GroupSetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
@@ -15,49 +15,15 @@ import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
 import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
+import { useSessionGroups } from '@/hooks/useSessionGroups';
+import { getGroupLabel } from '@/utils/groupUtils';
 import { computeLogStats } from '@/utils/logUtils';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
-
-function WakeLockToggle({ isActive, isSupported, onToggle }: {
-  isActive: boolean;
-  isSupported: boolean;
-  onToggle: () => void;
-}) {
-  if (!isSupported) return null;
-
-  return (
-    <button
-      role="switch"
-      aria-checked={isActive}
-      aria-label={isActive ? 'Allow screen sleep' : 'Keep screen on'}
-      onClick={onToggle}
-      className="flex items-center gap-1.5"
-    >
-      <span className="text-[10px] text-text-tertiary uppercase tracking-wide">
-        Screen
-      </span>
-      <div
-        className={`relative h-6 w-11 rounded-full transition-colors duration-200 ${
-          isActive ? 'bg-warning/80' : 'bg-bg-elevated'
-        }`}
-        style={isActive ? {
-          boxShadow: '0 0 8px var(--color-warning), 0 0 20px color-mix(in srgb, var(--color-warning) 30%, transparent)',
-        } : undefined}
-      >
-        <span
-          className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full transition-transform duration-200 ${
-            isActive ? 'translate-x-5 bg-white' : 'translate-x-0 bg-text-tertiary'
-          }`}
-        />
-      </div>
-    </button>
-  );
-}
 
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, removeSet, goToExercise, beginSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
+  const { completeSet, addSet, removeSet, goToGroup, beginSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
@@ -74,89 +40,92 @@ export function ActiveWorkout() {
   const timer = useRestTimer();
   const wakeLock = useWakeLock();
   const elapsed = useElapsedTimer(session?.startedAt ?? null, session?.completedAt);
+  const { groups, currentGroup, currentGroupIndex, totalGroups } = useSessionGroups();
 
-  // Derive saved status from store — no reset logic needed
+  // Derive saved status from store
   const logs = useStore((state) => state.library.logs);
   const isSaved = useMemo(() => {
     if (!session?.startedAt) return false;
     return logs.some((l) => l.workoutId === session.workoutId && l.startedAt === session.startedAt);
   }, [session, logs]);
 
-  // Find the original workout to get restSeconds per exercise
+  // Find the original workout to get restSeconds/weight per exercise
   const workouts = useStore((state) => state.library.workouts);
   const originalWorkout = useMemo(() => {
     if (!session) return null;
     return workouts.find((w) => w.id === session.workoutId) ?? null;
   }, [session, workouts]);
 
-  const currentExercise = useMemo(() => {
-    if (!session) return null;
-    return session.exercises[session.currentExerciseIndex] ?? null;
-  }, [session]);
+  // For single-exercise groups, get the first exercise info for the header
+  const firstExercise = currentGroup?.exercises[0] ?? null;
+  const firstExerciseInfo = useMemo(() => {
+    if (!firstExercise) return null;
+    return graph.exercises.get(firstExercise.exerciseId as ExerciseId) ?? null;
+  }, [firstExercise, graph]);
 
-  const exerciseInfo = useMemo(() => {
-    if (!currentExercise) return null;
-    return graph.exercises.get(currentExercise.exerciseId as ExerciseId) ?? null;
-  }, [currentExercise, graph]);
-
+  // Rest seconds: max of all exercises in the group
   const restSeconds = useMemo(() => {
-    if (!session || !originalWorkout) return 60;
-    const orig = originalWorkout.exercises[session.currentExerciseIndex];
-    return orig?.restSeconds ?? 60;
-  }, [session, originalWorkout]);
+    if (!currentGroup || !originalWorkout) return 60;
+    return Math.max(
+      ...currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.restSeconds ?? 60)
+    );
+  }, [currentGroup, originalWorkout]);
 
-  const defaultWeight = useMemo(() => {
-    if (!session || !originalWorkout) return null;
-    return originalWorkout.exercises[session.currentExerciseIndex]?.weight ?? null;
-  }, [session, originalWorkout]);
+  // Default weights for each exercise in the group
+  const defaultWeights = useMemo(() => {
+    if (!currentGroup || !originalWorkout) return [];
+    return currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.weight ?? null);
+  }, [currentGroup, originalWorkout]);
 
   const handleCompleteSet = useCallback(
-    (setIndex: number, data: SetLog) => {
-      if (!session) return;
-      completeSet(session.currentExerciseIndex, setIndex, data);
+    (exerciseIndex: number, setIndex: number, data: SetLog) => {
+      completeSet(exerciseIndex, setIndex, data);
     },
-    [session, completeSet]
+    [completeSet]
   );
 
-  const handleAddSet = useCallback(() => {
-    if (!session) return;
-    addSet(session.currentExerciseIndex);
-  }, [session, addSet]);
+  const handleAddSet = useCallback(
+    (exerciseIndex: number) => {
+      addSet(exerciseIndex);
+    },
+    [addSet]
+  );
 
   const handleRemoveSet = useCallback(
-    (setIndex: number) => {
-      if (!session) return;
-      removeSet(session.currentExerciseIndex, setIndex);
+    (exerciseIndex: number, setIndex: number) => {
+      removeSet(exerciseIndex, setIndex);
       toast('Set removed', { duration: 2000 });
     },
-    [session, removeSet]
+    [removeSet]
   );
 
   const handlePrev = useCallback(() => {
-    if (!session || session.currentExerciseIndex <= 0) return;
-    goToExercise(session.currentExerciseIndex - 1);
+    if (currentGroupIndex <= 0) return;
+    goToGroup(currentGroupIndex - 1);
     timer.stop();
-  }, [session, goToExercise, timer]);
+  }, [currentGroupIndex, goToGroup, timer]);
 
   const handleNext = useCallback(() => {
-    if (!session || session.currentExerciseIndex >= session.exercises.length - 1) return;
-    goToExercise(session.currentExerciseIndex + 1);
+    if (currentGroupIndex >= totalGroups - 1) return;
+    goToGroup(currentGroupIndex + 1);
     timer.stop();
-  }, [session, goToExercise, timer]);
+  }, [currentGroupIndex, totalGroups, goToGroup, timer]);
 
   const handleFinish = useCallback(() => {
-    endSession(); // endSession already pushes the log to library.logs
+    endSession();
   }, [endSession]);
 
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
-      if (!session) return;
+      if (!currentGroup) return;
+      // Swap the first exercise in the group (for standalone) or the one the panel was opened for
+      const exerciseIdx = currentGroup.indices[0];
       const newExercise = graph.exercises.get(newId);
-      swapExercise(session.currentExerciseIndex, newId);
+      swapExercise(exerciseIdx, newId);
       setSwapOpen(false);
       toast.success(`Swapped to ${newExercise?.name ?? 'new exercise'}`);
     },
-    [session, graph, swapExercise]
+    [currentGroup, graph, swapExercise]
   );
 
   const handleSave = useCallback(() => {
@@ -175,6 +144,14 @@ export function ActiveWorkout() {
     },
     [addExerciseToSession]
   );
+
+  // Build group header name for multi-exercise groups
+  const groupHeaderNames = useMemo(() => {
+    if (!currentGroup || currentGroup.exercises.length <= 1) return null;
+    return currentGroup.exercises
+      .map((ex) => graph.exercises.get(ex.exerciseId as ExerciseId)?.name ?? 'Unknown')
+      .join(' + ');
+  }, [currentGroup, graph]);
 
   // No active session
   if (!session) {
@@ -196,13 +173,14 @@ export function ActiveWorkout() {
     );
   }
 
-  const totalExercises = session.exercises.length;
-  const currentIndex = session.currentExerciseIndex;
   const totalSets = session.exercises.reduce((sum, ex) => sum + ex.sets.length, 0);
   const completedSets = session.exercises.reduce(
     (sum, ex) => sum + ex.sets.filter((s) => s.completed).length,
     0
   );
+
+  const isMultiExerciseGroup = (currentGroup?.exercises.length ?? 0) > 1;
+  const groupLabel = getGroupLabel(currentGroup?.exercises.length ?? 0);
 
   return (
     <div className="flex flex-col gap-4 pb-20">
@@ -262,9 +240,24 @@ export function ActiveWorkout() {
                 Saved
               </Button>
             )}
-            <span className="text-[10px] tabular-nums text-text-tertiary">
-              {elapsed}
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] tabular-nums text-text-tertiary">
+                {elapsed}
+              </span>
+              {wakeLock.isSupported && (
+                <button
+                  onClick={wakeLock.toggle}
+                  aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
+                  className={`p-0.5 rounded transition-colors ${
+                    wakeLock.isActive
+                      ? 'text-warning'
+                      : 'text-text-tertiary'
+                  }`}
+                >
+                  <Smartphone size={12} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </TopBar>
@@ -279,14 +272,14 @@ export function ActiveWorkout() {
         />
       </div>
 
-      {/* Exercise navigation */}
+      {/* Group navigation */}
       <div className="flex items-center justify-between">
         <Button
           variant="ghost"
           size="icon"
           onClick={handlePrev}
-          disabled={currentIndex <= 0}
-          aria-label="Previous exercise"
+          disabled={currentGroupIndex <= 0}
+          aria-label="Previous group"
           className="h-9 w-9"
         >
           <ChevronLeft size={18} />
@@ -294,39 +287,54 @@ export function ActiveWorkout() {
         <div className="text-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${currentIndex}-${currentExercise?.exerciseId}`}
+              key={`${currentGroupIndex}-${currentGroup?.groupId}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
             >
-              <div className="flex items-center justify-center gap-1.5">
-                <div className="text-base font-semibold text-text-primary">
-                  {exerciseInfo?.name ?? 'Unknown Exercise'}
-                </div>
-                {exerciseInfo?.video_url && (
+              {isMultiExerciseGroup ? (
+                <>
+                  <div className="text-[11px] font-medium text-accent-primary uppercase tracking-wide mb-0.5">
+                    {groupLabel}
+                  </div>
+                  <div className="flex items-center justify-center gap-1.5">
+                    <div className="text-sm font-semibold text-text-primary max-w-[220px] truncate">
+                      {groupHeaderNames}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center justify-center gap-1.5">
+                  <div className="text-base font-semibold text-text-primary">
+                    {firstExerciseInfo?.name ?? 'Unknown Exercise'}
+                  </div>
+                  {firstExerciseInfo?.video_url && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setVideoOpen(true)}
+                      aria-label="Watch video"
+                      className="h-7 w-7"
+                    >
+                      <Video size={14} className="text-text-tertiary" />
+                    </Button>
+                  )}
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setVideoOpen(true)}
-                    aria-label="Watch video"
+                    onClick={() => setSwapOpen((o) => !o)}
+                    aria-label="Swap exercise"
                     className="h-7 w-7"
                   >
-                    <Video size={14} className="text-text-tertiary" />
+                    <ArrowRightLeft size={14} className={swapOpen ? 'text-accent-primary' : ''} />
                   </Button>
-                )}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSwapOpen((o) => !o)}
-                  aria-label="Swap exercise"
-                  className="h-7 w-7"
-                >
-                  <ArrowRightLeft size={14} className={swapOpen ? 'text-accent-primary' : ''} />
-                </Button>
-              </div>
+                </div>
+              )}
               <div className="text-xs text-text-tertiary">
-                {currentIndex + 1} of {totalExercises}
+                {isMultiExerciseGroup
+                  ? `Group ${currentGroupIndex + 1} of ${totalGroups}`
+                  : `Exercise ${currentGroupIndex + 1} of ${totalGroups}`}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -335,24 +343,24 @@ export function ActiveWorkout() {
           variant="ghost"
           size="icon"
           onClick={handleNext}
-          disabled={currentIndex >= totalExercises - 1}
-          aria-label="Next exercise"
+          disabled={currentGroupIndex >= totalGroups - 1}
+          aria-label="Next group"
           className="h-9 w-9"
         >
           <ChevronRight size={18} />
         </Button>
       </div>
 
-      {/* Substitute panel */}
-      {currentExercise && (
+      {/* Substitute panel (standalone only) */}
+      {firstExercise && !isMultiExerciseGroup && (
         <SubstitutePanel
-          exerciseId={currentExercise.exerciseId as ExerciseId}
+          exerciseId={firstExercise.exerciseId as ExerciseId}
           open={swapOpen}
           onSwap={handleSwap}
         />
       )}
 
-      {/* Rest timer + wake lock */}
+      {/* Rest timer */}
       <div className="flex flex-col items-center gap-2">
         <RestTimer
           remainingSeconds={timer.remainingSeconds}
@@ -366,26 +374,21 @@ export function ActiveWorkout() {
           onPause={timer.pause}
           onAddTime={timer.addTime}
         />
-        <WakeLockToggle
-          isActive={wakeLock.isActive}
-          isSupported={wakeLock.isSupported}
-          onToggle={wakeLock.toggle}
-        />
       </div>
 
-      {/* Set tracker */}
-      {currentExercise && (
+      {/* Group set tracker */}
+      {currentGroup && (
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentIndex}
+            key={currentGroupIndex}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.15 }}
           >
-            <SetTracker
-              sets={currentExercise.sets}
-              defaultWeight={defaultWeight}
+            <GroupSetTracker
+              group={currentGroup}
+              defaultWeights={defaultWeights}
               onCompleteSet={handleCompleteSet}
               onAddSet={handleAddSet}
               onRemoveSet={handleRemoveSet}
@@ -394,43 +397,50 @@ export function ActiveWorkout() {
         </AnimatePresence>
       )}
 
-      {/* Beginner tip — below sets/Add Set */}
-      <AnimatePresence mode="wait">
-        {exerciseInfo?.beginner_tips && (
-          <motion.div
-            key={currentExercise?.exerciseId}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-            className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2"
-          >
-            <span className="text-xs text-accent-primary">{exerciseInfo.beginner_tips}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Beginner tip — standalone exercises only */}
+      {!isMultiExerciseGroup && (
+        <AnimatePresence mode="wait">
+          {firstExerciseInfo?.beginner_tips && (
+            <motion.div
+              key={firstExercise?.exerciseId}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15 }}
+              className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2"
+            >
+              <span className="text-xs text-accent-primary">{firstExerciseInfo.beginner_tips}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
 
-      {/* Exercise dots */}
+      {/* Group dots — one dot per group */}
       <div className="flex items-center justify-center gap-1.5 pt-2">
-        {session.exercises.map((ex, i) => {
-          const allDone = ex.sets.every((s) => s.completed);
-          const someDone = ex.sets.some((s) => s.completed);
+        {groups.map((group, i) => {
+          const allDone = group.exercises.every((ex) =>
+            ex.sets.every((s) => s.completed)
+          );
+          const someDone = group.exercises.some((ex) =>
+            ex.sets.some((s) => s.completed)
+          );
+          const isMulti = group.exercises.length > 1;
           return (
             <button
               key={i}
               onClick={() => {
-                goToExercise(i);
+                goToGroup(i);
                 timer.stop();
               }}
-              aria-label={`Go to exercise ${i + 1}`}
+              aria-label={`Go to ${isMulti ? 'group' : 'exercise'} ${i + 1}`}
               className={`h-2.5 rounded-full transition-all ${
-                i === currentIndex
-                  ? 'w-6 bg-accent-primary'
+                i === currentGroupIndex
+                  ? isMulti ? 'w-8 bg-accent-primary' : 'w-6 bg-accent-primary'
                   : allDone
-                    ? 'w-2.5 bg-success'
+                    ? isMulti ? 'w-4 bg-success' : 'w-2.5 bg-success'
                     : someDone
-                      ? 'w-2.5 bg-warning'
-                      : 'w-2.5 bg-bg-elevated'
+                      ? isMulti ? 'w-4 bg-warning' : 'w-2.5 bg-warning'
+                      : isMulti ? 'w-4 bg-bg-elevated' : 'w-2.5 bg-bg-elevated'
               }`}
             />
           );
@@ -447,7 +457,7 @@ export function ActiveWorkout() {
       </div>
 
       <VideoSheet
-        exercise={exerciseInfo}
+        exercise={firstExerciseInfo}
         open={videoOpen}
         onOpenChange={setVideoOpen}
       />

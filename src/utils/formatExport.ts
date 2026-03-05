@@ -26,7 +26,8 @@ export function formatExport(
     first = false;
 
     const weightStr = ex.weight != null ? `${ex.weight}lb` : '';
-    const line = `${exercise.name} [${ex.exerciseId}] | ${ex.sets}x${ex.reps} | ${weightStr} | Rest: ${ex.restSeconds}s`;
+    const supersetTag = ex.supersetGroupId ? ` [superset:${ex.supersetGroupId}]` : '';
+    const line = `${exercise.name} [${ex.exerciseId}] | ${ex.sets}x${ex.reps} | ${weightStr} | Rest: ${ex.restSeconds}s${supersetTag}`;
     lines.push(line);
 
     if (includeTips && exercise.beginner_tips) {

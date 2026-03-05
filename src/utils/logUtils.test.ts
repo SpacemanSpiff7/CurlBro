@@ -176,4 +176,51 @@ describe('formatLogForClipboard', () => {
 
     expect(output).toContain('unknown_exercise [unknown_exercise]');
   });
+
+  it('groups superset exercises with a label', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].supersetGroupId = 'ss1';
+    log.exercises[1].supersetGroupId = 'ss1';
+    const output = formatLogForClipboard(log, graph);
+
+    expect(output).toContain('[Superset]');
+    // Both exercises should appear after the label
+    const lines = output.split('\n');
+    const labelIdx = lines.findIndex((l) => l.includes('[Superset]'));
+    const benchIdx = lines.findIndex((l) => l.includes('barbell_bench_press'));
+    const flyeIdx = lines.findIndex((l) => l.includes('cable_flye'));
+    expect(labelIdx).toBeLessThan(benchIdx);
+    expect(benchIdx).toBeLessThan(flyeIdx);
+  });
+
+  it('does not show group label for standalone exercises', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForClipboard(log, graph);
+
+    expect(output).not.toContain('[Superset]');
+    expect(output).not.toContain('[Tri-set]');
+    expect(output).not.toContain('[Circuit');
+  });
+});
+
+describe('logToSavedWorkout superset preservation', () => {
+  it('preserves supersetGroupId', () => {
+    const log = createTestLog();
+    log.exercises[0].supersetGroupId = 'ss1';
+    log.exercises[1].supersetGroupId = 'ss1';
+    const workout = logToSavedWorkout(log);
+
+    expect(workout.exercises[0].supersetGroupId).toBe('ss1');
+    expect(workout.exercises[1].supersetGroupId).toBe('ss1');
+  });
+
+  it('does not add supersetGroupId when not present on log', () => {
+    const log = createTestLog();
+    const workout = logToSavedWorkout(log);
+
+    expect(workout.exercises[0].supersetGroupId).toBeUndefined();
+    expect(workout.exercises[1].supersetGroupId).toBeUndefined();
+  });
 });

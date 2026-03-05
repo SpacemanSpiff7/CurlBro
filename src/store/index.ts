@@ -31,6 +31,7 @@ import {
 } from '@/types';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { getAllExercises } from '@/data/exercises';
+import { deriveGroups } from '@/utils/groupUtils';
 
 // ─── State Shape ─────────────────────────────────────────
 interface AppState {
@@ -50,6 +51,8 @@ interface AppState {
     setWorkoutName: (name: string) => void;
     setWorkoutSplit: (split: WorkoutSplit | null) => void;
     addExercise: (exerciseId: ExerciseId) => void;
+    addExerciseToGroup: (exerciseId: ExerciseId, targetIndex: number) => void;
+    ungroupExercise: (index: number) => void;
     removeExercise: (index: number) => void;
     reorderExercises: (from: number, to: number) => void;
     updateExercise: (index: number, updates: Partial<WorkoutExercise>) => void;
@@ -86,7 +89,7 @@ interface AppState {
     completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
     addSet: (exerciseIndex: number) => void;
     removeSet: (exerciseIndex: number, setIndex: number) => void;
-    goToExercise: (index: number) => void;
+    goToGroup: (index: number) => void;
     swapExercise: (exerciseIndex: number, newExerciseId: ExerciseId) => void;
     startTimer: (seconds: number) => void;
     stopTimer: () => void;
@@ -227,17 +230,119 @@ export const useStore = create<AppState>()(
             state.builder.workout.updatedAt = new Date().toISOString();
           });
         },
+        addExerciseToGroup: (exerciseId: ExerciseId, targetIndex: number) => {
+          const graph = get().graph;
+          const exercise = graph.exercises.get(exerciseId);
+          if (!exercise) return;
+
+          const settings = get().settings;
+          const restSeconds = exercise.category === 'compound'
+            ? settings.restTimerCompoundSeconds
+            : settings.restTimerIsolationSeconds;
+          const sets = exercise.category === 'compound'
+            ? settings.defaultSetsCompound
+            : settings.defaultSetsIsolation;
+          const reps = getDefaultReps(exercise, settings.trainingGoal);
+
+          set((state) => {
+            const exercises = state.builder.workout.exercises;
+            const target = exercises[targetIndex];
+            if (!target) return;
+
+            // Assign group ID if target doesn't have one
+            if (!target.supersetGroupId) {
+              target.supersetGroupId = crypto.randomUUID();
+            }
+            const groupId = target.supersetGroupId;
+
+            // Find the last member of this group to insert after
+            let lastGroupIndex = targetIndex;
+            for (let i = targetIndex + 1; i < exercises.length; i++) {
+              if (exercises[i].supersetGroupId === groupId) {
+                lastGroupIndex = i;
+              } else {
+                break;
+              }
+            }
+
+            exercises.splice(lastGroupIndex + 1, 0, {
+              exerciseId,
+              sets,
+              reps,
+              weight: null,
+              restSeconds,
+              notes: '',
+              supersetGroupId: groupId,
+            });
+            state.builder.workout.updatedAt = new Date().toISOString();
+          });
+        },
+        ungroupExercise: (index: number) => {
+          set((state) => {
+            const exercises = state.builder.workout.exercises;
+            const ex = exercises[index];
+            if (!ex?.supersetGroupId) return;
+
+            const groupId = ex.supersetGroupId;
+            ex.supersetGroupId = undefined;
+
+            // If only 1 member remains in the group, clear its ID too
+            const remaining = exercises.filter((e) => e.supersetGroupId === groupId);
+            if (remaining.length === 1) {
+              remaining[0].supersetGroupId = undefined;
+            }
+            state.builder.workout.updatedAt = new Date().toISOString();
+          });
+        },
         removeExercise: (index: number) => {
           set((state) => {
-            state.builder.workout.exercises.splice(index, 1);
+            const exercises = state.builder.workout.exercises;
+            const removed = exercises[index];
+            const groupId = removed?.supersetGroupId;
+            exercises.splice(index, 1);
+            // If the removed exercise was in a group, check if only 1 member remains
+            if (groupId) {
+              const remaining = exercises.filter((e) => e.supersetGroupId === groupId);
+              if (remaining.length === 1) {
+                remaining[0].supersetGroupId = undefined;
+              }
+            }
             state.builder.workout.updatedAt = new Date().toISOString();
           });
         },
         reorderExercises: (from: number, to: number) => {
           set((state) => {
             const exercises = state.builder.workout.exercises;
-            const [moved] = exercises.splice(from, 1);
-            exercises.splice(to, 0, moved);
+            const fromEx = exercises[from];
+            const groupId = fromEx?.supersetGroupId;
+
+            if (groupId) {
+              // Move the entire group as a unit
+              const groupIndices: number[] = [];
+              for (let i = 0; i < exercises.length; i++) {
+                if (exercises[i].supersetGroupId === groupId) {
+                  groupIndices.push(i);
+                }
+              }
+              // Only move as group if indices are consecutive
+              const isConsecutive = groupIndices.every(
+                (idx, i) => i === 0 || idx === groupIndices[i - 1] + 1,
+              );
+              if (isConsecutive && groupIndices.length > 1) {
+                const groupStart = groupIndices[0];
+                const groupItems = exercises.splice(groupStart, groupIndices.length);
+                const adjustedTo = to > groupStart ? to - groupIndices.length : to;
+                const insertAt = Math.max(0, Math.min(adjustedTo, exercises.length));
+                exercises.splice(insertAt, 0, ...groupItems);
+              } else {
+                // Non-consecutive or solo — move single item
+                const [moved] = exercises.splice(from, 1);
+                exercises.splice(to, 0, moved);
+              }
+            } else {
+              const [moved] = exercises.splice(from, 1);
+              exercises.splice(to, 0, moved);
+            }
             state.builder.workout.updatedAt = new Date().toISOString();
           });
         },
@@ -365,8 +470,9 @@ export const useStore = create<AppState>()(
                   reps: null,
                   completed: false,
                 })),
+                ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
               })),
-              currentExerciseIndex: 0,
+              currentGroupIndex: 0,
               startedAt: null,
               completedAt: null,
             };
@@ -403,11 +509,16 @@ export const useStore = create<AppState>()(
             (new Date(session.completedAt).getTime() - new Date(session.startedAt).getTime()) / 60000
           );
 
+          // Filter out exercises where no sets were completed
+          const completedExercises = session.exercises.filter(
+            (ex) => ex.sets.some((s) => s.completed),
+          );
+
           const log: WorkoutLog = {
             id: uuidv4() as LogId,
             workoutId: session.workoutId,
             workoutName: session.workoutName,
-            exercises: session.exercises,
+            exercises: completedExercises,
             startedAt: session.startedAt,
             completedAt: session.completedAt,
             durationMinutes,
@@ -427,7 +538,9 @@ export const useStore = create<AppState>()(
               exerciseId,
               sets: [{ weight: null, reps: null, completed: false }],
             });
-            session.currentExerciseIndex = session.exercises.length - 1;
+            // New exercise is a solo group at the end
+            const groups = deriveGroups(session.exercises);
+            session.currentGroupIndex = groups.length - 1;
           });
         },
         completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => {
@@ -454,10 +567,10 @@ export const useStore = create<AppState>()(
             }
           });
         },
-        goToExercise: (index: number) => {
+        goToGroup: (index: number) => {
           set((state) => {
             if (state.session.active) {
-              state.session.active.currentExerciseIndex = index;
+              state.session.active.currentGroupIndex = index;
             }
           });
         },

@@ -27,6 +27,11 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `removeSet(exerciseIndex, setIndex)` — deletes a set during active session (guards: won't remove last set)
 - `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds)
 - `stopTimer()` — fully resets the timer to idle state
-- `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log
+- `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Filters out `supersetGroupId` from exercise logs before saving.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `deleteLog(id)` — removes a workout log from library.logs
+- `addExerciseToGroup(exerciseIndex, exerciseId)` — adds an exercise adjacent to `exerciseIndex` and assigns both the same `supersetGroupId` (creates a new group or extends an existing one)
+- `ungroupExercise(exerciseIndex)` — removes `supersetGroupId` from the exercise at `exerciseIndex`
+- `goToGroup(index)` — navigates to a group by index during active session (replaces per-exercise navigation)
+- `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
+- Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group

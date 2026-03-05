@@ -55,7 +55,7 @@ describe('Session Flow', () => {
     expect(session!.exercises.length).toBe(2);
     expect(session!.exercises[0].sets.length).toBe(3);
     expect(session!.exercises[1].sets.length).toBe(2);
-    expect(session!.currentExerciseIndex).toBe(0);
+    expect(session!.currentGroupIndex).toBe(0);
   });
 
   it('initializes sets with workout weight', () => {
@@ -102,11 +102,11 @@ describe('Session Flow', () => {
     const workout = createTestWorkout();
     useStore.getState().sessionActions.startSession(workout);
 
-    expect(useStore.getState().session.active!.currentExerciseIndex).toBe(0);
+    expect(useStore.getState().session.active!.currentGroupIndex).toBe(0);
 
-    useStore.getState().sessionActions.goToExercise(1);
+    useStore.getState().sessionActions.goToGroup(1);
 
-    expect(useStore.getState().session.active!.currentExerciseIndex).toBe(1);
+    expect(useStore.getState().session.active!.currentGroupIndex).toBe(1);
   });
 
   it('swaps exercise mid-session', () => {
@@ -176,6 +176,9 @@ describe('Session Flow', () => {
     useStore.getState().sessionActions.completeSet(0, 1, {
       weight: 155, reps: 7, completed: true,
     });
+    useStore.getState().sessionActions.completeSet(1, 0, {
+      weight: 30, reps: 12, completed: true,
+    });
 
     useStore.getState().sessionActions.endSession();
     const log = useStore.getState().sessionActions.saveSession();
@@ -233,7 +236,7 @@ describe('Session Flow', () => {
     expect(session.exercises[2].sets[0]).toEqual({
       weight: null, reps: null, completed: false,
     });
-    expect(session.currentExerciseIndex).toBe(2);
+    expect(session.currentGroupIndex).toBe(2);
   });
 
   it('addExerciseToSession is no-op when session is completed', () => {
