@@ -9,7 +9,7 @@ export interface AdSlotConfig {
   rotateIntervalMs: number;
 }
 
-export const AD_PUBLISHER_ID = ''; // Fill after AdSense approval
+export const AD_PUBLISHER_ID = 'ca-pub-2480873220343955';
 export const ADSENSE_ENABLED = import.meta.env.PROD && false; // Kill switch — false until approved; never loads in dev
 
 export const AD_SLOTS: Record<AdSlotKey, AdSlotConfig> = {
