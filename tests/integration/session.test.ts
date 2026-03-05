@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { useStore } from '@/store';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../fixtures/testGraph';
-import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
+import type { SavedWorkout, WorkoutId, ExerciseId, LogId } from '@/types';
 
 describe('Session Flow', () => {
   beforeEach(() => {
@@ -118,11 +118,58 @@ describe('Session Flow', () => {
     expect(useStore.getState().session.active!.exercises[0].exerciseId).toBe('dumbbell_bench_press');
   });
 
-  it('ends session and produces a log', () => {
+  it('starts in preview mode (startedAt null)', () => {
     const workout = createTestWorkout();
     useStore.getState().sessionActions.startSession(workout);
 
-    // Complete some sets
+    const session = useStore.getState().session.active!;
+    expect(session.startedAt).toBeNull();
+    expect(session.completedAt).toBeNull();
+  });
+
+  it('beginSession sets startedAt', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+
+    const session = useStore.getState().session.active!;
+    expect(session.startedAt).not.toBeNull();
+    expect(session.completedAt).toBeNull();
+  });
+
+  it('endSession does not set completedAt in preview mode', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+
+    // endSession without beginSession — startedAt is null
+    useStore.getState().sessionActions.endSession();
+
+    const session = useStore.getState().session.active!;
+    expect(session.completedAt).toBeNull();
+  });
+
+  it('endSession sets completedAt and stops timer', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+
+    // Start a timer so we can verify it stops
+    useStore.getState().sessionActions.startTimer(60);
+    expect(useStore.getState().session.timer.isRunning).toBe(true);
+
+    useStore.getState().sessionActions.endSession();
+
+    const session = useStore.getState().session.active!;
+    expect(session.completedAt).not.toBeNull();
+    expect(useStore.getState().session.timer.isRunning).toBe(false);
+    expect(useStore.getState().session.timer.remainingSeconds).toBe(0);
+  });
+
+  it('saveSession creates a workout log', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+
     useStore.getState().sessionActions.completeSet(0, 0, {
       weight: 155, reps: 8, completed: true,
     });
@@ -130,7 +177,8 @@ describe('Session Flow', () => {
       weight: 155, reps: 7, completed: true,
     });
 
-    const log = useStore.getState().sessionActions.endSession();
+    useStore.getState().sessionActions.endSession();
+    const log = useStore.getState().sessionActions.saveSession();
 
     expect(log).not.toBeNull();
     expect(log!.workoutId).toBe('test-workout');
@@ -140,8 +188,77 @@ describe('Session Flow', () => {
     expect(log!.exercises[0].sets[2].completed).toBe(false);
     expect(log!.durationMinutes).toBeGreaterThanOrEqual(0);
 
-    // Session should be cleared
-    expect(useStore.getState().session.active).toBeNull();
+    // Log should be in the library
+    expect(useStore.getState().library.logs.length).toBe(1);
+    expect(useStore.getState().library.logs[0].id).toBe(log!.id);
+  });
+
+  it('saveSession returns null before endSession', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+
+    const log = useStore.getState().sessionActions.saveSession();
+    expect(log).toBeNull();
+    expect(useStore.getState().library.logs.length).toBe(0);
+  });
+
+  it('saveSession prevents duplicate saves', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.endSession();
+
+    const log1 = useStore.getState().sessionActions.saveSession();
+    const log2 = useStore.getState().sessionActions.saveSession();
+
+    expect(log1).not.toBeNull();
+    expect(log2).toBeNull();
+    expect(useStore.getState().library.logs.length).toBe(1);
+  });
+
+  it('addExerciseToSession appends exercise with empty set', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+
+    expect(useStore.getState().session.active!.exercises.length).toBe(2);
+
+    useStore.getState().sessionActions.addExerciseToSession('tricep_pushdown' as ExerciseId);
+
+    const session = useStore.getState().session.active!;
+    expect(session.exercises.length).toBe(3);
+    expect(session.exercises[2].exerciseId).toBe('tricep_pushdown');
+    expect(session.exercises[2].sets.length).toBe(1);
+    expect(session.exercises[2].sets[0]).toEqual({
+      weight: null, reps: null, completed: false,
+    });
+    expect(session.currentExerciseIndex).toBe(2);
+  });
+
+  it('addExerciseToSession is no-op when session is completed', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.endSession();
+
+    useStore.getState().sessionActions.addExerciseToSession('tricep_pushdown' as ExerciseId);
+
+    const session = useStore.getState().session.active!;
+    expect(session.exercises.length).toBe(2);
+  });
+
+  it('deleteLog removes a log from library', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.endSession();
+
+    const log = useStore.getState().sessionActions.saveSession();
+    expect(useStore.getState().library.logs.length).toBe(1);
+
+    useStore.getState().libraryActions.deleteLog(log!.id as LogId);
+    expect(useStore.getState().library.logs.length).toBe(0);
   });
 
   it('manages rest timer', () => {

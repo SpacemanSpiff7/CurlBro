@@ -68,6 +68,7 @@ interface AppState {
     saveWorkout: (workout: WorkoutDraft) => void;
     deleteWorkout: (id: WorkoutId) => void;
     addLog: (log: WorkoutLog) => void;
+    deleteLog: (id: LogId) => void;
     clearAll: () => void;
   };
 
@@ -78,7 +79,10 @@ interface AppState {
   };
   sessionActions: {
     startSession: (workout: SavedWorkout) => void;
-    endSession: () => WorkoutLog | null;
+    beginSession: () => void;
+    endSession: () => void;
+    saveSession: () => WorkoutLog | null;
+    addExerciseToSession: (exerciseId: ExerciseId) => void;
     completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
     addSet: (exerciseIndex: number) => void;
     removeSet: (exerciseIndex: number, setIndex: number) => void;
@@ -330,6 +334,11 @@ export const useStore = create<AppState>()(
             state.library.logs.push(log);
           });
         },
+        deleteLog: (id: LogId) => {
+          set((state) => {
+            state.library.logs = state.library.logs.filter((l) => l.id !== id);
+          });
+        },
         clearAll: () => {
           set((state) => {
             state.library.workouts = [];
@@ -358,20 +367,40 @@ export const useStore = create<AppState>()(
                 })),
               })),
               currentExerciseIndex: 0,
-              startedAt: new Date().toISOString(),
+              startedAt: null,
+              completedAt: null,
             };
             state.session.timer = emptyTimer;
             state.activeTab = 'active';
           });
         },
+        beginSession: () => {
+          set((state) => {
+            if (state.session.active && !state.session.active.startedAt) {
+              state.session.active.startedAt = new Date().toISOString();
+            }
+          });
+        },
         endSession: () => {
+          set((state) => {
+            if (state.session.active?.startedAt) {
+              state.session.active.completedAt = new Date().toISOString();
+            }
+            state.session.timer = emptyTimer;
+          });
+        },
+        saveSession: () => {
           const session = get().session.active;
-          if (!session) return null;
+          if (!session?.startedAt || !session?.completedAt) return null;
 
-          const startedAt = new Date(session.startedAt);
-          const completedAt = new Date();
+          // Prevent duplicate saves
+          const existingLogs = get().library.logs;
+          if (existingLogs.some((l) => l.workoutId === session.workoutId && l.startedAt === session.startedAt)) {
+            return null;
+          }
+
           const durationMinutes = Math.round(
-            (completedAt.getTime() - startedAt.getTime()) / 60000
+            (new Date(session.completedAt).getTime() - new Date(session.startedAt).getTime()) / 60000
           );
 
           const log: WorkoutLog = {
@@ -380,17 +409,26 @@ export const useStore = create<AppState>()(
             workoutName: session.workoutName,
             exercises: session.exercises,
             startedAt: session.startedAt,
-            completedAt: completedAt.toISOString(),
+            completedAt: session.completedAt,
             durationMinutes,
           };
 
           set((state) => {
-            state.session.active = null;
-            state.session.timer = emptyTimer;
             state.library.logs.push(log);
           });
 
           return log;
+        },
+        addExerciseToSession: (exerciseId: ExerciseId) => {
+          set((state) => {
+            const session = state.session.active;
+            if (!session || session.completedAt) return;
+            session.exercises.push({
+              exerciseId,
+              sets: [{ weight: null, reps: null, completed: false }],
+            });
+            session.currentExerciseIndex = session.exercises.length - 1;
+          });
         },
         completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => {
           set((state) => {

@@ -57,3 +57,19 @@
 - [ ] Playwright E2E tests (infrastructure not yet set up)
 - [ ] Accessibility audit
 - [ ] Performance audit
+
+## Phase 7: Workout Log & Save Flow ✅
+- [x] Split endSession/saveSession — explicit save step after finishing
+- [x] Save button in completed state (replaces disabled "Done")
+- [x] Post-save summary sheet (date, duration, exercises, total weight)
+- [x] Add exercise mid-session via ExercisePicker (+ button next to dots)
+- [x] ExercisePicker `onAdd` prop for reuse in active session
+- [x] WorkoutLogPage — log list sorted by completedAt descending
+- [x] Log detail sheet with full exercise/set breakdown
+- [x] "Save as Workout" — convert log to SavedWorkout with weights prefilled
+- [x] "Copy" — formatted clipboard export of completed workout
+- [x] Delete log with confirmation
+- [x] Log tab in BottomNav (ClipboardList icon, between Active and Settings)
+- [x] Swipe navigation updated for 5 tabs
+- [x] logUtils.ts — computeLogStats, logToSavedWorkout, formatLogForClipboard
+- [x] Session tests updated + logUtils unit tests (130 tests total)

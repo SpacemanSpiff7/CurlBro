@@ -2,7 +2,7 @@ import { useRef, useCallback } from 'react';
 import { useStore } from '@/store';
 import type { TabId } from '@/types';
 
-const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'settings'];
+const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'log', 'settings'];
 const SWIPE_THRESHOLD = 50; // min px to count as swipe
 const SWIPE_MAX_Y = 80; // max vertical movement to stay horizontal
 

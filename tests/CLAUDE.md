@@ -12,10 +12,12 @@ testid is last resort.
 
 ## What to Test
 - Hooks: input/output behavior, edge cases, error states
-- Pure functions (graphBuilder, formatExport, parseImport): comprehensive unit tests
+- Pure functions (graphBuilder, formatExport, parseImport, logUtils): comprehensive unit tests
 - Presenters: renders correct content, responds to interactions
 - Containers: integration tests verifying hook + component work together
 - Graph queries: test with small fixture graph (8 exercises), not the full 162
+- Session flow: endSession/saveSession split, addExerciseToSession, deleteLog
+- Log utilities: computeLogStats, logToSavedWorkout, formatLogForClipboard (edge cases: null weights, incomplete sets)
 
 ## Patterns
 - Use `renderHook` from @testing-library/react for hook tests

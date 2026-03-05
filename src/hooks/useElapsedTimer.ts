@@ -10,23 +10,26 @@ function formatElapsed(totalSeconds: number): string {
   return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 }
 
-function computeElapsed(startedAt: string | null): string {
+function computeElapsed(startedAt: string | null, completedAt?: string | null): string {
   if (!startedAt) return '00:00';
   const start = new Date(startedAt).getTime();
-  const now = Date.now();
-  return formatElapsed(Math.max(0, Math.floor((now - start) / 1000)));
+  const end = completedAt ? new Date(completedAt).getTime() : Date.now();
+  return formatElapsed(Math.max(0, Math.floor((end - start) / 1000)));
 }
 
 /** Creates a timer store that ticks every second and returns the elapsed time string. */
-function createTimerStore(startedAt: string | null) {
-  let snapshot = computeElapsed(startedAt);
+function createTimerStore(startedAt: string | null, completedAt?: string | null) {
+  let snapshot = computeElapsed(startedAt, completedAt);
   const listeners = new Set<() => void>();
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
+  // Only tick if started and not yet completed
+  const shouldTick = !!startedAt && !completedAt;
+
   function start() {
-    if (!startedAt || intervalId) return;
+    if (!shouldTick || intervalId) return;
     intervalId = setInterval(() => {
-      snapshot = computeElapsed(startedAt);
+      snapshot = computeElapsed(startedAt, completedAt);
       listeners.forEach((cb) => cb());
     }, 1000);
   }
@@ -53,8 +56,8 @@ function createTimerStore(startedAt: string | null) {
   };
 }
 
-export function useElapsedTimer(startedAt: string | null): string {
-  const store = useMemo(() => createTimerStore(startedAt), [startedAt]);
+export function useElapsedTimer(startedAt: string | null, completedAt?: string | null): string {
+  const store = useMemo(() => createTimerStore(startedAt, completedAt), [startedAt, completedAt]);
 
   const subscribe = useCallback(
     (cb: () => void) => store.subscribe(cb),

@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
+import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeTabs } from '@/hooks/useSwipeTabs';
 import type { TabId } from '@/types';
@@ -30,6 +31,12 @@ function AppContent() {
       return (
         <ErrorBoundary fallbackTitle="Session Error" key="active">
           <ActiveWorkout />
+        </ErrorBoundary>
+      );
+    case 'log':
+      return (
+        <ErrorBoundary fallbackTitle="Log Error" key="log">
+          <WorkoutLogPage />
         </ErrorBoundary>
       );
     case 'settings':

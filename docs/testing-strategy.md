@@ -25,6 +25,14 @@
 - Malformed input: missing IDs, bad format, empty lines
 - Edge cases: exercises with no weight, long notes
 
+## Session & Log Testing
+- Test endSession/saveSession as a two-step flow (endSession sets completedAt, saveSession creates log)
+- Test saveSession duplicate prevention (same workoutId + startedAt → no duplicate)
+- Test addExerciseToSession (appends exercise, navigates, no-op when completed)
+- Test deleteLog removes from library.logs
+- logUtils pure functions: computeLogStats, logToSavedWorkout, formatLogForClipboard
+- Edge cases: null weights, incomplete sets, unknown exercise IDs in graph
+
 ## Coverage Targets
 - Hooks: 90%
 - Utils: 95%

@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer, Video } from 'lucide-react';
+import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Square, Timer, Video } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SetTracker } from '@/components/session/SetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
+import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
 import { VideoSheet } from '@/components/exercise/VideoSheet';
 import { TopBar } from '@/components/shared/TopBar';
@@ -13,7 +15,8 @@ import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
 import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
-import type { SetLog, ExerciseId } from '@/types';
+import { computeLogStats } from '@/utils/logUtils';
+import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 
 function WakeLockToggle({ isActive, isSupported, onToggle }: {
   isActive: boolean;
@@ -54,17 +57,30 @@ function WakeLockToggle({ isActive, isSupported, onToggle }: {
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, removeSet, goToExercise, endSession, swapExercise } = useStore(
+  const { completeSet, addSet, removeSet, goToExercise, beginSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
 
+  const isPreview = !!session && !session.startedAt;
+  const isCompleted = !!session && !!session.completedAt;
+  const isActive = !!session && !!session.startedAt && !session.completedAt;
 
   const [swapOpen, setSwapOpen] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [summaryLog, setSummaryLog] = useState<WorkoutLog | null>(null);
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const timer = useRestTimer();
   const wakeLock = useWakeLock();
-  const elapsed = useElapsedTimer(session?.startedAt ?? null);
+  const elapsed = useElapsedTimer(session?.startedAt ?? null, session?.completedAt);
+
+  // Derive saved status from store — no reset logic needed
+  const logs = useStore((state) => state.library.logs);
+  const isSaved = useMemo(() => {
+    if (!session?.startedAt) return false;
+    return logs.some((l) => l.workoutId === session.workoutId && l.startedAt === session.startedAt);
+  }, [session, logs]);
 
   // Find the original workout to get restSeconds per exercise
   const workouts = useStore((state) => state.library.workouts);
@@ -130,8 +146,7 @@ export function ActiveWorkout() {
 
   const handleFinish = useCallback(() => {
     endSession(); // endSession already pushes the log to library.logs
-    setActiveTab('library');
-  }, [endSession, setActiveTab]);
+  }, [endSession]);
 
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
@@ -142,6 +157,23 @@ export function ActiveWorkout() {
       toast.success(`Swapped to ${newExercise?.name ?? 'new exercise'}`);
     },
     [session, graph, swapExercise]
+  );
+
+  const handleSave = useCallback(() => {
+    const log = saveSession();
+    if (log) {
+      setSummaryLog(log);
+      setSummaryOpen(true);
+    }
+  }, [saveSession]);
+
+  const handleAddExercise = useCallback(
+    (exerciseId: ExerciseId) => {
+      addExerciseToSession(exerciseId);
+      setPickerOpen(false);
+      toast.success('Exercise added');
+    },
+    [addExerciseToSession]
   );
 
   // No active session
@@ -185,16 +217,51 @@ export function ActiveWorkout() {
               {completedSets}/{totalSets} sets completed
             </div>
           </div>
-          <div className="flex flex-col items-end gap-0.5 shrink-0">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleFinish}
-              className="text-destructive border-destructive/30 hover:bg-destructive/10"
-            >
-              <Square size={14} className="mr-1" />
-              Finish
-            </Button>
+          <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
+            {isPreview && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={beginSession}
+                className="text-success border-success/30 hover:bg-success/10"
+              >
+                <Play size={14} className="mr-1" />
+                Start
+              </Button>
+            )}
+            {isActive && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleFinish}
+                className="text-destructive border-destructive/30 hover:bg-destructive/10"
+              >
+                <Square size={14} className="mr-1" />
+                Finish
+              </Button>
+            )}
+            {isCompleted && !isSaved && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSave}
+                className="text-success border-success/30 hover:bg-success/10"
+              >
+                <Save size={14} className="mr-1" />
+                Save
+              </Button>
+            )}
+            {isCompleted && isSaved && (
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="text-text-tertiary border-border/30 opacity-60"
+              >
+                <Check size={14} className="mr-1" />
+                Saved
+              </Button>
+            )}
             <span className="text-[10px] tabular-nums text-text-tertiary">
               {elapsed}
             </span>
@@ -368,12 +435,72 @@ export function ActiveWorkout() {
             />
           );
         })}
+        {isActive && (
+          <button
+            onClick={() => setPickerOpen(true)}
+            aria-label="Add exercise"
+            className="h-6 w-6 flex items-center justify-center rounded-full bg-bg-elevated text-text-tertiary hover:text-accent-primary hover:bg-accent-primary/10 transition-colors"
+          >
+            <Plus size={12} />
+          </button>
+        )}
       </div>
 
       <VideoSheet
         exercise={exerciseInfo}
         open={videoOpen}
         onOpenChange={setVideoOpen}
+      />
+
+      {/* Save summary sheet */}
+      <Sheet open={summaryOpen} onOpenChange={setSummaryOpen}>
+        <SheetContent side="bottom" className="bg-bg-surface">
+          <SheetHeader>
+            <SheetTitle className="text-text-primary">Workout Saved</SheetTitle>
+          </SheetHeader>
+          {summaryLog && (() => {
+            const stats = computeLogStats(summaryLog);
+            return (
+              <div className="flex flex-col gap-4 px-4 pb-6 pt-2">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-lg bg-bg-elevated p-3">
+                    <div className="text-xs text-text-tertiary">Date</div>
+                    <div className="text-sm font-medium text-text-primary">{stats.date}</div>
+                  </div>
+                  <div className="rounded-lg bg-bg-elevated p-3">
+                    <div className="text-xs text-text-tertiary">Duration</div>
+                    <div className="text-sm font-medium text-text-primary">{stats.durationMinutes} min</div>
+                  </div>
+                  <div className="rounded-lg bg-bg-elevated p-3">
+                    <div className="text-xs text-text-tertiary">Exercises</div>
+                    <div className="text-sm font-medium text-text-primary">{stats.exerciseCount}</div>
+                  </div>
+                  <div className="rounded-lg bg-bg-elevated p-3">
+                    <div className="text-xs text-text-tertiary">Total Weight</div>
+                    <div className="text-sm font-medium text-text-primary">{stats.totalWeight.toLocaleString()} lb</div>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSummaryOpen(false);
+                    setActiveTab('log');
+                  }}
+                  className="w-full"
+                >
+                  View Log
+                </Button>
+              </div>
+            );
+          })()}
+        </SheetContent>
+      </Sheet>
+
+      {/* Exercise picker for mid-session add */}
+      <ExercisePicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
+        onAdd={handleAddExercise}
       />
       </div>
     </div>

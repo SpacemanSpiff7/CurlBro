@@ -29,3 +29,25 @@ Tip:   tip: {text}
 
 ## Round-trip Guarantee
 `parseImport(formatExport(workout))` produces identical workout
+
+## Log Clipboard Format
+
+Completed workout logs use a separate format via `formatLogForClipboard()` that shows actual performed data:
+
+```
+## Push Day | 2026-03-04
+Duration: 45 min | Total: 12,450 lb
+---
+Barbell Bench Press [barbell_bench_press]
+  155lb × 8 ✓ | 155lb × 7 ✓ | 155lb × 6 ✓
+
+Cable Flye [cable_flye]
+  30lb × 12 ✓ | 30lb × 10 ✓
+```
+
+### Differences from workout export format
+- Header includes duration and total weight (sum of weight × reps for completed sets)
+- Sets show actual performed weight/reps (not planned targets)
+- Completed sets marked with ✓, incomplete with ✗
+- Bodyweight exercises show "BW" instead of weight
+- This format is NOT round-trip importable — it is display-only for sharing

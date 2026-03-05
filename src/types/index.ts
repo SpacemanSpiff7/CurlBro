@@ -160,7 +160,8 @@ export interface ActiveSession {
   workoutName: string;
   exercises: ExerciseLog[];
   currentExerciseIndex: number;
-  startedAt: string;
+  startedAt: string | null;
+  completedAt: string | null;
 }
 
 export interface TimerState {
@@ -236,7 +237,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
 };
 
 // ─── Navigation ──────────────────────────────────────────
-export type TabId = 'build' | 'library' | 'active' | 'settings';
+export type TabId = 'build' | 'library' | 'active' | 'log' | 'settings';
 
 // ─── Display Labels ─────────────────────────────────────
 export const MUSCLE_LABELS: Record<MuscleGroup, string> = {

@@ -22,3 +22,6 @@
 - WorkoutStatusBar — push/pull ratio + missing muscle badges
 - SuggestionPanel — complement, gap, and superset suggestions
 - MarqueeText — auto-scrolling text when content overflows its container (uses ResizeObserver + framer-motion)
+- ExercisePicker — exercise search/filter sheet with optional `onAdd` callback prop;
+  when `onAdd` is provided, calls it instead of `builderActions.addExercise` (used in
+  both Build tab and ActiveWorkout mid-session add)

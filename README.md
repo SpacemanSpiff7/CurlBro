@@ -64,6 +64,16 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 - Circular rest timer with audio beep and haptic vibration
 - +/- 15 second timer adjustment
 - Progress bar and dot indicators
+- Add exercises mid-session via + button
+- Two-step finish flow: Finish → Save with post-save summary sheet
+
+### Workout Log Tab
+- Chronological list of completed workout logs (most recent first)
+- Per-log stats: date, duration, total weight, exercise count, completed sets
+- Tap to expand full exercise/set breakdown
+- "Save as Workout" — convert a log back to a reusable workout with weights prefilled
+- "Copy" — formatted clipboard export of the completed workout
+- Delete logs with confirmation
 
 ### Settings Tab
 - Default rest timer durations (compound vs. isolation)
@@ -108,11 +118,11 @@ src/
     exercises/     # JSON files by muscle group (01-07)
   hooks/           # useExerciseSearch, useSubstitutes, useSuggestions,
                    # useWorkoutValidation, useWorkoutConflicts, useRestTimer,
-                   # useAutoWorkoutName
-  pages/           # BuildWorkout, MyWorkouts, ActiveWorkout, SettingsPage
+                   # useAutoWorkoutName, useSwipeTabs, useElapsedTimer, useWakeLock
+  pages/           # BuildWorkout, MyWorkouts, ActiveWorkout, WorkoutLogPage, SettingsPage
   store/           # Single Zustand store (graph, builder, library, session, settings)
   types/           # Branded types, Zod schemas, all interfaces, shared label constants
-  utils/           # formatExport, parseImport, audio, haptics
+  utils/           # formatExport, parseImport, logUtils, audio, haptics
 tests/
   fixtures/        # Test exercise graph (8 exercises)
   integration/     # Import/export round-trip, session flow
@@ -185,7 +195,7 @@ The `[exercise_id]` in brackets enables perfect round-trip fidelity -- paste an 
 
 ## Testing
 
-93 tests across 11 test files:
+130 tests across 12 test files:
 
 ```bash
 # Run all tests
@@ -210,7 +220,8 @@ npm run test:coverage
 - Exercise conflict detection (ID-based and pattern-based)
 - Rest timer lifecycle
 - Import/export parsing and round-trip fidelity
-- Full session flow (start, track sets, navigate, finish)
+- Full session flow (start, track sets, navigate, finish, save)
+- Log utilities (stats, conversion, clipboard formatting)
 
 ---
 

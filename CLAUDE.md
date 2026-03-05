@@ -55,6 +55,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/data/01-07_*.json` — 7 JSON files with 162 exercises
 - `src/data/exerciseConflicts.ts` — 33 exercise conflicts with scientific citations
 - `src/data/seededWorkouts.ts` — 16 pre-built workout templates across 4 difficulty tiers
+- `src/utils/logUtils.ts` — log display/export helpers (computeLogStats, logToSavedWorkout, formatLogForClipboard)
 - `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
 - `public/llms.txt` — LLM workout generation instructions (import format + guidance)
 - `public/robots.txt` — points crawlers to llms.txt and exercises.json
@@ -74,7 +75,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - Never commit failing tests or type errors
 
 ## Known Quirks
-- `endSession()` already pushes the workout log to library.logs — do NOT call `addLog()` separately
+- `endSession()` only sets `completedAt` and stops the timer — call `saveSession()` separately to create the log
 - WorkoutExercise uses index-based React keys (allows duplicate exercises) — local component
   state (expanded, video open) may not follow items on drag reorder. A future fix is to add
   unique instance IDs to WorkoutExercise

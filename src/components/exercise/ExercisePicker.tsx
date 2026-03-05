@@ -18,6 +18,7 @@ import type { Exercise, ExerciseId, MuscleGroup } from '@/types';
 interface ExercisePickerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onAdd?: (id: ExerciseId) => void;
 }
 
 const ExerciseRow = memo(function ExerciseRow({
@@ -47,7 +48,7 @@ const ExerciseRow = memo(function ExerciseRow({
   );
 });
 
-export function ExercisePicker({ open, onOpenChange }: ExercisePickerProps) {
+export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: ExercisePickerProps) {
   const [query, setQuery] = useState('');
   const [muscleFilter, setMuscleFilter] = useState<MuscleGroup[]>([]);
   const addExercise = useStore((state) => state.builderActions.addExercise);
@@ -56,9 +57,13 @@ export function ExercisePicker({ open, onOpenChange }: ExercisePickerProps) {
 
   const handleAdd = useCallback(
     (id: ExerciseId) => {
-      addExercise(id);
+      if (onAddProp) {
+        onAddProp(id);
+      } else {
+        addExercise(id);
+      }
     },
-    [addExercise]
+    [onAddProp, addExercise]
   );
 
   const toggleMuscle = useCallback((muscle: MuscleGroup) => {

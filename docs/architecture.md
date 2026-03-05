@@ -5,7 +5,7 @@
 ```
 App
 ├── LoadingScreen (while graph initializes)
-├── BottomNav (fixed, 4 tabs)
+├── BottomNav (fixed, 5 tabs)
 └── TabContent
     ├── BuildWorkout (Tab 1)
     │   ├── TemplateSelector
@@ -26,8 +26,13 @@ App
     ├── ActiveWorkout (Tab 3)
     │   ├── SetTracker
     │   ├── RestTimer
-    │   └── SessionProgress
-    └── Settings (Tab 4)
+    │   ├── SessionProgress
+    │   ├── ExercisePicker (Sheet, mid-session add)
+    │   └── LogSummarySheet (post-save stats)
+    ├── WorkoutLogPage (Tab 4)
+    │   ├── LogRow[] (sorted by completedAt desc)
+    │   └── LogDetailSheet (full breakdown + export)
+    └── Settings (Tab 5)
 ```
 
 ## Data Flow
@@ -58,10 +63,18 @@ JSON files (7)
 - App never crashes on corrupt localStorage
 
 ## Navigation
-- Tab-based navigation via BottomNav
+- Tab-based navigation via BottomNav (Build, Library, Active, Log, Settings)
 - Horizontal swipe on main content area also navigates between tabs (useSwipeTabs hook)
 - No URL routing — state-driven tab switching via `activeTab` in store
 - Each tab is an independent subtree with its own error boundary
+
+## Session & Log Flow
+1. User starts a workout from Library → ActiveWorkout enters preview mode
+2. User taps Start → session begins, timer starts, sets can be tracked
+3. User can add exercises mid-session via + button (opens ExercisePicker)
+4. User taps Finish → `endSession()` sets `completedAt`, freezes timer
+5. User taps Save → `saveSession()` creates WorkoutLog, pushes to `library.logs`, shows summary sheet
+6. Logs are viewable on the Log tab with full breakdown, clipboard export, and "Save as Workout" conversion
 
 ## Error Boundaries
 - One per tab/page
