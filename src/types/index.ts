@@ -28,6 +28,8 @@ export const EQUIPMENT_TYPES = [
   'pull_up_bar', 'dip_station', 'flat_bench', 'adjustable_bench',
   'preacher_curl_bench', 'roman_chair', 'ab_wheel', 'kettlebell',
   'resistance_band', 'trap_bar', 'medicine_ball', 'battle_ropes', 'bodyweight',
+  'foam_roller', 'treadmill', 'elliptical', 'stationary_bike', 'rowing_machine',
+  'stair_climber', 'jump_rope',
 ] as const;
 export type Equipment = typeof EQUIPMENT_TYPES[number];
 
@@ -37,7 +39,7 @@ export type WorkoutPosition = typeof WORKOUT_POSITIONS[number];
 export const DIFFICULTY_LEVELS = ['beginner', 'intermediate', 'advanced'] as const;
 export type DifficultyLevel = typeof DIFFICULTY_LEVELS[number];
 
-export const CATEGORIES = ['compound', 'isolation'] as const;
+export const CATEGORIES = ['compound', 'isolation', 'stretch_dynamic', 'stretch_static', 'mobility', 'cardio'] as const;
 export type Category = typeof CATEGORIES[number];
 
 // ─── Exercise Schema ──────────────────────────────────────
@@ -176,6 +178,7 @@ export interface TimerState {
   isRunning: boolean;
   remainingSeconds: number;
   totalSeconds: number;
+  restSeconds: number;
 }
 
 // ─── Workout Log ─────────────────────────────────────────
@@ -368,3 +371,76 @@ export const WORKOUT_SPLIT_MUSCLES: Record<WorkoutSplit, {
     secondary: ['biceps', 'triceps', 'traps', 'forearms', 'calves', 'core', 'adductors', 'abductors'],
   },
 };
+
+// ─── Activity & Body State ──────────────────────────────
+export const ACTIVITY_TYPES = ['run', 'bike', 'swim', 'hike', 'sport', 'yoga', 'rest_day'] as const;
+export type ActivityType = typeof ACTIVITY_TYPES[number];
+
+export const ACTIVITY_LABELS: Record<ActivityType, string> = {
+  run: 'Run',
+  bike: 'Bike',
+  swim: 'Swim',
+  hike: 'Hike',
+  sport: 'Sport',
+  yoga: 'Yoga',
+  rest_day: 'Rest Day',
+};
+
+export const ACTIVITY_MUSCLE_IMPACT: Record<ActivityType, MuscleGroup[]> = {
+  run: ['quadriceps', 'hamstrings', 'glutes', 'calves'],
+  bike: ['quadriceps', 'glutes', 'calves'],
+  swim: ['upper_back', 'shoulders', 'core'],
+  hike: ['quadriceps', 'hamstrings', 'glutes', 'calves'],
+  sport: ['quadriceps', 'hamstrings', 'glutes', 'core'],
+  yoga: [],
+  rest_day: [],
+};
+
+export const SORENESS_LEVELS = ['none', 'mild', 'moderate', 'severe'] as const;
+export type SorenessLevel = typeof SORENESS_LEVELS[number];
+
+export interface SorenessEntry {
+  muscle: MuscleGroup;
+  level: SorenessLevel;
+}
+
+export const TIMING_OPTIONS = ['yesterday', 'today', 'tomorrow'] as const;
+export type ActivityTiming = typeof TIMING_OPTIONS[number];
+
+export interface ActivityEntry {
+  id: string;
+  type: ActivityType;
+  timing: ActivityTiming;
+  date: string;
+}
+
+// ─── Context Filters ────────────────────────────────────
+export type ContextFilter =
+  | { type: 'sore_muscle'; muscle: MuscleGroup; level: SorenessLevel }
+  | { type: 'post_activity'; activity: ActivityType }
+  | { type: 'pre_activity'; activity: ActivityType }
+  | { type: 'light_day' }
+  | { type: 'category'; categories: Category[] };
+
+// ─── Category Labels ────────────────────────────────────
+export const CATEGORY_LABELS: Record<Category, string> = {
+  compound: 'Compound',
+  isolation: 'Isolation',
+  stretch_dynamic: 'Dynamic Stretch',
+  stretch_static: 'Static Stretch',
+  mobility: 'Mobility',
+  cardio: 'Cardio',
+};
+
+// ─── Body State Schemas (must be after constants) ────────
+export const SorenessEntrySchema = z.object({
+  muscle: z.string(),
+  level: z.enum(SORENESS_LEVELS),
+});
+
+export const ActivityEntrySchema = z.object({
+  id: z.string(),
+  type: z.enum(ACTIVITY_TYPES),
+  timing: z.enum(TIMING_OPTIONS),
+  date: z.string(),
+});

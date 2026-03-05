@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer, Video } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -63,13 +63,22 @@ export function ActiveWorkout() {
     return graph.exercises.get(firstExercise.exerciseId as ExerciseId) ?? null;
   }, [firstExercise, graph]);
 
-  // Rest seconds: max of all exercises in the group
-  const restSeconds = useMemo(() => {
+  // Rest seconds: use timer store value (allows +/- adjustment when idle)
+  // Initialize store value from the workout's per-group rest seconds
+  const groupRestSeconds = useMemo(() => {
     if (!currentGroup || !originalWorkout) return 60;
     return Math.max(
       ...currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.restSeconds ?? 60)
     );
   }, [currentGroup, originalWorkout]);
+
+  const { setRestDuration } = useStore((state) => state.sessionActions);
+  const restSeconds = timer.restSeconds;
+
+  // Sync store restSeconds when navigating to a new group
+  useEffect(() => {
+    setRestDuration(groupRestSeconds);
+  }, [currentGroupIndex, groupRestSeconds, setRestDuration]);
 
   // Default weights for each exercise in the group
   const defaultWeights = useMemo(() => {
@@ -240,24 +249,9 @@ export function ActiveWorkout() {
                 Saved
               </Button>
             )}
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] tabular-nums text-text-tertiary">
-                {elapsed}
-              </span>
-              {wakeLock.isSupported && (
-                <button
-                  onClick={wakeLock.toggle}
-                  aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
-                  className={`p-0.5 rounded transition-colors ${
-                    wakeLock.isActive
-                      ? 'text-warning'
-                      : 'text-text-tertiary'
-                  }`}
-                >
-                  <Smartphone size={12} />
-                </button>
-              )}
-            </div>
+            <span className="text-[10px] tabular-nums text-text-tertiary">
+              {elapsed}
+            </span>
           </div>
         </div>
       </TopBar>
@@ -373,6 +367,22 @@ export function ActiveWorkout() {
           onStop={timer.stop}
           onPause={timer.pause}
           onAddTime={timer.addTime}
+          onAdjustRestDuration={timer.adjustRestDuration}
+          rightSlot={
+            wakeLock.isSupported ? (
+              <button
+                onClick={wakeLock.toggle}
+                aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  wakeLock.isActive
+                    ? 'text-warning bg-warning/10'
+                    : 'text-text-tertiary hover:text-text-secondary'
+                }`}
+              >
+                <Smartphone size={18} />
+              </button>
+            ) : undefined
+          }
         />
       </div>
 

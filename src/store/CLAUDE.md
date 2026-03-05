@@ -4,7 +4,7 @@
 All state lives in a single Zustand store (src/store/index.ts) using Immer middleware.
 - graphSlice — exercise graph (read-only after init, never persisted)
 - builder — workout draft state, workoutSplit, suggestions, validation
-- library — saved workouts + logs (persisted to localStorage)
+- library — saved workouts, logs, soreness entries, and activity entries (persisted to localStorage)
 - session — active workout session (NOT persisted)
 - settings — user settings (persisted)
 
@@ -27,6 +27,8 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `removeSet(exerciseIndex, setIndex)` — deletes a set during active session (guards: won't remove last set)
 - `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds)
 - `stopTimer()` — fully resets the timer to idle state
+- `adjustRestDuration(delta)` — adjusts `timer.restSeconds` by delta (clamped to min 15s)
+- `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
 - `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Filters out `supersetGroupId` from exercise logs before saving.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `deleteLog(id)` — removes a workout log from library.logs
@@ -35,3 +37,9 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `goToGroup(index)` — navigates to a group by index during active session (replaces per-exercise navigation)
 - `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
 - Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group
+- `addActivity(activity)` — adds an ActivityEntry to `library.activities` (type + timing)
+- `removeActivity(index)` — removes an activity entry by index
+- `setSoreness(muscle, level)` — sets soreness level for a muscle in `library.soreness` (none/mild/moderate/severe)
+- `clearSoreness()` — resets all soreness entries
+- `library.soreness: SorenessEntry[]` — persisted array of {muscle, level} pairs, Zod-validated on hydration
+- `library.activities: ActivityEntry[]` — persisted array of {type, timing} pairs (run/bike/swim/hike/sport/yoga + yesterday/today/tomorrow), Zod-validated on hydration

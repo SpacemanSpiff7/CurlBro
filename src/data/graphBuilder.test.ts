@@ -80,8 +80,8 @@ describe('buildExerciseGraph', () => {
     const rawExercises = getAllExercises();
     const graph = buildExerciseGraph(rawExercises);
 
-    it('builds all 162 exercises', () => {
-      expect(graph.exercises.size).toBe(162);
+    it('builds all 201 exercises', () => {
+      expect(graph.exercises.size).toBe(201);
     });
 
     it('has no broken substitute references', () => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
@@ -9,6 +9,7 @@ import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeTabs } from '@/hooks/useSwipeTabs';
+import { deriveGroups } from '@/utils/groupUtils';
 import type { TabId } from '@/types';
 
 function AppContent() {
@@ -52,7 +53,29 @@ export default function App() {
   const initGraph = useStore((state) => state.initGraph);
   const graphReady = useStore((state) => state.graphReady);
   const activeTab = useStore((state) => state.activeTab);
-  const swipeRef = useSwipeTabs();
+
+  // On Active tab with a running session, swipe navigates exercises first
+  const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
+    const state = useStore.getState();
+    const session = state.session.active;
+    if (state.activeTab !== 'active' || !session?.startedAt || session.completedAt) return false;
+
+    const groups = deriveGroups(session.exercises);
+    const { currentGroupIndex } = session;
+
+    if (direction === 'left' && currentGroupIndex < groups.length - 1) {
+      state.sessionActions.goToGroup(currentGroupIndex + 1);
+      return true;
+    }
+    if (direction === 'right' && currentGroupIndex > 0) {
+      state.sessionActions.goToGroup(currentGroupIndex - 1);
+      return true;
+    }
+
+    return false; // At edge, let tab navigation happen
+  }, []);
+
+  const swipeRef = useSwipeTabs(swipeInterceptor);
 
   // Save scroll position per tab, restore on return
   const scrollPositions = useRef<Partial<Record<TabId, number>>>({});

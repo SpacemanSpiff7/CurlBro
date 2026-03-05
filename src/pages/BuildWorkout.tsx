@@ -61,7 +61,7 @@ export function BuildWorkout() {
         {!hasExercises && <TemplateSelector />}
 
         {/* Exercise list */}
-        <WorkoutList />
+        <WorkoutList onAddExercise={() => setPickerOpen(true)} />
 
         {/* Conflict warnings */}
         <ConflictWarnings />

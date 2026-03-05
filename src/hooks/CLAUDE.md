@@ -7,11 +7,16 @@ Components never access store.graph directly — always through a hook.
 ## Rules
 - useMemo for all graph traversals (substitutes, suggestions, validation, conflicts)
 - Memoization deps should be the minimal set that actually changes
-- useExerciseSearch returns results from Fuse.js — index is built once in a useMemo (stable dep)
-- useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount)
+- useExerciseSearch returns results from Fuse.js — index is built once in a useMemo (stable dep).
+  Accepts an optional `contextFilter` parameter (ContextFilter type) for body-state-aware
+  filtering and sorting. Filters by category (strength/warm-up/cool-down), avoids sore
+  muscles, and applies recovery/warm-up/light-day logic. Results are annotated with
+  recovery badges for the UI layer.
+- useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount).
+  Exposes `restSeconds` and `adjustRestDuration(delta)` for idle-state rest duration adjustment.
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts
 - useAutoWorkoutName generates a default name from the most common muscle group + date
-- useSwipeTabs returns a callback ref for horizontal swipe-to-navigate between bottom nav tabs; skips tab swipe when touch starts inside `[data-swipe-row]`
+- useSwipeTabs returns a callback ref for horizontal swipe-to-navigate between bottom nav tabs; skips tab swipe when touch starts inside `[data-swipe-row]`. Accepts optional `SwipeInterceptor` callback — if it returns `true`, the swipe is consumed (used by Active tab to navigate between exercise groups before falling through to tab navigation).
 - useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore
 - useBuilderGroups — wraps `deriveGroups()` for the builder tab, returns `ExerciseGroup<WorkoutExercise>[]` from the current workout draft
 - useSessionGroups — wraps `deriveGroups()` for the active session, returns `ExerciseGroup<ExerciseLog>[]` from the current session

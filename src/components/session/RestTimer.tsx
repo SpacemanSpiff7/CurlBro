@@ -13,6 +13,8 @@ interface RestTimerProps {
   onStop: () => void;
   onPause: () => void;
   onAddTime: (delta: number) => void;
+  onAdjustRestDuration?: (delta: number) => void;
+  rightSlot?: React.ReactNode;
 }
 
 function formatTime(seconds: number): string {
@@ -37,6 +39,8 @@ export const RestTimer = memo(function RestTimer({
   onStop,
   onPause,
   onAddTime,
+  onAdjustRestDuration,
+  rightSlot,
 }: RestTimerProps) {
   // States: idle (never started), running, paused (started then paused), done
   const isPaused = !isRunning && !isDone && totalSeconds > 0 && remainingSeconds > 0;
@@ -65,7 +69,13 @@ export const RestTimer = memo(function RestTimer({
       {/* Left: -15 / +15 */}
       <div className="flex flex-col gap-1">
         <button
-          onClick={() => onAddTime(15)}
+          onClick={() => {
+            if (isIdle && onAdjustRestDuration) {
+              onAdjustRestDuration(15);
+            } else {
+              onAddTime(15);
+            }
+          }}
           disabled={isDone}
           aria-label="Add 15 seconds"
           className="flex items-center justify-center h-8 w-10 rounded-lg text-xs text-text-tertiary hover:text-text-secondary disabled:opacity-30 transition-colors"
@@ -74,8 +84,14 @@ export const RestTimer = memo(function RestTimer({
           15
         </button>
         <button
-          onClick={() => onAddTime(-15)}
-          disabled={isIdle || isDone || remainingSeconds <= 15}
+          onClick={() => {
+            if (isIdle && onAdjustRestDuration) {
+              onAdjustRestDuration(-15);
+            } else {
+              onAddTime(-15);
+            }
+          }}
+          disabled={isDone || (isIdle ? restSeconds <= 15 : remainingSeconds <= 15)}
           aria-label="Subtract 15 seconds"
           className="flex items-center justify-center h-8 w-10 rounded-lg text-xs text-text-tertiary hover:text-text-secondary disabled:opacity-30 transition-colors"
         >
@@ -168,6 +184,11 @@ export const RestTimer = memo(function RestTimer({
             <RotateCcw size={12} />
           </motion.button>
         )}
+      </div>
+
+      {/* Right: optional slot (e.g. wake lock) */}
+      <div className="flex flex-col gap-1 items-center w-10">
+        {rightSlot}
       </div>
     </div>
   );

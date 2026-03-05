@@ -22,12 +22,16 @@ import type {
   ExerciseLog,
   LogId,
   WorkoutSplit,
+  SorenessEntry,
+  ActivityEntry,
 } from '@/types';
 import {
   DEFAULT_SETTINGS,
   SavedWorkoutSchema,
   WorkoutLogSchema,
   AppSettingsSchema,
+  SorenessEntrySchema,
+  ActivityEntrySchema,
 } from '@/types';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { getAllExercises } from '@/data/exercises';
@@ -66,12 +70,18 @@ interface AppState {
   library: {
     workouts: SavedWorkout[];
     logs: WorkoutLog[];
+    activities: ActivityEntry[];
+    soreness: SorenessEntry[];
   };
   libraryActions: {
     saveWorkout: (workout: WorkoutDraft) => void;
     deleteWorkout: (id: WorkoutId) => void;
     addLog: (log: WorkoutLog) => void;
     deleteLog: (id: LogId) => void;
+    addActivity: (entry: ActivityEntry) => void;
+    removeActivity: (id: string) => void;
+    setSoreness: (entries: SorenessEntry[]) => void;
+    clearSoreness: () => void;
     clearAll: () => void;
   };
 
@@ -96,6 +106,8 @@ interface AppState {
     pauseTimer: () => void;
     tickTimer: () => void;
     adjustTimer: (delta: number) => void;
+    adjustRestDuration: (delta: number) => void;
+    setRestDuration: (seconds: number) => void;
   };
 
   // Settings (persisted)
@@ -152,6 +164,7 @@ const emptyTimer: TimerState = {
   isRunning: false,
   remainingSeconds: 0,
   totalSeconds: 0,
+  restSeconds: 90,
 };
 
 /** Pick the default rep count for an exercise based on training goal */
@@ -409,6 +422,8 @@ export const useStore = create<AppState>()(
       library: {
         workouts: [],
         logs: [],
+        activities: [],
+        soreness: [],
       },
       libraryActions: {
         saveWorkout: (workout: WorkoutDraft) => {
@@ -444,10 +459,32 @@ export const useStore = create<AppState>()(
             state.library.logs = state.library.logs.filter((l) => l.id !== id);
           });
         },
+        addActivity: (entry: ActivityEntry) => {
+          set((state) => {
+            state.library.activities.push(entry);
+          });
+        },
+        removeActivity: (id: string) => {
+          set((state) => {
+            state.library.activities = state.library.activities.filter((a) => a.id !== id);
+          });
+        },
+        setSoreness: (entries: SorenessEntry[]) => {
+          set((state) => {
+            state.library.soreness = entries;
+          });
+        },
+        clearSoreness: () => {
+          set((state) => {
+            state.library.soreness = [];
+          });
+        },
         clearAll: () => {
           set((state) => {
             state.library.workouts = [];
             state.library.logs = [];
+            state.library.activities = [];
+            state.library.soreness = [];
           });
         },
       },
@@ -588,6 +625,7 @@ export const useStore = create<AppState>()(
               isRunning: true,
               remainingSeconds: seconds,
               totalSeconds: seconds,
+              restSeconds: state.session.timer.restSeconds,
             };
           });
         },
@@ -619,6 +657,17 @@ export const useStore = create<AppState>()(
               state.session.timer.totalSeconds,
               newTime
             );
+          });
+        },
+        adjustRestDuration: (delta: number) => {
+          set((state) => {
+            const newTime = Math.max(15, state.session.timer.restSeconds + delta);
+            state.session.timer.restSeconds = newTime;
+          });
+        },
+        setRestDuration: (seconds: number) => {
+          set((state) => {
+            state.session.timer.restSeconds = Math.max(15, seconds);
           });
         },
       },
@@ -666,14 +715,26 @@ export const useStore = create<AppState>()(
             return parsed.success ? l : null;
           }).filter(Boolean) as WorkoutLog[];
 
+          const activities = (state.library.activities ?? []).filter((a) => {
+            const parsed = ActivityEntrySchema.safeParse(a);
+            return parsed.success;
+          });
+
+          const soreness = (state.library.soreness ?? []).filter((s) => {
+            const parsed = SorenessEntrySchema.safeParse(s);
+            return parsed.success;
+          });
+
           const settingsParsed = AppSettingsSchema.safeParse(state.settings);
           const settings = settingsParsed.success ? state.settings : DEFAULT_SETTINGS;
 
           state.library.workouts = workouts;
           state.library.logs = logs;
+          state.library.activities = activities;
+          state.library.soreness = soreness;
           state.settings = settings;
         } catch {
-          state.library = { workouts: [], logs: [] };
+          state.library = { workouts: [], logs: [], activities: [], soreness: [] };
           state.settings = DEFAULT_SETTINGS;
         }
       },

@@ -15,7 +15,8 @@ testid is last resort.
 - Pure functions (graphBuilder, formatExport, parseImport, logUtils): comprehensive unit tests
 - Presenters: renders correct content, responds to interactions
 - Containers: integration tests verifying hook + component work together
-- Graph queries: test with small fixture graph (8 exercises), not the full 162
+- Graph queries: test with small fixture graph (8 exercises), not the full 194
+- Context filters: test each filter type (sore_muscle, post_activity, pre_activity, light_day, category) with fixture exercises
 - Session flow: endSession/saveSession split, addExerciseToSession, deleteLog
 - Log utilities: computeLogStats, logToSavedWorkout, formatLogForClipboard (edge cases: null weights, incomplete sets)
 
@@ -30,3 +31,8 @@ testid is last resort.
 - Single file: `npx vitest run src/path/to/file.test.ts`
 - Watch mode: `npm run test:watch`
 - Coverage: `npm run test:coverage` (target: 80%+ on hooks and utils)
+
+## Pre-commit checklist
+Always run both before committing:
+1. `npx tsc -b` — strict build that matches CI (catches issues `tsc --noEmit` misses)
+2. `npx vitest run` — all tests must pass

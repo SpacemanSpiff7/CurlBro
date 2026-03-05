@@ -1,0 +1,270 @@
+{
+  "file": "09_cardio_warmup.json",
+  "description": "Cardio warmup exercises using gym machines and equipment for general warm-up before strength training",
+  "exercise_count": 7,
+  "exercises": [
+    {
+      "id": "treadmill_walk",
+      "name": "Treadmill Walk",
+      "category": "cardio",
+      "movement_pattern": "gait_walking",
+      "force_type": "isometric",
+      "equipment": [
+        "treadmill"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "calves"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start at 2.5-3.0 mph with 0% incline. Increase speed or add a slight incline (2-4%) to raise your heart rate. Walk with a natural arm swing and upright posture. 5-10 minutes is sufficient for a warm-up.",
+      "substitutes": [
+        "treadmill_jog",
+        "stationary_bike",
+        "elliptical"
+      ],
+      "complements": [
+        "leg_swing_forward",
+        "hip_circle",
+        "walking_lunge_dynamic"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at a brisk pace. The simplest and most accessible cardio warm-up. Adding an incline (3-5%) increases glute and hamstring activation without impact stress. A walking warm-up is especially beneficial for older lifters or those recovering from lower body injuries."
+    },
+    {
+      "id": "treadmill_jog",
+      "name": "Treadmill Jog",
+      "category": "cardio",
+      "movement_pattern": "gait_running",
+      "force_type": "isometric",
+      "equipment": [
+        "treadmill"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start with a 1-minute walk then gradually increase to a light jog at 4.5-6.0 mph. Keep your shoulders relaxed and arms bent at 90 degrees. You should be able to hold a conversation — if you're gasping, slow down.",
+      "substitutes": [
+        "treadmill_walk",
+        "elliptical",
+        "jump_rope"
+      ],
+      "complements": [
+        "high_knee",
+        "butt_kick",
+        "a_skip"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at conversational pace. Raises core body temperature, increases blood flow to the legs, and elevates heart rate for the session ahead. Keep the pace easy — this is a warm-up, not a conditioning session. If your legs feel heavy from a previous leg day, switch to the bike or elliptical for a lower-impact option."
+    },
+    {
+      "id": "elliptical",
+      "name": "Elliptical",
+      "category": "cardio",
+      "movement_pattern": "elliptical_stride",
+      "force_type": "isometric",
+      "equipment": [
+        "elliptical"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "calves",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start at low resistance and a moderate stride rate (120-140 SPM). Hold the moving handles to engage your upper body or the fixed handles for a lower-body focus. Keep your back straight and avoid leaning heavily on the handles.",
+      "substitutes": [
+        "stationary_bike",
+        "treadmill_jog",
+        "stair_climber"
+      ],
+      "complements": [
+        "hip_circle",
+        "leg_swing_forward",
+        "arm_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at moderate effort. Zero-impact warm-up that engages both upper and lower body. The elliptical motion closely mimics walking/running without the joint stress, making it ideal for those with knee or ankle issues. Reverse pedaling shifts emphasis to the hamstrings and glutes."
+    },
+    {
+      "id": "stationary_bike",
+      "name": "Stationary Bike",
+      "category": "cardio",
+      "movement_pattern": "cycling",
+      "force_type": "isometric",
+      "equipment": [
+        "stationary_bike"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "calves"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Adjust the seat height so your leg has a slight bend at the bottom of the pedal stroke. Start at low resistance and a comfortable cadence (60-80 RPM). Gradually increase resistance or speed over the first few minutes.",
+      "substitutes": [
+        "elliptical",
+        "stair_climber",
+        "rowing_machine"
+      ],
+      "complements": [
+        "leg_swing_forward",
+        "hip_circle",
+        "standing_quad_stretch"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at easy to moderate effort. Low-impact and non-weight-bearing, making it the gentlest cardio warm-up option. Particularly useful on leg day when your quads need blood flow without added joint stress. Recumbent bikes are even easier on the lower back."
+    },
+    {
+      "id": "rowing_machine",
+      "name": "Rowing Machine",
+      "category": "cardio",
+      "movement_pattern": "rowing",
+      "force_type": "pull",
+      "equipment": [
+        "rowing_machine"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes",
+        "core",
+        "biceps"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Strap your feet in and grab the handle with an overhand grip. Push with your legs first, then lean back slightly, then pull the handle to your lower chest. Reverse the sequence to return. Start with low resistance (damper 3-5) and a steady stroke rate (20-24 SPM).",
+      "substitutes": [
+        "elliptical",
+        "treadmill_jog",
+        "stationary_bike"
+      ],
+      "complements": [
+        "thoracic_rotation",
+        "band_dislocate",
+        "hip_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at a steady pace. The only cardio warm-up that significantly engages the upper body pulling muscles, making it ideal before back or full-body sessions. Uses 60% legs, 20% core, 20% arms. The most common form error is pulling with the arms first — always initiate the drive with your legs."
+    },
+    {
+      "id": "stair_climber",
+      "name": "Stair Climber",
+      "category": "cardio",
+      "movement_pattern": "stair_stepping",
+      "force_type": "isometric",
+      "equipment": [
+        "stair_climber"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "hamstrings"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start at a slow speed (level 3-5). Stand upright and lightly hold the side rails for balance only — don't lean on them. Take full steps, driving through the whole foot. If you're gripping the rails tightly and leaning forward, the speed is too high.",
+      "substitutes": [
+        "treadmill_walk",
+        "elliptical",
+        "stationary_bike"
+      ],
+      "complements": [
+        "hip_circle",
+        "walking_lunge_dynamic",
+        "standing_quad_stretch"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes at a steady pace. High glute activation compared to other cardio machines, making it an excellent warm-up before squat or glute-focused sessions. Also raises heart rate quickly due to the constant uphill nature. Avoid the common mistake of hunching over the console — stand tall to get full hip extension."
+    },
+    {
+      "id": "jump_rope",
+      "name": "Jump Rope",
+      "category": "cardio",
+      "movement_pattern": "jump_skip",
+      "force_type": "isometric",
+      "equipment": [
+        "jump_rope"
+      ],
+      "primary_muscles": [
+        "calves",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Size the rope so the handles reach your armpits when standing on the middle. Keep your elbows close to your sides and turn the rope with your wrists, not your arms. Jump just high enough to clear the rope (1-2 inches). Land softly on the balls of your feet.",
+      "substitutes": [
+        "high_knee",
+        "treadmill_jog",
+        "a_skip"
+      ],
+      "complements": [
+        "ankle_mobility_drill",
+        "standing_calf_stretch",
+        "arm_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "3-5 minutes for warm-up. Excellent for coordination, calf activation, and raising heart rate quickly. Also warms up the shoulders and wrists. If you trip frequently, practice the two-foot bounce without the rope first. Boxers and CrossFit athletes use this as their primary warm-up — it's time-efficient and portable."
+    }
+  ]
+}

@@ -20,13 +20,15 @@ App
     │   ├── SuggestionPanel
     │   ├── WorkoutStatusBar
     │   └── ExercisePicker (Sheet)
+    │       ├── BodyStateInput (collapsible)
+    │       ├── ContextFilters (smart chips)
     │       └── ExerciseDetail (Sheet)
     ├── MyWorkouts (Tab 2)
     │   ├── WorkoutList (saved)
     │   └── ImportExport
     ├── ActiveWorkout (Tab 3)
     │   ├── SetTracker / GroupSetTracker
-    │   ├── RestTimer
+    │   ├── RestTimer (rightSlot: wake lock button)
     │   ├── SessionProgress
     │   ├── ExercisePicker (Sheet, mid-session add)
     │   └── LogSummarySheet (post-save stats)
@@ -39,12 +41,19 @@ App
 ## Data Flow
 
 ```
-JSON files (7)
+JSON files (8, including stretching/mobility)
   → exercises.ts (merge all)
   → graphBuilder.ts (pure function)
   → Zustand graph slice (immutable after init)
   → Custom hooks (query layer)
   → Components (presentation)
+
+Body state (soreness + activities)
+  → library.soreness / library.activities (persisted)
+  → BodyStateInput (user input)
+  → ContextFilters (derived filter chips)
+  → useExerciseSearch (contextFilter parameter)
+  → ExercisePicker (filtered + badged results)
 ```
 
 ## State Management
@@ -65,7 +74,9 @@ JSON files (7)
 
 ## Navigation
 - Tab-based navigation via BottomNav (Build, Library, Active, Log, Settings)
-- Horizontal swipe on main content area also navigates between tabs (useSwipeTabs hook)
+- Horizontal swipe on main content area also navigates between tabs (useSwipeTabs hook).
+  Active tab intercepts swipes to navigate between exercise groups first; tab navigation
+  only occurs at the first/last exercise edge.
 - No URL routing — state-driven tab switching via `activeTab` in store
 - Each tab is an independent subtree with its own error boundary
 
