@@ -13,19 +13,19 @@ describe('useHouseAd', () => {
   });
 
   it('returns an ad from the specified categories', () => {
-    const { result } = renderHook(() => useHouseAd(['form_tip']));
+    const { result } = renderHook(() => useHouseAd('build', ['form_tip']));
     expect(result.current.ad.category).toBe('form_tip');
   });
 
   it('returns an ad matching one of multiple categories', () => {
     const { result } = renderHook(() =>
-      useHouseAd(['form_tip', 'recovery']),
+      useHouseAd('rest_timer', ['form_tip', 'recovery']),
     );
     expect(['form_tip', 'recovery']).toContain(result.current.ad.category);
   });
 
   it('next() returns a different ad (no repeat)', () => {
-    const { result } = renderHook(() => useHouseAd(['form_tip']));
+    const { result } = renderHook(() => useHouseAd('post_workout', ['form_tip']));
     const firstId = result.current.ad.id;
     act(() => result.current.next());
     expect(result.current.ad.id).not.toBe(firstId);
@@ -37,7 +37,7 @@ describe('useHouseAd', () => {
     const generalCount = HOUSE_ADS.filter(
       (a) => a.category === 'general',
     ).length;
-    const { result } = renderHook(() => useHouseAd(['general']));
+    const { result } = renderHook(() => useHouseAd('library_feed', ['general']));
 
     // Exhaust all general ads by calling next enough times
     // (pool includes initial ad + next calls)
@@ -51,7 +51,7 @@ describe('useHouseAd', () => {
 
   it('rotates ads on interval when enabled', () => {
     const { result } = renderHook(() =>
-      useHouseAd(['form_tip', 'recovery'], true, 5000),
+      useHouseAd('log_feed', ['form_tip', 'recovery'], true, 5000),
     );
     const firstId = result.current.ad.id;
 
@@ -64,7 +64,7 @@ describe('useHouseAd', () => {
 
   it('does not rotate when rotate is false', () => {
     const { result } = renderHook(() =>
-      useHouseAd(['form_tip'], false, 5000),
+      useHouseAd('settings', ['form_tip'], false, 5000),
     );
     const firstId = result.current.ad.id;
 
@@ -77,7 +77,7 @@ describe('useHouseAd', () => {
 
   it('cleans up interval on unmount', () => {
     const { unmount } = renderHook(() =>
-      useHouseAd(['form_tip'], true, 5000),
+      useHouseAd('build', ['form_tip'], true, 5000),
     );
     const clearSpy = vi.spyOn(globalThis, 'clearInterval');
     unmount();

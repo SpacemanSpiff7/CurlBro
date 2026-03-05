@@ -391,7 +391,7 @@ export function ActiveWorkout() {
       </div>
 
       {/* Rest timer ad */}
-      {isActive && <AdSlot slotKey="rest_timer" className="mt-1" />}
+      <AdSlot slotKey="rest_timer" className="mt-1" />
 
       {/* Group set tracker */}
       {currentGroup && (

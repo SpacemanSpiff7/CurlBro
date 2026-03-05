@@ -12,6 +12,7 @@ interface AdSlotProps {
 export function AdSlot({ slotKey, className = '' }: AdSlotProps) {
   const { adsenseActive, showHouseAd, insRef, config } = useAdSlot(slotKey);
   const { ad } = useHouseAd(
+    slotKey,
     config.houseAdCategories,
     config.rotateHouseAds,
     config.rotateIntervalMs,

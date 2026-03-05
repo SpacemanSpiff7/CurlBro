@@ -304,6 +304,9 @@ export function MyWorkouts() {
       </TopBar>
 
       <div className="flex flex-col gap-4 px-4">
+      {/* Top ad */}
+      <AdSlot slotKey="library_feed" />
+
       {/* User-created workouts */}
       {workouts.length > 0 && (
         <div className="space-y-2">
@@ -383,9 +386,6 @@ export function MyWorkouts() {
         onStart={handleSeededStart}
         onEdit={handleSeededEdit}
       />
-
-      {/* Bottom ad — always visible */}
-      <AdSlot slotKey="library_feed" />
 
       </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
