@@ -144,63 +144,65 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: Exercis
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="h-[85dvh] bg-bg-surface p-0"
+        className="flex h-[85dvh] flex-col bg-bg-surface p-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <SheetHeader className="px-4 pt-4 pb-2">
-          <SheetTitle className="text-text-primary">Add Exercise</SheetTitle>
-        </SheetHeader>
+        <div className="flex-shrink-0">
+          <SheetHeader className="px-4 pt-4 pb-2">
+            <SheetTitle className="text-text-primary">Add Exercise</SheetTitle>
+          </SheetHeader>
 
-        <div className="px-4 pb-2">
-          <div className="relative">
-            <Search
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary"
-            />
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search exercises..."
-              className="pl-9 bg-bg-elevated border-border-subtle"
-              aria-label="Search exercises"
-              autoFocus={false}
-              autoComplete="off"
-              autoCapitalize="none"
-              name="exercise-search"
-              type="search"
-            />
-            {query && (
-              <button
-                onClick={() => setQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-secondary"
-                aria-label="Clear search"
-              >
-                <X size={14} />
-              </button>
-            )}
+          <div className="px-4 pb-2">
+            <div className="relative">
+              <Search
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary"
+              />
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search exercises..."
+                className="pl-9 bg-bg-elevated border-border-subtle"
+                aria-label="Search exercises"
+                autoFocus={false}
+                autoComplete="off"
+                autoCapitalize="none"
+                name="exercise-search"
+                type="search"
+              />
+              {query && (
+                <button
+                  onClick={() => setQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-secondary"
+                  aria-label="Clear search"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
           </div>
+
+          <div className="px-4 pb-2">
+            <div className="flex flex-wrap gap-1.5">
+              {MUSCLE_GROUPS.map((muscle) => (
+                <Badge
+                  key={muscle}
+                  variant={muscleFilter.includes(muscle) ? 'default' : 'outline'}
+                  className="cursor-pointer whitespace-nowrap text-xs select-none"
+                  onClick={() => toggleMuscle(muscle)}
+                >
+                  {MUSCLE_LABELS[muscle] ?? muscle}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <BodyStateInput expanded={bodyStateExpanded} onToggle={toggleBodyState} />
+
+          <ContextFilters activeFilter={contextFilter} onFilterChange={setContextFilter} />
         </div>
 
-        <div className="px-4 pb-2">
-          <div className="flex flex-wrap gap-1.5">
-            {MUSCLE_GROUPS.map((muscle) => (
-              <Badge
-                key={muscle}
-                variant={muscleFilter.includes(muscle) ? 'default' : 'outline'}
-                className="cursor-pointer whitespace-nowrap text-xs select-none"
-                onClick={() => toggleMuscle(muscle)}
-              >
-                {MUSCLE_LABELS[muscle] ?? muscle}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <BodyStateInput expanded={bodyStateExpanded} onToggle={toggleBodyState} />
-
-        <ContextFilters activeFilter={contextFilter} onFilterChange={setContextFilter} />
-
-        <ScrollArea className="flex-1 px-2" style={{ height: 'calc(85dvh - 220px)' }}>
+        <ScrollArea className="min-h-0 flex-1 px-2">
           <div className="space-y-0.5 pb-8">
             {results.length === 0 ? (
               <div className="py-12 text-center text-text-tertiary text-sm">
