@@ -19,8 +19,8 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-const RING_SIZE = 160;
-const STROKE_WIDTH = 6;
+const RING_SIZE = 100;
+const STROKE_WIDTH = 5;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
@@ -41,15 +41,26 @@ export const RestTimer = memo(function RestTimer({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      className="flex flex-col items-center gap-3"
+      className="flex items-center justify-center gap-3"
     >
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => onAddTime(-15)}
+        disabled={isDone || remainingSeconds <= 15}
+        aria-label="Subtract 15 seconds"
+        className="h-9 w-14 text-xs"
+      >
+        <Minus size={12} className="mr-0.5" />
+        15s
+      </Button>
+
       <div className="relative" style={{ width: RING_SIZE, height: RING_SIZE }}>
         <svg
           width={RING_SIZE}
           height={RING_SIZE}
           className="rotate-[-90deg]"
         >
-          {/* Background ring */}
           <circle
             cx={RING_SIZE / 2}
             cy={RING_SIZE / 2}
@@ -58,7 +69,6 @@ export const RestTimer = memo(function RestTimer({
             stroke="var(--color-bg-elevated)"
             strokeWidth={STROKE_WIDTH}
           />
-          {/* Progress ring */}
           <circle
             cx={RING_SIZE / 2}
             cy={RING_SIZE / 2}
@@ -73,25 +83,25 @@ export const RestTimer = memo(function RestTimer({
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-3xl font-bold tabular-nums text-text-primary">
+          <span className="text-xl font-bold tabular-nums text-text-primary">
             {isDone ? 'GO!' : formatTime(remainingSeconds)}
           </span>
           {isDone && (
-            <span className="text-xs text-success">Rest complete</span>
+            <span className="text-[10px] text-success">Rest done</span>
           )}
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-1.5">
         <Button
           variant="outline"
           size="sm"
-          onClick={() => onAddTime(-15)}
-          disabled={isDone || remainingSeconds <= 15}
-          aria-label="Subtract 15 seconds"
-          className="h-11 w-16"
+          onClick={() => onAddTime(15)}
+          disabled={isDone}
+          aria-label="Add 15 seconds"
+          className="h-9 w-14 text-xs"
         >
-          <Minus size={14} className="mr-1" />
+          <Plus size={12} className="mr-0.5" />
           15s
         </Button>
         <Button
@@ -99,20 +109,9 @@ export const RestTimer = memo(function RestTimer({
           size="icon"
           onClick={onStop}
           aria-label="Stop timer"
-          className="h-11 w-11"
+          className="h-9 w-14"
         >
           <X size={14} />
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onAddTime(15)}
-          disabled={isDone}
-          aria-label="Add 15 seconds"
-          className="h-11 w-16"
-        >
-          <Plus size={14} className="mr-1" />
-          15s
         </Button>
       </div>
     </motion.div>

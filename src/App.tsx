@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
@@ -8,6 +8,7 @@ import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeTabs } from '@/hooks/useSwipeTabs';
+import type { TabId } from '@/types';
 
 function AppContent() {
   const activeTab = useStore((state) => state.activeTab);
@@ -43,7 +44,24 @@ function AppContent() {
 export default function App() {
   const initGraph = useStore((state) => state.initGraph);
   const graphReady = useStore((state) => state.graphReady);
+  const activeTab = useStore((state) => state.activeTab);
   const swipeRef = useSwipeTabs();
+
+  // Save scroll position per tab, restore on return
+  const scrollPositions = useRef<Partial<Record<TabId, number>>>({});
+  const prevTab = useRef<TabId>(activeTab);
+
+  useEffect(() => {
+    if (prevTab.current !== activeTab) {
+      // Save outgoing tab's scroll position
+      scrollPositions.current[prevTab.current] = window.scrollY;
+      prevTab.current = activeTab;
+
+      // Restore saved position or scroll to top
+      const saved = scrollPositions.current[activeTab];
+      window.scrollTo(0, saved ?? 0);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     initGraph();

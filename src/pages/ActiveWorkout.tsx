@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Sun, Timer } from 'lucide-react';
+import { ArrowRightLeft, ChevronLeft, ChevronRight, Square, Timer } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,42 @@ import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import type { SetLog, ExerciseId } from '@/types';
+
+function WakeLockToggle({ isActive, isSupported, onToggle }: {
+  isActive: boolean;
+  isSupported: boolean;
+  onToggle: () => void;
+}) {
+  if (!isSupported) return null;
+
+  return (
+    <button
+      role="switch"
+      aria-checked={isActive}
+      aria-label={isActive ? 'Allow screen sleep' : 'Keep screen on'}
+      onClick={onToggle}
+      className="flex items-center gap-1.5"
+    >
+      <span className="text-[10px] text-text-tertiary uppercase tracking-wide">
+        Screen
+      </span>
+      <div
+        className={`relative h-6 w-11 rounded-full transition-colors duration-200 ${
+          isActive ? 'bg-warning/80' : 'bg-bg-elevated'
+        }`}
+        style={isActive ? {
+          boxShadow: '0 0 8px var(--color-warning), 0 0 20px color-mix(in srgb, var(--color-warning) 30%, transparent)',
+        } : undefined}
+      >
+        <span
+          className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full transition-transform duration-200 ${
+            isActive ? 'translate-x-5 bg-white' : 'translate-x-0 bg-text-tertiary'
+          }`}
+        />
+      </div>
+    </button>
+  );
+}
 
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
@@ -141,28 +177,15 @@ export function ActiveWorkout() {
               {completedSets}/{totalSets} sets completed
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            {wakeLock.isSupported && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={wakeLock.toggle}
-                aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
-                className={`h-9 w-9 ${wakeLock.isActive ? 'text-warning' : 'text-text-tertiary'}`}
-              >
-                <Sun size={16} />
-              </Button>
-            )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleFinish}
-              className="text-destructive border-destructive/30 hover:bg-destructive/10"
-            >
-              <Square size={14} className="mr-1" />
-              Finish
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleFinish}
+            className="text-destructive border-destructive/30 hover:bg-destructive/10"
+          >
+            <Square size={14} className="mr-1" />
+            Finish
+          </Button>
         </div>
       </TopBar>
 
@@ -238,6 +261,28 @@ export function ActiveWorkout() {
         />
       )}
 
+      {/* Rest timer + wake lock */}
+      <div className="flex flex-col items-center gap-2">
+        <AnimatePresence>
+          {(timer.isRunning || timer.isDone) && (
+            <RestTimer
+              remainingSeconds={timer.remainingSeconds}
+              totalSeconds={timer.totalSeconds}
+              progress={timer.progress}
+              isRunning={timer.isRunning}
+              isDone={timer.isDone}
+              onStop={timer.stop}
+              onAddTime={timer.addTime}
+            />
+          )}
+        </AnimatePresence>
+        <WakeLockToggle
+          isActive={wakeLock.isActive}
+          isSupported={wakeLock.isSupported}
+          onToggle={wakeLock.toggle}
+        />
+      </div>
+
       {/* Beginner tip */}
       {exerciseInfo?.beginner_tips && (
         <div className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2">
@@ -266,21 +311,6 @@ export function ActiveWorkout() {
           </motion.div>
         </AnimatePresence>
       )}
-
-      {/* Rest timer */}
-      <AnimatePresence>
-        {(timer.isRunning || timer.isDone) && (
-          <RestTimer
-            remainingSeconds={timer.remainingSeconds}
-            totalSeconds={timer.totalSeconds}
-            progress={timer.progress}
-            isRunning={timer.isRunning}
-            isDone={timer.isDone}
-            onStop={timer.stop}
-            onAddTime={timer.addTime}
-          />
-        )}
-      </AnimatePresence>
 
       {/* Exercise dots */}
       <div className="flex items-center justify-center gap-1.5 pt-2">
