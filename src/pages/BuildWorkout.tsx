@@ -42,7 +42,7 @@ export function BuildWorkout() {
           value={workout.name}
           onChange={(e) => setWorkoutName(e.target.value)}
           placeholder={autoName || 'Workout name...'}
-          className="text-lg font-medium bg-transparent border-none px-0 placeholder:text-text-tertiary focus-visible:ring-0"
+          className="text-lg font-medium bg-transparent border-none shadow-none px-0 placeholder:text-text-tertiary focus-visible:ring-0"
           aria-label="Workout name"
         />
       </TopBar>

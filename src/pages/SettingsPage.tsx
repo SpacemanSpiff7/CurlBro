@@ -4,7 +4,6 @@ import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
-import { AdSlot } from '@/components/ads/AdSlot';
 import { AboutPage } from './AboutPage';
 import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { TermsOfUsePage } from './TermsOfUsePage';
@@ -340,9 +339,6 @@ export function SettingsPage() {
           )}
         </div>
       </div>
-      {/* Ad slot */}
-      <AdSlot slotKey="settings" />
-
       {/* About */}
       <div className="space-y-3">
         <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">

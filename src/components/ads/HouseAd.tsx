@@ -38,7 +38,7 @@ export const HouseAdComponent = memo(function HouseAdComponent({ ad }: HouseAdPr
 
   const content = (
     <div
-      className={`rounded-xl ${colors.bg} border border-white/[0.04] p-3.5`}
+      className={`rounded-xl ${colors.bg} border border-black/[0.06] dark:border-white/[0.04] p-3.5`}
       role="complementary"
       aria-label="Tip"
     >
@@ -48,14 +48,14 @@ export const HouseAdComponent = memo(function HouseAdComponent({ ad }: HouseAdPr
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <p className="text-[13px] font-semibold text-zinc-100 leading-tight">
+            <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-100 leading-tight">
               {ad.headline}
             </p>
             <span className={`text-[9px] font-medium uppercase tracking-[0.1em] ${colors.tag} flex-shrink-0`}>
               {tag}
             </span>
           </div>
-          <p className="text-xs text-zinc-400 leading-relaxed">{ad.body}</p>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">{ad.body}</p>
           {ad.cta && (
             <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${colors.icon} mt-2`}>
               {ad.cta}

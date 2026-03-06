@@ -10,7 +10,7 @@ export function TopBar({ children }: TopBarProps) {
       <img
         src={logoUrl}
         alt="CurlBro"
-        className="h-9 w-9 flex-shrink-0 rounded-lg object-contain"
+        className="h-9 w-9 flex-shrink-0 rounded-lg object-contain brightness-75 dark:brightness-100"
       />
       <div className="flex-1 min-w-0">{children}</div>
     </div>
