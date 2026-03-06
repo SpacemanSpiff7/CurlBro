@@ -106,9 +106,10 @@ Agent definitions live in `.claude/agents/`.
 
 ## Known Quirks
 - `endSession()` only sets `completedAt` and stops the timer — call `saveSession()` separately to create the log
-- WorkoutExercise uses index-based React keys (allows duplicate exercises) — local component
-  state (expanded, video open) may not follow items on drag reorder. A future fix is to add
-  unique instance IDs to WorkoutExercise
+- WorkoutExercise has an optional `instanceId` field (UUID) used as stable React keys and
+  dnd-kit group IDs. Generated via `crypto.randomUUID()` on add/import/template-load.
+  Hydration backfills `instanceId` on persisted data missing it. Local component state
+  (expanded, video open) may still not follow items on drag reorder.
 - The Immer middleware wraps `set()` automatically — no explicit `produce()` call needed
 - `navigator.clipboard` requires HTTPS — wrap in try/catch for HTTP dev environments
 - Exercise JSON `equipment` and `primary_muscles` fields are validated as `z.string()` arrays,

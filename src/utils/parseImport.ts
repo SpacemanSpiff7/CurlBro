@@ -172,7 +172,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         }
       }
 
-      exercises.push({ exerciseId, sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
+      exercises.push({ exerciseId, instanceId: crypto.randomUUID(), sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
       continue;
     }
 
@@ -198,7 +198,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
       const parts = afterBracket.split('|').map((p) => p.trim()).filter(Boolean);
       const fields = parseFields(parts, settings);
 
-      exercises.push({ exerciseId, ...fields, notes: '', ...(supersetGroupId && { supersetGroupId }) });
+      exercises.push({ exerciseId, instanceId: crypto.randomUUID(), ...fields, notes: '', ...(supersetGroupId && { supersetGroupId }) });
       warnings.push(`Used defaults for missing fields (line ${i + 1})`);
       continue;
     }
@@ -215,7 +215,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
 
       const resolved = resolveByName(exerciseName, nameIndex);
       if (resolved) {
-        exercises.push({ exerciseId: resolved, sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
+        exercises.push({ exerciseId: resolved, instanceId: crypto.randomUUID(), sets, reps, weight, restSeconds, notes: '', ...(supersetGroupId && { supersetGroupId }) });
         warnings.push(`Resolved "${exerciseName}" by name (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);
@@ -232,7 +232,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         const ex = graph.exercises.get(resolved);
         const defaultSets = ex?.category === 'isolation' ? settings.defaultSetsIsolation : settings.defaultSetsCompound;
         const defaultRest = ex?.category === 'isolation' ? settings.restTimerIsolationSeconds : settings.restTimerCompoundSeconds;
-        exercises.push({ exerciseId: resolved, sets: defaultSets, reps: goalDefaultReps(settings), weight: null, restSeconds: defaultRest, notes: '', ...(supersetGroupId && { supersetGroupId }) });
+        exercises.push({ exerciseId: resolved, instanceId: crypto.randomUUID(), sets: defaultSets, reps: goalDefaultReps(settings), weight: null, restSeconds: defaultRest, notes: '', ...(supersetGroupId && { supersetGroupId }) });
         warnings.push(`Resolved "${exerciseName}" by name, using default sets/reps (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);

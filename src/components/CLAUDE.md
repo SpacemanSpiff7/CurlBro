@@ -34,8 +34,8 @@
 - SwipeToDelete (`shared/`) — Reusable swipe-to-delete wrapper using Framer Motion drag.
   Reveals red trash icon on horizontal swipe past threshold (-80px), haptic feedback on
   delete. Has `data-swipe-row` attribute so useSwipeTabs skips tab navigation on these elements.
-- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder, SwipeToDelete
-  wrappers on each group, and optional inline "+" buttons between groups (via `onAddExercise` prop).
+- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder and SwipeToDelete
+  wrappers on each group. Uses `instanceId` for stable React keys (no props).
 - BodyStateInput (`exercise/`) — Collapsible soreness grid (14 muscles x 4 severity levels:
   none/mild/moderate/severe) + activity chips (run/bike/swim/hike/sport/yoga with
   yesterday/today/tomorrow timing). Persisted to library.soreness and library.activities.

@@ -3,6 +3,7 @@ import { deriveGroups, getGroupLabel } from './groupUtils';
 
 interface TestExercise {
   name: string;
+  instanceId?: string;
   supersetGroupId?: string;
 }
 
@@ -111,6 +112,39 @@ describe('deriveGroups', () => {
     expect(groups[2].groupId).toBe('solo-3');
     expect(groups[3].groupId).toBe('g2');
     expect(groups[3].indices).toEqual([4, 5]);
+  });
+
+  it('uses instanceId for stable solo group keys', () => {
+    const exercises: TestExercise[] = [
+      { name: 'A', instanceId: 'aaa' },
+      { name: 'B', instanceId: 'bbb' },
+      { name: 'C', instanceId: 'ccc' },
+    ];
+    const groups = deriveGroups(exercises);
+
+    expect(groups).toHaveLength(3);
+    expect(groups[0].groupId).toBe('solo-aaa');
+    expect(groups[1].groupId).toBe('solo-bbb');
+    expect(groups[2].groupId).toBe('solo-ccc');
+  });
+
+  it('produces stable keys after deletion when instanceId is present', () => {
+    const exercises: TestExercise[] = [
+      { name: 'A', instanceId: 'aaa' },
+      { name: 'B', instanceId: 'bbb', supersetGroupId: 'g1' },
+      { name: 'C', instanceId: 'ccc', supersetGroupId: 'g1' },
+      { name: 'D', instanceId: 'ddd' },
+    ];
+
+    const beforeGroups = deriveGroups(exercises);
+    expect(beforeGroups[2].groupId).toBe('solo-ddd');
+
+    // Delete exercise A (index 0)
+    const afterDelete = exercises.slice(1);
+    const afterGroups = deriveGroups(afterDelete);
+
+    // D's key should still be solo-ddd, not solo-2 (index-based would change)
+    expect(afterGroups[1].groupId).toBe('solo-ddd');
   });
 
   it('preserves exercise references', () => {

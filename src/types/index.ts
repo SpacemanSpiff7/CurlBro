@@ -91,6 +91,7 @@ export interface ExerciseGraph {
 // ─── Workout Draft ────────────────────────────────────────
 export interface WorkoutExercise {
   exerciseId: ExerciseId;
+  instanceId?: string;
   sets: number;
   reps: number;
   weight: number | null;
@@ -109,6 +110,7 @@ export interface WorkoutDraft {
 
 export const WorkoutExerciseSchema = z.object({
   exerciseId: z.string(),
+  instanceId: z.string().optional(),
   sets: z.number().int().min(1),
   reps: z.number().int().min(1),
   weight: z.number().nullable(),

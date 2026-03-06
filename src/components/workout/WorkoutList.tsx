@@ -14,7 +14,6 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { AnimatePresence } from 'framer-motion';
-import { Plus } from 'lucide-react';
 import { ExerciseCard } from '@/components/exercise/ExerciseCard';
 import { SupersetContainer } from '@/components/workout/SupersetContainer';
 import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
@@ -22,11 +21,7 @@ import { useStore } from '@/store';
 import { useBuilderGroups } from '@/hooks/useBuilderGroups';
 import type { WorkoutExercise, ExerciseId } from '@/types';
 
-interface WorkoutListProps {
-  onAddExercise?: () => void;
-}
-
-export function WorkoutList({ onAddExercise }: WorkoutListProps) {
+export function WorkoutList() {
   const graph = useStore((state) => state.graph);
   const { removeExercise, reorderExercises, updateExercise, swapExercise } =
     useStore((state) => state.builderActions);
@@ -95,7 +90,7 @@ export function WorkoutList({ onAddExercise }: WorkoutListProps) {
       >
         <div className="space-y-2">
           <AnimatePresence mode="popLayout">
-            {groups.map((group, groupIdx) => {
+            {groups.map((group) => {
               const isGrouped = group.exercises.length > 1;
 
               const cards = group.exercises.map((workoutExercise, i) => {
@@ -105,7 +100,7 @@ export function WorkoutList({ onAddExercise }: WorkoutListProps) {
 
                 return (
                   <ExerciseCard
-                    key={realIndex}
+                    key={workoutExercise.instanceId ?? realIndex}
                     exercise={exercise}
                     workoutExercise={workoutExercise}
                     index={realIndex}
@@ -130,27 +125,14 @@ export function WorkoutList({ onAddExercise }: WorkoutListProps) {
               );
 
               return (
-                <div key={group.groupId}>
-                  <SwipeToDelete onDelete={() => {
-                    // Remove all exercises in the group (reverse order to keep indices stable)
-                    for (let i = group.indices.length - 1; i >= 0; i--) {
-                      removeExercise(group.indices[i]);
-                    }
-                  }}>
-                    {groupContent}
-                  </SwipeToDelete>
-
-                  {/* Inline add button between groups */}
-                  {onAddExercise && groupIdx < groups.length - 1 && (
-                    <button
-                      onClick={onAddExercise}
-                      className="flex w-full items-center justify-center gap-1 py-1 mt-2 text-xs text-text-tertiary hover:text-accent-primary transition-colors min-h-[44px]"
-                      aria-label="Add exercise here"
-                    >
-                      <Plus size={14} />
-                    </button>
-                  )}
-                </div>
+                <SwipeToDelete key={group.groupId} onDelete={() => {
+                  // Remove all exercises in the group (reverse order to keep indices stable)
+                  for (let i = group.indices.length - 1; i >= 0; i--) {
+                    removeExercise(group.indices[i]);
+                  }
+                }}>
+                  {groupContent}
+                </SwipeToDelete>
               );
             })}
           </AnimatePresence>

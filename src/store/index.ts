@@ -234,6 +234,7 @@ export const useStore = create<AppState>()(
           set((state) => {
             state.builder.workout.exercises.push({
               exerciseId,
+              instanceId: crypto.randomUUID(),
               sets,
               reps,
               weight: null,
@@ -280,6 +281,7 @@ export const useStore = create<AppState>()(
 
             exercises.splice(lastGroupIndex + 1, 0, {
               exerciseId,
+              instanceId: crypto.randomUUID(),
               sets,
               reps,
               weight: null,
@@ -404,6 +406,7 @@ export const useStore = create<AppState>()(
                 .filter((e) => graph.exercises.has(e.exerciseId))
                 .map((e) => ({
                   exerciseId: e.exerciseId,
+                  instanceId: crypto.randomUUID(),
                   sets: e.sets,
                   reps: e.reps,
                   weight: null,
@@ -727,6 +730,15 @@ export const useStore = create<AppState>()(
 
           const settingsParsed = AppSettingsSchema.safeParse(state.settings);
           const settings = settingsParsed.success ? state.settings : DEFAULT_SETTINGS;
+
+          // Backfill instanceId for exercises saved before this field existed
+          for (const w of workouts) {
+            for (const ex of w.exercises) {
+              if (!ex.instanceId) {
+                ex.instanceId = crypto.randomUUID();
+              }
+            }
+          }
 
           state.library.workouts = workouts;
           state.library.logs = logs;

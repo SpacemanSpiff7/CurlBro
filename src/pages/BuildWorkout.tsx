@@ -51,6 +51,12 @@ export function BuildWorkout() {
         {/* Ad slot */}
         <AdSlot slotKey="build" />
 
+        {/* Templates (only shown when empty) */}
+        {!hasExercises && <TemplateSelector />}
+
+        {/* Exercise list */}
+        <WorkoutList />
+
         {/* Add Exercise card */}
         <button
           onClick={() => setPickerOpen(true)}
@@ -60,12 +66,6 @@ export function BuildWorkout() {
           <Plus size={18} />
           Add Exercise
         </button>
-
-        {/* Templates (only shown when empty) */}
-        {!hasExercises && <TemplateSelector />}
-
-        {/* Exercise list */}
-        <WorkoutList onAddExercise={() => setPickerOpen(true)} />
 
         {/* Conflict warnings */}
         <ConflictWarnings />

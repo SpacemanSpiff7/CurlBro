@@ -42,6 +42,18 @@ describe('builderSlice', () => {
     expect(workout.exercises[0].exerciseId).toBe('barbell_bench_press');
     expect(workout.exercises[0].sets).toBe(4); // compound default
     expect(workout.exercises[0].reps).toBe(6); // from rep_range_hypertrophy "6-12"
+    expect(workout.exercises[0].instanceId).toBeTruthy();
+  });
+
+  it('generates unique instanceIds for each exercise', () => {
+    const { builderActions } = useStore.getState();
+    builderActions.addExercise('barbell_bench_press' as ExerciseId);
+    builderActions.addExercise('cable_flye' as ExerciseId);
+    builderActions.addExercise('barbell_bench_press' as ExerciseId); // duplicate exercise
+
+    const workout = useStore.getState().builder.workout;
+    const ids = workout.exercises.map((e) => e.instanceId);
+    expect(new Set(ids).size).toBe(3);
   });
 
   it('sets default rest seconds based on category', () => {

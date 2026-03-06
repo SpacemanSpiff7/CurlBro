@@ -27,8 +27,9 @@ export function deriveGroups<T extends { supersetGroupId?: string }>(
       }
     }
 
+    const instanceId = (ex as Record<string, unknown>).instanceId as string | undefined;
     groups.push({
-      groupId: groupId ?? `solo-${i}`,
+      groupId: groupId ?? (instanceId ? `solo-${instanceId}` : `solo-${i}`),
       exercises: [ex],
       indices: [i],
     });
