@@ -12,11 +12,11 @@ const CATEGORY_ICON: Record<HouseAdCategory, typeof Lightbulb> = {
 };
 
 const CATEGORY_COLORS: Record<HouseAdCategory, { icon: string; bg: string; tag: string }> = {
-  form_tip: { icon: 'text-cyan-400', bg: 'bg-cyan-500/8', tag: 'text-cyan-400/70' },
-  recovery: { icon: 'text-green-400', bg: 'bg-green-500/8', tag: 'text-green-400/70' },
-  challenge: { icon: 'text-amber-400', bg: 'bg-amber-500/8', tag: 'text-amber-400/70' },
-  nutrition: { icon: 'text-violet-400', bg: 'bg-violet-500/8', tag: 'text-violet-400/70' },
-  general: { icon: 'text-zinc-400', bg: 'bg-zinc-500/8', tag: 'text-zinc-400/70' },
+  form_tip: { icon: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-500/10 dark:bg-cyan-500/8', tag: 'text-cyan-600/70 dark:text-cyan-400/70' },
+  recovery: { icon: 'text-green-600 dark:text-green-400', bg: 'bg-green-500/10 dark:bg-green-500/8', tag: 'text-green-600/70 dark:text-green-400/70' },
+  challenge: { icon: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-500/10 dark:bg-amber-500/8', tag: 'text-amber-600/70 dark:text-amber-400/70' },
+  nutrition: { icon: 'text-violet-600 dark:text-violet-400', bg: 'bg-violet-500/10 dark:bg-violet-500/8', tag: 'text-violet-600/70 dark:text-violet-400/70' },
+  general: { icon: 'text-zinc-500 dark:text-zinc-400', bg: 'bg-zinc-500/10 dark:bg-zinc-500/8', tag: 'text-zinc-500/70 dark:text-zinc-400/70' },
 };
 
 const CATEGORY_TAG: Record<HouseAdCategory, string> = {

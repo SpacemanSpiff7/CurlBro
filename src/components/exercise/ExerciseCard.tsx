@@ -140,170 +140,178 @@ export const ExerciseCard = memo(function ExerciseCard({
     [index, onRemove]
   );
 
-  return (
-    <>
-      <SwipeToReveal actions={swipeActions}>
-      <motion.div
-        ref={isSortable ? setNodeRef : undefined}
-        style={style}
-        layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, x: 100, height: 0, marginBottom: 0 }}
-        transition={{ duration: 0.2 }}
-        className="rounded-xl border border-border-subtle bg-bg-surface overflow-hidden"
-      >
-        {/* Header */}
-        <div className="flex items-center gap-2 px-3 py-3">
-          {isSortable && (
-            <button
-              {...attributes}
-              {...listeners}
-              data-dnd-handle
-              className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
-              aria-label="Drag to reorder"
-              style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
-            >
-              <GripVertical size={16} />
-            </button>
-          )}
-
-          <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium text-text-primary truncate">
-              {exercise.name}
-            </div>
-            <MuscleTags muscles={exercise.primary_muscles} />
-          </div>
-
-          {exercise.video_url && (
-            <button
-              onClick={() => setVideoOpen(true)}
-              className="text-text-tertiary hover:text-accent-primary p-1"
-              aria-label="Watch video"
-              style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
-            >
-              <Video size={16} />
-            </button>
-          )}
-
+  // Only wrap in SwipeToReveal when standalone (has sortableId).
+  // When inside a SupersetContainer, the group handles swipe actions.
+  const cardContent = (
+    <motion.div
+      ref={isSortable ? setNodeRef : undefined}
+      style={style}
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: 100, height: 0, marginBottom: 0 }}
+      transition={{ duration: 0.2 }}
+      className="rounded-xl border border-border-subtle bg-bg-surface overflow-hidden"
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 px-3 py-3">
+        {isSortable && (
           <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-text-tertiary hover:text-text-secondary p-1"
-            aria-label={expanded ? 'Collapse' : 'Expand'}
+            {...attributes}
+            {...listeners}
+            data-dnd-handle
+            className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
+            aria-label="Drag to reorder"
             style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
           >
-            {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <GripVertical size={16} />
           </button>
+        )}
+
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-medium text-text-primary truncate">
+            {exercise.name}
+          </div>
+          <MuscleTags muscles={exercise.primary_muscles} />
         </div>
 
-        {/* Set/Rep/Weight inputs */}
-        <div className="flex items-center gap-2 px-3 pb-3">
-          <div className="flex items-center gap-1">
-            <label className="text-xs text-text-tertiary w-8">Sets</label>
-            <Input
-              type="number"
-              value={workoutExercise.sets}
-              onChange={(e) => handleSetsChange(e.target.value)}
-              className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
-              min={1}
-              aria-label="Sets"
-            />
-          </div>
-          <span className="text-text-tertiary text-xs">x</span>
-          <div className="flex items-center gap-1">
-            <label className="text-xs text-text-tertiary w-8">Reps</label>
-            <Input
-              type="number"
-              value={workoutExercise.reps}
-              onChange={(e) => handleRepsChange(e.target.value)}
-              className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
-              min={1}
-              aria-label="Reps"
-            />
-          </div>
-          <div className="flex items-center gap-1 ml-auto">
-            <Input
-              type="number"
-              value={workoutExercise.weight ?? ''}
-              onChange={(e) => handleWeightChange(e.target.value)}
-              placeholder="—"
-              className="w-16 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
-              min={0}
-              aria-label="Weight"
-            />
-            <span className="text-xs text-text-tertiary">lb</span>
-          </div>
-        </div>
+        {exercise.video_url && (
+          <button
+            onClick={() => setVideoOpen(true)}
+            className="text-text-tertiary hover:text-accent-primary p-1"
+            aria-label="Watch video"
+            style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
+          >
+            <Video size={16} />
+          </button>
+        )}
 
-        {/* Expandable actions */}
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="overflow-hidden"
-            >
-              <div className="flex flex-wrap items-center gap-2 px-3 pb-3 border-t border-border-subtle pt-2">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-text-tertiary hover:text-text-secondary p-1"
+          aria-label={expanded ? 'Collapse' : 'Expand'}
+          style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
+        >
+          {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </button>
+      </div>
+
+      {/* Set/Rep/Weight inputs */}
+      <div className="flex items-center gap-2 px-3 pb-3">
+        <div className="flex items-center gap-1">
+          <label className="text-xs text-text-tertiary w-8">Sets</label>
+          <Input
+            type="number"
+            value={workoutExercise.sets}
+            onChange={(e) => handleSetsChange(e.target.value)}
+            className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            min={1}
+            aria-label="Sets"
+          />
+        </div>
+        <span className="text-text-tertiary text-xs">x</span>
+        <div className="flex items-center gap-1">
+          <label className="text-xs text-text-tertiary w-8">Reps</label>
+          <Input
+            type="number"
+            value={workoutExercise.reps}
+            onChange={(e) => handleRepsChange(e.target.value)}
+            className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            min={1}
+            aria-label="Reps"
+          />
+        </div>
+        <div className="flex items-center gap-1 ml-auto">
+          <Input
+            type="number"
+            value={workoutExercise.weight ?? ''}
+            onChange={(e) => handleWeightChange(e.target.value)}
+            placeholder="—"
+            className="w-16 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            min={0}
+            aria-label="Weight"
+          />
+          <span className="text-xs text-text-tertiary">lb</span>
+        </div>
+      </div>
+
+      {/* Expandable actions */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="overflow-hidden"
+          >
+            <div className="flex flex-wrap items-center gap-2 px-3 pb-3 border-t border-border-subtle pt-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowSubstitutes(!showSubstitutes)}
+                className={`text-text-secondary hover:text-accent-primary ${
+                  showSubstitutes ? 'text-accent-primary' : ''
+                }`}
+                aria-label="Swap exercise"
+              >
+                <Repeat size={14} className="mr-1" />
+                Swap
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setPickerOpen(true)}
+                className="text-text-secondary hover:text-accent-primary"
+                aria-label="Add superset partner"
+              >
+                <Link size={14} className="mr-1" />
+                Superset
+              </Button>
+              {isInGroup && (
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setShowSubstitutes(!showSubstitutes)}
-                  className={`text-text-secondary hover:text-accent-primary ${
-                    showSubstitutes ? 'text-accent-primary' : ''
-                  }`}
-                  aria-label="Swap exercise"
-                >
-                  <Repeat size={14} className="mr-1" />
-                  Swap
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setPickerOpen(true)}
+                  onClick={handleUngroupSelf}
                   className="text-text-secondary hover:text-accent-primary"
-                  aria-label="Add superset partner"
+                  aria-label="Remove from group"
                 >
-                  <Link size={14} className="mr-1" />
-                  Superset
+                  <Unlink size={14} className="mr-1" />
+                  Ungroup
                 </Button>
-                {isInGroup && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleUngroupSelf}
-                    className="text-text-secondary hover:text-accent-primary"
-                    aria-label="Remove from group"
-                  >
-                    <Unlink size={14} className="mr-1" />
-                    Ungroup
-                  </Button>
-                )}
-                <div className="flex-1" />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onRemove(index)}
-                  className="text-destructive hover:text-destructive"
-                  aria-label="Remove exercise"
-                >
-                  <Trash2 size={14} className="mr-1" />
-                  Remove
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              )}
+              <div className="flex-1" />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onRemove(index)}
+                className="text-destructive hover:text-destructive"
+                aria-label="Remove exercise"
+              >
+                <Trash2 size={14} className="mr-1" />
+                Remove
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Inline substitute panel */}
-        <SubstitutePanel
-          exerciseId={workoutExercise.exerciseId}
-          open={showSubstitutes}
-          onSwap={handleSwap}
-        />
-      </motion.div>
-      </SwipeToReveal>
+      {/* Inline substitute panel */}
+      <SubstitutePanel
+        exerciseId={workoutExercise.exerciseId}
+        open={showSubstitutes}
+        onSwap={handleSwap}
+      />
+    </motion.div>
+  );
+
+  return (
+    <>
+      {isSortable ? (
+        <SwipeToReveal actions={swipeActions}>{cardContent}</SwipeToReveal>
+      ) : (
+        cardContent
+      )}
 
       {/* Video sheet */}
       <VideoSheet

@@ -125,12 +125,12 @@ export function SettingsPage() {
               role="switch"
               aria-checked={resolvedTheme === 'dark'}
               onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              className={`relative h-7 w-12 rounded-full transition-colors ${
-                resolvedTheme === 'dark' ? 'bg-accent-primary' : 'bg-bg-elevated'
+              className={`relative h-7 w-12 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-root ${
+                resolvedTheme === 'dark' ? 'bg-accent-primary' : 'bg-bg-interactive'
               }`}
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
+                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow-sm transition-transform ${
                   resolvedTheme === 'dark' ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />
@@ -274,12 +274,12 @@ export function SettingsPage() {
               role="switch"
               aria-checked={settings.exportIncludeTips}
               onClick={() => updateSettings({ exportIncludeTips: !settings.exportIncludeTips })}
-              className={`relative h-7 w-12 rounded-full transition-colors ${
-                settings.exportIncludeTips ? 'bg-accent-primary' : 'bg-bg-elevated'
+              className={`relative h-7 w-12 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-root ${
+                settings.exportIncludeTips ? 'bg-accent-primary' : 'bg-bg-interactive'
               }`}
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
+                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow-sm transition-transform ${
                   settings.exportIncludeTips ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />

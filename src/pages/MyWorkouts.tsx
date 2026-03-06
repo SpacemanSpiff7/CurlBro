@@ -22,9 +22,9 @@ import { SPLIT_LABELS } from '@/types';
 import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
 
 const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
-  beginner: 'text-green-400',
-  intermediate: 'text-yellow-400',
-  advanced: 'text-red-400',
+  beginner: 'text-green-600 dark:text-green-400',
+  intermediate: 'text-yellow-600 dark:text-yellow-400',
+  advanced: 'text-red-600 dark:text-red-400',
 };
 
 function seededToSaved(workout: SeededWorkout): SavedWorkout {

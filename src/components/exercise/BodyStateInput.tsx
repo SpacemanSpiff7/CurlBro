@@ -20,9 +20,9 @@ import type {
 
 const SORENESS_COLORS: Record<SorenessLevel, string> = {
   none: 'bg-bg-elevated text-text-tertiary border-border-subtle',
-  mild: 'bg-yellow-900/30 text-yellow-400 border-yellow-700',
-  moderate: 'bg-orange-900/30 text-orange-400 border-orange-700',
-  severe: 'bg-red-900/30 text-red-400 border-red-700',
+  mild: 'bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-700',
+  moderate: 'bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700',
+  severe: 'bg-red-100 text-red-700 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700',
 };
 
 const TIMING_LABELS: Record<ActivityTiming, string> = {

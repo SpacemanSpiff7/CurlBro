@@ -183,7 +183,7 @@ function LogDetailSheet({
                         {' x '}
                         {set.reps != null ? set.reps : '--'}
                       </span>
-                      <span className={set.completed ? 'text-green-400' : 'text-text-tertiary'}>
+                      <span className={set.completed ? 'text-green-600 dark:text-green-400' : 'text-text-tertiary'}>
                         {set.completed ? '\u2713' : '\u2717'}
                       </span>
                     </div>

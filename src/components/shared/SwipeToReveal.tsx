@@ -45,7 +45,8 @@ export function SwipeToReveal({
   const [isOpen, setIsOpen] = useState(false);
 
   useMotionValueEvent(motionX, 'change', (v) => {
-    setIsOpen(v < -5);
+    const next = v < -5;
+    setIsOpen((prev) => (prev !== next ? next : prev));
   });
 
   /* ── Snap helpers ── */
@@ -144,8 +145,8 @@ export function SwipeToReveal({
           <button
             key={action.key}
             onClick={() => {
-              action.onAction();
               snapClosed();
+              action.onAction();
             }}
             className={cn(
               'flex flex-col items-center justify-center text-white text-[10px] font-medium',
