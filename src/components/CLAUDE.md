@@ -24,13 +24,16 @@
 - WorkoutStatusBar — push/pull ratio + missing muscle badges
 - SuggestionPanel — complement, gap, and superset suggestions. Superset suggestions include context labels showing which exercise they pair with. Uses `addExerciseToGroup` to create groups.
 - MarqueeText — auto-scrolling text when content overflows its container (uses ResizeObserver + framer-motion)
-- ExercisePicker — exercise search/filter sheet with optional `onAdd` callback prop;
-  when `onAdd` is provided, calls it instead of `builderActions.addExercise` (used in
-  both Build tab and ActiveWorkout mid-session add). Auto-closes on exercise selection.
-  Prevents mobile keyboard auto-focus and Chrome autocomplete. Includes flex-wrap muscle
-  group filters (all 14 visible without scrolling), collapsible BodyStateInput,
-  ContextFilters chips, and recovery badges on exercise rows ("Sore area" amber,
-  "Good pick" green, "Recovery" blue).
+- ExercisePicker — exercise search/filter sheet with optional `onAdd` callback prop and
+  optional `title` prop (defaults to "Add Exercise"). When `onAdd` is provided, calls it
+  instead of `builderActions.addExercise` (used in Build tab, ActiveWorkout mid-session add,
+  and ActiveWorkout swap-via-search). Auto-closes on exercise selection. Prevents mobile
+  keyboard auto-focus and Chrome autocomplete. Includes flex-wrap muscle group filters
+  (all 14 visible without scrolling), collapsible BodyStateInput, ContextFilters chips,
+  and recovery badges on exercise rows ("Sore area" amber, "Good pick" green, "Recovery" blue).
+- SubstitutePanel (`exercise/`) — graph-based substitute list for the current exercise.
+  Optional `onSearchAll` callback renders a "Search all exercises" button at the bottom,
+  allowing users to open ExercisePicker for swap. Panel shows when `open && (substitutes.length > 0 || onSearchAll)`.
 - SwipeToReveal (`shared/`) — iOS Mail-style swipe-to-reveal actions component using
   `@use-gesture/react` `useDrag` + Framer Motion. Accepts an array of `SwipeAction` objects
   (key, label, icon, color, onAction). Uses `axis: 'lock'` for directional locking. Module-level

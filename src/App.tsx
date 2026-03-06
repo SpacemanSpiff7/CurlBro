@@ -12,6 +12,7 @@ import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
+import { setDragOffset } from '@/hooks/useDragOffsetChannel';
 import { deriveGroups } from '@/utils/groupUtils';
 import type { TabId } from '@/types';
 
@@ -91,6 +92,24 @@ export default function App() {
     return false; // At edge, let tab navigation happen
   }, []);
 
+  const handleDragOffset = useCallback((offsetX: number) => {
+    const state = useStore.getState();
+    const session = state.session.active;
+    if (state.activeTab !== 'active' || !session) return;
+
+    const groups = deriveGroups(session.exercises);
+    const { currentGroupIndex } = session;
+    const atFirstGroup = currentGroupIndex <= 0;
+    const atLastGroup = currentGroupIndex >= groups.length - 1;
+
+    // Rubber-band at edges: dampen to 0.3x when dragging past first/last
+    const atEdge =
+      (offsetX > 0 && atFirstGroup) || (offsetX < 0 && atLastGroup);
+    const dampened = atEdge ? offsetX * 0.3 : offsetX;
+
+    setDragOffset(dampened);
+  }, []);
+
   const bind = useSwipeGesture({
     onSwipe: (direction) => {
       if (swipeInterceptor(direction)) return;
@@ -106,6 +125,7 @@ export default function App() {
         setActiveTab(TAB_ORDER[idx - 1]);
       }
     },
+    onDragOffset: handleDragOffset,
   });
 
   // Save scroll position per tab, restore on return

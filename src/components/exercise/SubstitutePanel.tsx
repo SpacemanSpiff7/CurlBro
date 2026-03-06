@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import { ArrowRightLeft } from 'lucide-react';
+import { ArrowRightLeft, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MuscleTags } from './MuscleTags';
 import { useSubstitutes } from '@/hooks/useSubstitutes';
@@ -9,6 +9,7 @@ interface SubstitutePanelProps {
   exerciseId: ExerciseId;
   open: boolean;
   onSwap: (newId: ExerciseId) => void;
+  onSearchAll?: () => void;
 }
 
 const SubstituteItem = memo(function SubstituteItem({
@@ -40,6 +41,7 @@ export function SubstitutePanel({
   exerciseId,
   open,
   onSwap,
+  onSearchAll,
 }: SubstitutePanelProps) {
   const substitutes = useSubstitutes(exerciseId);
 
@@ -52,7 +54,7 @@ export function SubstitutePanel({
 
   return (
     <AnimatePresence>
-      {open && substitutes.length > 0 && (
+      {open && (substitutes.length > 0 || onSearchAll) && (
         <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
@@ -61,12 +63,29 @@ export function SubstitutePanel({
           className="overflow-hidden border-t border-border-subtle bg-bg-elevated"
         >
           <div className="px-2 py-2 space-y-0.5">
-            <div className="text-[10px] font-medium text-text-tertiary uppercase tracking-wider px-1 pb-1">
-              Substitutes
-            </div>
-            {substitutes.map((sub) => (
-              <SubstituteItem key={sub.id} exercise={sub} onSwap={handleSwap} />
-            ))}
+            {substitutes.length > 0 && (
+              <>
+                <div className="text-[10px] font-medium text-text-tertiary uppercase tracking-wider px-1 pb-1">
+                  Substitutes
+                </div>
+                {substitutes.map((sub) => (
+                  <SubstituteItem key={sub.id} exercise={sub} onSwap={handleSwap} />
+                ))}
+              </>
+            )}
+            {onSearchAll && (
+              <button
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left transition-colors hover:bg-bg-interactive"
+                onClick={onSearchAll}
+                aria-label="Search all exercises"
+                style={{ minHeight: '44px' }}
+              >
+                <Search size={14} className="flex-shrink-0 text-accent-primary" />
+                <span className="text-xs font-medium text-accent-primary">
+                  Search all exercises
+                </span>
+              </button>
+            )}
           </div>
         </motion.div>
       )}

@@ -18,10 +18,13 @@ Components never access store.graph directly — always through a hook.
 - useAutoWorkoutName generates a default name from the most common muscle group + date
 - useSwipeGesture — horizontal swipe gesture hook built on `@use-gesture/react` `useDrag`. Uses
   `axis: 'lock'` for directional locking (first ~10px decides vertical vs horizontal). Triggers
-  on velocity > 0.3 px/ms OR distance > 30% viewport width. `respectSwipeRows` (default true)
-  cancels gesture when touch starts inside `[data-swipe-row]`. Used in App.tsx for tab
-  navigation with an `onSwipe` callback that checks the swipe interceptor first. Replaces
-  the old `useSwipeTabs` hook.
+  on velocity > 0.5 px/ms OR distance > 35% viewport width. `respectSwipeRows` (default true)
+  cancels gesture when touch starts inside `[data-swipe-row]`. `onDragOffset` callback reports
+  live drag offset for finger-following UI. Used in App.tsx for tab navigation with an
+  `onSwipe` callback that checks the swipe interceptor first.
+- useDragOffsetChannel — module-level pub/sub channel for drag offset. `setDragOffset(offsetX)`
+  called by App.tsx during drag; `registerDragOffsetListener(fn)` called by ActiveWorkout to
+  receive offsets. Avoids React re-renders — DOM transforms applied directly for 60fps.
 - useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore
 - useBuilderGroups — wraps `deriveGroups()` for the builder tab, returns `ExerciseGroup<WorkoutExercise>[]` from the current workout draft
 - useSessionGroups — wraps `deriveGroups()` for the active session, returns `ExerciseGroup<ExerciseLog>[]` from the current session

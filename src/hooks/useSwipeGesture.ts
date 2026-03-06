@@ -24,8 +24,8 @@ export function useSwipeGesture(config: SwipeGestureConfig) {
   const {
     onSwipe,
     onDragOffset,
-    velocityThreshold = 0.3,
-    distanceThreshold = 0.3,
+    velocityThreshold = 0.5,
+    distanceThreshold = 0.35,
     respectSwipeRows = true,
     enabled = true,
   } = config;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Info, Play, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -17,6 +17,7 @@ import { useRestTimer } from '@/hooks/useRestTimer';
 import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useSessionGroups } from '@/hooks/useSessionGroups';
+import { registerDragOffsetListener } from '@/hooks/useDragOffsetChannel';
 import { getGroupLabel } from '@/utils/groupUtils';
 import { computeLogStats } from '@/utils/logUtils';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
@@ -38,10 +39,51 @@ export function ActiveWorkout() {
   const [summaryLog, setSummaryLog] = useState<WorkoutLog | null>(null);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [swapPickerOpen, setSwapPickerOpen] = useState(false);
   const timer = useRestTimer();
   const wakeLock = useWakeLock();
   const elapsed = useElapsedTimer(session?.startedAt ?? null, session?.completedAt);
   const { groups, currentGroup, currentGroupIndex, totalGroups } = useSessionGroups();
+
+  // Derive nav direction from currentGroupIndex changes (React 19 safe — setState during render)
+  const [navDirection, setNavDirection] = useState<'left' | 'right'>('left');
+  const [prevGroupIndex, setPrevGroupIndex] = useState(currentGroupIndex);
+  if (currentGroupIndex !== prevGroupIndex) {
+    setNavDirection(currentGroupIndex > prevGroupIndex ? 'left' : 'right');
+    setPrevGroupIndex(currentGroupIndex);
+  }
+
+  // Finger-following drag offset via DOM manipulation (no re-renders)
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    registerDragOffsetListener((offsetX) => {
+      if (offsetX === 0) {
+        // Release: spring back
+        el.style.transition = 'transform 0.3s ease-out';
+        el.style.transform = 'translateX(0px)';
+      } else {
+        // Active drag: follow finger instantly
+        el.style.transition = 'none';
+        el.style.transform = `translateX(${offsetX}px)`;
+      }
+    });
+
+    return () => {
+      registerDragOffsetListener(null);
+    };
+  }, []);
+
+  // Reset transform when group changes (after AnimatePresence swaps content)
+  useEffect(() => {
+    const el = contentRef.current;
+    if (el) {
+      el.style.transition = 'none';
+      el.style.transform = 'translateX(0px)';
+    }
+  }, [currentGroupIndex]);
 
   // Derive saved status from store
   const logs = useStore((state) => state.library.logs);
@@ -136,6 +178,14 @@ export function ActiveWorkout() {
       toast.success(`Swapped to ${newExercise?.name ?? 'new exercise'}`);
     },
     [currentGroup, graph, swapExercise]
+  );
+
+  const handleSwapFromPicker = useCallback(
+    (newId: ExerciseId) => {
+      handleSwap(newId);
+      setSwapPickerOpen(false);
+    },
+    [handleSwap]
   );
 
   const handleSave = useCallback(() => {
@@ -267,7 +317,8 @@ export function ActiveWorkout() {
         />
       </div>
 
-      {/* Group navigation */}
+      {/* Group navigation — contentRef for finger-following drag */}
+      <div ref={contentRef} className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <Button
           variant="ghost"
@@ -283,9 +334,9 @@ export function ActiveWorkout() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${currentGroupIndex}-${currentGroup?.groupId}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, x: navDirection === 'left' ? 50 : -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
               {isMultiExerciseGroup ? (
@@ -351,6 +402,7 @@ export function ActiveWorkout() {
           exerciseId={firstExercise.exerciseId as ExerciseId}
           open={swapOpen}
           onSwap={handleSwap}
+          onSearchAll={() => setSwapPickerOpen(true)}
         />
       )}
 
@@ -415,9 +467,9 @@ export function ActiveWorkout() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentGroupIndex}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: navDirection === 'left' ? 50 : -50 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
             <GroupSetTracker
@@ -470,6 +522,7 @@ export function ActiveWorkout() {
             <Plus size={12} />
           </button>
         )}
+      </div>
       </div>
 
       <VideoSheet
@@ -528,6 +581,14 @@ export function ActiveWorkout() {
         open={pickerOpen}
         onOpenChange={setPickerOpen}
         onAdd={handleAddExercise}
+      />
+
+      {/* Exercise picker for swap via search */}
+      <ExercisePicker
+        open={swapPickerOpen}
+        onOpenChange={setSwapPickerOpen}
+        onAdd={handleSwapFromPicker}
+        title="Swap Exercise"
       />
       </div>
     </div>

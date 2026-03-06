@@ -21,6 +21,7 @@ interface ExercisePickerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAdd?: (id: ExerciseId) => void;
+  title?: string;
 }
 
 const BADGE_STYLES: Record<string, string> = {
@@ -71,7 +72,7 @@ function isRecoveryCategory(category: string): boolean {
   return category === 'stretch_dynamic' || category === 'stretch_static' || category === 'mobility' || category === 'cardio';
 }
 
-export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: ExercisePickerProps) {
+export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = 'Add Exercise' }: ExercisePickerProps) {
   const [query, setQuery] = useState('');
   const [muscleFilter, setMuscleFilter] = useState<MuscleGroup[]>([]);
   const [contextFilter, setContextFilter] = useState<ContextFilter | null>(null);
@@ -148,7 +149,7 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp }: Exercis
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <SheetHeader className="flex-shrink-0 px-4 pt-4 pb-2">
-          <SheetTitle className="text-text-primary">Add Exercise</SheetTitle>
+          <SheetTitle className="text-text-primary">{title}</SheetTitle>
         </SheetHeader>
 
         <ScrollArea className="min-h-0 flex-1">
