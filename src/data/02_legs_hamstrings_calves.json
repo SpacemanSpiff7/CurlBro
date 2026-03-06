@@ -28,7 +28,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/deadlift.html",
+      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/BBDeadlift",
       "beginner_tips": "Feet hip-width, bar over mid-foot. Grip just outside knees. Push the floor away with legs while keeping back flat. Bar drags up shins. DO NOT round your back. Learn with light weight. Push through the WHOLE foot.",
       "substitutes": [
         "trap_bar_deadlift",
@@ -48,7 +48,7 @@
         "bird_dog",
         "plank"
       ],
-      "notes": "Works more muscles than any other exercise. Very taxing \u2014 don't do heavy deadlifts and heavy squats same day when starting out."
+      "notes": "Works more muscles than any other exercise. Very taxing — don't do heavy deadlifts and heavy squats same day when starting out."
     },
     {
       "id": "sumo_deadlift",
@@ -75,7 +75,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/sumo-deadlift.html",
+      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/BBSumoDeadlift",
       "beginner_tips": "Wide stance, toes pointed out. Grip bar with arms between knees. Push knees out and drive hips forward to stand. More upright torso than conventional.",
       "substitutes": [
         "conventional_deadlift",
@@ -120,8 +120,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-10",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/trap-bar-deadlift.html",
-      "beginner_tips": "Step inside the hexagonal bar, grab side handles, stand up. Weight is around you instead of in front \u2014 much easier to learn than barbell deadlift. Keep chest up and push through whole foot.",
+      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/TBDeadlift",
+      "beginner_tips": "Step inside the hexagonal bar, grab side handles, stand up. Weight is around you instead of in front — much easier to learn than barbell deadlift. Keep chest up and push through whole foot.",
       "substitutes": [
         "conventional_deadlift",
         "sumo_deadlift",
@@ -165,7 +165,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/romanian-deadlift.html",
+      "video_url": "https://exrx.net/WeightExercises/OlympicLifts/RomanianDeadlift",
       "beginner_tips": "Start standing with bar at hips. Push hips BACK (like closing a car door with your butt), slight knee bend. Lower bar along legs until deep hamstring stretch, then squeeze glutes to stand back up. Bar stays close to legs the entire time.",
       "substitutes": [
         "dumbbell_rdl",
@@ -182,7 +182,7 @@
       "superset_candidates": [
         "leg_extension"
       ],
-      "notes": "Essential hamstring/glute builder. Different from conventional deadlift \u2014 you start standing, not from the floor. Loads hamstrings in a deep stretch, which is a potent hypertrophy stimulus."
+      "notes": "Essential hamstring/glute builder. Different from conventional deadlift — you start standing, not from the floor. Loads hamstrings in a deep stretch, which is a potent hypertrophy stimulus."
     },
     {
       "id": "dumbbell_rdl",
@@ -206,8 +206,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-romanian-deadlift.html",
-      "beginner_tips": "Same as barbell RDL but with dumbbells at your sides. Easier to learn \u2014 dumbbells allow more natural arm position. Great first hinge exercise.",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/DBStraightLegDeadlift",
+      "beginner_tips": "Same as barbell RDL but with dumbbells at your sides. Easier to learn — dumbbells allow more natural arm position. Great first hinge exercise.",
       "substitutes": [
         "romanian_deadlift",
         "single_leg_rdl",
@@ -244,8 +244,8 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "6-10 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/single-leg-dumbbell-romanian-deadlift.html",
-      "beginner_tips": "Stand on one leg, dumbbell in opposite hand. Hinge forward while free leg extends behind as counterbalance. Hold something for balance if needed. It's okay to be wobbly \u2014 balance improves fast.",
+      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/DBSingleLegStiffLegDeadlift",
+      "beginner_tips": "Stand on one leg, dumbbell in opposite hand. Hinge forward while free leg extends behind as counterbalance. Hold something for balance if needed. It's okay to be wobbly — balance improves fast.",
       "substitutes": [
         "romanian_deadlift",
         "dumbbell_rdl"
@@ -283,8 +283,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/stiff-leg-deadlift.html",
-      "beginner_tips": "Like an RDL but with straighter (not locked) knees. More hamstring stretch. Don't round your back \u2014 if you can't go lower without rounding, stop there. Your hamstring flexibility is the limiting factor.",
+      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/BBStiffLegDeadlift",
+      "beginner_tips": "Like an RDL but with straighter (not locked) knees. More hamstring stretch. Don't round your back — if you can't go lower without rounding, stop there. Your hamstring flexibility is the limiting factor.",
       "substitutes": [
         "romanian_deadlift",
         "cable_pull_through"
@@ -296,7 +296,7 @@
       "superset_candidates": [
         "leg_extension"
       ],
-      "notes": "Greater hamstring stretch than RDL. More lower back demand \u2014 keep weight lighter than your RDL."
+      "notes": "Greater hamstring stretch than RDL. More lower back demand — keep weight lighter than your RDL."
     },
     {
       "id": "good_morning",
@@ -319,7 +319,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/good-morning.html",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/BBGoodMorning",
       "beginner_tips": "Bar on upper back like a squat. Slight knee bend, bow forward at hips until hamstrings stretch, stand back up by squeezing glutes. Keep loads moderate. Learn with just the bar.",
       "substitutes": [
         "romanian_deadlift",
@@ -360,8 +360,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/rack-pull.html",
-      "beginner_tips": "Set safety pins so bar starts at about knee height. Deadlift from this raised position. Shorter range of motion lets you use heavier weight. Keep back flat \u2014 same rules as a regular deadlift.",
+      "video_url": "https://exrx.net/WeightExercises/ErectorSpinae/BBRackPull",
+      "beginner_tips": "Set safety pins so bar starts at about knee height. Deadlift from this raised position. Shorter range of motion lets you use heavier weight. Keep back flat — same rules as a regular deadlift.",
       "substitutes": [
         "conventional_deadlift",
         "romanian_deadlift"
@@ -399,8 +399,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/lying-leg-curl.html",
-      "beginner_tips": "Lie face down, hook heels under pad. Curl heels toward butt by bending knees. Squeeze at top, lower slowly. Keep hips pressed into the pad \u2014 don't let them rise up.",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/LVLyingLegCurl",
+      "beginner_tips": "Lie face down, hook heels under pad. Curl heels toward butt by bending knees. Squeeze at top, lower slowly. Keep hips pressed into the pad — don't let them rise up.",
       "substitutes": [
         "leg_curl_seated",
         "nordic_curl",
@@ -417,7 +417,7 @@
         "hack_squat_machine",
         "barbell_back_squat"
       ],
-      "notes": "Simple hamstring isolation. Pair with RDLs for complete hamstrings \u2014 curls hit the knee-flexion function, RDLs hit the hip-extension function."
+      "notes": "Simple hamstring isolation. Pair with RDLs for complete hamstrings — curls hit the knee-flexion function, RDLs hit the hip-extension function."
     },
     {
       "id": "leg_curl_seated",
@@ -437,7 +437,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/seated-leg-curl.html",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/LVSeatedLegCurl",
       "beginner_tips": "Sit with back of legs on top of pad. Lock upper pad down. Curl heels under the seat. Adjust the back pad so you feel a stretch on your hamstrings at the start position.",
       "substitutes": [
         "leg_curl_lying",
@@ -453,7 +453,7 @@
         "leg_press",
         "seated_leg_press"
       ],
-      "notes": "Research suggests seated may be slightly better for hamstring growth than lying \u2014 the seated position places hamstrings in a more stretched starting position at the hip (Maeo et al., 2021). If your gym has both, prefer seated."
+      "notes": "Research suggests seated may be slightly better for hamstring growth than lying — the seated position places hamstrings in a more stretched starting position at the hip (Maeo et al., 2021). If your gym has both, prefer seated."
     },
     {
       "id": "nordic_curl",
@@ -476,7 +476,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "3-8",
       "rep_range_strength": "3-6",
-      "video_url": "https://www.muscleandstrength.com/exercises/nordic-hamstring-curl.html",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/BWHamstringRaise",
       "beginner_tips": "Kneel on a pad, ankles hooked under something solid (heavy dumbbell, partner's hands, dedicated Nordic bench). Slowly lower forward as far as you can control, catch with hands, push back up. Even just the slow lowering is incredibly effective. Start with a very small range of motion.",
       "substitutes": [
         "leg_curl_lying",
@@ -491,7 +491,7 @@
         "leg_extension",
         "reverse_nordic_curl"
       ],
-      "notes": "Gold standard for hamstring injury prevention \u2014 strong research backing (van der Horst et al., 2015). Start with just the slow lowering (eccentric) phase. Superset with reverse Nordic curls for a brutal bodyweight quad/hamstring finisher."
+      "notes": "Gold standard for hamstring injury prevention — strong research backing (van der Horst et al., 2015). Start with just the slow lowering (eccentric) phase. Superset with reverse Nordic curls for a brutal bodyweight quad/hamstring finisher."
     },
     {
       "id": "swiss_ball_leg_curl",
@@ -514,7 +514,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/stability-ball-leg-curl.html",
+      "video_url": "https://exrx.net/WeightExercises/Hamstrings/BWBallLegCurl",
       "beginner_tips": "Lie on back, heels on stability ball. Lift hips, curl ball toward butt by bending knees. Good bodyweight alternative when machines are taken.",
       "substitutes": [
         "leg_curl_lying",
@@ -528,7 +528,7 @@
         "leg_extension",
         "leg_press"
       ],
-      "notes": "No machine needed. Adds core stability challenge. Keep hips high throughout \u2014 if they drop, the exercise gets easier but less effective."
+      "notes": "No machine needed. Adds core stability challenge. Keep hips high throughout — if they drop, the exercise gets easier but less effective."
     },
     {
       "id": "back_extension",
@@ -552,7 +552,7 @@
       "rep_range_hypertrophy": "10-20",
       "rep_range_strength": "8-15",
       "video_url": "https://www.muscleandstrength.com/exercises/hyperextension.html",
-      "beginner_tips": "Face down in roman chair, hips on pad, feet hooked. Cross arms over chest. Lower torso toward floor by hinging at hips, raise back to straight line. DON'T hyperextend past neutral \u2014 stop when your body is in a straight line.",
+      "beginner_tips": "Face down in roman chair, hips on pad, feet hooked. Cross arms over chest. Lower torso toward floor by hinging at hips, raise back to straight line. DON'T hyperextend past neutral — stop when your body is in a straight line.",
       "substitutes": [
         "good_morning",
         "glute_bridge"
@@ -597,7 +597,7 @@
       "superset_candidates": [
         "seated_calf_raise"
       ],
-      "notes": "Straight knees target the gastrocnemius (visible calf muscle). Full range of motion is key \u2014 don't bounce."
+      "notes": "Straight knees target the gastrocnemius (visible calf muscle). Full range of motion is key — don't bounce."
     },
     {
       "id": "seated_calf_raise",
@@ -618,7 +618,7 @@
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
       "video_url": "https://www.muscleandstrength.com/exercises/seated-calf-raise.html",
-      "beginner_tips": "Pad on knees, balls of feet on platform. Rise on toes, squeeze, lower for full stretch. The bent knee position is intentional \u2014 it targets a different calf muscle.",
+      "beginner_tips": "Pad on knees, balls of feet on platform. Rise on toes, squeeze, lower for full stretch. The bent knee position is intentional — it targets a different calf muscle.",
       "substitutes": [
         "calf_raise_standing",
         "calf_raise_on_leg_press"
@@ -649,8 +649,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/leg-press-calf-raise.html",
-      "beginner_tips": "After leg press sets, slide feet to bottom of platform \u2014 only toes/balls on it. Push by pointing toes. Keep the safety catches engaged just in case. Easy calf work without switching machines.",
+      "video_url": "https://exrx.net/WeightExercises/Gastrocnemius/SL45CalfPress",
+      "beginner_tips": "After leg press sets, slide feet to bottom of platform — only toes/balls on it. Push by pointing toes. Keep the safety catches engaged just in case. Easy calf work without switching machines.",
       "substitutes": [
         "calf_raise_standing",
         "seated_calf_raise"
@@ -661,7 +661,7 @@
       "superset_candidates": [
         "leg_press"
       ],
-      "notes": "Efficient \u2014 do right after leg press sets without moving. Straight legs = gastrocnemius focus."
+      "notes": "Efficient — do right after leg press sets without moving. Straight legs = gastrocnemius focus."
     },
     {
       "id": "single_leg_calf_raise",
@@ -681,7 +681,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-20 per leg",
       "rep_range_strength": "10-15 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/standing-one-leg-calf-raise.html",
+      "video_url": "https://exrx.net/WeightExercises/Gastrocnemius/BWSingleLegCalfRaise",
       "beginner_tips": "Stand on one foot on a step edge. Hold something for balance. Rise on toes, lower slowly past the edge for a full stretch. Hold dumbbell for resistance.",
       "substitutes": [
         "calf_raise_standing",
@@ -716,8 +716,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/two-arm-kettlebell-swing.html",
-      "beginner_tips": "Feet wider than shoulders. Hike kettlebell between legs, SNAP hips forward to swing it to chest height. Arms don't lift \u2014 hips do. It's a hip hinge, not a squat. Power comes from your glutes, not your arms or shoulders.",
+      "video_url": "https://exrx.net/WeightExercises/Kettlebell/KBSwing",
+      "beginner_tips": "Feet wider than shoulders. Hike kettlebell between legs, SNAP hips forward to swing it to chest height. Arms don't lift — hips do. It's a hip hinge, not a squat. Power comes from your glutes, not your arms or shoulders.",
       "substitutes": [
         "cable_pull_through",
         "hip_thrust"

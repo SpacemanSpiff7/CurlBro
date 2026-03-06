@@ -51,7 +51,7 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Major back builder. Grip width matters more than over/underhand for targeting: wider grip with elbows flared hits mid-traps and rhomboids, narrower grip with elbows tucked emphasizes lats. Underhand grip increases bicep involvement and allows heavier weight for some people. Torso angle also matters \u2014 more upright = more traps, more bent over = more lats."
+      "notes": "Major back builder. Grip width matters more than over/underhand for targeting: wider grip with elbows flared hits mid-traps and rhomboids, narrower grip with elbows tucked emphasizes lats. Underhand grip increases bicep involvement and allows heavier weight for some people. Torso angle also matters — more upright = more traps, more bent over = more lats."
     },
     {
       "id": "pendlay_row",
@@ -75,7 +75,7 @@
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "3-6",
       "video_url": "https://www.muscleandstrength.com/exercises/bent-over-barbell-row.html",
-      "beginner_tips": "Torso parallel to the floor (much more horizontal than a regular bent-over row). Bar starts on the floor EVERY rep. Explosively row to your lower chest, then lower the bar back to the floor and reset. Each rep starts from a dead stop \u2014 no bouncing or momentum.",
+      "beginner_tips": "Torso parallel to the floor (much more horizontal than a regular bent-over row). Bar starts on the floor EVERY rep. Explosively row to your lower chest, then lower the bar back to the floor and reset. Each rep starts from a dead stop — no bouncing or momentum.",
       "substitutes": [
         "barbell_row",
         "t_bar_row",
@@ -94,7 +94,7 @@
         "incline_barbell_press",
         "overhead_press"
       ],
-      "notes": "Named after weightlifting coach Glenn Pendlay. The dead stop eliminates the stretch reflex, making every rep harder and stricter than a standard bent-over row. The parallel torso position maximizes lat recruitment. Excellent for building explosive pulling power. Requires good hip hinge mechanics \u2014 master the bent-over row first."
+      "notes": "Named after weightlifting coach Glenn Pendlay. The dead stop eliminates the stretch reflex, making every rep harder and stricter than a standard bent-over row. The parallel torso position maximizes lat recruitment. Excellent for building explosive pulling power. Requires good hip hinge mechanics — master the bent-over row first."
     },
     {
       "id": "dumbbell_row",
@@ -142,7 +142,7 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Best row for beginners \u2014 bench supports lower back. Great for fixing left/right imbalances since each side works independently. Can go quite heavy with some controlled body english for an overload effect (sometimes called a Kroc row)."
+      "notes": "Best row for beginners — bench supports lower back. Great for fixing left/right imbalances since each side works independently. Can go quite heavy with some controlled body english for an overload effect (sometimes called a Kroc row)."
     },
     {
       "id": "chest_supported_row",
@@ -165,8 +165,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html",
-      "beginner_tips": "Bench at 30-45 degrees, lie face down with chest on the pad. Row both dumbbells by driving elbows back and squeezing shoulder blades. Your chest on the bench means ZERO lower back involvement \u2014 all the work goes to your back muscles.",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/DBLyingRow",
+      "beginner_tips": "Bench at 30-45 degrees, lie face down with chest on the pad. Row both dumbbells by driving elbows back and squeezing shoulder blades. Your chest on the bench means ZERO lower back involvement — all the work goes to your back muscles.",
       "substitutes": [
         "dumbbell_row",
         "machine_row",
@@ -209,7 +209,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/CamberedBarLyingRow",
       "beginner_tips": "Lie face down on a bench that's elevated enough for your arms to hang straight with the barbell (stack the bench on boxes or plates, or use a dedicated seal row station). Row the barbell to the underside of the bench by squeezing shoulder blades. Lower with control. Zero momentum possible.",
       "substitutes": [
         "chest_supported_row",
@@ -229,7 +229,7 @@
         "incline_barbell_press",
         "overhead_press"
       ],
-      "notes": "The ultimate anti-cheat row. Your entire body is supported so the ONLY way to move the weight is with your back muscles. Allows heavier loading than dumbbell chest-supported rows. Setup can be awkward if your gym doesn't have a dedicated station \u2014 stacking the bench on blocks works but takes time. Growing in popularity for good reason."
+      "notes": "The ultimate anti-cheat row. Your entire body is supported so the ONLY way to move the weight is with your back muscles. Allows heavier loading than dumbbell chest-supported rows. Setup can be awkward if your gym doesn't have a dedicated station — stacking the bench on blocks works but takes time. Growing in popularity for good reason."
     },
     {
       "id": "cable_row",
@@ -253,7 +253,7 @@
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/seated-row.html",
-      "beginner_tips": "Sit with feet on platform, knees slightly bent. Pull handle to stomach, squeeze shoulder blades together and hold for a beat. Keep back straight \u2014 don't lean way back to cheat the weight. A slight forward lean at the start and slight backward lean at the finish is fine, but the movement should come from your arms and back, not your torso swinging.",
+      "beginner_tips": "Sit with feet on platform, knees slightly bent. Pull handle to stomach, squeeze shoulder blades together and hold for a beat. Keep back straight — don't lean way back to cheat the weight. A slight forward lean at the start and slight backward lean at the finish is fine, but the movement should come from your arms and back, not your torso swinging.",
       "substitutes": [
         "barbell_row",
         "machine_row",
@@ -298,8 +298,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/t-bar-row.html",
-      "beginner_tips": "Straddle the bar, use the handles or a V-handle placed under the bar. Row to chest, squeezing shoulder blades. Keep back flat \u2014 don't round. The neutral grip feels natural for most people and is easy on the wrists.",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/LVTBarRow",
+      "beginner_tips": "Straddle the bar, use the handles or a V-handle placed under the bar. Row to chest, squeezing shoulder blades. Keep back flat — don't round. The neutral grip feels natural for most people and is easy on the wrists.",
       "substitutes": [
         "barbell_row",
         "dumbbell_row",
@@ -344,7 +344,7 @@
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/machine-row.html",
-      "beginner_tips": "Chest against pad, grab handles, pull toward you squeezing shoulder blades together. The chest pad removes all lower back strain. Squeeze hard at the back position and control the return \u2014 don't just let the weight slam back.",
+      "beginner_tips": "Chest against pad, grab handles, pull toward you squeezing shoulder blades together. The chest pad removes all lower back strain. Squeeze hard at the back position and control the return — don't just let the weight slam back.",
       "substitutes": [
         "cable_row",
         "barbell_row",
@@ -434,7 +434,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per arm",
       "rep_range_strength": "6-10 per arm",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-landmine-row.html",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/LVOneArmBentOverRow",
       "beginner_tips": "Barbell wedged in corner or landmine attachment. Stand to one side, stagger your feet, hinge forward. Row the free end up toward your hip. The thick end of the barbell forces a wide grip which can improve grip strength. Minimal lower back stress.",
       "substitutes": [
         "dumbbell_row",
@@ -477,8 +477,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/inverted-row.html",
-      "beginner_tips": "Bar at waist height on Smith machine or rack. Lie under it, grab bar, pull chest up keeping body straight like a reverse plank. Like an upside-down push-up. Higher bar = easier, lower bar = harder. Keep your body rigid \u2014 don't let your hips sag.",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/BWSupineRow",
+      "beginner_tips": "Bar at waist height on Smith machine or rack. Lie under it, grab bar, pull chest up keeping body straight like a reverse plank. Like an upside-down push-up. Higher bar = easier, lower bar = harder. Keep your body rigid — don't let your hips sag.",
       "substitutes": [
         "cable_row",
         "dumbbell_row",
@@ -497,7 +497,7 @@
         "diamond_push_up",
         "machine_chest_press"
       ],
-      "notes": "The pulling equivalent of a push-up. Great stepping stone toward barbell rows and pull-ups. Can also be done with gymnastics rings or TRX straps, which add instability and allow grip rotation. Progression: high bar (easy) \u2192 low bar \u2192 feet elevated \u2192 weighted vest."
+      "notes": "The pulling equivalent of a push-up. Great stepping stone toward barbell rows and pull-ups. Can also be done with gymnastics rings or TRX straps, which add instability and allow grip rotation. Progression: high bar (easy) → low bar → feet elevated → weighted vest."
     },
     {
       "id": "single_arm_cable_row",
@@ -520,8 +520,8 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-12 per arm",
       "rep_range_strength": "8-10 per arm",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-seated-cable-row.html",
-      "beginner_tips": "Use a single D-handle on the cable row. Pull to your hip one arm at a time. You can allow a slight torso rotation \u2014 this actually increases the range of motion and is how your back works naturally. Feel each side independently.",
+      "video_url": "https://exrx.net/WeightExercises/BackGeneral/CBOneArmRow",
+      "beginner_tips": "Use a single D-handle on the cable row. Pull to your hip one arm at a time. You can allow a slight torso rotation — this actually increases the range of motion and is how your back works naturally. Feel each side independently.",
       "substitutes": [
         "dumbbell_row",
         "cable_row",
@@ -565,8 +565,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "6-12",
       "rep_range_strength": "3-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/pull-up.html",
-      "beginner_tips": "Palms AWAY from you (overhand/pronated), grip wider than shoulders. Hang with straight arms, then pull chin over bar by driving elbows down and back. Lower with control \u2014 don't just drop. Can't do one? Use the progression: lat pulldowns \u2192 band-assisted \u2192 negatives (jump up, lower as slowly as possible) \u2192 full pull-ups.",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/BWPullup",
+      "beginner_tips": "Palms AWAY from you (overhand/pronated), grip wider than shoulders. Hang with straight arms, then pull chin over bar by driving elbows down and back. Lower with control — don't just drop. Can't do one? Use the progression: lat pulldowns → band-assisted → negatives (jump up, lower as slowly as possible) → full pull-ups.",
       "substitutes": [
         "lat_pulldown",
         "chin_up",
@@ -637,7 +637,7 @@
         "machine_shoulder_press",
         "hanging_leg_raise"
       ],
-      "notes": "Equally effective as pull-ups for lat development \u2014 EMG research shows no significant difference in lat activation between grips. The higher bicep involvement makes these a great two-for-one exercise on pull days. Usually the first bodyweight vertical pull people master due to the mechanical advantage."
+      "notes": "Equally effective as pull-ups for lat development — EMG research shows no significant difference in lat activation between grips. The higher bicep involvement makes these a great two-for-one exercise on pull days. Usually the first bodyweight vertical pull people master due to the mechanical advantage."
     },
     {
       "id": "neutral_grip_pull_up",
@@ -709,8 +709,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/machine-assisted-pull-up.html",
-      "beginner_tips": "Kneel on the pad (or stand on the platform depending on the machine). The machine pushes you up \u2014 MORE weight on the stack = MORE help (opposite of most machines). Set it to the weight that lets you do 8-12 clean reps. Gradually reduce the assistance weight each week.",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/AsPullupKneeling",
+      "beginner_tips": "Kneel on the pad (or stand on the platform depending on the machine). The machine pushes you up — MORE weight on the stack = MORE help (opposite of most machines). Set it to the weight that lets you do 8-12 clean reps. Gradually reduce the assistance weight each week.",
       "substitutes": [
         "lat_pulldown",
         "band_assisted_pull_up",
@@ -757,8 +757,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "6-12",
       "rep_range_strength": "4-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/machine-assisted-pull-up.html",
-      "beginner_tips": "Loop a resistance band over the pull-up bar and place one foot or knee in the loop. The band stretches and helps push you up \u2014 most at the bottom where you're weakest. Use a thicker band for more help, thinner for less. Use overhand, underhand, or neutral grip.",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/ASPullupBand",
+      "beginner_tips": "Loop a resistance band over the pull-up bar and place one foot or knee in the loop. The band stretches and helps push you up — most at the bottom where you're weakest. Use a thicker band for more help, thinner for less. Use overhand, underhand, or neutral grip.",
       "substitutes": [
         "assisted_pull_up",
         "lat_pulldown",
@@ -801,7 +801,7 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/lat-pull-down.html",
-      "beginner_tips": "Sit down, grab wide bar, lean back slightly (~15 degrees \u2014 not way back), pull to upper chest. Squeeze shoulder blades down and together. Don't pull behind neck \u2014 that's unnecessary shoulder stress with no benefit. Think about pulling your elbows INTO your back pockets.",
+      "beginner_tips": "Sit down, grab wide bar, lean back slightly (~15 degrees — not way back), pull to upper chest. Squeeze shoulder blades down and together. Don't pull behind neck — that's unnecessary shoulder stress with no benefit. Think about pulling your elbows INTO your back pockets.",
       "substitutes": [
         "pull_up",
         "chin_up",
@@ -823,7 +823,7 @@
         "smith_machine_overhead_press",
         "machine_shoulder_press"
       ],
-      "notes": "Machine version of the pull-up. Adjustable weight makes it accessible for any level. Different grips shift emphasis slightly: wide overhand increases the stretch on the lats, close neutral increases ROM and bicep involvement, underhand mimics a chin-up. All grips produce similar lat activation \u2014 variation keeps things fresh and hits slightly different angles."
+      "notes": "Machine version of the pull-up. Adjustable weight makes it accessible for any level. Different grips shift emphasis slightly: wide overhand increases the stretch on the lats, close neutral increases ROM and bicep involvement, underhand mimics a chin-up. All grips produce similar lat activation — variation keeps things fresh and hits slightly different angles."
     },
     {
       "id": "close_grip_pulldown",
@@ -846,7 +846,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-lat-pull-down.html",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/CBCloseGripPulldown",
       "beginner_tips": "Use a V-handle or close-grip parallel attachment. Pull to upper chest, lean back slightly. This version emphasizes the lower lats and biceps more than the wide-grip version due to the greater range of motion and supination-friendly position.",
       "substitutes": [
         "lat_pulldown",
@@ -891,7 +891,7 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/reverse-grip-lat-pull-down.html",
-      "beginner_tips": "Same as a regular pulldown but grip the bar with palms facing TOWARD you (underhand), about shoulder-width apart. Pull to upper chest. This is essentially a chin-up on a cable machine \u2014 you'll feel your biceps working more than with an overhand grip.",
+      "beginner_tips": "Same as a regular pulldown but grip the bar with palms facing TOWARD you (underhand), about shoulder-width apart. Pull to upper chest. This is essentially a chin-up on a cable machine — you'll feel your biceps working more than with an overhand grip.",
       "substitutes": [
         "chin_up",
         "lat_pulldown",
@@ -910,7 +910,7 @@
         "machine_shoulder_press",
         "machine_chest_press"
       ],
-      "notes": "The cable chin-up. Great for people who can't do bodyweight chin-ups yet but want the same grip and muscle emphasis. The supinated grip puts the biceps in a strong position, so most people can pull more weight than with an overhand grip. Counts as both back and bicep work \u2014 useful on pull days when time is limited."
+      "notes": "The cable chin-up. Great for people who can't do bodyweight chin-ups yet but want the same grip and muscle emphasis. The supinated grip puts the biceps in a strong position, so most people can pull more weight than with an overhand grip. Counts as both back and bicep work — useful on pull days when time is limited."
     },
     {
       "id": "single_arm_lat_pulldown",
@@ -954,7 +954,7 @@
         "dumbbell_shoulder_press",
         "machine_shoulder_press"
       ],
-      "notes": "The best way to identify and fix left/right lat imbalances \u2014 most people have a dominant side that takes over during bilateral pulldowns. The single-arm position allows a slight rotation that increases the range of motion. Pairs naturally with single-arm cable rows for a complete unilateral back session."
+      "notes": "The best way to identify and fix left/right lat imbalances — most people have a dominant side that takes over during bilateral pulldowns. The single-arm position allows a slight rotation that increases the range of motion. Pairs naturally with single-arm cable rows for a complete unilateral back session."
     },
     {
       "id": "straight_arm_pulldown",
@@ -976,8 +976,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-pulldown.html",
-      "beginner_tips": "Stand facing a high cable with a straight bar or rope. Arms straight with a slight fixed bend in the elbows. Push the bar down toward your thighs by squeezing your lats \u2014 your arms should stay mostly straight throughout. You should feel the contraction deep in the sides of your back.",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/CBBentoverPullover",
+      "beginner_tips": "Stand facing a high cable with a straight bar or rope. Arms straight with a slight fixed bend in the elbows. Push the bar down toward your thighs by squeezing your lats — your arms should stay mostly straight throughout. You should feel the contraction deep in the sides of your back.",
       "substitutes": [
         "dumbbell_pullover",
         "pullover_machine"
@@ -995,7 +995,7 @@
         "machine_pec_deck",
         "dumbbell_bench_press"
       ],
-      "notes": "Isolates the lats without any bicep involvement \u2014 the biceps can't contribute because the elbow doesn't bend. Excellent for building the mind-muscle connection with your lats, which many beginners struggle with. Great as a lat activation exercise before pull-ups or pulldowns, or as a finisher after heavy rowing."
+      "notes": "Isolates the lats without any bicep involvement — the biceps can't contribute because the elbow doesn't bend. Excellent for building the mind-muscle connection with your lats, which many beginners struggle with. Great as a lat activation exercise before pull-ups or pulldowns, or as a finisher after heavy rowing."
     },
     {
       "id": "pullover_machine",
@@ -1018,8 +1018,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-pulldown.html",
-      "beginner_tips": "Sit in the machine, reach back to grip the bar or pad overhead. Pull the bar down in an arc toward your lap using your lats. Arms stay relatively straight throughout \u2014 the elbows press against the pads, not your hands. The deep stretch overhead is the most valuable part of the movement.",
+      "video_url": "https://exrx.net/WeightExercises/LatissimusDorsi/LVPullover",
+      "beginner_tips": "Sit in the machine, reach back to grip the bar or pad overhead. Pull the bar down in an arc toward your lap using your lats. Arms stay relatively straight throughout — the elbows press against the pads, not your hands. The deep stretch overhead is the most valuable part of the movement.",
       "substitutes": [
         "straight_arm_pulldown",
         "dumbbell_pullover"
