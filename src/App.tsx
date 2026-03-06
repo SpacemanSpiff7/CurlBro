@@ -67,7 +67,7 @@ export default function App() {
   const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
     const state = useStore.getState();
     const session = state.session.active;
-    if (state.activeTab !== 'active' || !session?.startedAt || session.completedAt) return false;
+    if (state.activeTab !== 'active' || !session) return false;
 
     const groups = deriveGroups(session.exercises);
     const { currentGroupIndex } = session;

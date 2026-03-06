@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer, Video } from 'lucide-react';
+import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Info, Play, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -104,7 +104,7 @@ export function ActiveWorkout() {
   const handleRemoveSet = useCallback(
     (exerciseIndex: number, setIndex: number) => {
       removeSet(exerciseIndex, setIndex);
-      toast('Set removed', { duration: 2000 });
+      toast('Set removed', { duration: 800 });
     },
     [removeSet]
   );
@@ -304,20 +304,19 @@ export function ActiveWorkout() {
                 </>
               ) : (
                 <div className="flex items-center justify-center gap-1.5">
-                  <div className="text-base font-semibold text-text-primary">
+                  <button
+                    onClick={() => setVideoOpen(true)}
+                    className="text-base font-semibold text-text-primary hover:text-accent-primary transition-colors"
+                  >
                     {firstExerciseInfo?.name ?? 'Unknown Exercise'}
-                  </div>
-                  {firstExerciseInfo?.video_url && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setVideoOpen(true)}
-                      aria-label="Watch video"
-                      className="h-7 w-7"
-                    >
-                      <Video size={14} className="text-text-tertiary" />
-                    </Button>
-                  )}
+                  </button>
+                  <button
+                    onClick={() => setVideoOpen(true)}
+                    aria-label="Exercise info"
+                    className="flex items-center justify-center h-5 w-5 rounded-full border border-accent-primary/40 text-accent-primary hover:bg-accent-primary/10 transition-colors flex-shrink-0"
+                  >
+                    <Info size={10} strokeWidth={2.5} />
+                  </button>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -377,13 +376,34 @@ export function ActiveWorkout() {
               <button
                 onClick={wakeLock.toggle}
                 aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  wakeLock.isActive
-                    ? 'text-warning bg-warning/10'
-                    : 'text-text-tertiary hover:text-text-secondary'
-                }`}
+                role="switch"
+                aria-checked={wakeLock.isActive}
+                className="relative w-8 h-14 rounded-full border transition-colors duration-300 flex items-center justify-center flex-shrink-0"
+                style={{
+                  borderColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-border-subtle)',
+                  backgroundColor: wakeLock.isActive ? 'color-mix(in srgb, var(--color-warning) 15%, transparent)' : 'var(--color-bg-elevated)',
+                }}
               >
-                <Smartphone size={18} />
+                {/* Track glow when active */}
+                {wakeLock.isActive && (
+                  <span
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      boxShadow: '0 0 8px color-mix(in srgb, var(--color-warning) 30%, transparent)',
+                    }}
+                  />
+                )}
+                {/* Thumb */}
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300"
+                  style={{
+                    bottom: wakeLock.isActive ? 'calc(100% - 24px)' : '4px',
+                    backgroundColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-text-tertiary)',
+                    boxShadow: wakeLock.isActive ? '0 0 6px var(--color-warning)' : 'none',
+                  }}
+                >
+                  <Smartphone size={12} className="text-bg-root" />
+                </span>
               </button>
             ) : undefined
           }
@@ -411,24 +431,6 @@ export function ActiveWorkout() {
               onRemoveSet={handleRemoveSet}
             />
           </motion.div>
-        </AnimatePresence>
-      )}
-
-      {/* Beginner tip — standalone exercises only */}
-      {!isMultiExerciseGroup && (
-        <AnimatePresence mode="wait">
-          {firstExerciseInfo?.beginner_tips && (
-            <motion.div
-              key={firstExercise?.exerciseId}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.15 }}
-              className="rounded-lg bg-accent-primary/10 border border-accent-primary/20 px-3 py-2"
-            >
-              <span className="text-xs text-accent-primary">{firstExerciseInfo.beginner_tips}</span>
-            </motion.div>
-          )}
         </AnimatePresence>
       )}
 

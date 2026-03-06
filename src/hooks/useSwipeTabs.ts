@@ -19,7 +19,7 @@ export type SwipeInterceptor = (direction: 'left' | 'right') => boolean;
 export function useSwipeTabs(interceptor?: SwipeInterceptor): (node: HTMLElement | null) => void {
   const setActiveTab = useStore((state) => state.setActiveTab);
   const nodeRef = useRef<HTMLElement | null>(null);
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const touchStart = useRef<{ x: number; y: number; inSwipeRow: boolean } | null>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
   const interceptorRef = useRef(interceptor);
 
@@ -38,14 +38,10 @@ export function useSwipeTabs(interceptor?: SwipeInterceptor): (node: HTMLElement
       nodeRef.current = node;
 
       function handleTouchStart(e: TouchEvent) {
-        // Skip tab navigation when touch starts inside a swipe-to-delete row
-        const target = e.target as HTMLElement;
-        if (target.closest('[data-swipe-row]')) {
-          touchStart.current = null;
-          return;
-        }
         const touch = e.touches[0];
-        touchStart.current = { x: touch.clientX, y: touch.clientY };
+        const target = e.target as HTMLElement;
+        const inSwipeRow = !!target.closest('[data-swipe-row]');
+        touchStart.current = { x: touch.clientX, y: touch.clientY, inSwipeRow };
       }
 
       function handleTouchEnd(e: TouchEvent) {
@@ -53,16 +49,20 @@ export function useSwipeTabs(interceptor?: SwipeInterceptor): (node: HTMLElement
         const touch = e.changedTouches[0];
         const dx = touch.clientX - touchStart.current.x;
         const dy = Math.abs(touch.clientY - touchStart.current.y);
+        const { inSwipeRow } = touchStart.current;
         touchStart.current = null;
 
         if (Math.abs(dx) < SWIPE_THRESHOLD || dy > SWIPE_MAX_Y) return;
 
         const direction = dx < 0 ? 'left' : 'right';
 
-        // Let interceptor handle first
+        // Let interceptor handle first (works even inside swipe rows)
         if (interceptorRef.current && interceptorRef.current(direction)) {
           return; // Interceptor consumed the swipe
         }
+
+        // Block tab navigation from swipe-to-delete rows
+        if (inSwipeRow) return;
 
         const { activeTab } = useStore.getState();
         const idx = TAB_ORDER.indexOf(activeTab);

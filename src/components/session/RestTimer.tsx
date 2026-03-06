@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Minus, Plus, RotateCcw } from 'lucide-react';
+import { Minus, Plus, RotateCcw, Play, Pause } from 'lucide-react';
 
 interface RestTimerProps {
   remainingSeconds: number;
@@ -160,9 +160,20 @@ export const RestTimer = memo(function RestTimer({
             {isDone ? (
               <span className="text-lg font-bold text-success">GO!</span>
             ) : (
-              <span className="text-lg font-bold tabular-nums text-text-primary">
-                {formatTime(displayTime)}
-              </span>
+              <>
+                <span className="text-lg font-bold tabular-nums text-text-primary">
+                  {formatTime(displayTime)}
+                </span>
+                <motion.div
+                  key={isRunning ? 'pause' : 'play'}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.15 }}
+                  className={`mt-0.5 ${isRunning ? 'text-accent-primary' : 'text-text-tertiary'}`}
+                >
+                  {isRunning ? <Pause size={14} /> : <Play size={14} />}
+                </motion.div>
+              </>
             )}
           </div>
         </button>
