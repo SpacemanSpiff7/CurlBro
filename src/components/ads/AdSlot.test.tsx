@@ -32,7 +32,7 @@ describe('AdSlot', () => {
   it('renders house ad with content from correct categories', () => {
     render(<AdSlot slotKey="post_workout" />);
     const ad = screen.getByRole('complementary');
-    // post_workout categories: recovery, nutrition, portfolio
+    // post_workout categories: recovery, nutrition, general
     expect(ad.textContent).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 export type AdSlotKey = 'build' | 'rest_timer' | 'post_workout' | 'library_feed' | 'log_feed' | 'settings';
-export type HouseAdCategory = 'form_tip' | 'recovery' | 'challenge' | 'portfolio' | 'nutrition' | 'general';
+export type HouseAdCategory = 'form_tip' | 'recovery' | 'challenge' | 'nutrition' | 'general';
 
 export interface AdSlotConfig {
   slotId: string;
@@ -17,10 +17,10 @@ export const ADSENSE_ENABLED = import.meta.env.PROD && false; // Kill switch —
 export const ADSENSE_TEST_MODE = true;
 
 export const AD_SLOTS: Record<AdSlotKey, AdSlotConfig> = {
-  build:         { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'challenge', 'portfolio'], rotateHouseAds: false, rotateIntervalMs: 0 },
-  rest_timer:    { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'portfolio', 'general'], rotateHouseAds: true, rotateIntervalMs: 30_000 },
-  post_workout:  { slotId: '', format: 'auto', houseAdCategories: ['recovery', 'nutrition', 'portfolio'], rotateHouseAds: false, rotateIntervalMs: 0 },
-  library_feed:  { slotId: '', format: 'horizontal', houseAdCategories: ['challenge', 'portfolio', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
-  log_feed:      { slotId: '', format: 'horizontal', houseAdCategories: ['recovery', 'portfolio', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
-  settings:      { slotId: '', format: 'horizontal', houseAdCategories: ['portfolio', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
+  build:         { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'challenge', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
+  rest_timer:    { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'recovery', 'general'], rotateHouseAds: true, rotateIntervalMs: 30_000 },
+  post_workout:  { slotId: '', format: 'auto', houseAdCategories: ['recovery', 'nutrition', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
+  library_feed:  { slotId: '', format: 'horizontal', houseAdCategories: ['challenge', 'nutrition', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
+  log_feed:      { slotId: '', format: 'horizontal', houseAdCategories: ['recovery', 'form_tip', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
+  settings:      { slotId: '', format: 'horizontal', houseAdCategories: ['form_tip', 'general'], rotateHouseAds: false, rotateIntervalMs: 0 },
 };

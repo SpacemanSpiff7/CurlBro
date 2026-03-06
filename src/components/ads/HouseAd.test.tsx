@@ -12,15 +12,15 @@ const tipAd: HouseAd = {
   accentColor: 'border-l-cyan-500',
 };
 
-const portfolioAd: HouseAd = {
-  id: 'test-pf',
-  category: 'portfolio',
-  label: 'BUILT BY',
-  headline: 'Simone Longo',
-  body: 'Test portfolio ad',
-  cta: 'Visit Portfolio',
-  href: 'https://simonelongo.com',
-  accentColor: 'border-l-accent-primary',
+const linkAd: HouseAd = {
+  id: 'test-link',
+  category: 'general',
+  label: 'CURLBRO TIP',
+  headline: 'Test Link Ad',
+  body: 'Test ad with link',
+  cta: 'Learn More',
+  href: 'https://example.com',
+  accentColor: 'border-l-zinc-400',
 };
 
 describe('HouseAdComponent', () => {
@@ -37,16 +37,16 @@ describe('HouseAdComponent', () => {
   });
 
   it('renders as a link when href is present', () => {
-    render(<HouseAdComponent ad={portfolioAd} />);
+    render(<HouseAdComponent ad={linkAd} />);
     const link = screen.getByRole('link');
-    expect(link.getAttribute('href')).toBe('https://simonelongo.com');
+    expect(link.getAttribute('href')).toBe('https://example.com');
     expect(link.getAttribute('target')).toBe('_blank');
     expect(link.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   it('renders CTA text when provided', () => {
-    render(<HouseAdComponent ad={portfolioAd} />);
-    expect(screen.getByText('Visit Portfolio')).toBeTruthy();
+    render(<HouseAdComponent ad={linkAd} />);
+    expect(screen.getByText('Learn More')).toBeTruthy();
   });
 
   it('does not render CTA when not provided', () => {

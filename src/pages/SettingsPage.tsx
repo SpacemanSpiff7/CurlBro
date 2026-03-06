@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { RotateCcw, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell } from 'lucide-react';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
@@ -15,6 +15,7 @@ export function SettingsPage() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
   const { clearAll } = useStore((state) => state.libraryActions);
@@ -267,15 +268,41 @@ export function SettingsPage() {
             <RotateCcw size={14} className="mr-2" />
             Reset settings to defaults
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearAll}
-            className="w-full justify-start text-destructive hover:text-destructive"
-          >
-            <RotateCcw size={14} className="mr-2" />
-            Clear all saved workouts &amp; logs
-          </Button>
+          {!confirmDelete ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmDelete(true)}
+              className="w-full justify-start text-destructive hover:text-destructive"
+            >
+              <Trash2 size={14} className="mr-2" />
+              Delete all data
+            </Button>
+          ) : (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 space-y-2">
+              <p className="text-xs text-destructive">
+                This will delete all your workouts and history. Are you sure?
+              </p>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setConfirmDelete(false)}
+                  className="flex-1 text-text-secondary"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { clearAll(); setConfirmDelete(false); }}
+                  className="flex-1 text-destructive hover:text-destructive"
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* Ad slot */}

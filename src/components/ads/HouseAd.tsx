@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Lightbulb, Moon, Flame, Apple, Sparkles, Dumbbell, ExternalLink } from 'lucide-react';
+import { Lightbulb, Moon, Flame, Apple, Dumbbell, ExternalLink } from 'lucide-react';
 import type { HouseAd as HouseAdType } from '../../data/houseAds';
 import type { HouseAdCategory } from '../../config/ads';
 
@@ -8,7 +8,6 @@ const CATEGORY_ICON: Record<HouseAdCategory, typeof Lightbulb> = {
   recovery: Moon,
   challenge: Flame,
   nutrition: Apple,
-  portfolio: Sparkles,
   general: Dumbbell,
 };
 
@@ -17,7 +16,6 @@ const CATEGORY_COLORS: Record<HouseAdCategory, { icon: string; bg: string; tag: 
   recovery: { icon: 'text-green-400', bg: 'bg-green-500/8', tag: 'text-green-400/70' },
   challenge: { icon: 'text-amber-400', bg: 'bg-amber-500/8', tag: 'text-amber-400/70' },
   nutrition: { icon: 'text-violet-400', bg: 'bg-violet-500/8', tag: 'text-violet-400/70' },
-  portfolio: { icon: 'text-accent-primary', bg: 'bg-accent-primary/8', tag: 'text-accent-primary/70' },
   general: { icon: 'text-zinc-400', bg: 'bg-zinc-500/8', tag: 'text-zinc-400/70' },
 };
 
@@ -26,7 +24,6 @@ const CATEGORY_TAG: Record<HouseAdCategory, string> = {
   recovery: 'Recovery',
   challenge: 'Challenge',
   nutrition: 'Nutrition',
-  portfolio: 'Built by',
   general: 'Tip',
 };
 

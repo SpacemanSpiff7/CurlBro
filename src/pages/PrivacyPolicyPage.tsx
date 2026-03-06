@@ -35,8 +35,8 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
           <Section title="Overview">
             <p>
               CurlBro is a client-side web application. All workout data is stored
-              locally in your browser using localStorage. No data is sent to external
-              servers.
+              locally in your browser using localStorage. We use third-party services
+              as described below.
             </p>
           </Section>
 

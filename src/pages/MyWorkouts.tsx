@@ -201,7 +201,7 @@ function TemplateSection({
         )}
       </button>
       <p className="text-[11px] text-text-tertiary mb-2">
-        Science-backed templates. Tap edit to customize a copy.
+        Pre-built templates. Tap edit to customize a copy.
       </p>
       {open && (
         <div className="space-y-2">

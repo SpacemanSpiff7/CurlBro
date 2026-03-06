@@ -40,7 +40,7 @@ export function AboutPage({ open, onOpenChange }: AboutPageProps) {
           </div>
 
           <p className="text-zinc-400 text-sm leading-relaxed">
-            Science-backed workout builder with 201 exercises, smart conflict
+            Free workout builder with 201 exercises, smart conflict
             detection, and gap analysis for balanced training.
           </p>
 

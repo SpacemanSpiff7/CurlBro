@@ -41,14 +41,6 @@ export const HOUSE_ADS: HouseAd[] = [
   { id: 'nu3', category: 'nutrition', label: 'CURLBRO TIP', headline: 'Creatine Works', body: 'Creatine monohydrate is the most studied and effective supplement. 3-5g daily improves strength, power, and muscle growth.', accentColor: 'border-l-violet-500' },
   { id: 'nu4', category: 'nutrition', label: 'CURLBRO TIP', headline: 'Don\'t Fear Carbs', body: 'Carbs fuel intense training. Eat them around workouts for energy and recovery — they don\'t make you fat, excess calories do.', accentColor: 'border-l-violet-500' },
 
-  // Portfolio (6) — accent-primary (app's theme color)
-  { id: 'pf1', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'Full-stack developer and fitness enthusiast. CurlBro is built with science-backed programming principles.', cta: 'Visit Portfolio', href: 'https://simonelongo.com', accentColor: 'border-l-accent-primary' },
-  { id: 'pf2', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'CurlBro is free, open-source, and built with love. Check out my other projects and get in touch.', cta: 'Get in Touch', href: 'https://simonelongo.com', accentColor: 'border-l-accent-primary' },
-  { id: 'pf3', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'Have ideas for CurlBro? Feature requests, bug reports, and feedback are always welcome.', cta: 'Send Feedback', href: 'https://github.com/SpacemanSpiff7/CurlBro/issues', accentColor: 'border-l-accent-primary' },
-  { id: 'pf4', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'CurlBro uses a graph of 201 exercises with smart conflict detection and gap analysis for balanced workouts.', cta: 'Learn More', href: 'https://simonelongo.com', accentColor: 'border-l-accent-primary' },
-  { id: 'pf5', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'Building tools that make science-backed fitness accessible to everyone. No subscriptions, no paywalls.', cta: 'Visit Portfolio', href: 'https://simonelongo.com', accentColor: 'border-l-accent-primary' },
-  { id: 'pf6', category: 'portfolio', label: 'BUILT BY', headline: 'Simone Longo', body: 'Enjoying CurlBro? Share it with a friend who lifts. The best feedback comes from real users.', cta: 'Visit Portfolio', href: 'https://simonelongo.com', accentColor: 'border-l-accent-primary' },
-
   // General (3) — zinc accent
   { id: 'gn1', category: 'general', label: 'CURLBRO TIP', headline: 'Progressive Overload', body: 'Gradually increase weight, reps, or sets over time. Your body adapts — keep challenging it to keep growing.', accentColor: 'border-l-zinc-400' },
   { id: 'gn2', category: 'general', label: 'CURLBRO TIP', headline: 'Consistency Beats Perfection', body: 'The best program is the one you stick to. Three solid workouts per week beats six inconsistent ones.', accentColor: 'border-l-zinc-400' },

@@ -23,7 +23,7 @@ describe('useAdSlot', () => {
     expect(result.current.config.houseAdCategories).toEqual([
       'recovery',
       'nutrition',
-      'portfolio',
+      'general',
     ]);
   });
 
