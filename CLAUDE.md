@@ -2,7 +2,7 @@
 
 ## What
 Client-side React workout builder using an exercise graph (~1500 edges).
-Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
+Mobile-first, light/dark theme support (next-themes), static deployment. Zero server-side processing.
 Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
 grouped visually and navigated as a unit during active sessions.
 Includes a body state system (soreness tracking + recent activities) with context-aware
@@ -13,6 +13,7 @@ exercise filtering (warm-up, cool-down, recovery, light day).
 - Zustand (state) + Immer (immutable updates) + Zod (validation)
 - shadcn/ui + Tailwind CSS 4 + Framer Motion
 - @dnd-kit for drag-to-reorder
+- @use-gesture/react for directional-locked swipe gestures (tab navigation, swipe-to-reveal)
 - Fuse.js for fuzzy search
 - sonner for toast notifications
 - Vitest + React Testing Library (unit/integration)
@@ -129,6 +130,22 @@ Agent definitions live in `.claude/agents/`.
   `<noscript>` fallback with indexable content. OG image URLs are absolute (social
   crawlers don't resolve relative URLs). Google Search Console verified via DNS.
 - Dynamic `document.title` updates per tab via `TAB_TITLES` map in `App.tsx`.
+- `overscroll-behavior-y: contain` on html/body prevents pull-to-refresh on iOS/Android Chrome.
+- Swipe gestures use `@use-gesture/react` with `axis: 'lock'` — first ~10px of touch decides
+  vertical (scroll) vs horizontal (swipe). Vertical wins → all swipe handlers ignored.
+- `SwipeToReveal` uses a module-level singleton to ensure only one row is open at a time.
+  `closeAllSwipeRows()` is called on tab switch. The `data-swipe-row` attribute blocks
+  tab swipe navigation. `data-dnd-handle` attribute blocks swipe-to-reveal on drag handles.
+- `@use-gesture/react` `bind()` props conflict with Framer Motion `motion.div` `onDrag` type.
+  Spread `bind()` onto a plain `<div>` wrapper, not a `motion.*` component.
+- Tab transitions use `AnimatePresence` + `motion.div` with a `direction` state variable.
+  Do NOT use a ref for direction — React 19 `react-hooks/refs` lint rule forbids ref reads
+  during render.
+- Theme is managed by `next-themes` ThemeProvider (attribute="class", defaultTheme="dark",
+  storageKey="curlbro_theme"). CSS variables in `:root` (light) and `.dark` (dark) drive
+  all colors — `@theme inline` maps them to Tailwind utilities. Colors that were previously
+  hardcoded in `@theme` are now dynamic via `@theme inline` + CSS variables.
+- Sonner Toaster uses `useTheme()` from next-themes for `resolvedTheme` to set its theme prop.
 - Test files under `src/` are compiled by `tsc -b` via `tsconfig.app.json` — they must NOT
   use jest-dom matchers (`toBeInTheDocument`, `toHaveAttribute`). Use vitest-native assertions
   (`toBeTruthy`, `toBeNull`, `getAttribute()`) instead. Jest-dom types are only available at

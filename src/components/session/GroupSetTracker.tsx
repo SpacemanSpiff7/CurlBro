@@ -1,8 +1,7 @@
-import { memo, useCallback, useState } from 'react';
-import { Check, Plus, Trash2 } from 'lucide-react';
-import { motion, useAnimation, type PanInfo } from 'framer-motion';
+import { memo, useCallback } from 'react';
+import { Check, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { vibrate } from '@/utils/haptics';
+import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
 import { useStore } from '@/store';
 import type { ExerciseGroup } from '@/utils/groupUtils';
 import type { SetLog, ExerciseLog, ExerciseId } from '@/types';
@@ -14,8 +13,6 @@ interface GroupSetTrackerProps {
   onAddSet: (exerciseIndex: number) => void;
   onRemoveSet?: (exerciseIndex: number, setIndex: number) => void;
 }
-
-const DELETE_THRESHOLD = -80;
 
 const SetRow = memo(function SetRow({
   set,
@@ -34,9 +31,6 @@ const SetRow = memo(function SetRow({
   onComplete: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
   onRemove?: (exerciseIndex: number, setIndex: number) => void;
 }) {
-  const controls = useAnimation();
-  const [dragX, setDragX] = useState(0);
-
   const handleWeightChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
@@ -67,90 +61,62 @@ const SetRow = memo(function SetRow({
     });
   }, [exerciseIndex, setIndex, set, defaultWeight, onComplete]);
 
-  const handleDrag = useCallback((_: unknown, info: PanInfo) => {
-    setDragX(info.offset.x);
-  }, []);
-
-  const handleDragEnd = useCallback(
-    async (_: unknown, info: PanInfo) => {
-      if (canDelete && info.offset.x < DELETE_THRESHOLD && onRemove) {
-        vibrate(50);
-        await controls.start({ x: -400, opacity: 0, transition: { duration: 0.2 } });
-        onRemove(exerciseIndex, setIndex);
-      } else {
-        controls.start({ x: 0, transition: { type: 'spring', stiffness: 500, damping: 30 } });
-      }
-      setDragX(0);
-    },
-    [canDelete, controls, exerciseIndex, setIndex, onRemove]
-  );
-
-  const showTrash = canDelete && dragX < -30;
-
-  return (
-    <div className="relative overflow-hidden rounded-lg" data-swipe-row>
-      <div
-        className={`absolute inset-y-0 right-0 flex items-center justify-center w-20 rounded-r-lg transition-opacity ${
-          showTrash ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ backgroundColor: 'var(--color-destructive)' }}
-      >
-        <Trash2 size={18} className="text-white" />
-      </div>
-
-      <motion.div
-        animate={controls}
-        drag={canDelete ? 'x' : false}
-        dragConstraints={{ left: -120, right: 0 }}
-        dragElastic={0.1}
-        onDrag={handleDrag}
-        onDragEnd={handleDragEnd}
-        className={`relative flex items-center gap-2 rounded-lg px-3 py-2 ${
+  const rowContent = (
+    <div
+      className={`flex items-center gap-2 rounded-lg px-3 py-2 ${
+        set.completed
+          ? 'bg-success/10 border border-success/20'
+          : 'bg-bg-elevated border border-border-subtle'
+      }`}
+    >
+      <span className="text-xs font-medium text-text-tertiary w-6">
+        {setIndex + 1}
+      </span>
+      <input
+        type="number"
+        inputMode="decimal"
+        value={set.weight ?? ''}
+        onChange={handleWeightChange}
+        placeholder={defaultWeight?.toString() ?? '—'}
+        aria-label={`Set ${setIndex + 1} weight`}
+        className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+      />
+      <span className="text-xs text-text-tertiary">lb</span>
+      <span className="text-xs text-text-tertiary mx-1">&times;</span>
+      <input
+        type="number"
+        inputMode="numeric"
+        value={set.reps ?? ''}
+        onChange={handleRepsChange}
+        placeholder="—"
+        aria-label={`Set ${setIndex + 1} reps`}
+        className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+      />
+      <span className="text-xs text-text-tertiary">reps</span>
+      <div className="flex-1" />
+      <button
+        onClick={handleToggleComplete}
+        aria-label={set.completed ? `Undo set ${setIndex + 1}` : `Complete set ${setIndex + 1}`}
+        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
           set.completed
-            ? 'bg-success/10 border border-success/20'
-            : 'bg-bg-elevated border border-border-subtle'
+            ? 'bg-success text-bg-root'
+            : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
         }`}
-        style={{ touchAction: 'pan-y' }}
       >
-        <span className="text-xs font-medium text-text-tertiary w-6">
-          {setIndex + 1}
-        </span>
-        <input
-          type="number"
-          inputMode="decimal"
-          value={set.weight ?? ''}
-          onChange={handleWeightChange}
-          placeholder={defaultWeight?.toString() ?? '—'}
-          aria-label={`Set ${setIndex + 1} weight`}
-          className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-        />
-        <span className="text-xs text-text-tertiary">lb</span>
-        <span className="text-xs text-text-tertiary mx-1">&times;</span>
-        <input
-          type="number"
-          inputMode="numeric"
-          value={set.reps ?? ''}
-          onChange={handleRepsChange}
-          placeholder="—"
-          aria-label={`Set ${setIndex + 1} reps`}
-          className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-        />
-        <span className="text-xs text-text-tertiary">reps</span>
-        <div className="flex-1" />
-        <button
-          onClick={handleToggleComplete}
-          aria-label={set.completed ? `Undo set ${setIndex + 1}` : `Complete set ${setIndex + 1}`}
-          className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
-            set.completed
-              ? 'bg-success text-bg-root'
-              : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
-          }`}
-        >
-          <Check size={14} />
-        </button>
-      </motion.div>
+        <Check size={14} />
+      </button>
     </div>
   );
+
+  if (canDelete && onRemove) {
+    return (
+      <SwipeToDelete onDelete={() => onRemove(exerciseIndex, setIndex)}>
+        {rowContent}
+      </SwipeToDelete>
+    );
+  }
+
+  return rowContent;
 });
 
 export const GroupSetTracker = memo(function GroupSetTracker({

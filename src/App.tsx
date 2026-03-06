@@ -1,17 +1,21 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 import { CookieConsent } from '@/components/shared/CookieConsent';
+import { closeAllSwipeRows } from '@/components/shared/SwipeToReveal';
 import { Toaster } from '@/components/ui/sonner';
 import { BuildWorkout } from '@/pages/BuildWorkout';
 import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
-import { useSwipeTabs } from '@/hooks/useSwipeTabs';
+import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { deriveGroups } from '@/utils/groupUtils';
 import type { TabId } from '@/types';
+
+const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'log', 'settings'];
 
 const TAB_TITLES: Record<TabId, string> = {
   build: 'Build Workout — CurlBro',
@@ -62,6 +66,9 @@ export default function App() {
   const initGraph = useStore((state) => state.initGraph);
   const graphReady = useStore((state) => state.graphReady);
   const activeTab = useStore((state) => state.activeTab);
+  const setActiveTab = useStore((state) => state.setActiveTab);
+
+  const [direction, setDirection] = useState<'left' | 'right'>('left');
 
   // On Active tab with a running session, swipe navigates exercises first
   const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
@@ -84,7 +91,22 @@ export default function App() {
     return false; // At edge, let tab navigation happen
   }, []);
 
-  const swipeRef = useSwipeTabs(swipeInterceptor);
+  const bind = useSwipeGesture({
+    onSwipe: (direction) => {
+      if (swipeInterceptor(direction)) return;
+      const state = useStore.getState();
+      const idx = TAB_ORDER.indexOf(state.activeTab);
+      if (direction === 'left' && idx < TAB_ORDER.length - 1) {
+        setDirection('left');
+        closeAllSwipeRows();
+        setActiveTab(TAB_ORDER[idx + 1]);
+      } else if (direction === 'right' && idx > 0) {
+        setDirection('right');
+        closeAllSwipeRows();
+        setActiveTab(TAB_ORDER[idx - 1]);
+      }
+    },
+  });
 
   // Save scroll position per tab, restore on return
   const scrollPositions = useRef<Partial<Record<TabId, number>>>({});
@@ -92,13 +114,13 @@ export default function App() {
 
   useEffect(() => {
     if (prevTab.current !== activeTab) {
-      // Save outgoing tab's scroll position
       scrollPositions.current[prevTab.current] = window.scrollY;
       prevTab.current = activeTab;
+      closeAllSwipeRows();
 
-      // Restore saved position or scroll to top
       const saved = scrollPositions.current[activeTab];
-      window.scrollTo(0, saved ?? 0);
+      // Defer to ensure content has rendered after animation
+      requestAnimationFrame(() => window.scrollTo(0, saved ?? 0));
     }
   }, [activeTab]);
 
@@ -120,8 +142,18 @@ export default function App() {
 
   return (
     <div className="flex min-h-dvh flex-col pb-16">
-      <main ref={swipeRef} className="flex-1">
-        <AppContent />
+      <main {...bind()} className="flex-1" style={{ touchAction: 'pan-y' }}>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: direction === 'left' ? 50 : -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction === 'left' ? -50 : 50 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+          >
+            <AppContent />
+          </motion.div>
+        </AnimatePresence>
       </main>
       <BottomNav />
       <CookieConsent />

@@ -31,11 +31,19 @@
   group filters (all 14 visible without scrolling), collapsible BodyStateInput,
   ContextFilters chips, and recovery badges on exercise rows ("Sore area" amber,
   "Good pick" green, "Recovery" blue).
-- SwipeToDelete (`shared/`) — Reusable swipe-to-delete wrapper using Framer Motion drag.
-  Reveals red trash icon on horizontal swipe past threshold (-80px), haptic feedback on
-  delete. Has `data-swipe-row` attribute so useSwipeTabs skips tab navigation on these elements.
-- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder and SwipeToDelete
-  wrappers on each group. Uses `instanceId` for stable React keys (no props).
+- SwipeToReveal (`shared/`) — iOS Mail-style swipe-to-reveal actions component using
+  `@use-gesture/react` `useDrag` + Framer Motion. Accepts an array of `SwipeAction` objects
+  (key, label, icon, color, onAction). Uses `axis: 'lock'` for directional locking. Module-level
+  singleton ensures only one row open at a time. `closeAllSwipeRows()` export for programmatic
+  close. Checks `[data-dnd-handle]` to skip gesture on drag handles. Has `data-swipe-row`
+  attribute so `useSwipeGesture` skips tab navigation on these elements.
+- SwipeToDelete (`shared/`) — Thin wrapper around `SwipeToReveal` with a single Delete action.
+  Swiping reveals a Delete button requiring tap to confirm (no auto-delete on release).
+  API preserved: `onDelete`, `children`, `enabled`. Used by SetTracker, GroupSetTracker,
+  WorkoutList (for grouped exercises).
+- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder. Standalone exercises
+  get SwipeToReveal from ExerciseCard internally (Swap/Super/Delete). Grouped exercises
+  (SupersetContainer) are wrapped in SwipeToReveal with Ungroup/Delete actions.
 - BodyStateInput (`exercise/`) — Collapsible soreness grid (14 muscles x 4 severity levels:
   none/mild/moderate/severe) + activity chips (run/bike/swim/hike/sport/yoga with
   yesterday/today/tomorrow timing). Persisted to library.soreness and library.activities.
@@ -44,7 +52,10 @@
   recovery; Pre-activity warm-up; Light day mode.
 - SupersetContainer (`workout/`) — visual wrapper for grouped exercises with accent border, group label (Superset/Tri-set/Circuit), ungroup button, and sortable drag handle for the whole group
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
-- ExerciseCard — includes superset/ungroup actions in its action menu. "Add to superset" opens ExercisePicker to select an exercise to group with.
+- ExerciseCard — includes superset/ungroup actions in its expand menu AND swipe-to-reveal
+  actions (Swap/Super/Delete). Wraps itself in SwipeToReveal internally. The expand menu
+  stays for discoverability; swipe-to-reveal is a power-user shortcut. Drag handle has
+  `data-dnd-handle` attribute to prevent swipe gesture conflicts.
 - AdSlot (`ads/`) — Reusable ad component accepting `slotKey: AdSlotKey`. Renders AdSense
   `<ins>` when enabled or HouseAdComponent fallback. 6 placements across all pages.
   See `ads/CLAUDE.md` for full details.

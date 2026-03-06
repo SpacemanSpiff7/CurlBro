@@ -1,6 +1,8 @@
 import { useState, useCallback, Fragment } from 'react';
 import { Play, Pencil, Trash2, Upload, Download, Copy, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
+import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
+import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { TopBar } from '@/components/shared/TopBar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -314,69 +316,90 @@ export function MyWorkouts() {
             My Workouts
           </h2>
           <AnimatePresence mode="popLayout">
-            {workouts.map((workout, index) => (
-              <Fragment key={workout.id}>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: 100, height: 0 }}
-                  className="rounded-xl border border-border-subtle bg-bg-surface p-3"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-text-primary truncate">
-                        {workout.name || 'Untitled'}
+            {workouts.map((workout, index) => {
+              const cardActions: SwipeAction[] = [
+                {
+                  key: 'copy',
+                  label: 'Copy',
+                  icon: <Copy size={16} />,
+                  color: 'bg-accent-primary',
+                  onAction: () => handleExport(workout),
+                },
+                {
+                  key: 'delete',
+                  label: 'Delete',
+                  icon: <Trash2 size={16} />,
+                  color: 'bg-destructive',
+                  onAction: () => handleDelete(workout.id),
+                },
+              ];
+
+              return (
+                <Fragment key={workout.id}>
+                  <SwipeToReveal actions={cardActions}>
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: 100, height: 0 }}
+                      className="rounded-xl border border-border-subtle bg-bg-surface p-3"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-text-primary truncate">
+                            {workout.name || 'Untitled'}
+                          </div>
+                          <div className="text-xs text-text-tertiary">
+                            {workout.exercises.length} exercises | {workout.updatedAt.slice(0, 10)}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleStart(workout)}
+                            aria-label="Start workout"
+                            className="h-9 w-9"
+                          >
+                            <Play size={14} />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleEdit(workout)}
+                            aria-label="Edit workout"
+                            className="h-9 w-9"
+                          >
+                            <Pencil size={14} />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleExport(workout)}
+                            aria-label="Copy to clipboard"
+                            className="h-9 w-9"
+                          >
+                            <Copy size={14} />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleDelete(workout.id)}
+                            aria-label="Delete workout"
+                            className="h-9 w-9 text-destructive hover:text-destructive"
+                          >
+                            <Trash2 size={14} />
+                          </Button>
+                        </div>
                       </div>
-                      <div className="text-xs text-text-tertiary">
-                        {workout.exercises.length} exercises | {workout.updatedAt.slice(0, 10)}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleStart(workout)}
-                        aria-label="Start workout"
-                        className="h-9 w-9"
-                      >
-                        <Play size={14} />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleEdit(workout)}
-                        aria-label="Edit workout"
-                        className="h-9 w-9"
-                      >
-                        <Pencil size={14} />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleExport(workout)}
-                        aria-label="Copy to clipboard"
-                        className="h-9 w-9"
-                      >
-                        <Copy size={14} />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(workout.id)}
-                        aria-label="Delete workout"
-                        className="h-9 w-9 text-destructive hover:text-destructive"
-                      >
-                        <Trash2 size={14} />
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-                {workouts.length >= 5 && (index + 1) % 4 === 0 && index < workouts.length - 1 && (
-                  <AdSlot slotKey="library_feed" />
-                )}
-              </Fragment>
-            ))}
+                    </motion.div>
+                  </SwipeToReveal>
+                  {workouts.length >= 5 && (index + 1) % 4 === 0 && index < workouts.length - 1 && (
+                    <AdSlot slotKey="library_feed" />
+                  )}
+                </Fragment>
+              );
+            })}
           </AnimatePresence>
         </div>
       )}

@@ -14,16 +14,18 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { AnimatePresence } from 'framer-motion';
+import { Trash2, Unlink } from 'lucide-react';
 import { ExerciseCard } from '@/components/exercise/ExerciseCard';
 import { SupersetContainer } from '@/components/workout/SupersetContainer';
-import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
+import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
+import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { useStore } from '@/store';
 import { useBuilderGroups } from '@/hooks/useBuilderGroups';
 import type { WorkoutExercise, ExerciseId } from '@/types';
 
 export function WorkoutList() {
   const graph = useStore((state) => state.graph);
-  const { removeExercise, reorderExercises, updateExercise, swapExercise } =
+  const { removeExercise, reorderExercises, updateExercise, swapExercise, ungroupExercise } =
     useStore((state) => state.builderActions);
 
   const groups = useBuilderGroups();
@@ -93,46 +95,78 @@ export function WorkoutList() {
             {groups.map((group) => {
               const isGrouped = group.exercises.length > 1;
 
-              const cards = group.exercises.map((workoutExercise, i) => {
-                const realIndex = group.indices[i];
-                const exercise = graph.exercises.get(workoutExercise.exerciseId);
-                if (!exercise) return null;
+              if (isGrouped) {
+                const cards = group.exercises.map((workoutExercise, i) => {
+                  const realIndex = group.indices[i];
+                  const exercise = graph.exercises.get(workoutExercise.exerciseId);
+                  if (!exercise) return null;
+
+                  return (
+                    <ExerciseCard
+                      key={workoutExercise.instanceId ?? realIndex}
+                      exercise={exercise}
+                      workoutExercise={workoutExercise}
+                      index={realIndex}
+                      onUpdate={handleUpdate}
+                      onRemove={handleRemove}
+                      onSwap={handleSwap}
+                    />
+                  );
+                });
+
+                const groupActions: SwipeAction[] = [
+                  {
+                    key: 'ungroup',
+                    label: 'Ungroup',
+                    icon: <Unlink size={16} />,
+                    color: 'bg-accent-primary',
+                    onAction: () => {
+                      for (let i = group.indices.length - 1; i >= 0; i--) {
+                        ungroupExercise(group.indices[i]);
+                      }
+                    },
+                  },
+                  {
+                    key: 'delete',
+                    label: 'Delete',
+                    icon: <Trash2 size={16} />,
+                    color: 'bg-destructive',
+                    onAction: () => {
+                      for (let i = group.indices.length - 1; i >= 0; i--) {
+                        removeExercise(group.indices[i]);
+                      }
+                    },
+                  },
+                ];
 
                 return (
-                  <ExerciseCard
-                    key={workoutExercise.instanceId ?? realIndex}
-                    exercise={exercise}
-                    workoutExercise={workoutExercise}
-                    index={realIndex}
-                    onUpdate={handleUpdate}
-                    onRemove={handleRemove}
-                    onSwap={handleSwap}
-                    sortableId={isGrouped ? undefined : group.groupId}
-                  />
+                  <SwipeToReveal key={group.groupId} actions={groupActions}>
+                    <SupersetContainer
+                      sortableId={group.groupId}
+                      indices={group.indices}
+                    >
+                      {cards}
+                    </SupersetContainer>
+                  </SwipeToReveal>
                 );
-              });
+              }
 
-              const groupContent = isGrouped ? (
-                <SupersetContainer
-                  key={group.groupId}
-                  sortableId={group.groupId}
-                  indices={group.indices}
-                >
-                  {cards}
-                </SupersetContainer>
-              ) : (
-                cards[0]
-              );
+              // Standalone — ExerciseCard has its own SwipeToReveal internally
+              const workoutExercise = group.exercises[0];
+              const exercise = graph.exercises.get(workoutExercise.exerciseId);
+              if (!exercise) return null;
 
               return (
-                <SwipeToDelete key={group.groupId} onDelete={() => {
-                  // Remove all exercises in the group (reverse order to keep indices stable)
-                  for (let i = group.indices.length - 1; i >= 0; i--) {
-                    removeExercise(group.indices[i]);
-                  }
-                }}>
-                  {groupContent}
-                </SwipeToDelete>
+                <ExerciseCard
+                  key={group.groupId}
+                  exercise={exercise}
+                  workoutExercise={workoutExercise}
+                  index={group.indices[0]}
+                  onUpdate={handleUpdate}
+                  onRemove={handleRemove}
+                  onSwap={handleSwap}
+                  sortableId={group.groupId}
+                />
               );
             })}
           </AnimatePresence>

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
@@ -16,6 +17,7 @@ export function SettingsPage() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
   const { clearAll } = useStore((state) => state.libraryActions);
@@ -101,6 +103,39 @@ export function SettingsPage() {
             Workout Programming
             <ExternalLink size={12} className="ml-auto opacity-50" />
           </a>
+        </div>
+      </div>
+
+      {/* Appearance */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Appearance
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {resolvedTheme === 'dark' ? (
+                <Moon size={14} className="text-text-secondary" />
+              ) : (
+                <Sun size={14} className="text-text-secondary" />
+              )}
+              <div className="text-sm text-text-primary">Dark mode</div>
+            </div>
+            <button
+              role="switch"
+              aria-checked={resolvedTheme === 'dark'}
+              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+              className={`relative h-7 w-12 rounded-full transition-colors ${
+                resolvedTheme === 'dark' ? 'bg-accent-primary' : 'bg-bg-elevated'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white transition-transform ${
+                  resolvedTheme === 'dark' ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
         </div>
       </div>
 

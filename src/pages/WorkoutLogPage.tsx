@@ -1,6 +1,8 @@
 import { useState, useCallback, useMemo, Fragment } from 'react';
 import { ClipboardList, Trash2, Copy, Save } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
+import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
+import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { toast } from 'sonner';
 import { useStore } from '@/store';
 import { TopBar } from '@/components/shared/TopBar';
@@ -43,16 +45,13 @@ function LogRow({
   const handleDelete = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (window.confirm(`Delete log for "${log.workoutName}"?`)) {
-        onDelete(log.id);
-      }
+      onDelete(log.id);
     },
-    [log.id, log.workoutName, onDelete]
+    [log.id, onDelete]
   );
 
   return (
     <div
-      data-swipe-row
       role="button"
       tabIndex={0}
       aria-label={`View ${log.workoutName} log from ${formatDate(log.completedAt)}`}
@@ -268,18 +267,32 @@ export function WorkoutLogPage() {
             </div>
           </div>
         ) : (
-          sortedLogs.map((log, index) => (
-            <Fragment key={log.id}>
-              <LogRow
-                log={log}
-                onSelect={handleSelect}
-                onDelete={handleDelete}
-              />
-              {sortedLogs.length >= 5 && (index + 1) % 4 === 0 && index < sortedLogs.length - 1 && (
-                <AdSlot slotKey="log_feed" />
-              )}
-            </Fragment>
-          ))
+          sortedLogs.map((log, index) => {
+            const logActions: SwipeAction[] = [
+              {
+                key: 'delete',
+                label: 'Delete',
+                icon: <Trash2 size={16} />,
+                color: 'bg-destructive',
+                onAction: () => handleDelete(log.id),
+              },
+            ];
+
+            return (
+              <Fragment key={log.id}>
+                <SwipeToReveal actions={logActions}>
+                  <LogRow
+                    log={log}
+                    onSelect={handleSelect}
+                    onDelete={handleDelete}
+                  />
+                </SwipeToReveal>
+                {sortedLogs.length >= 5 && (index + 1) % 4 === 0 && index < sortedLogs.length - 1 && (
+                  <AdSlot slotKey="log_feed" />
+                )}
+              </Fragment>
+            );
+          })
         )}
         {/* Bottom ad — always visible */}
         <AdSlot slotKey="log_feed" className="mt-2" />

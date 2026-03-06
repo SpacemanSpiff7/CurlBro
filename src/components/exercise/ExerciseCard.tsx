@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { GripVertical, Repeat, Trash2, ChevronDown, ChevronUp, Video, Link, Unlink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSortable } from '@dnd-kit/sortable';
@@ -9,6 +9,8 @@ import { MuscleTags } from './MuscleTags';
 import { SubstitutePanel } from './SubstitutePanel';
 import { VideoSheet } from './VideoSheet';
 import { ExercisePicker } from './ExercisePicker';
+import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
+import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { useStore } from '@/store';
 import type { Exercise, ExerciseId, WorkoutExercise } from '@/types';
 
@@ -108,8 +110,39 @@ export const ExerciseCard = memo(function ExerciseCard({
 
   const isInGroup = !!workoutExercise.supersetGroupId;
 
+  const swipeActions: SwipeAction[] = useMemo(
+    () => [
+      {
+        key: 'substitute',
+        label: 'Swap',
+        icon: <Repeat size={16} />,
+        color: 'bg-accent-primary',
+        onAction: () => {
+          setExpanded(true);
+          setShowSubstitutes(true);
+        },
+      },
+      {
+        key: 'superset',
+        label: 'Super',
+        icon: <Link size={16} />,
+        color: 'bg-warning',
+        onAction: () => setPickerOpen(true),
+      },
+      {
+        key: 'delete',
+        label: 'Delete',
+        icon: <Trash2 size={16} />,
+        color: 'bg-destructive',
+        onAction: () => onRemove(index),
+      },
+    ],
+    [index, onRemove]
+  );
+
   return (
     <>
+      <SwipeToReveal actions={swipeActions}>
       <motion.div
         ref={isSortable ? setNodeRef : undefined}
         style={style}
@@ -126,6 +159,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             <button
               {...attributes}
               {...listeners}
+              data-dnd-handle
               className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
               aria-label="Drag to reorder"
               style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
@@ -269,6 +303,7 @@ export const ExerciseCard = memo(function ExerciseCard({
           onSwap={handleSwap}
         />
       </motion.div>
+      </SwipeToReveal>
 
       {/* Video sheet */}
       <VideoSheet

@@ -53,6 +53,7 @@ export function SupersetContainer({ sortableId, indices, children }: SupersetCon
         <button
           {...attributes}
           {...listeners}
+          data-dnd-handle
           className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
           aria-label="Drag to reorder group"
           style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
