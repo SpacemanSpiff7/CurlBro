@@ -238,7 +238,7 @@ export const AppSettingsSchema = z.object({
   trainingGoal: z.enum(TRAINING_GOALS).default('hypertrophy'),
   defaultSetsCompound: z.number().int().min(1).default(4),
   defaultSetsIsolation: z.number().int().min(1).default(3),
-  exportIncludeTips: z.boolean().default(true),
+  exportIncludeTips: z.boolean().default(false),
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -247,7 +247,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   trainingGoal: 'hypertrophy',
   defaultSetsCompound: 4,
   defaultSetsIsolation: 3,
-  exportIncludeTips: true,
+  exportIncludeTips: false,
 };
 
 // ─── Navigation ──────────────────────────────────────────
