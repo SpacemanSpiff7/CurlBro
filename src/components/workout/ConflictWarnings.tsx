@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { AlertTriangle, ChevronDown, ChevronUp, ShieldAlert } from 'lucide-react';
 import { useWorkoutConflicts, type ActiveConflict } from '@/hooks/useWorkoutConflicts';
 
-function ConflictCard({ item }: { item: ActiveConflict }) {
+interface GroupedConflict {
+  severity: 'caution' | 'warning';
+  reason: string;
+  pairs: { a: string; b: string }[];
+}
+
+function ConflictCard({ group }: { group: GroupedConflict }) {
   const [expanded, setExpanded] = useState(false);
-  const isCaution = item.conflict.severity === 'caution';
+  const isCaution = group.severity === 'caution';
+
+  // Collect unique exercise names involved
+  const names = [...new Set(group.pairs.flatMap((p) => [p.a, p.b]))];
+  const title = names.join(', ');
 
   return (
     <button
@@ -24,7 +34,7 @@ function ConflictCard({ item }: { item: ActiveConflict }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
             <p className={`text-xs font-medium ${isCaution ? 'text-red-300' : 'text-yellow-300'}`}>
-              {item.exerciseNameA} + {item.exerciseNameB}
+              {title}
             </p>
             {expanded ? (
               <ChevronUp size={14} className="flex-shrink-0 text-text-tertiary" />
@@ -34,7 +44,7 @@ function ConflictCard({ item }: { item: ActiveConflict }) {
           </div>
           {expanded && (
             <p className="mt-1.5 text-[11px] leading-relaxed text-text-secondary">
-              {item.conflict.reason}
+              {group.reason}
             </p>
           )}
         </div>
@@ -43,13 +53,28 @@ function ConflictCard({ item }: { item: ActiveConflict }) {
   );
 }
 
+function groupConflicts(conflicts: ActiveConflict[]): GroupedConflict[] {
+  const map = new Map<string, GroupedConflict>();
+  for (const item of conflicts) {
+    const key = `${item.conflict.severity}:${item.conflict.reason}`;
+    let group = map.get(key);
+    if (!group) {
+      group = { severity: item.conflict.severity, reason: item.conflict.reason, pairs: [] };
+      map.set(key, group);
+    }
+    group.pairs.push({ a: item.exerciseNameA, b: item.exerciseNameB });
+  }
+  return [...map.values()];
+}
+
 export function ConflictWarnings() {
   const conflicts = useWorkoutConflicts();
+  const groups = useMemo(() => groupConflicts(conflicts), [conflicts]);
 
-  if (conflicts.length === 0) return null;
+  if (groups.length === 0) return null;
 
-  const cautionCount = conflicts.filter((c) => c.conflict.severity === 'caution').length;
-  const warningCount = conflicts.length - cautionCount;
+  const cautionCount = groups.filter((g) => g.severity === 'caution').length;
+  const warningCount = groups.length - cautionCount;
 
   return (
     <div className="space-y-2">
@@ -65,8 +90,8 @@ export function ConflictWarnings() {
         </h3>
       </div>
       <div className="space-y-1.5">
-        {conflicts.map((item, i) => (
-          <ConflictCard key={i} item={item} />
+        {groups.map((group, i) => (
+          <ConflictCard key={i} group={group} />
         ))}
       </div>
     </div>

@@ -18,7 +18,7 @@
   target rules, memo/callback patterns, and animation specs. See `.claude/agents/ui-scaffolder.md`
 
 ## Key Components
-- ConflictWarnings — expandable conflict cards, color-coded by severity
+- ConflictWarnings — expandable conflict cards, color-coded by severity. Groups conflicts with the same reason into a single card listing all involved exercises.
 - TemplateSelector — collapsible seeded workout categories
 - VideoSheet — YouTube embed with external link fallback
 - WorkoutStatusBar — push/pull ratio + missing muscle badges

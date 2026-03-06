@@ -1,7 +1,7 @@
 {
   "name": "CurlBro — Workout Builder",
   "short_name": "CurlBro",
-  "description": "Free workout builder with 201 exercises, conflict detection, and gap analysis.",
+  "description": "Free workout builder with smart conflict detection, superset grouping, and gap analysis.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

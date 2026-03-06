@@ -32,12 +32,11 @@ AdSense is behind a kill switch (`ADSENSE_ENABLED` in `src/config/ads.ts`) — c
   and rotation settings.
 
 ### Data (`src/data/houseAds.ts`)
-30 house ads across 6 categories:
+24 house ads across 5 categories:
 - `form_tip` (8) — cyan accent, exercise technique tips
 - `recovery` (5) — green accent, sleep/hydration/rest
 - `challenge` (4) — amber accent, workout variety prompts
 - `nutrition` (4) — violet accent, protein/creatine/carbs
-- ~~`portfolio`~~ — removed
 - `general` (3) — zinc accent, progressive overload/consistency
 
 ## 6 Ad Placements

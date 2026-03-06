@@ -1,7 +1,7 @@
 # CurlBro
 
 ## What
-Client-side React workout builder using an exercise graph (201 exercises, ~1500 edges).
+Client-side React workout builder using an exercise graph (~1500 edges).
 Mobile-first, dark-mode-only, static deployment. Zero server-side processing.
 Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
 grouped visually and navigated as a unit during active sessions.
@@ -61,8 +61,8 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/data/01-07_*.json` — 7 JSON files with 162 strength exercises
 - `src/data/08_stretching_mobility.json` — 32 stretching/mobility exercises (dynamic stretches, static stretches, mobility drills)
 - `src/data/09_cardio_warmup.json` — 7 cardio warmup exercises (treadmill, elliptical, bike, rower, stair climber, jump rope)
-- `src/data/exerciseConflicts.ts` — 33 exercise conflicts with scientific citations
-- `src/data/seededWorkouts.ts` — 16 pre-built workout templates across 4 difficulty tiers
+- `src/data/exerciseConflicts.ts` — exercise conflicts with scientific citations
+- `src/data/seededWorkouts.ts` — pre-built workout templates across 4 difficulty tiers
 - `src/utils/logUtils.ts` — log display/export helpers (computeLogStats, logToSavedWorkout, formatLogForClipboard)
 - `src/utils/groupUtils.ts` — superset group derivation (deriveGroups, getGroupLabel, ExerciseGroup interface)
 - `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
@@ -72,7 +72,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `public/manifest.json` — PWA web app manifest
 - `public/ads.txt` — AdSense publisher verification (placeholder until approved)
 - `src/config/ads.ts` — ad slot definitions, AdSense kill switch (`import.meta.env.PROD && false`), publisher ID
-- `src/data/houseAds.ts` — 30 house ads across 6 categories (tips + portfolio promos)
+- `src/data/houseAds.ts` — 24 house ads across 5 categories (tips)
 - `src/components/shared/CookieConsent.tsx` — EU cookie consent banner + Consent Mode v2 integration
 
 ## Custom Agents

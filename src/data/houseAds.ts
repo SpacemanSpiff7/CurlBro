@@ -30,7 +30,7 @@ export const HOUSE_ADS: HouseAd[] = [
   { id: 'rc5', category: 'recovery', label: 'CURLBRO TIP', headline: 'Manage Your Stress', body: 'Chronic stress raises cortisol, which impairs recovery and muscle growth. Find time to decompress — your gains depend on it.', accentColor: 'border-l-green-500' },
 
   // Challenges (4) — amber accent
-  { id: 'ch1', category: 'challenge', label: 'CURLBRO TIP', headline: 'Try a New Exercise', body: 'Variety prevents plateaus. Swap one exercise per workout for something new — CurlBro has 201 exercises to explore.', accentColor: 'border-l-amber-500' },
+  { id: 'ch1', category: 'challenge', label: 'CURLBRO TIP', headline: 'Try a New Exercise', body: 'Variety prevents plateaus. Swap one exercise per workout for something new — CurlBro has hundreds of exercises to explore.', accentColor: 'border-l-amber-500' },
   { id: 'ch2', category: 'challenge', label: 'CURLBRO TIP', headline: 'Track Your Progress', body: 'Log every workout. Progressive overload is the #1 driver of muscle growth — you can\'t improve what you don\'t measure.', accentColor: 'border-l-amber-500' },
   { id: 'ch3', category: 'challenge', label: 'CURLBRO TIP', headline: 'Superset Challenge', body: 'Pair opposing muscle groups (chest/back, biceps/triceps) for supersets. You\'ll save time and increase training density.', accentColor: 'border-l-amber-500' },
   { id: 'ch4', category: 'challenge', label: 'CURLBRO TIP', headline: 'Add a Finisher', body: 'End your workout with a high-rep burnout set. Drop sets, rest-pause, or AMRAP — push your limits safely.', accentColor: 'border-l-amber-500' },

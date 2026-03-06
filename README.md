@@ -52,7 +52,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### My Workouts Tab
 - Save and manage user-created workouts
-- 16 pre-built templates across 4 difficulty tiers (beginner to advanced)
+- Pre-built templates across multiple difficulty tiers (beginner to advanced)
 - Edit a template to create a customizable copy
 - Copy workout to clipboard in a human-readable format
 - Import workouts from text (round-trip compatible)
@@ -114,7 +114,7 @@ src/
     exercises.ts   # Merges 7 JSON files (162 exercises)
     graphBuilder.ts# Pure function: raw JSON -> ExerciseGraph
     exerciseConflicts.ts  # 33 exercise conflict rules with scientific citations
-    seededWorkouts.ts     # 16 pre-built workout templates
+    seededWorkouts.ts     # Pre-built workout templates
     exercises/     # JSON files by muscle group (01-07)
   hooks/           # useExerciseSearch, useSubstitutes, useSuggestions,
                    # useWorkoutValidation, useWorkoutConflicts, useRestTimer,
@@ -163,7 +163,7 @@ All conflicts include scientific citations (McGill, NSCA, Cools, Kolber, Willard
 
 ## Seeded Workouts
 
-16 pre-built templates targeting a moderately active adult:
+Pre-built templates targeting a moderately active adult:
 
 | Category | Count | Description |
 |----------|-------|-------------|
