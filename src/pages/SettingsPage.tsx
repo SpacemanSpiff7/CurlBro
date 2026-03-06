@@ -354,24 +354,28 @@ export function SettingsPage() {
             <Info size={14} className="mr-2" />
             About CurlBro
           </Button>
-          <a
-            href="https://simonelongo.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="w-full justify-start text-text-secondary"
           >
-            <ExternalLink size={14} />
-            simonelongo.com
-          </a>
-          <a
-            href="https://simonelongo.com/contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+            <a href="https://simonelongo.com" target="_blank" rel="noopener noreferrer">
+              <ExternalLink size={14} className="mr-2" />
+              simonelongo.com
+            </a>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="w-full justify-start text-text-secondary"
           >
-            <Mail size={14} />
-            Contact
-          </a>
+            <a href="https://simonelongo.com/contact" target="_blank" rel="noopener noreferrer">
+              <Mail size={14} className="mr-2" />
+              Contact
+            </a>
+          </Button>
         </div>
       </div>
 
