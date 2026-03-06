@@ -44,7 +44,7 @@ AdSense is behind a kill switch (`ADSENSE_ENABLED` in `src/config/ads.ts`) — c
 | Slot Key | Page | Location | Rotates |
 |----------|------|----------|---------|
 | `build` | BuildWorkout | Above "Add Exercise" button | No |
-| `rest_timer` | ActiveWorkout | Between RestTimer and GroupSetTracker (active only) | Yes (30s) |
+| `rest_timer` | ActiveWorkout | Between RestTimer and GroupSetTracker (active session only, no empty state). Re-keyed on `currentGroupIndex` so ad swaps on exercise navigation (cache enforces 30s minimum). | Yes (30s) |
 | `post_workout` | ActiveWorkout | Summary sheet, between stats grid and "View Log" | No |
 | `library_feed` | MyWorkouts | After every 4th workout card (5+ workouts, not after last) | No |
 | `log_feed` | WorkoutLogPage | After every 4th log entry (5+ logs, not after last) | No |

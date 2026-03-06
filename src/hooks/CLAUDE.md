@@ -28,7 +28,10 @@ Components never access store.graph directly — always through a hook.
 - useSuggestions — superset suggestions now return `SupersetSuggestion[]` (with `exerciseId` and `parentExerciseId`) instead of plain `ExerciseId[]`
 - useHouseAd — selects random house ad from filtered category pool. Module-level `Set<string>`
   prevents repeats within a session (resets on reload). Supports optional rotation via
-  `setInterval` for long-visible slots. Auto-resets pool when category exhausted.
+  `setInterval` for long-visible slots. Auto-resets pool when category exhausted. Per-slot
+  cache (`slotCache`) enforces 30s minimum display time (AdSense policy) — `getOrPickAd`
+  returns cached ad if called again within the window. Components can re-key `<AdSlot>`
+  to trigger a swap; the cache prevents too-frequent refreshes.
 - useAdSlot — manages AdSense `<ins>` lifecycle per slot. When `ADSENSE_ENABLED` is false
   (current default), immediately returns `showHouseAd: true`. When enabled: detects ad
   blockers, pushes ad once per mount, falls back on no-fill after 2s. Uses `requestAnimationFrame`

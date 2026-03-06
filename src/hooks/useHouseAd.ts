@@ -7,8 +7,8 @@ import { HOUSE_ADS, type HouseAd } from '../data/houseAds';
 const shownIds = new Set<string>();
 
 // Per-slot cache: persists ads across tab switches to avoid excessive refreshes.
-// AdSense minimum refresh interval is 30s — we use 60s for safety.
-const MIN_DISPLAY_MS = 60_000;
+// AdSense minimum refresh interval is 30s.
+const MIN_DISPLAY_MS = 30_000;
 const slotCache = new Map<AdSlotKey, { ad: HouseAd; pickedAt: number }>();
 
 function pickAd(categories: HouseAdCategory[]): HouseAd {

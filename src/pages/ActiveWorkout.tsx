@@ -179,9 +179,6 @@ export function ActiveWorkout() {
             Go to Library and tap play to start a session.
           </p>
         </div>
-        <div className="px-4">
-          <AdSlot slotKey="rest_timer" />
-        </div>
       </div>
     );
   }
@@ -410,8 +407,8 @@ export function ActiveWorkout() {
         />
       </div>
 
-      {/* Rest timer ad */}
-      <AdSlot slotKey="rest_timer" className="mt-1" />
+      {/* Rest timer ad — re-key on group nav to swap ad (cache enforces 30s minimum) */}
+      <AdSlot key={currentGroupIndex} slotKey="rest_timer" className="mt-1" />
 
       {/* Group set tracker */}
       {currentGroup && (
