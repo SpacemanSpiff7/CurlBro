@@ -25,7 +25,7 @@ export const EQUIPMENT_TYPES = [
   'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
   'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
   'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
-  'pull_up_bar', 'dip_station', 'flat_bench', 'adjustable_bench',
+  'ab_crunch_machine', 'pull_up_bar', 'dip_station', 'flat_bench', 'adjustable_bench',
   'preacher_curl_bench', 'roman_chair', 'ab_wheel', 'kettlebell',
   'resistance_band', 'trap_bar', 'medicine_ball', 'battle_ropes', 'bodyweight',
   'foam_roller', 'treadmill', 'elliptical', 'stationary_bike', 'rowing_machine',
@@ -57,7 +57,7 @@ export const EQUIPMENT_GROUP_MEMBERS: Record<EquipmentGroup, Equipment[]> = {
     'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
     'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
     'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
-    'flat_bench', 'adjustable_bench', 'preacher_curl_bench', 'roman_chair',
+    'ab_crunch_machine', 'flat_bench', 'adjustable_bench', 'preacher_curl_bench', 'roman_chair',
     'pull_up_bar', 'dip_station',
   ],
 };

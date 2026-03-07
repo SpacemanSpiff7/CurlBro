@@ -1,7 +1,7 @@
 {
   "file": "07_core_and_functional.json",
   "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics",
-  "exercise_count": 20,
+  "exercise_count": 21,
   "exercises": [
     {
       "id": "cable_crunch",
@@ -26,7 +26,8 @@
       "substitutes": [
         "crunch",
         "hanging_leg_raise",
-        "decline_crunch"
+        "decline_crunch",
+        "ab_crunch_machine"
       ],
       "complements": [
         "plank",
@@ -40,6 +41,46 @@
         "barbell_row"
       ],
       "notes": "Best ab exercise for progressive overload — increase cable weight over time. Floor crunches can't do that. The cable provides constant tension through the entire range of motion. Excellent for pairing as a rest-period filler between heavy compound sets, since it doesn't compete with any major lift for muscle recovery."
+    },
+    {
+      "id": "ab_crunch_machine",
+      "name": "Ab Crunch Machine",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "ab_crunch_machine"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://exrx.net/WeightExercises/RectusAbdominis/LVSeatedCrunch",
+      "beginner_tips": "Adjust the seat so the pivot point aligns with your mid-torso. Select a light weight to start. Grab the handles and crunch forward by rounding your spine — drive your ribcage toward your pelvis. Control the return to the starting position. Don't use momentum or lean forward with your whole body — the movement should be a spinal curl, not a hip hinge.",
+      "substitutes": [
+        "cable_crunch",
+        "crunch",
+        "decline_crunch"
+      ],
+      "complements": [
+        "plank",
+        "hanging_leg_raise",
+        "pallof_press",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "barbell_back_squat",
+        "barbell_row",
+        "back_extension"
+      ],
+      "notes": "Machine-guided spinal flexion with adjustable resistance. The fixed path makes it beginner-friendly — harder to cheat than cable crunches or floor crunches. Provides consistent resistance throughout the range of motion. Good option for progressive overload when cable crunches aren't available. Some machines also allow loading the eccentric (negative) phase more effectively than free-weight ab exercises."
     },
     {
       "id": "crunch",
@@ -65,7 +106,8 @@
         "cable_crunch",
         "hanging_leg_raise",
         "decline_crunch",
-        "lying_leg_raise"
+        "lying_leg_raise",
+        "ab_crunch_machine"
       ],
       "complements": [
         "plank",
@@ -580,7 +622,8 @@
       "substitutes": [
         "cable_crunch",
         "crunch",
-        "hanging_leg_raise"
+        "hanging_leg_raise",
+        "ab_crunch_machine"
       ],
       "complements": [
         "plank",
