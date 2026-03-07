@@ -732,7 +732,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "6-10 per leg",
-      "video_url": "https://exrx.net/WeightExercises/Quadriceps/DBRearLunge",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-rear-lunge.html",
       "beginner_tips": "Step BACKWARD instead of forward. Much easier on the knees. Lower until back knee nearly touches floor, then push back to standing.",
       "substitutes": [
         "walking_lunge",
@@ -818,7 +818,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "5-8 per leg",
-      "video_url": "https://exrx.net/WeightExercises/Quadriceps/DBSingleLegSplitSquat",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-leg-dumbbell-squat-aka-bulgarian-squat.html",
       "beginner_tips": "Back foot elevated on a bench behind you. Hold dumbbells at sides. Lower until front thigh is parallel to floor. It burns — that's normal!",
       "substitutes": [
         "walking_lunge",
@@ -908,7 +908,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10",
-      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/BBHipThrust",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-hip-thrust",
       "beginner_tips": "Upper back on bench, barbell across hips (use a pad). Drive hips up by squeezing glutes until body is a straight line from shoulders to knees. Squeeze HARD at top. Tuck chin slightly — looking straight ahead, not at the ceiling.",
       "substitutes": [
         "glute_bridge",
@@ -1071,7 +1071,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-15 per leg",
       "rep_range_strength": "10-12 per leg",
-      "video_url": "https://exrx.net/WeightExercises/GluteusMaximus/CBGluteKickback",
+      "video_url": "https://www.muscleandstrength.com/exercises/glute-kick-back.html",
       "beginner_tips": "Ankle strap on low cable. Face machine, hold on, kick leg straight back while squeezing glute. Don't arch lower back — movement comes from hip only.",
       "substitutes": [
         "hip_thrust",
@@ -1150,7 +1150,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://exrx.net/WeightExercises/HipAdductors/LVSeatedHipAdduction",
+      "video_url": "https://www.muscleandstrength.com/exercises/hip-adduction-machine.html",
       "beginner_tips": "Sit in machine, pads on inner knees/thighs. Squeeze legs together against resistance, then slowly open back up.",
       "substitutes": [
         "sumo_squat"
@@ -1183,7 +1183,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://exrx.net/WeightExercises/HipAbductor/LVSeatedHipAbduction",
+      "video_url": "https://www.muscleandstrength.com/exercises/hip-abduction-machine.html",
       "beginner_tips": "Sit in machine, pads on outer knees/thighs. Push legs apart against resistance. You'll feel it in the sides of your hips.",
       "substitutes": [
         "banded_clamshell"

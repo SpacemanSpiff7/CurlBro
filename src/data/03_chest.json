@@ -302,7 +302,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-10",
-      "video_url": "https://exrx.net/WeightExercises/PectoralSternal/LVChestPress",
+      "video_url": "https://www.muscleandstrength.com/exercises/hammer-strength-bench-press.html",
       "beginner_tips": "Sit in machine, grab handles at chest height, push forward until arms extended. Machine guides you — can't drop anything on yourself. Adjust the seat so handles are at mid-chest height. Perfect for beginners or training to failure safely.",
       "substitutes": [
         "barbell_bench_press",
@@ -346,7 +346,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-10",
-      "video_url": "https://exrx.net/WeightExercises/PectoralClavicular/LVInclineChestPress",
+      "video_url": "https://www.muscleandstrength.com/exercises/hammer-strength-incline-bench-press",
       "beginner_tips": "Same concept as the flat machine press but the handles are angled upward to target upper chest. Sit with your back flat against the pad, push the handles up and out. Adjust the seat so you feel the work in your upper chest, not your shoulders.",
       "substitutes": [
         "incline_dumbbell_press",
@@ -600,7 +600,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/PectoralSternal/CBLyingFly",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-crossovers-(mid-chest).html",
       "beginner_tips": "Pulleys at chest height. Grab handles, step forward into a staggered stance for balance, bring hands together in front of chest with a slight elbow bend. Think hugging a barrel. Squeeze chest hard when hands meet.",
       "substitutes": [
         "dumbbell_flye",
@@ -687,7 +687,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/PectoralSternal/CBStandingFly",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-crossovers-bent-over.html",
       "beginner_tips": "Pulleys set high. Step forward into a staggered stance, bring handles down and together in front of your lower chest/navel. Squeeze chest hard when hands meet. Keep a slight bend in elbows throughout.",
       "substitutes": [
         "cable_flye",
@@ -905,7 +905,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "to failure",
       "rep_range_strength": "to failure",
-      "video_url": "https://exrx.net/WeightExercises/PectoralClavicular/BWDeclinePushup",
+      "video_url": "https://www.muscleandstrength.com/exercises/decline-push-up",
       "beginner_tips": "Feet on a bench or box, hands on the floor. The elevation shifts more of your bodyweight onto your arms and angles the press upward — similar to an incline bench press. Keep your core tight and body straight. The higher your feet, the harder it gets and the more it shifts toward shoulders.",
       "substitutes": [
         "push_up",
@@ -992,7 +992,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://exrx.net/WeightExercises/Power/LVOneArmPress",
+      "video_url": "https://www.muscleandstrength.com/exercises/single-arm-landmine-press",
       "beginner_tips": "Wedge barbell end in a corner or landmine attachment. Hold other end at chest with one or both hands, press up and forward at about a 45-degree angle. Very shoulder-friendly pressing motion. The arcing path is natural and self-stabilizing.",
       "substitutes": [
         "incline_dumbbell_press",

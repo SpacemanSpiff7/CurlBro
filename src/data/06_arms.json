@@ -24,7 +24,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://exrx.net/WeightExercises/Biceps/BBCurl",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-barbell-curl.html",
       "beginner_tips": "Stand with bar, arms extended, palms forward. Curl to shoulders bending elbows only. Keep elbows pinned to sides — don't swing the weight or let your elbows drift forward. A slight body lean at the start is okay, but the weight should be moving because of your biceps, not momentum. EZ bar (wavy bar) is easier on wrists.",
       "substitutes": [
         "dumbbell_curl",
@@ -147,7 +147,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://exrx.net/WeightExercises/Brachioradialis/DBHammerCurl",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-hammer-curl.html",
       "beginner_tips": "Like a regular curl but palms face each other (neutral grip, like holding hammers) the ENTIRE time. No wrist rotation. Targets the brachialis — the muscle UNDER the bicep — and the brachioradialis on the outer forearm. Both make your arms look thicker from the side and front.",
       "substitutes": [
         "rope_cable_curl",
@@ -380,7 +380,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/Brachioradialis/CBHammerCurl",
+      "video_url": "https://www.muscleandstrength.com/exercises/rope-cable-curl.html",
       "beginner_tips": "Rope on low cable. Curl with neutral grip (palms facing each other) throughout the movement. At the top, you can spread the rope ends apart for an extra squeeze. This is the cable version of hammer curls — same brachialis emphasis with constant tension.",
       "substitutes": [
         "hammer_curl",
@@ -418,7 +418,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/Brachialis/DBConcentrationCurl",
+      "video_url": "https://www.muscleandstrength.com/exercises/concentration-cur.html",
       "beginner_tips": "Sit on bench, lean forward, brace the back of your upper arm against your inner thigh. Curl the dumbbell up, squeeze the bicep hard at the top for 1-2 seconds, then lower slowly. The braced position eliminates all momentum — your bicep does 100% of the work.",
       "substitutes": [
         "preacher_curl",
@@ -579,7 +579,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/Triceps/DBOneArmTriExt",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-dumbbell-extension.html",
       "beginner_tips": "Hold one dumbbell overhead in one hand. Lower it behind your head by bending only at the elbow, then extend back to the start. Use your free hand to support the working elbow and keep it pointing straight up — this prevents it from flaring out and reduces shoulder stress. Start with light weight to learn the path.",
       "substitutes": [
         "overhead_tricep_extension",
@@ -698,7 +698,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-15",
       "rep_range_strength": "10-12",
-      "video_url": "https://exrx.net/WeightExercises/Triceps/DBKickback",
+      "video_url": "https://www.muscleandstrength.com/exercises/tricep-kickback.html",
       "beginner_tips": "Lean forward with one hand on bench for support. Upper arm parallel to floor, elbow at 90 degrees. Straighten your arm completely behind you, squeezing the tricep hard at full extension. Hold for a beat. Lower with control. Use light weight — the effectiveness comes from the full lockout squeeze, not the load.",
       "substitutes": [
         "tricep_pushdown",
@@ -735,7 +735,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://exrx.net/WeightExercises/Triceps/CBTriExt",
+      "video_url": "https://www.muscleandstrength.com/exercises/overhead-tricep-extension.html",
       "beginner_tips": "Face away from a high cable with a rope attachment. Step forward into a split stance for balance. The rope starts behind your head with your elbows bent. Extend your arms overhead by straightening the elbows. The cable keeps constant tension through the entire stretch and contraction. Let the weight pull your hands back behind your head for the full stretch on each rep.",
       "substitutes": [
         "overhead_tricep_extension",
@@ -775,7 +775,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "to failure",
       "rep_range_strength": "to failure",
-      "video_url": "https://exrx.net/WeightExercises/Triceps/BWCloseGripPushup",
+      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-push-up.html",
       "beginner_tips": "Push-up position but hands close together, forming a diamond shape with thumbs and index fingers touching. Lower chest to hands, push back up. If too hard, do them on your knees first or use an incline (hands on a bench). Keep your elbows tucked close to your body — flaring them wide shifts work to the chest.",
       "substitutes": [
         "tricep_pushdown",
@@ -892,7 +892,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "30-60 seconds",
       "rep_range_strength": "20-30 seconds heavy",
-      "video_url": "https://exrx.net/WeightExercises/Other/SBFarmersWalk",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk",
       "beginner_tips": "Pick up heavy dumbbells or kettlebells and walk. Stand tall, shoulders back and down, core braced. Walk for distance or time with controlled, measured steps. Simple concept, brutally effective execution. The trap bar version allows the heaviest loads because the weight is centered around you.",
       "substitutes": [
         "dead_hang",

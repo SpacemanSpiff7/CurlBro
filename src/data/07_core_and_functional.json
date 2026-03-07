@@ -21,7 +21,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://exrx.net/WeightExercises/RectusAbdominis/CBKneelingCrunch",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-crunch.html",
       "beginner_tips": "Kneel in front of high cable with rope behind head. Crunch DOWN by rounding your spine and driving your elbows toward your knees. Curl your ribcage toward your pelvis — this is a SHORT movement, not a full sit-up. Your hips should barely move. If your hips are hinging, you're using hip flexors instead of abs.",
       "substitutes": [
         "crunch",
@@ -60,7 +60,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://exrx.net/WeightExercises/RectusAbdominis/LVSeatedCrunch",
+      "video_url": "https://weighttraining.guide/exercises/machine-seated-crunch/",
       "beginner_tips": "Adjust the seat so the pivot point aligns with your mid-torso. Select a light weight to start. Grab the handles and crunch forward by rounding your spine — drive your ribcage toward your pelvis. Control the return to the starting position. Don't use momentum or lean forward with your whole body — the movement should be a spinal curl, not a hip hinge.",
       "substitutes": [
         "cable_crunch",
@@ -100,7 +100,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "15-25",
       "rep_range_strength": "10-20",
-      "video_url": "https://exrx.net/WeightExercises/RectusAbdominis/BWCrunch",
+      "video_url": "https://www.muscleandstrength.com/exercises/ab-crunch",
       "beginner_tips": "Lie on back, knees bent, feet flat on the floor. Hands lightly behind head (don't pull your neck — your hands are just resting there). Curl your shoulders off the floor using your abs. This is a small movement — your lower back stays on the floor the entire time. Think about bringing your ribcage toward your pelvis, not sitting up.",
       "substitutes": [
         "cable_crunch",
@@ -259,7 +259,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "30-60 seconds",
       "rep_range_strength": "add weight for overload",
-      "video_url": "https://exrx.net/WeightExercises/RectusAbdominis/BWFrontPlank",
+      "video_url": "https://www.muscleandstrength.com/exercises/hover.html",
       "beginner_tips": "Forearm push-up position. Straight line from head to heels — check in a mirror if possible. Squeeze abs hard (imagine bracing for a punch), squeeze glutes, press forearms into the floor. Don't let your hips sag or pike up. Start with 20-30 seconds and build up. If your lower back hurts, you're sagging — shorten the hold or do it from your knees.",
       "substitutes": [
         "dead_bug",
@@ -302,7 +302,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "20-45 seconds per side",
       "rep_range_strength": "add weight or lift top leg",
-      "video_url": "https://exrx.net/WeightExercises/Obliques/BWSidePlank",
+      "video_url": "https://www.muscleandstrength.com/exercises/side-hover.html",
       "beginner_tips": "On your side, prop up on forearm with elbow directly under shoulder. Lift hips to make a straight line from head to feet. Hold. If too hard, bend your bottom knee for a wider base of support. Keep your hips stacked vertically — the most common mistake is rotating forward or backward.",
       "substitutes": [
         "pallof_press",
@@ -343,7 +343,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10",
-      "video_url": "https://exrx.net/WeightExercises/HipFlexors/BWKneelingWheelRollout",
+      "video_url": "https://www.muscleandstrength.com/exercises/abdominal-barbell-rollouts.html",
       "beginner_tips": "Kneel holding ab wheel on the floor. Slowly roll forward while keeping your abs tight and preventing your back from arching. Go ONLY as far as you can control without your lower back dipping — this is the critical safety point. Pull back using your abs, not your hip flexors. Start with a very small range of motion and increase it gradually over weeks.",
       "substitutes": [
         "plank",
@@ -421,7 +421,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15 per side",
       "rep_range_strength": "8-12 per side",
-      "video_url": "https://exrx.net/WeightExercises/Obliques/CBUpDownTwist",
+      "video_url": "https://www.muscleandstrength.com/exercises/wood-chop.html",
       "beginner_tips": "Cable set high. Stand sideways to the machine. Both hands on handle, pull diagonally across your body from high-to-low (like chopping wood). Rotate through your torso — your hips can rotate slightly but the movement should be driven by your core. Arms stay fairly straight throughout; they're just holding the handle, not pulling it.",
       "substitutes": [
         "russian_twist",
@@ -541,7 +541,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per side",
       "rep_range_strength": "6-10 per side",
-      "video_url": "https://exrx.net/WeightExercises/ErectorSpinae/BWBirdDog",
+      "video_url": "https://www.muscleandstrength.com/exercises/contralateral-bird-dog",
       "beginner_tips": "Start on hands and knees with a flat back. Simultaneously extend one arm forward and the opposite leg backward until both are parallel to the floor. Hold for 1-2 seconds. Your hips and shoulders should stay completely level — imagine balancing a glass of water on your lower back. Return to start and switch sides. Move slowly and with control.",
       "substitutes": [
         "dead_bug",
@@ -656,7 +656,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "20-40 seconds",
       "rep_range_strength": "n/a",
-      "video_url": "https://exrx.net/Aerobic/Exercises/MountainClimber",
+      "video_url": "https://www.strengthlog.com/mountain-climbers/",
       "beginner_tips": "Start in push-up position with arms straight. Alternate driving knees toward your chest as if running in place. Keep your hips level — don't bounce them up and down. Your hands stay planted and your arms stay straight. Go fast for cardio emphasis, slow and controlled for core emphasis.",
       "substitutes": [
         "plank",
@@ -698,7 +698,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "20-30 second intervals",
       "rep_range_strength": "n/a",
-      "video_url": "https://exrx.net/WeightExercises/Power/RopeWave",
+      "video_url": "https://www.muscleandstrength.com/exercises/double-waves-battle-ropes",
       "beginner_tips": "One rope end per hand. Quarter-squat position with feet wider than shoulders. Try alternating waves (arms alternate up and down), double waves (both arms together), or slams (lift high, slam down). Work 20-30 seconds hard, rest 30-60 seconds. This is conditioning, not strength work — go for sustained intensity.",
       "substitutes": [
         "kettlebell_swing",
@@ -740,7 +740,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "n/a",
       "rep_range_strength": "3-6",
-      "video_url": "https://exrx.net/Plyometrics/BoxJump",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump",
       "beginner_tips": "Face a sturdy box or platform. Swing arms back, then explosively jump up and forward, landing softly on both feet on top of the box. Stand fully on top. STEP back down — do NOT jump down, as the landing impact is very hard on your joints. Start with a low box (12-16 inches) and increase height gradually. Reset fully between each rep.",
       "substitutes": [
         "squat_jump",
