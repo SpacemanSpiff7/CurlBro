@@ -325,6 +325,8 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
             <BodyStateInput />
           </FilterSection>
 
+          <div className="mx-4 border-t border-border-subtle" />
+
           {/* Results */}
           <div className="space-y-0.5 px-2 pb-8">
             {results.length === 0 ? (
