@@ -9,7 +9,7 @@ describe('buildExerciseGraph', () => {
     const graph = buildExerciseGraph(testExercises);
 
     it('builds correct number of exercises', () => {
-      expect(graph.exercises.size).toBe(8);
+      expect(graph.exercises.size).toBe(10);
     });
 
     it('indexes exercises by ID', () => {
@@ -42,7 +42,7 @@ describe('buildExerciseGraph', () => {
     it('indexes by muscle group', () => {
       const chestExercises = graph.byMuscle.get('chest');
       expect(chestExercises).toBeDefined();
-      expect(chestExercises!.size).toBe(5); // bench, db bench, incline, cable flye, machine
+      expect(chestExercises!.size).toBe(6); // bench, db bench, incline, cable flye, machine, chest_stretch
     });
 
     it('indexes by equipment', () => {

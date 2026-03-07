@@ -33,6 +33,47 @@ export const EQUIPMENT_TYPES = [
 ] as const;
 export type Equipment = typeof EQUIPMENT_TYPES[number];
 
+export const EQUIPMENT_GROUP_NAMES = [
+  'barbell', 'bodyweight', 'cable', 'cardio', 'dumbbell', 'kettlebell', 'machine',
+] as const;
+export type EquipmentGroup = typeof EQUIPMENT_GROUP_NAMES[number];
+
+export const EQUIPMENT_GROUP_LABELS: Record<EquipmentGroup, string> = {
+  barbell: 'Barbell', bodyweight: 'Bodyweight', cable: 'Cable',
+  cardio: 'Cardio', dumbbell: 'Dumbbell', kettlebell: 'Kettlebell', machine: 'Machine',
+};
+
+export const EQUIPMENT_GROUP_MEMBERS: Record<EquipmentGroup, Equipment[]> = {
+  barbell: ['barbell', 'ez_bar', 'trap_bar'],
+  bodyweight: ['bodyweight', 'resistance_band', 'ab_wheel', 'medicine_ball', 'battle_ropes', 'foam_roller'],
+  cable: ['cable_machine'],
+  cardio: ['treadmill', 'elliptical', 'stationary_bike', 'rowing_machine', 'stair_climber', 'jump_rope'],
+  dumbbell: ['dumbbell'],
+  kettlebell: ['kettlebell'],
+  machine: [
+    'smith_machine', 'leg_press_machine', 'hack_squat_machine', 'pendulum_squat_machine',
+    'belt_squat_machine', 'leg_extension_machine', 'leg_curl_machine',
+    'chest_press_machine', 'shoulder_press_machine', 'lat_pulldown_machine',
+    'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
+    'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
+    'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
+    'flat_bench', 'adjustable_bench', 'preacher_curl_bench', 'roman_chair',
+    'pull_up_bar', 'dip_station',
+  ],
+};
+
+export type ExerciseTypeFilter = 'strength' | 'warmup' | 'cooldown';
+
+export const EXERCISE_TYPE_CATEGORIES: Record<ExerciseTypeFilter, Category[]> = {
+  strength: ['compound', 'isolation'],
+  warmup: ['stretch_dynamic', 'mobility', 'cardio'],
+  cooldown: ['stretch_static'],
+};
+
+export const EXERCISE_TYPE_LABELS: Record<ExerciseTypeFilter, string> = {
+  strength: 'Strength', warmup: 'Warm-up', cooldown: 'Cool-down',
+};
+
 export const WORKOUT_POSITIONS = ['early', 'early_mid', 'mid', 'mid_late', 'late'] as const;
 export type WorkoutPosition = typeof WORKOUT_POSITIONS[number];
 
@@ -133,15 +174,9 @@ export type SavedWorkout = z.infer<typeof SavedWorkoutSchema> & {
 };
 
 // ─── Suggestion Groups ───────────────────────────────────
-export interface SupersetSuggestion {
-  exerciseId: ExerciseId;
-  parentExerciseId: ExerciseId;
-}
-
 export interface SuggestionGroups {
   pairsWellWith: ExerciseId[];
   stillNeedToHit: ExerciseId[];
-  supersetWith: SupersetSuggestion[];
 }
 
 // ─── Workout Validation ──────────────────────────────────
@@ -375,7 +410,7 @@ export const WORKOUT_SPLIT_MUSCLES: Record<WorkoutSplit, {
 };
 
 // ─── Activity & Body State ──────────────────────────────
-export const ACTIVITY_TYPES = ['run', 'bike', 'swim', 'hike', 'sport', 'yoga', 'rest_day'] as const;
+export const ACTIVITY_TYPES = ['run', 'bike', 'swim', 'hike', 'sport', 'yoga', 'general', 'rest_day'] as const;
 export type ActivityType = typeof ACTIVITY_TYPES[number];
 
 export const ACTIVITY_LABELS: Record<ActivityType, string> = {
@@ -385,6 +420,7 @@ export const ACTIVITY_LABELS: Record<ActivityType, string> = {
   hike: 'Hike',
   sport: 'Sport',
   yoga: 'Yoga',
+  general: 'General',
   rest_day: 'Rest Day',
 };
 
@@ -395,6 +431,7 @@ export const ACTIVITY_MUSCLE_IMPACT: Record<ActivityType, MuscleGroup[]> = {
   hike: ['quadriceps', 'hamstrings', 'glutes', 'calves'],
   sport: ['quadriceps', 'hamstrings', 'glutes', 'core'],
   yoga: [],
+  general: [],
   rest_day: [],
 };
 
@@ -415,14 +452,6 @@ export interface ActivityEntry {
   timing: ActivityTiming;
   date: string;
 }
-
-// ─── Context Filters ────────────────────────────────────
-export type ContextFilter =
-  | { type: 'sore_muscle'; muscle: MuscleGroup; level: SorenessLevel }
-  | { type: 'post_activity'; activity: ActivityType }
-  | { type: 'pre_activity'; activity: ActivityType }
-  | { type: 'light_day' }
-  | { type: 'category'; categories: Category[] };
 
 // ─── Category Labels ────────────────────────────────────
 export const CATEGORY_LABELS: Record<Category, string> = {

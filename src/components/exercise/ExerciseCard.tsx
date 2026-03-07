@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MuscleTags } from './MuscleTags';
 import { SubstitutePanel } from './SubstitutePanel';
+import { SupersetPanel } from './SupersetPanel';
 import { VideoSheet } from './VideoSheet';
 import { ExercisePicker } from './ExercisePicker';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
@@ -36,9 +37,10 @@ export const ExerciseCard = memo(function ExerciseCard({
   sortableId,
 }: ExerciseCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const [showSubstitutes, setShowSubstitutes] = useState(false);
+  const [activePanel, setActivePanel] = useState<'none' | 'substitutes' | 'supersets'>('none');
   const [videoOpen, setVideoOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [swapPickerOpen, setSwapPickerOpen] = useState(false);
 
   const addExerciseToGroup = useStore((state) => state.builderActions.addExerciseToGroup);
   const ungroupExercise = useStore((state) => state.builderActions.ungroupExercise);
@@ -91,7 +93,16 @@ export const ExerciseCard = memo(function ExerciseCard({
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
       onSwap(index, newId);
-      setShowSubstitutes(false);
+      setActivePanel('none');
+    },
+    [index, onSwap]
+  );
+
+  const handleSwapFromPicker = useCallback(
+    (newId: ExerciseId) => {
+      onSwap(index, newId);
+      setSwapPickerOpen(false);
+      setActivePanel('none');
     },
     [index, onSwap]
   );
@@ -100,6 +111,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     (id: ExerciseId) => {
       addExerciseToGroup(id, index);
       setPickerOpen(false);
+      setActivePanel('none');
     },
     [index, addExerciseToGroup]
   );
@@ -119,7 +131,7 @@ export const ExerciseCard = memo(function ExerciseCard({
         color: 'bg-accent-primary',
         onAction: () => {
           setExpanded(true);
-          setShowSubstitutes(true);
+          setActivePanel('substitutes');
         },
       },
       {
@@ -127,7 +139,10 @@ export const ExerciseCard = memo(function ExerciseCard({
         label: 'Super',
         icon: <Link size={16} />,
         color: 'bg-warning',
-        onAction: () => setPickerOpen(true),
+        onAction: () => {
+          setExpanded(true);
+          setActivePanel('supersets');
+        },
       },
       {
         key: 'delete',
@@ -187,7 +202,11 @@ export const ExerciseCard = memo(function ExerciseCard({
         )}
 
         <button
-          onClick={() => setExpanded(!expanded)}
+          onClick={() => {
+            const next = !expanded;
+            setExpanded(next);
+            if (!next) setActivePanel('none');
+          }}
           className="text-text-tertiary hover:text-text-secondary p-1"
           aria-label={expanded ? 'Collapse' : 'Expand'}
           style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
@@ -249,9 +268,9 @@ export const ExerciseCard = memo(function ExerciseCard({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setShowSubstitutes(!showSubstitutes)}
+                onClick={() => setActivePanel(activePanel === 'substitutes' ? 'none' : 'substitutes')}
                 className={`text-text-secondary hover:text-accent-primary ${
-                  showSubstitutes ? 'text-accent-primary' : ''
+                  activePanel === 'substitutes' ? 'text-accent-primary' : ''
                 }`}
                 aria-label="Swap exercise"
               >
@@ -261,8 +280,10 @@ export const ExerciseCard = memo(function ExerciseCard({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setPickerOpen(true)}
-                className="text-text-secondary hover:text-accent-primary"
+                onClick={() => setActivePanel(activePanel === 'supersets' ? 'none' : 'supersets')}
+                className={`text-text-secondary hover:text-accent-primary ${
+                  activePanel === 'supersets' ? 'text-accent-primary' : ''
+                }`}
                 aria-label="Add superset partner"
               >
                 <Link size={14} className="mr-1" />
@@ -299,8 +320,16 @@ export const ExerciseCard = memo(function ExerciseCard({
       {/* Inline substitute panel */}
       <SubstitutePanel
         exerciseId={workoutExercise.exerciseId}
-        open={showSubstitutes}
+        open={activePanel === 'substitutes'}
         onSwap={handleSwap}
+        onSearchAll={() => setSwapPickerOpen(true)}
+      />
+      {/* Inline superset panel */}
+      <SupersetPanel
+        exerciseId={workoutExercise.exerciseId}
+        open={activePanel === 'supersets'}
+        onAdd={handleAddToGroup}
+        onSearchAll={() => setPickerOpen(true)}
       />
     </motion.div>
   );
@@ -325,6 +354,15 @@ export const ExerciseCard = memo(function ExerciseCard({
         open={pickerOpen}
         onOpenChange={setPickerOpen}
         onAdd={handleAddToGroup}
+        title="Add to Superset"
+      />
+
+      {/* Exercise picker for swap */}
+      <ExercisePicker
+        open={swapPickerOpen}
+        onOpenChange={setSwapPickerOpen}
+        onAdd={handleSwapFromPicker}
+        title="Swap Exercise"
       />
     </>
   );

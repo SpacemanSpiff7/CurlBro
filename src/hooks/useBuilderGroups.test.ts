@@ -21,7 +21,7 @@ describe('useBuilderGroups', () => {
           updatedAt: new Date().toISOString(),
         },
         workoutSplit: null,
-        suggestions: { pairsWellWith: [], stillNeedToHit: [], supersetWith: [] },
+        suggestions: { pairsWellWith: [], stillNeedToHit: [] },
         validation: {
           pushCount: 0,
           pullCount: 0,

@@ -41,8 +41,8 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
 - Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group
 - `addActivity(activity)` — adds an ActivityEntry to `library.activities` (type + timing)
-- `removeActivity(index)` — removes an activity entry by index
-- `setSoreness(muscle, level)` — sets soreness level for a muscle in `library.soreness` (none/mild/moderate/severe)
+- `removeActivity(id)` — removes an activity entry by id
+- `setSoreness(entries)` — replaces all soreness entries in `library.soreness` (none/mild/moderate/severe)
 - `clearSoreness()` — resets all soreness entries
 - `library.soreness: SorenessEntry[]` — persisted array of {muscle, level} pairs, Zod-validated on hydration
 - `library.activities: ActivityEntry[]` — persisted array of {type, timing} pairs (run/bike/swim/hike/sport/yoga + yesterday/today/tomorrow), Zod-validated on hydration

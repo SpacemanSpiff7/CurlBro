@@ -22,15 +22,17 @@
 - TemplateSelector — collapsible seeded workout categories
 - VideoSheet — YouTube embed with external link fallback
 - WorkoutStatusBar — push/pull ratio + missing muscle badges
-- SuggestionPanel — complement, gap, and superset suggestions. Superset suggestions include context labels showing which exercise they pair with. Uses `addExerciseToGroup` to create groups.
+- SuggestionPanel — complement and gap suggestions ("Pairs well with", "Still need to hit"). Superset suggestions moved to per-exercise inline `SupersetPanel`.
 - MarqueeText — auto-scrolling text when content overflows its container (uses ResizeObserver + framer-motion)
 - ExercisePicker — exercise search/filter sheet with optional `onAdd` callback prop and
   optional `title` prop (defaults to "Add Exercise"). When `onAdd` is provided, calls it
   instead of `builderActions.addExercise` (used in Build tab, ActiveWorkout mid-session add,
   and ActiveWorkout swap-via-search). Auto-closes on exercise selection. Prevents mobile
-  keyboard auto-focus and Chrome autocomplete. Includes flex-wrap muscle group filters
-  (all 14 visible without scrolling), collapsible BodyStateInput, ContextFilters chips,
-  and recovery badges on exercise rows ("Sore area" amber, "Good pick" green, "Recovery" blue).
+  keyboard auto-focus and Chrome autocomplete. Organized into 4 collapsible FilterSections
+  with colored headers: Exercise Type (green, single-select strength/warmup/cooldown),
+  Muscles (blue, multi-select 14 alphabetized), Equipment (violet, multi-select 7 groups),
+  Body State (amber, contains BodyStateInput). Each section shows badge count when collapsed.
+  "Recovery" badge (blue) shown on recovery-category exercises targeting sore/fatigued muscles.
 - SubstitutePanel (`exercise/`) — graph-based substitute list for the current exercise.
   Optional `onSearchAll` callback renders a "Search all exercises" button at the bottom,
   allowing users to open ExercisePicker for swap. Panel shows when `open && (substitutes.length > 0 || onSearchAll)`.
@@ -47,18 +49,27 @@
 - WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder. Standalone exercises
   get SwipeToReveal from ExerciseCard internally (Swap/Super/Delete). Grouped exercises
   (SupersetContainer) are wrapped in SwipeToReveal with Ungroup/Delete actions.
-- BodyStateInput (`exercise/`) — Collapsible soreness grid (14 muscles x 4 severity levels:
-  none/mild/moderate/severe) + activity chips (run/bike/swim/hike/sport/yoga with
-  yesterday/today/tomorrow timing). Persisted to library.soreness and library.activities.
-- ContextFilters (`exercise/`) — Smart filter chips derived from body state: Strength,
-  Warm-up, Cool-down category filters; "Avoid sore [Muscle]" filters; Post-activity
-  recovery; Pre-activity warm-up; Light day mode.
+- FilterSection (`exercise/`) — Reusable collapsible section with colored header text,
+  optional active-filter count badge, AnimatePresence height animation. Used by ExercisePicker
+  for Exercise Type, Muscles, Equipment, and Body State sections.
+- BodyStateInput (`exercise/`) — Binary soreness (14 muscles, alphabetized, sore/not-sore
+  toggle with orange styling) + activity timing chips (Yesterday/Today/Tomorrow) with
+  expandable sub-row for activity types (Run/Bike/Swim/Hike/Sport/Yoga). Timing without
+  specific activity creates 'general' entry. Persisted to library.soreness and library.activities.
+  Soreness and activity effects are auto-applied by useExerciseSearch (no manual filter needed).
 - SupersetContainer (`workout/`) — visual wrapper for grouped exercises with accent border, group label (Superset/Tri-set/Circuit), ungroup button, and sortable drag handle for the whole group
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
-- ExerciseCard — includes superset/ungroup actions in its expand menu AND swipe-to-reveal
-  actions (Swap/Super/Delete). Wraps itself in SwipeToReveal internally. The expand menu
-  stays for discoverability; swipe-to-reveal is a power-user shortcut. Drag handle has
-  `data-dnd-handle` attribute to prevent swipe gesture conflicts.
+- SupersetPanel (`exercise/`) — graph-based superset suggestion list for the current exercise.
+  Uses `useSupersetSuggestions` hook. Optional `onSearchAll` callback renders a "Search all
+  exercises" button. Mirrors SubstitutePanel structure. Panel shows when
+  `open && (suggestions.length > 0 || onSearchAll)`.
+- ExerciseCard — uses `activePanel` enum state (`'none' | 'substitutes' | 'supersets'`) for
+  mutually exclusive inline panels. Collapsing the card resets `activePanel` to `'none'`.
+  Includes superset/ungroup actions in its expand menu AND swipe-to-reveal actions
+  (Swap/Super/Delete). Swipe "Super" opens inline SupersetPanel (not ExercisePicker sheet).
+  Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap
+  Exercise" (from substitute "Search all"). Drag handle has `data-dnd-handle` attribute
+  to prevent swipe gesture conflicts.
 - AdSlot (`ads/`) — Reusable ad component accepting `slotKey: AdSlotKey`. Renders AdSense
   `<ins>` when enabled or HouseAdComponent fallback. 6 placements across all pages.
   See `ads/CLAUDE.md` for full details.

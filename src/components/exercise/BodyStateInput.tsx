@@ -1,12 +1,11 @@
-import { memo, useCallback } from 'react';
-import { ChevronDown, X } from 'lucide-react';
+import { memo, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { useStore } from '@/store';
 import {
   MUSCLE_GROUPS,
   MUSCLE_LABELS,
-  SORENESS_LEVELS,
   ACTIVITY_TYPES,
   ACTIVITY_LABELS,
   TIMING_OPTIONS,
@@ -18,59 +17,65 @@ import type {
   ActivityTiming,
 } from '@/types';
 
-const SORENESS_COLORS: Record<SorenessLevel, string> = {
-  none: 'bg-bg-elevated text-text-tertiary border-border-subtle',
-  mild: 'bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-700',
-  moderate: 'bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700',
-  severe: 'bg-red-100 text-red-700 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700',
-};
-
 const TIMING_LABELS: Record<ActivityTiming, string> = {
   yesterday: 'Yesterday',
   today: 'Today',
   tomorrow: 'Tomorrow',
 };
 
-interface BodyStateInputProps {
-  expanded: boolean;
-  onToggle: () => void;
-}
+const MUSCLES_SORTED = [...MUSCLE_GROUPS].sort((a, b) =>
+  (MUSCLE_LABELS[a] ?? a).localeCompare(MUSCLE_LABELS[b] ?? b)
+);
 
-export const BodyStateInput = memo(function BodyStateInput({
-  expanded,
-  onToggle,
-}: BodyStateInputProps) {
+const SELECTABLE_ACTIVITY_TYPES = ACTIVITY_TYPES.filter(
+  (t) => t !== 'rest_day' && t !== 'general'
+) as Exclude<ActivityType, 'rest_day' | 'general'>[];
+
+export const BodyStateInput = memo(function BodyStateInput() {
   const soreness = useStore((state) => state.library.soreness);
   const activities = useStore((state) => state.library.activities);
   const setSoreness = useStore((state) => state.libraryActions.setSoreness);
   const addActivity = useStore((state) => state.libraryActions.addActivity);
   const removeActivity = useStore((state) => state.libraryActions.removeActivity);
 
-  const hasSoreness = soreness.some((s) => s.level !== 'none');
-  const hasActivities = activities.length > 0;
-  const hasAnyState = hasSoreness || hasActivities;
+  const [expandedTiming, setExpandedTiming] = useState<ActivityTiming | null>(null);
 
-  const getSorenessLevel = useCallback(
-    (muscle: MuscleGroup): SorenessLevel => {
+  const isSore = useCallback(
+    (muscle: MuscleGroup): boolean => {
       const entry = soreness.find((s) => s.muscle === muscle);
-      return entry?.level ?? 'none';
+      return entry != null && entry.level !== 'none';
     },
     [soreness]
   );
 
-  const cycleSoreness = useCallback(
+  const toggleSoreness = useCallback(
     (muscle: MuscleGroup) => {
-      const currentLevel = getSorenessLevel(muscle);
-      const currentIndex = SORENESS_LEVELS.indexOf(currentLevel);
-      const nextLevel = SORENESS_LEVELS[(currentIndex + 1) % SORENESS_LEVELS.length];
-
+      const currentlySore = soreness.find((s) => s.muscle === muscle);
       const filtered = soreness.filter((s) => s.muscle !== muscle);
-      if (nextLevel !== 'none') {
-        filtered.push({ muscle, level: nextLevel });
+      if (currentlySore && currentlySore.level !== 'none') {
+        // Un-sore
+        setSoreness(filtered);
+      } else {
+        // Set as sore (moderate internally)
+        filtered.push({ muscle, level: 'moderate' as SorenessLevel });
+        setSoreness(filtered);
       }
-      setSoreness(filtered);
     },
-    [soreness, getSorenessLevel, setSoreness]
+    [soreness, setSoreness]
+  );
+
+  const isTimingActive = useCallback(
+    (timing: ActivityTiming): boolean => {
+      return activities.some((a) => a.timing === timing);
+    },
+    [activities]
+  );
+
+  const isActivityActive = useCallback(
+    (type: ActivityType, timing: ActivityTiming): boolean => {
+      return activities.some((a) => a.type === type && a.timing === timing);
+    },
+    [activities]
   );
 
   const toggleActivity = useCallback(
@@ -80,7 +85,26 @@ export const BodyStateInput = memo(function BodyStateInput({
       );
       if (existing) {
         removeActivity(existing.id);
+        // If no specific activities left, ensure general entry exists
+        const remainingForTiming = activities.filter(
+          (a) => a.timing === timing && a.id !== existing.id
+        );
+        if (remainingForTiming.length === 0) {
+          addActivity({
+            id: uuidv4(),
+            type: 'general',
+            timing,
+            date: new Date().toISOString(),
+          });
+        }
       } else {
+        // Remove general entry if it exists, add specific
+        const generalEntry = activities.find(
+          (a) => a.type === 'general' && a.timing === timing
+        );
+        if (generalEntry) {
+          removeActivity(generalEntry.id);
+        }
         addActivity({
           id: uuidv4(),
           type,
@@ -92,85 +116,115 @@ export const BodyStateInput = memo(function BodyStateInput({
     [activities, addActivity, removeActivity]
   );
 
-  const isActivityActive = useCallback(
-    (type: ActivityType, timing: ActivityTiming): boolean => {
-      return activities.some((a) => a.type === type && a.timing === timing);
+  const handleTimingTap = useCallback(
+    (timing: ActivityTiming) => {
+      if (isTimingActive(timing)) {
+        if (expandedTiming === timing) {
+          // Tapping active + expanded timing → clear all and collapse
+          const toRemove = activities.filter((a) => a.timing === timing);
+          for (const a of toRemove) {
+            removeActivity(a.id);
+          }
+          setExpandedTiming(null);
+        } else {
+          // Tapping active but collapsed → just expand
+          setExpandedTiming(timing);
+        }
+      } else {
+        // Activate timing with general entry and expand sub-row
+        addActivity({
+          id: uuidv4(),
+          type: 'general',
+          timing,
+          date: new Date().toISOString(),
+        });
+        setExpandedTiming(timing);
+      }
     },
-    [activities]
+    [isTimingActive, expandedTiming, activities, removeActivity, addActivity]
   );
 
   return (
-    <div className="px-4 pb-2">
-      <button
-        onClick={onToggle}
-        className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
-        aria-expanded={expanded}
-        aria-label="Toggle body state input"
-      >
-        <span className="flex items-center gap-2">
-          Body State
-          {hasAnyState && (
-            <span className="h-2 w-2 rounded-full bg-brand-primary" />
-          )}
-        </span>
-        <ChevronDown
-          size={14}
-          className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
-        />
-      </button>
+    <div className="space-y-3">
+      {/* Soreness section */}
+      <div>
+        <div className="text-[10px] uppercase tracking-wider text-text-tertiary mb-1.5 px-1">
+          Soreness
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {MUSCLES_SORTED.map((muscle) => {
+            const sore = isSore(muscle);
+            return (
+              <button
+                key={muscle}
+                onClick={() => toggleSoreness(muscle)}
+                className={`rounded-md border px-2 py-1 text-xs font-medium transition-colors select-none ${
+                  sore
+                    ? 'bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-700'
+                    : 'bg-bg-elevated text-text-tertiary border-border-subtle'
+                }`}
+                aria-label={`${MUSCLE_LABELS[muscle]} soreness: ${sore ? 'sore' : 'not sore'}`}
+              >
+                {MUSCLE_LABELS[muscle]}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
-      {expanded && (
-        <div className="mt-2 space-y-3">
-          {/* Soreness Grid */}
-          <div>
-            <div className="text-xs text-text-tertiary mb-1.5 px-1">
-              Soreness — tap to cycle
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {MUSCLE_GROUPS.map((muscle) => {
-                const level = getSorenessLevel(muscle);
-                return (
-                  <button
-                    key={muscle}
-                    onClick={() => cycleSoreness(muscle)}
-                    className={`rounded-md border px-2 py-1 text-xs font-medium transition-colors select-none ${SORENESS_COLORS[level]}`}
-                    aria-label={`${MUSCLE_LABELS[muscle]} soreness: ${level}`}
-                  >
-                    {MUSCLE_LABELS[muscle]}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+      {/* Activity section */}
+      <div>
+        <div className="text-[10px] uppercase tracking-wider text-text-tertiary mb-1.5 px-1">
+          Recent Activity
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {TIMING_OPTIONS.map((timing) => {
+            const active = isTimingActive(timing);
+            return (
+              <Badge
+                key={timing}
+                variant={active ? 'default' : 'outline'}
+                className={`cursor-pointer text-xs select-none ${
+                  active
+                    ? 'bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700'
+                    : ''
+                }`}
+                onClick={() => handleTimingTap(timing)}
+              >
+                {TIMING_LABELS[timing]}
+              </Badge>
+            );
+          })}
+        </div>
 
-          {/* Activity Chips */}
-          <div>
-            <div className="text-xs text-text-tertiary mb-1.5 px-1">
-              Recent / planned activity
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {ACTIVITY_TYPES.filter((t) => t !== 'rest_day').map((type) =>
-                TIMING_OPTIONS.map((timing) => {
-                  const active = isActivityActive(type, timing);
+        <AnimatePresence initial={false}>
+          {expandedTiming && isTimingActive(expandedTiming) && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-wrap gap-1.5 mt-2 pl-2">
+                {SELECTABLE_ACTIVITY_TYPES.map((type) => {
+                  const active = isActivityActive(type, expandedTiming);
                   return (
                     <Badge
-                      key={`${type}-${timing}`}
+                      key={type}
                       variant={active ? 'default' : 'outline'}
                       className="cursor-pointer text-xs select-none"
-                      onClick={() => toggleActivity(type, timing)}
+                      onClick={() => toggleActivity(type, expandedTiming)}
                     >
-                      {ACTIVITY_LABELS[type]} {TIMING_LABELS[timing].toLowerCase()}
-                      {active && (
-                        <X size={10} className="ml-1" />
-                      )}
+                      {ACTIVITY_LABELS[type]}
                     </Badge>
                   );
-                })
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 });

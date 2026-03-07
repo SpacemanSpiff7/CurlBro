@@ -8,10 +8,12 @@ Components never access store.graph directly — always through a hook.
 - useMemo for all graph traversals (substitutes, suggestions, validation, conflicts)
 - Memoization deps should be the minimal set that actually changes
 - useExerciseSearch returns results from Fuse.js — index is built once in a useMemo (stable dep).
-  Accepts an optional `contextFilter` parameter (ContextFilter type) for body-state-aware
-  filtering and sorting. Filters by category (strength/warm-up/cool-down), avoids sore
-  muscles, and applies recovery/warm-up/light-day logic. Results are annotated with
-  recovery badges for the UI layer.
+  Accepts optional `exerciseType` (ExerciseTypeFilter), `equipmentGroups` (EquipmentGroup[]),
+  and `muscleFilter` (MuscleGroup[]) for explicit filtering. Auto-applies soreness and
+  activity-based filtering by reading store.library.soreness and store.library.activities:
+  excludes exercises targeting sore/fatigued muscles (except recovery categories), boosts
+  recovery exercises for affected muscles to the top of results. No manual contextFilter
+  parameter needed — body state is applied automatically.
 - useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount).
   Exposes `restSeconds` and `adjustRestDuration(delta)` for idle-state rest duration adjustment.
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts
@@ -28,7 +30,8 @@ Components never access store.graph directly — always through a hook.
 - useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore
 - useBuilderGroups — wraps `deriveGroups()` for the builder tab, returns `ExerciseGroup<WorkoutExercise>[]` from the current workout draft
 - useSessionGroups — wraps `deriveGroups()` for the active session, returns `ExerciseGroup<ExerciseLog>[]` from the current session
-- useSuggestions — superset suggestions now return `SupersetSuggestion[]` (with `exerciseId` and `parentExerciseId`) instead of plain `ExerciseId[]`
+- useSuggestions — returns complement and gap suggestions (`pairsWellWith`, `stillNeedToHit`). Superset suggestions moved to per-exercise `useSupersetSuggestions` hook.
+- useSupersetSuggestions — per-exercise superset graph query. Queries `graph.supersets.get(exerciseId)`, filters out exercises already in workout, sorts by primary muscle match then difficulty proximity. Used by `SupersetPanel`.
 - useHouseAd — selects random house ad from filtered category pool. Module-level `Set<string>`
   prevents repeats within a session (resets on reload). Supports optional rotation via
   `setInterval` for long-visible slots. Auto-resets pool when category exhausted. Per-slot

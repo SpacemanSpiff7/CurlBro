@@ -5,8 +5,8 @@ Client-side React workout builder using an exercise graph (~1500 edges).
 Mobile-first, light/dark theme support (next-themes), static deployment. Zero server-side processing.
 Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
 grouped visually and navigated as a unit during active sessions.
-Includes a body state system (soreness tracking + recent activities) with context-aware
-exercise filtering (warm-up, cool-down, recovery, light day).
+Includes a body state system (soreness tracking + recent activities) with auto-applied
+exercise filtering (excludes sore/fatigued muscles, boosts recovery exercises).
 
 ## Tech Stack
 - React 19 / TypeScript (strict) / Vite 7

@@ -1,6 +1,6 @@
 /**
  * Small representative exercise graph for testing.
- * 8 exercises spanning 3 muscle groups with known edges.
+ * 10 exercises spanning 3 muscle groups with known edges.
  */
 export const testExercises = [
   {
@@ -170,5 +170,47 @@ export const testExercises = [
     complements: ['barbell_bench_press', 'machine_chest_press'],
     superset_candidates: [],
     notes: 'Bread and butter tricep exercise.',
+  },
+  {
+    id: 'chest_stretch',
+    name: 'Doorway Chest Stretch',
+    category: 'stretch_static' as const,
+    movement_pattern: 'chest_stretch',
+    force_type: 'isometric' as const,
+    equipment: ['bodyweight'],
+    primary_muscles: ['chest'],
+    secondary_muscles: ['shoulders'],
+    workout_position: 'late' as const,
+    difficulty: 'beginner' as const,
+    bilateral: true,
+    rep_range_hypertrophy: '30s hold',
+    rep_range_strength: '30s hold',
+    video_url: '',
+    beginner_tips: '',
+    substitutes: [],
+    complements: [],
+    superset_candidates: [],
+    notes: '',
+  },
+  {
+    id: 'quad_mobility',
+    name: 'Quad Mobilization',
+    category: 'mobility' as const,
+    movement_pattern: 'knee_flexion',
+    force_type: 'isometric' as const,
+    equipment: ['foam_roller'],
+    primary_muscles: ['quadriceps'],
+    secondary_muscles: [],
+    workout_position: 'early' as const,
+    difficulty: 'beginner' as const,
+    bilateral: false,
+    rep_range_hypertrophy: '10-15',
+    rep_range_strength: '10-15',
+    video_url: '',
+    beginner_tips: '',
+    substitutes: [],
+    complements: [],
+    superset_candidates: [],
+    notes: '',
   },
 ];

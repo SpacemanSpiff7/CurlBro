@@ -11,11 +11,25 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { MuscleTags } from './MuscleTags';
 import { BodyStateInput } from './BodyStateInput';
-import { ContextFilters } from './ContextFilters';
-import { useExerciseSearch } from '@/hooks/useExerciseSearch';
+import { FilterSection } from './FilterSection';
+import { useExerciseSearch, isRecoveryCategory } from '@/hooks/useExerciseSearch';
 import { useStore } from '@/store';
-import { MUSCLE_GROUPS, MUSCLE_LABELS } from '@/types';
-import type { Exercise, ExerciseId, MuscleGroup, ContextFilter, SorenessLevel } from '@/types';
+import {
+  MUSCLE_GROUPS,
+  MUSCLE_LABELS,
+  EQUIPMENT_GROUP_NAMES,
+  EQUIPMENT_GROUP_LABELS,
+  EXERCISE_TYPE_LABELS,
+  ACTIVITY_MUSCLE_IMPACT,
+} from '@/types';
+import type {
+  Exercise,
+  ExerciseId,
+  MuscleGroup,
+  ExerciseTypeFilter,
+  EquipmentGroup,
+  SorenessLevel,
+} from '@/types';
 
 interface ExercisePickerProps {
   open: boolean;
@@ -25,10 +39,21 @@ interface ExercisePickerProps {
 }
 
 const BADGE_STYLES: Record<string, string> = {
-  sore: 'bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700',
-  good: 'bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-700',
   recovery: 'bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-700',
 };
+
+const SECTION_COLORS = {
+  exerciseType: 'text-emerald-600 dark:text-emerald-400',
+  muscles: 'text-blue-600 dark:text-blue-400',
+  equipment: 'text-violet-600 dark:text-violet-400',
+  bodyState: 'text-amber-600 dark:text-amber-400',
+};
+
+const EXERCISE_TYPE_KEYS: ExerciseTypeFilter[] = ['strength', 'warmup', 'cooldown'];
+
+const MUSCLES_SORTED = [...MUSCLE_GROUPS].sort((a, b) =>
+  (MUSCLE_LABELS[a] ?? a).localeCompare(MUSCLE_LABELS[b] ?? b)
+);
 
 const ExerciseRow = memo(function ExerciseRow({
   exercise,
@@ -37,7 +62,7 @@ const ExerciseRow = memo(function ExerciseRow({
 }: {
   exercise: Exercise;
   onAdd: (id: ExerciseId) => void;
-  badge?: { type: 'sore' | 'good' | 'recovery'; label: string } | null;
+  badge?: { type: 'recovery'; label: string } | null;
 }) {
   return (
     <button
@@ -68,19 +93,17 @@ const ExerciseRow = memo(function ExerciseRow({
   );
 });
 
-function isRecoveryCategory(category: string): boolean {
-  return category === 'stretch_dynamic' || category === 'stretch_static' || category === 'mobility' || category === 'cardio';
-}
-
 export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = 'Add Exercise' }: ExercisePickerProps) {
   const [query, setQuery] = useState('');
   const [muscleFilter, setMuscleFilter] = useState<MuscleGroup[]>([]);
-  const [contextFilter, setContextFilter] = useState<ContextFilter | null>(null);
-  const [bodyStateExpanded, setBodyStateExpanded] = useState(false);
+  const [exerciseType, setExerciseType] = useState<ExerciseTypeFilter | null>(null);
+  const [equipmentGroups, setEquipmentGroups] = useState<EquipmentGroup[]>([]);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const addExercise = useStore((state) => state.builderActions.addExercise);
   const soreness = useStore((state) => state.library.soreness);
+  const activities = useStore((state) => state.library.activities);
 
-  const results = useExerciseSearch(query, { muscleFilter, contextFilter });
+  const results = useExerciseSearch(query, { muscleFilter, exerciseType, equipmentGroups });
 
   const handleAdd = useCallback(
     (id: ExerciseId) => {
@@ -102,11 +125,31 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
     );
   }, []);
 
-  const toggleBodyState = useCallback(() => {
-    setBodyStateExpanded((prev) => !prev);
+  const toggleExerciseType = useCallback((type: ExerciseTypeFilter) => {
+    setExerciseType((prev) => (prev === type ? null : type));
   }, []);
 
-  // Build a map of sore muscles for badge computation
+  const toggleEquipmentGroup = useCallback((group: EquipmentGroup) => {
+    setEquipmentGroups((prev) =>
+      prev.includes(group)
+        ? prev.filter((g) => g !== group)
+        : [...prev, group]
+    );
+  }, []);
+
+  const toggleSection = useCallback((section: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) {
+        next.delete(section);
+      } else {
+        next.add(section);
+      }
+      return next;
+    });
+  }, []);
+
+  // Compute sore muscle map for badge display
   const soreMap = useMemo(() => {
     const map = new Map<MuscleGroup, SorenessLevel>();
     for (const entry of soreness) {
@@ -117,29 +160,50 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
     return map;
   }, [soreness]);
 
-  const getBadge = useCallback(
-    (exercise: Exercise): { type: 'sore' | 'good' | 'recovery'; label: string } | null => {
-      if (soreMap.size === 0) return null;
+  // Compute fatigued muscles from activities
+  const fatiguedMuscles = useMemo(() => {
+    const muscles = new Set<MuscleGroup>();
+    for (const activity of activities) {
+      if (activity.timing === 'yesterday' || activity.timing === 'today') {
+        for (const m of ACTIVITY_MUSCLE_IMPACT[activity.type]) {
+          muscles.add(m as MuscleGroup);
+        }
+      }
+    }
+    return muscles;
+  }, [activities]);
 
-      // Recovery exercises targeting sore muscles
+  const getBadge = useCallback(
+    (exercise: Exercise): { type: 'recovery'; label: string } | null => {
+      if (soreMap.size === 0 && fatiguedMuscles.size === 0) return null;
+
+      // Recovery exercises targeting sore/fatigued muscles
       if (isRecoveryCategory(exercise.category)) {
         const targetsAnySore = exercise.primary_muscles.some((m) =>
           soreMap.has(m as MuscleGroup)
         );
-        if (targetsAnySore) return { type: 'recovery', label: 'Recovery' };
+        const targetsFatigued = exercise.primary_muscles.some((m) =>
+          fatiguedMuscles.has(m as MuscleGroup)
+        );
+        if (targetsAnySore || targetsFatigued) {
+          return { type: 'recovery', label: 'Recovery' };
+        }
       }
 
-      // Check if exercise targets sore muscles
-      const hitsSore = exercise.primary_muscles.some((m) =>
-        soreMap.has(m as MuscleGroup)
-      );
-      if (hitsSore) return { type: 'sore', label: 'Sore area' };
-
-      // If there's any soreness and exercise avoids all sore muscles
-      return { type: 'good', label: 'Good pick' };
+      return null;
     },
-    [soreMap]
+    [soreMap, fatiguedMuscles]
   );
+
+  // Section badge counts
+  const exerciseTypeBadge = exerciseType ? 1 : 0;
+  const muscleBadge = muscleFilter.length;
+  const equipmentBadge = equipmentGroups.length;
+  const bodyStateBadge = useMemo(() => {
+    const soreCount = soreness.filter((s) => s.level !== 'none').length;
+    const activeTimings = new Set(activities.map((a) => a.timing)).size;
+    return soreCount + activeTimings;
+  }, [soreness, activities]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -153,6 +217,7 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
         </SheetHeader>
 
         <ScrollArea className="min-h-0 flex-1">
+          {/* Search bar */}
           <div className="px-4 pb-2">
             <div className="relative">
               <Search
@@ -183,9 +248,38 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
             </div>
           </div>
 
-          <div className="px-4 pb-2">
+          {/* Exercise Type section */}
+          <FilterSection
+            title="Exercise Type"
+            colorClass={SECTION_COLORS.exerciseType}
+            expanded={expandedSections.has('exerciseType')}
+            onToggle={() => toggleSection('exerciseType')}
+            badge={exerciseTypeBadge}
+          >
             <div className="flex flex-wrap gap-1.5">
-              {MUSCLE_GROUPS.map((muscle) => (
+              {EXERCISE_TYPE_KEYS.map((type) => (
+                <Badge
+                  key={type}
+                  variant={exerciseType === type ? 'default' : 'outline'}
+                  className="cursor-pointer whitespace-nowrap text-xs select-none"
+                  onClick={() => toggleExerciseType(type)}
+                >
+                  {EXERCISE_TYPE_LABELS[type]}
+                </Badge>
+              ))}
+            </div>
+          </FilterSection>
+
+          {/* Muscles section */}
+          <FilterSection
+            title="Muscles"
+            colorClass={SECTION_COLORS.muscles}
+            expanded={expandedSections.has('muscles')}
+            onToggle={() => toggleSection('muscles')}
+            badge={muscleBadge}
+          >
+            <div className="flex flex-wrap gap-1.5">
+              {MUSCLES_SORTED.map((muscle) => (
                 <Badge
                   key={muscle}
                   variant={muscleFilter.includes(muscle) ? 'default' : 'outline'}
@@ -196,12 +290,42 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
                 </Badge>
               ))}
             </div>
-          </div>
+          </FilterSection>
 
-          <BodyStateInput expanded={bodyStateExpanded} onToggle={toggleBodyState} />
+          {/* Equipment section */}
+          <FilterSection
+            title="Equipment"
+            colorClass={SECTION_COLORS.equipment}
+            expanded={expandedSections.has('equipment')}
+            onToggle={() => toggleSection('equipment')}
+            badge={equipmentBadge}
+          >
+            <div className="flex flex-wrap gap-1.5">
+              {EQUIPMENT_GROUP_NAMES.map((group) => (
+                <Badge
+                  key={group}
+                  variant={equipmentGroups.includes(group) ? 'default' : 'outline'}
+                  className="cursor-pointer whitespace-nowrap text-xs select-none"
+                  onClick={() => toggleEquipmentGroup(group)}
+                >
+                  {EQUIPMENT_GROUP_LABELS[group]}
+                </Badge>
+              ))}
+            </div>
+          </FilterSection>
 
-          <ContextFilters activeFilter={contextFilter} onFilterChange={setContextFilter} />
+          {/* Body State section */}
+          <FilterSection
+            title="Body State"
+            colorClass={SECTION_COLORS.bodyState}
+            expanded={expandedSections.has('bodyState')}
+            onToggle={() => toggleSection('bodyState')}
+            badge={bodyStateBadge}
+          >
+            <BodyStateInput />
+          </FilterSection>
 
+          {/* Results */}
           <div className="space-y-0.5 px-2 pb-8">
             {results.length === 0 ? (
               <div className="py-12 text-center text-text-tertiary text-sm">

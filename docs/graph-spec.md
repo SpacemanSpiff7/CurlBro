@@ -42,8 +42,13 @@ substitutes, complements, superset_candidates, notes.
 ### suggestNext(workout)
 1. Get complements of exercises already in workout
 2. Exclude exercises already in workout
-3. Group by: "Pairs well with" (complements), "Still need to hit" (uncovered muscles), "Superset with" (superset candidates)
-4. Superset suggestions return `SupersetSuggestion` objects with `exerciseId` and `parentExerciseId` (the exercise they pair with)
+3. Group by: "Pairs well with" (complements), "Still need to hit" (uncovered muscles)
+
+### getSupersetSuggestions(exerciseId)
+1. Get superset candidates set for the exercise from `graph.supersets`
+2. Exclude exercises already in workout
+3. Sort by: same primary muscle first, then by difficulty match
+4. Used by `useSupersetSuggestions` hook for per-exercise inline superset panel
 
 ### getSubstitutes(exerciseId)
 1. Get substitutes set for the exercise

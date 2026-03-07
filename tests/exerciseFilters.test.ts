@@ -3,12 +3,11 @@ import { renderHook } from '@testing-library/react';
 import { useExerciseSearch } from '@/hooks/useExerciseSearch';
 import { useStore } from '@/store';
 import { buildExerciseGraph } from '@/data/graphBuilder';
-import type { ContextFilter, Category, MuscleGroup } from '@/types';
+import type { MuscleGroup, ExerciseTypeFilter, EquipmentGroup } from '@/types';
 
 /**
- * Extended exercise fixtures for context-filter testing.
- * Adds stretch_dynamic, stretch_static, and mobility exercises
- * on top of the standard 8-exercise test graph.
+ * Extended exercise fixtures for filter testing.
+ * 15 exercises spanning all categories with known equipment and muscles.
  */
 const contextTestExercises = [
   // ── Compound (strength) ──────────────────────────────────
@@ -234,7 +233,7 @@ const contextTestExercises = [
     category: 'mobility' as const,
     movement_pattern: 'knee_flexion',
     force_type: 'isometric' as const,
-    equipment: ['bodyweight'],
+    equipment: ['foam_roller'],
     primary_muscles: ['quadriceps'],
     secondary_muscles: [],
     workout_position: 'early' as const,
@@ -326,31 +325,26 @@ const STRETCH_STATIC_IDS = ['chest_stretch', 'hamstring_stretch', 'quad_stretch'
 const STRENGTH_IDS = [...COMPOUND_IDS, ...ISOLATION_IDS];
 const WARMUP_IDS = [...STRETCH_DYNAMIC_IDS, ...MOBILITY_IDS];
 const COOLDOWN_IDS = [...STRETCH_STATIC_IDS];
-const RECOVERY_IDS = [...STRETCH_DYNAMIC_IDS, ...STRETCH_STATIC_IDS, ...MOBILITY_IDS];
 
-describe('Context-aware exercise filters', () => {
+describe('Exercise filters', () => {
   beforeAll(() => {
     const graph = buildExerciseGraph(contextTestExercises);
     useStore.setState({ graph, graphReady: true });
   });
 
   beforeEach(() => {
-    // Reset soreness between tests so light_day doesn't pick up stale state
+    // Reset body state between tests
     useStore.setState((state) => ({
-      library: { ...state.library, soreness: [] },
+      library: { ...state.library, soreness: [], activities: [] },
     }));
   });
 
-  // ─── Category Filters ──────────────────────────────────────
+  // ─── Exercise Type Filter ────────────────────────────────
 
-  describe('category filter', () => {
-    it('compound + isolation shows only strength exercises', () => {
-      const filter: ContextFilter = {
-        type: 'category',
-        categories: ['compound', 'isolation'],
-      };
+  describe('Exercise type filter', () => {
+    it("'strength' shows only compound + isolation", () => {
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { exerciseType: 'strength' as ExerciseTypeFilter, limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
@@ -358,19 +352,14 @@ describe('Context-aware exercise filters', () => {
       for (const id of STRENGTH_IDS) {
         expect(ids).toContain(id);
       }
-      // No warm-up or cool-down exercises
       for (const id of [...WARMUP_IDS, ...COOLDOWN_IDS]) {
         expect(ids).not.toContain(id);
       }
     });
 
-    it('stretch_dynamic + mobility shows only warm-up exercises', () => {
-      const filter: ContextFilter = {
-        type: 'category',
-        categories: ['stretch_dynamic', 'mobility'],
-      };
+    it("'warmup' shows only stretch_dynamic + mobility + cardio", () => {
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { exerciseType: 'warmup' as ExerciseTypeFilter, limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
@@ -378,19 +367,14 @@ describe('Context-aware exercise filters', () => {
       for (const id of WARMUP_IDS) {
         expect(ids).toContain(id);
       }
-      // No strength or cool-down exercises
       for (const id of [...STRENGTH_IDS, ...COOLDOWN_IDS]) {
         expect(ids).not.toContain(id);
       }
     });
 
-    it('stretch_static shows only cool-down exercises', () => {
-      const filter: ContextFilter = {
-        type: 'category',
-        categories: ['stretch_static'],
-      };
+    it("'cooldown' shows only stretch_static", () => {
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { exerciseType: 'cooldown' as ExerciseTypeFilter, limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
@@ -398,149 +382,212 @@ describe('Context-aware exercise filters', () => {
       for (const id of COOLDOWN_IDS) {
         expect(ids).toContain(id);
       }
-      // No strength or warm-up exercises
       for (const id of [...STRENGTH_IDS, ...WARMUP_IDS]) {
         expect(ids).not.toContain(id);
       }
     });
+
+    it('null shows all categories', () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { exerciseType: null, limit: 100 }),
+      );
+
+      expect(result.current.length).toBe(contextTestExercises.length);
+    });
   });
 
-  // ─── Sore Muscle Filter ────────────────────────────────────
+  // ─── Equipment Group Filter ──────────────────────────────
 
-  describe('sore muscle filter', () => {
-    it('moderate soreness: excludes exercises targeting that muscle as primary, allows recovery', () => {
-      const filter: ContextFilter = {
-        type: 'sore_muscle',
-        muscle: 'chest' as MuscleGroup,
-        level: 'moderate',
-      };
+  describe('Equipment group filter', () => {
+    it("'barbell' shows only barbell/ez_bar/trap_bar exercises", () => {
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { equipmentGroups: ['barbell' as EquipmentGroup], limit: 100 }),
+      );
+
+      const ids = result.current.map((e) => e.id);
+      // barbell_bench_press (barbell + flat_bench), barbell_squat (barbell), barbell_row (barbell)
+      expect(ids).toContain('barbell_bench_press');
+      expect(ids).toContain('barbell_squat');
+      expect(ids).toContain('barbell_row');
+      // Cable and machine exercises should not be included
+      expect(ids).not.toContain('cable_flye');
+      expect(ids).not.toContain('leg_extension');
+    });
+
+    it('multiple groups returns union', () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', {
+          equipmentGroups: ['barbell' as EquipmentGroup, 'cable' as EquipmentGroup],
+          limit: 100,
+        }),
+      );
+
+      const ids = result.current.map((e) => e.id);
+      // Barbell exercises
+      expect(ids).toContain('barbell_bench_press');
+      expect(ids).toContain('barbell_squat');
+      expect(ids).toContain('barbell_row');
+      // Cable exercises
+      expect(ids).toContain('cable_flye');
+      expect(ids).toContain('tricep_pushdown');
+    });
+
+    it('empty array shows all exercises', () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { equipmentGroups: [], limit: 100 }),
+      );
+
+      expect(result.current.length).toBe(contextTestExercises.length);
+    });
+  });
+
+  // ─── Auto-Apply Soreness ─────────────────────────────────
+
+  describe('Auto-apply soreness', () => {
+    it('excludes exercises targeting sore muscles, allows recovery', () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          soreness: [{ muscle: 'chest' as MuscleGroup, level: 'moderate' as const }],
+        },
+      }));
+
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
 
-      // Compound/isolation chest exercises should be excluded
-      expect(ids).not.toContain('barbell_bench_press'); // compound, primary chest
-      expect(ids).not.toContain('cable_flye');          // isolation, primary chest
+      // Chest strength exercises excluded
+      expect(ids).not.toContain('barbell_bench_press');
+      expect(ids).not.toContain('cable_flye');
 
-      // Static chest stretch should be ALLOWED (recovery category)
+      // Chest stretch (recovery) is allowed
       expect(ids).toContain('chest_stretch');
 
-      // Non-chest exercises should be unaffected
+      // Non-chest exercises unaffected
       expect(ids).toContain('barbell_squat');
       expect(ids).toContain('barbell_row');
       expect(ids).toContain('leg_extension');
       expect(ids).toContain('tricep_pushdown');
     });
 
-    it('mild soreness: does not exclude anything', () => {
-      const filter: ContextFilter = {
-        type: 'sore_muscle',
-        muscle: 'chest' as MuscleGroup,
-        level: 'mild',
-      };
+    it('recovery-category exercises for sore muscles pass through', () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          soreness: [{ muscle: 'quadriceps' as MuscleGroup, level: 'severe' as const }],
+        },
+      }));
+
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
-      // All exercises should be present
-      expect(result.current.length).toBe(contextTestExercises.length);
-    });
-
-    it('none soreness level: does not exclude anything', () => {
-      const filter: ContextFilter = {
-        type: 'sore_muscle',
-        muscle: 'chest' as MuscleGroup,
-        level: 'none',
-      };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
-      expect(result.current.length).toBe(contextTestExercises.length);
-    });
-
-    it('severe soreness: excludes exercises targeting that muscle as primary', () => {
-      const filter: ContextFilter = {
-        type: 'sore_muscle',
-        muscle: 'quadriceps' as MuscleGroup,
-        level: 'severe',
-      };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
 
-      // Quad-primary strength exercises excluded
-      expect(ids).not.toContain('barbell_squat');   // compound, primary quads
-      expect(ids).not.toContain('leg_extension');    // isolation, primary quads
+      // Strength exercises targeting quads excluded
+      expect(ids).not.toContain('barbell_squat');
+      expect(ids).not.toContain('leg_extension');
 
-      // Dynamic stretch for quads — recovery category, ALLOWED
-      expect(ids).toContain('leg_swing_forward');    // stretch_dynamic, primary quads + hams
-
-      // Quad static stretch — recovery category, ALLOWED
+      // Recovery exercises for quads allowed
+      expect(ids).toContain('leg_swing_forward');
       expect(ids).toContain('quad_stretch');
-
-      // Quad mobility — recovery category, ALLOWED
       expect(ids).toContain('quad_mobility');
+    });
+
+    it("level 'none' does not filter", () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          soreness: [{ muscle: 'chest' as MuscleGroup, level: 'none' as const }],
+        },
+      }));
+
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { limit: 100 }),
+      );
+
+      expect(result.current.length).toBe(contextTestExercises.length);
     });
   });
 
-  // ─── Post-Activity Filter ─────────────────────────────────
+  // ─── Auto-Apply Post-Activity ────────────────────────────
 
-  describe('post-activity filter', () => {
-    it('excludes exercises targeting fatigued muscles, allows recovery categories', () => {
-      // After a run, fatigued muscles are: quadriceps, hamstrings, glutes, calves
-      const filter: ContextFilter = {
-        type: 'post_activity',
-        activity: 'run',
-      };
+  describe('Auto-apply post-activity', () => {
+    it('excludes exercises targeting fatigued leg muscles after run', () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          activities: [{
+            id: 'test-1',
+            type: 'run' as const,
+            timing: 'yesterday' as const,
+            date: new Date().toISOString(),
+          }],
+        },
+      }));
+
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
 
-      // Strength exercises targeting fatigued muscles should be excluded
-      expect(ids).not.toContain('barbell_squat');  // primary: quadriceps, glutes
-      expect(ids).not.toContain('leg_extension');   // primary: quadriceps
+      // Leg strength exercises excluded (run fatigues quads, hams, glutes, calves)
+      expect(ids).not.toContain('barbell_squat');
+      expect(ids).not.toContain('leg_extension');
 
-      // Upper body strength should be unaffected
+      // Upper body unaffected
       expect(ids).toContain('barbell_bench_press');
       expect(ids).toContain('barbell_row');
       expect(ids).toContain('cable_flye');
       expect(ids).toContain('tricep_pushdown');
 
-      // Recovery categories targeting fatigued muscles should be ALLOWED
-      expect(ids).toContain('leg_swing_forward');   // stretch_dynamic, primary: hamstrings, quadriceps
-      expect(ids).toContain('hamstring_stretch');    // stretch_static, primary: hamstrings
-      expect(ids).toContain('quad_stretch');         // stretch_static, primary: quadriceps
-      expect(ids).toContain('hip_circle');           // mobility, primary: glutes, adductors
-      expect(ids).toContain('quad_mobility');        // mobility, primary: quadriceps
+      // Recovery for fatigued muscles allowed
+      expect(ids).toContain('leg_swing_forward');
+      expect(ids).toContain('hamstring_stretch');
+      expect(ids).toContain('quad_stretch');
+      expect(ids).toContain('hip_circle');
+      expect(ids).toContain('quad_mobility');
     });
 
-    it('yoga (no fatigued muscles) returns all exercises', () => {
-      const filter: ContextFilter = {
-        type: 'post_activity',
-        activity: 'yoga',
-      };
+    it("'general' activity has no muscle exclusion", () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          activities: [{
+            id: 'test-2',
+            type: 'general' as const,
+            timing: 'today' as const,
+            date: new Date().toISOString(),
+          }],
+        },
+      }));
+
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { limit: 100 }),
       );
 
+      // General activity has empty muscle impact → no exclusion
       expect(result.current.length).toBe(contextTestExercises.length);
     });
 
-    it('swim excludes upper body strength for fatigued muscles', () => {
-      // Swim fatigues: upper_back, shoulders, core
-      const filter: ContextFilter = {
-        type: 'post_activity',
-        activity: 'swim',
-      };
+    it('recovery exercises for fatigued muscles pass through', () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          activities: [{
+            id: 'test-3',
+            type: 'swim' as const,
+            timing: 'today' as const,
+            date: new Date().toISOString(),
+          }],
+        },
+      }));
+
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { limit: 100 }),
       );
 
       const ids = result.current.map((e) => e.id);
@@ -548,187 +595,43 @@ describe('Context-aware exercise filters', () => {
       // Barbell row targets upper_back — excluded
       expect(ids).not.toContain('barbell_row');
 
-      // Arm circle targets shoulders — recovery category, ALLOWED
+      // Recovery targeting swim muscles — allowed
       expect(ids).toContain('arm_circle');
-
-      // Thoracic rotation targets upper_back + core — recovery category, ALLOWED
       expect(ids).toContain('thoracic_rotation');
-
-      // Leg exercises should be unaffected
-      expect(ids).toContain('barbell_squat');
-      expect(ids).toContain('leg_extension');
     });
   });
 
-  // ─── Pre-Activity Filter ──────────────────────────────────
+  // ─── Auto-Apply Pre-Activity ─────────────────────────────
 
-  describe('pre-activity filter', () => {
-    it('shows only dynamic stretches and mobility targeting the activity muscles', () => {
-      // Pre-run: muscles = quadriceps, hamstrings, glutes, calves
-      const filter: ContextFilter = {
-        type: 'pre_activity',
-        activity: 'run',
-      };
+  describe('Auto-apply pre-activity', () => {
+    it('does not exclude exercises for tomorrow activities, but boosts recovery', () => {
+      useStore.setState((state) => ({
+        library: {
+          ...state.library,
+          activities: [{
+            id: 'test-4',
+            type: 'run' as const,
+            timing: 'tomorrow' as const,
+            date: new Date().toISOString(),
+          }],
+        },
+      }));
+
       const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
+        useExerciseSearch('', { limit: 100 }),
       );
 
-      const ids = result.current.map((e) => e.id);
-
-      // Dynamic stretch targeting quads/hams — included
-      expect(ids).toContain('leg_swing_forward');
-
-      // Mobility targeting glutes — included
-      expect(ids).toContain('hip_circle');
-
-      // Mobility targeting quads — included
-      expect(ids).toContain('quad_mobility');
-
-      // No strength exercises
-      for (const id of STRENGTH_IDS) {
-        expect(ids).not.toContain(id);
-      }
-
-      // No static stretches (those are cool-down, not warm-up)
-      for (const id of STRETCH_STATIC_IDS) {
-        expect(ids).not.toContain(id);
-      }
-
-      // Arm circle targets shoulders — not a run muscle, excluded
-      expect(ids).not.toContain('arm_circle');
-    });
-
-    it('pre-swim shows upper body dynamic stretches and mobility', () => {
-      // Pre-swim: muscles = upper_back, shoulders, core
-      const filter: ContextFilter = {
-        type: 'pre_activity',
-        activity: 'swim',
-      };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
-      const ids = result.current.map((e) => e.id);
-
-      // Arm circle targets shoulders — included
-      expect(ids).toContain('arm_circle');
-
-      // Thoracic rotation targets upper_back + core — included
-      expect(ids).toContain('thoracic_rotation');
-
-      // Leg warm-up exercises should NOT be included (not swim muscles)
-      expect(ids).not.toContain('leg_swing_forward');
-      expect(ids).not.toContain('hip_circle');
-
-      // No strength exercises
-      for (const id of STRENGTH_IDS) {
-        expect(ids).not.toContain(id);
-      }
-    });
-
-    it('pre-yoga (no target muscles) returns all exercises (no filtering needed)', () => {
-      // Yoga has no ACTIVITY_MUSCLE_IMPACT muscles, so the pre-activity filter
-      // short-circuits and returns everything (no muscles to warm up for).
-      const filter: ContextFilter = {
-        type: 'pre_activity',
-        activity: 'yoga',
-      };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
+      // Tomorrow activities should NOT exclude anything
       expect(result.current.length).toBe(contextTestExercises.length);
-    });
-  });
 
-  // ─── Light Day Filter ─────────────────────────────────────
-
-  describe('light day filter', () => {
-    it('with no soreness: shows all stretches/mobility + all isolation exercises', () => {
-      // No soreness entries set (cleared in beforeEach)
-      const filter: ContextFilter = { type: 'light_day' };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
+      // Recovery exercises targeting run muscles should be boosted to top
       const ids = result.current.map((e) => e.id);
-
-      // All recovery exercises are included
-      for (const id of RECOVERY_IDS) {
-        expect(ids).toContain(id);
+      const topIds = ids.slice(0, 3);
+      // Leg swing targets hamstrings/quads, hip circle targets glutes, quad mobility targets quads
+      const runRecoveryIds = ['leg_swing_forward', 'hip_circle', 'quad_mobility'];
+      for (const id of runRecoveryIds) {
+        expect(topIds).toContain(id);
       }
-
-      // Isolation exercises for non-sore muscles (no sore muscles = all isolation allowed)
-      for (const id of ISOLATION_IDS) {
-        expect(ids).toContain(id);
-      }
-
-      // Compound exercises are excluded on a light day
-      for (const id of COMPOUND_IDS) {
-        expect(ids).not.toContain(id);
-      }
-    });
-
-    it('with sore muscles: shows stretches/mobility + isolation for non-sore muscles only', () => {
-      // Set chest as sore
-      useStore.setState((state) => ({
-        library: {
-          ...state.library,
-          soreness: [
-            { muscle: 'chest' as MuscleGroup, level: 'moderate' as const },
-          ],
-        },
-      }));
-
-      const filter: ContextFilter = { type: 'light_day' };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
-      const ids = result.current.map((e) => e.id);
-
-      // All recovery exercises still included (stretches/mobility always allowed)
-      for (const id of RECOVERY_IDS) {
-        expect(ids).toContain(id);
-      }
-
-      // cable_flye targets chest (sore) — isolation for sore muscle, EXCLUDED
-      expect(ids).not.toContain('cable_flye');
-
-      // leg_extension targets quads (not sore) — INCLUDED
-      expect(ids).toContain('leg_extension');
-
-      // tricep_pushdown targets triceps (not sore) — INCLUDED
-      expect(ids).toContain('tricep_pushdown');
-
-      // All compound exercises excluded regardless
-      for (const id of COMPOUND_IDS) {
-        expect(ids).not.toContain(id);
-      }
-    });
-
-    it('soreness with level "none" is ignored for light day exclusions', () => {
-      // Set chest soreness to 'none' — should not affect isolation filtering
-      useStore.setState((state) => ({
-        library: {
-          ...state.library,
-          soreness: [
-            { muscle: 'chest' as MuscleGroup, level: 'none' as const },
-          ],
-        },
-      }));
-
-      const filter: ContextFilter = { type: 'light_day' };
-      const { result } = renderHook(() =>
-        useExerciseSearch('', { contextFilter: filter, limit: 100 }),
-      );
-
-      const ids = result.current.map((e) => e.id);
-
-      // cable_flye should be included because 'none' level is filtered out
-      expect(ids).toContain('cable_flye');
-      expect(ids).toContain('leg_extension');
-      expect(ids).toContain('tricep_pushdown');
     });
   });
 });

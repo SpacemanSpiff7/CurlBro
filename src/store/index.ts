@@ -148,7 +148,6 @@ function createEmptyGraph(): ExerciseGraph {
 const emptySuggestions: SuggestionGroups = {
   pairsWellWith: [],
   stillNeedToHit: [],
-  supersetWith: [],
 };
 
 const emptyValidation: WorkoutValidation = {

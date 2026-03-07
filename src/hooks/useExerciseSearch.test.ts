@@ -4,18 +4,26 @@ import { useExerciseSearch } from './useExerciseSearch';
 import { useStore } from '@/store';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../../tests/fixtures/testGraph';
-import type { MuscleGroup } from '@/types';
+import type { MuscleGroup, ExerciseTypeFilter, EquipmentGroup } from '@/types';
 
 describe('useExerciseSearch', () => {
   beforeEach(() => {
     // Initialize the store with our test graph
     const graph = buildExerciseGraph(testExercises);
-    useStore.setState({ graph, graphReady: true });
+    useStore.setState({
+      graph,
+      graphReady: true,
+      library: {
+        ...useStore.getState().library,
+        soreness: [],
+        activities: [],
+      },
+    });
   });
 
   it('returns all exercises for empty query', () => {
     const { result } = renderHook(() => useExerciseSearch(''));
-    expect(result.current.length).toBe(8);
+    expect(result.current.length).toBe(10);
   });
 
   it('finds exercises by name', () => {
@@ -68,5 +76,73 @@ describe('useExerciseSearch', () => {
       useExerciseSearch('', { limit: 3 })
     );
     expect(result.current.length).toBe(3);
+  });
+
+  // ─── Exercise Type Filter ──────────────────────────────
+
+  describe('exerciseType filter', () => {
+    it("'strength' returns compound + isolation only", () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { exerciseType: 'strength' as ExerciseTypeFilter, limit: 100 })
+      );
+      const categories = result.current.map((e) => e.category);
+      expect(categories.every((c) => c === 'compound' || c === 'isolation')).toBe(true);
+      expect(result.current.length).toBeGreaterThan(0);
+    });
+
+    it("'warmup' returns stretch_dynamic + mobility + cardio only", () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { exerciseType: 'warmup' as ExerciseTypeFilter, limit: 100 })
+      );
+      const categories = result.current.map((e) => e.category);
+      expect(categories.every((c) =>
+        c === 'stretch_dynamic' || c === 'mobility' || c === 'cardio'
+      )).toBe(true);
+    });
+
+    it("'cooldown' returns stretch_static only", () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { exerciseType: 'cooldown' as ExerciseTypeFilter, limit: 100 })
+      );
+      const categories = result.current.map((e) => e.category);
+      expect(categories.every((c) => c === 'stretch_static')).toBe(true);
+      expect(result.current.length).toBeGreaterThan(0);
+    });
+  });
+
+  // ─── Equipment Group Filter ────────────────────────────
+
+  describe('equipmentGroups filter', () => {
+    it("'barbell' returns only exercises with barbell equipment", () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { equipmentGroups: ['barbell' as EquipmentGroup], limit: 100 })
+      );
+      const ids = result.current.map((e) => e.id);
+      expect(ids).toContain('barbell_bench_press');
+      expect(ids).toContain('barbell_row');
+      expect(ids).not.toContain('cable_flye');
+    });
+
+    it("'cable' returns only cable exercises", () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', { equipmentGroups: ['cable' as EquipmentGroup], limit: 100 })
+      );
+      const ids = result.current.map((e) => e.id);
+      expect(ids).toContain('cable_flye');
+      expect(ids).toContain('tricep_pushdown');
+      expect(ids).not.toContain('barbell_bench_press');
+    });
+
+    it('multiple groups returns union', () => {
+      const { result } = renderHook(() =>
+        useExerciseSearch('', {
+          equipmentGroups: ['barbell' as EquipmentGroup, 'cable' as EquipmentGroup],
+          limit: 100,
+        })
+      );
+      const ids = result.current.map((e) => e.id);
+      expect(ids).toContain('barbell_bench_press');
+      expect(ids).toContain('cable_flye');
+    });
   });
 });

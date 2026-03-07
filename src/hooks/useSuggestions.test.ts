@@ -21,7 +21,7 @@ describe('useSuggestions', () => {
           updatedAt: new Date().toISOString(),
         },
         workoutSplit: null,
-        suggestions: { pairsWellWith: [], stillNeedToHit: [], supersetWith: [] },
+        suggestions: { pairsWellWith: [], stillNeedToHit: [] },
         validation: {
           pushCount: 0,
           pullCount: 0,
@@ -38,7 +38,6 @@ describe('useSuggestions', () => {
     const { result } = renderHook(() => useSuggestions());
     expect(result.current.pairsWellWith).toEqual([]);
     expect(result.current.stillNeedToHit).toEqual([]);
-    expect(result.current.supersetWith).toEqual([]);
   });
 
   it('returns complements after adding an exercise', () => {
@@ -67,7 +66,6 @@ describe('useSuggestions', () => {
     const allSuggested = [
       ...result.current.pairsWellWith,
       ...result.current.stillNeedToHit,
-      ...result.current.supersetWith.map((s) => s.exerciseId),
     ];
     expect(allSuggested).not.toContain('barbell_bench_press');
     expect(allSuggested).not.toContain('incline_dumbbell_press');
@@ -85,10 +83,9 @@ describe('useSuggestions', () => {
     expect(result.current.stillNeedToHit.length).toBeGreaterThan(0);
   });
 
-  it('returns superset candidates or gap exercises for antagonists', () => {
-    // Add bench press — barbell_row is a superset candidate AND covers
-    // the missing 'upper_back' muscle, so it may appear in either
-    // supersetWith or stillNeedToHit due to dedup
+  it('returns gap exercises for antagonists', () => {
+    // Add bench press — barbell_row covers the missing 'upper_back' muscle,
+    // so it should appear in stillNeedToHit or pairsWellWith
     useStore.getState().builderActions.addExercise(
       'barbell_bench_press' as ExerciseId
     );
@@ -99,7 +96,6 @@ describe('useSuggestions', () => {
     const allSuggested = [
       ...result.current.pairsWellWith,
       ...result.current.stillNeedToHit,
-      ...result.current.supersetWith.map((s) => s.exerciseId),
     ];
     expect(allSuggested).toContain('barbell_row');
   });

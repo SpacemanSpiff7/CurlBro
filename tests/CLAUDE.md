@@ -16,7 +16,7 @@ testid is last resort.
 - Presenters: renders correct content, responds to interactions
 - Containers: integration tests verifying hook + component work together
 - Graph queries: test with small fixture graph (8 exercises), not the full 194
-- Context filters: test each filter type (sore_muscle, post_activity, pre_activity, light_day, category) with fixture exercises
+- Exercise filters: test exerciseType, equipmentGroups, auto-apply soreness, auto-apply post-activity, auto-apply pre-activity with fixture exercises (tests/exerciseFilters.test.ts)
 - Session flow: endSession/saveSession split, addExerciseToSession, deleteLog
 - Log utilities: computeLogStats, logToSavedWorkout, formatLogForClipboard (edge cases: null weights, incomplete sets)
 
