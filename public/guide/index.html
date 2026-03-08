@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>try{if(localStorage.getItem('curlbro_theme')!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}</script>
 
   <!-- Consent Mode v2 defaults — MUST come before any Google tags -->
   <script>
@@ -33,7 +34,8 @@
 
   <!-- Viewport & Theme -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="theme-color" content="#ffffff" />
+  <script>if(document.documentElement.classList.contains('dark'))document.querySelector('meta[name=theme-color]').content='#09090b'</script>
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
@@ -90,6 +92,33 @@
   <style>
     /* ── Custom Properties ──────────────────────────────────── */
     :root {
+      --bg-root: #ffffff;
+      --bg-surface: #f4f4f5;
+      --bg-elevated: #e4e4e7;
+      --accent-primary: #0891b2;
+      --accent-hover: #0e7490;
+      --accent-muted: #cffafe;
+      --accent-muted-bg: rgba(8, 145, 178, 0.06);
+      --text-primary: #09090b;
+      --text-secondary: #52525b;
+      --text-tertiary: #a1a1aa;
+      --border-subtle: #e4e4e7;
+      --border-accent: rgba(8, 145, 178, 0.3);
+      --caution-color: #d97706;
+      --caution-bg: rgba(217, 119, 6, 0.06);
+      --caution-border: rgba(217, 119, 6, 0.3);
+      --warning-color: #dc2626;
+      --warning-bg: rgba(220, 38, 38, 0.06);
+      --warning-border: rgba(220, 38, 38, 0.3);
+      --success-color: #16a34a;
+      --success-bg: rgba(22, 163, 74, 0.06);
+      --success-border: rgba(22, 163, 74, 0.3);
+      --content-max: 720px;
+      --sidebar-width: 240px;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    .dark {
       --bg-root: #09090b;
       --bg-surface: #18181b;
       --bg-elevated: #27272a;
@@ -111,10 +140,6 @@
       --success-color: #22c55e;
       --success-bg: rgba(34, 197, 94, 0.08);
       --success-border: rgba(34, 197, 94, 0.3);
-      --content-max: 720px;
-      --sidebar-width: 240px;
-      --radius: 12px;
-      --radius-sm: 8px;
     }
 
     /* ── Reset ──────────────────────────────────────────────── */
@@ -180,7 +205,7 @@
 
     /* ── Header / Hero ─────────────────────────────────────── */
     .hero {
-      background: linear-gradient(180deg, rgba(6, 182, 212, 0.06) 0%, transparent 100%);
+      background: linear-gradient(180deg, var(--accent-muted-bg) 0%, transparent 100%);
       border-bottom: 1px solid var(--border-subtle);
       padding: 3rem 1.5rem 2.5rem;
       text-align: center;
@@ -768,7 +793,7 @@
               <span class="step-num">4</span>
               <div class="step-content">
                 <strong>Configure sets, reps, and rest</strong>
-                Expand any exercise card to adjust the number of sets, the rep target, weight, rest period between sets, and optional notes. CurlBro pre-fills sensible defaults based on your training goal setting and whether the exercise is a compound or isolation movement.
+                Expand any exercise card to adjust the number of sets, the rep target, weight, rest period between sets, and optional notes. CurlBro pre-fills sensible defaults based on your default reps and sets settings and whether the exercise is a compound or isolation movement.
               </div>
             </li>
             <li>
@@ -793,7 +818,7 @@
             <li><strong>Library</strong> &mdash; Browse your saved workouts and the 16 built-in templates. Saved workouts persist across sessions. Templates are always available and cannot be deleted.</li>
             <li><strong>Active</strong> &mdash; Your in-progress workout session. Appears when you start a workout. Track sets, log weights and reps, and use the built-in rest timer.</li>
             <li><strong>Log</strong> &mdash; View your workout history. Each completed session is saved here with detailed statistics including total volume, completion percentage, and duration.</li>
-            <li><strong>Settings</strong> &mdash; Configure your training goal, default sets and reps, rest timer durations, export preferences, and manage your data.</li>
+            <li><strong>Settings</strong> &mdash; Configure default reps, sets, rest timer durations, export preferences, and manage your data.</li>
           </ul>
         </section>
 
@@ -940,9 +965,9 @@
           </p>
           <ul>
             <li><strong>Sets</strong> &mdash; Number of working sets. CurlBro defaults to your configured default (typically 4 for compounds, 3 for isolations), but you can adjust from 1 to 10.</li>
-            <li><strong>Reps</strong> &mdash; Rep target per set. Pre-filled based on your training goal (strength: lower range, hypertrophy: moderate range, endurance: higher range) and the exercise's recommended rep range data.</li>
+            <li><strong>Reps</strong> &mdash; Rep target per set. Pre-filled based on your default reps settings (separate defaults for compound and isolation exercises). Tap the info icon in Settings for rep range guidance: strength 1&ndash;5, hypertrophy 6&ndash;12, endurance 12&ndash;20+.</li>
             <li><strong>Weight</strong> &mdash; Optional weight in pounds or kilograms. Leave blank for bodyweight exercises or if you prefer not to pre-plan weights.</li>
-            <li><strong>Rest</strong> &mdash; Rest period between sets in seconds. Defaults are based on your settings: compounds typically get 90&ndash;180 seconds, isolations get 45&ndash;90 seconds. These follow NSCA rest period guidelines for different training goals.</li>
+            <li><strong>Rest</strong> &mdash; Rest period between sets in seconds. Defaults are based on your settings: compounds typically get 90&ndash;180 seconds, isolations get 45&ndash;90 seconds. These follow NSCA rest period guidelines.</li>
             <li><strong>Notes</strong> &mdash; Free-text field for form cues, tempo prescriptions, or any personal reminders. Notes appear during active sessions alongside the exercise.</li>
           </ul>
 
@@ -1478,8 +1503,11 @@ Face Pull  3x15  @45s rest</code></pre>
           </p>
 
           <dl>
-            <dt>Training Goal</dt>
-            <dd>Choose between <strong>Strength</strong>, <strong>Hypertrophy</strong>, or <strong>Endurance</strong>. This affects the default rep ranges when adding exercises. Strength uses lower rep ranges (e.g., 1&ndash;5), hypertrophy uses moderate ranges (e.g., 6&ndash;12), and endurance uses higher ranges (e.g., 12&ndash;15+). Based on Schoenfeld's 2017 meta-analysis on rep range dose-response.</dd>
+            <dt>Default Reps &mdash; Compound Exercises</dt>
+            <dd>The default rep target pre-filled when you add a compound exercise. Default: 8 reps (mid-range hypertrophy). Tap the info icon for guidance: strength 1&ndash;5, hypertrophy 6&ndash;12, endurance 12&ndash;20+. Based on Schoenfeld's 2017 meta-analysis on rep range dose-response.</dd>
+
+            <dt>Default Reps &mdash; Isolation Exercises</dt>
+            <dd>The default rep target pre-filled when you add an isolation exercise. Default: 12 reps (mid-range hypertrophy). Isolations typically respond well to moderate-to-higher rep ranges.</dd>
 
             <dt>Default Sets &mdash; Compound Exercises</dt>
             <dd>The default number of sets pre-filled when you add a compound exercise. Default: 4 sets. Adjust based on your training volume preferences and recovery capacity.</dd>
@@ -1494,7 +1522,7 @@ Face Pull  3x15  @45s rest</code></pre>
             <dd>Default rest period in seconds for isolation movements. Default: 60 seconds. Shorter rest periods for isolations maintain metabolic stress, which is one of the three primary mechanisms of hypertrophy (Schoenfeld 2010).</dd>
 
             <dt>Include Tips in Export</dt>
-            <dd>When enabled, exported workout text includes beginner form tips and cues below each exercise. Useful when sharing workouts with less experienced training partners. Default: enabled.</dd>
+            <dd>When enabled, exported workout text includes beginner form tips and cues below each exercise. Useful when sharing workouts with less experienced training partners. Default: disabled.</dd>
 
             <dt>Reset Settings</dt>
             <dd>Restores all settings to their default values without affecting your saved workouts or logs.</dd>
@@ -1525,7 +1553,7 @@ Face Pull  3x15  @45s rest</code></pre>
           <ul>
             <li>Your saved workouts and their exercise configurations</li>
             <li>Workout log entries (completed sessions with set data)</li>
-            <li>App settings (training goal, default sets, rest timer preferences)</li>
+            <li>App settings (default reps, default sets, rest timer preferences)</li>
             <li>Body state data (muscle soreness levels and recent activities)</li>
             <li>Cookie consent preference</li>
           </ul>

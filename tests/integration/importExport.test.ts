@@ -203,7 +203,7 @@ describe('Import/Export', () => {
       expect(result.workout!.exercises.length).toBe(1);
       expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
       expect(result.workout!.exercises[0].sets).toBe(4); // defaultSetsCompound
-      expect(result.workout!.exercises[0].reps).toBe(10); // hypertrophy goal default
+      expect(result.workout!.exercises[0].reps).toBe(8); // defaultRepsCompound
       expect(result.workout!.exercises[0].restSeconds).toBe(120); // restTimerCompoundSeconds
     });
 
@@ -219,13 +219,13 @@ describe('Import/Export', () => {
       expect(result.workout!.exercises.length).toBe(1);
       expect(result.workout!.exercises[0].exerciseId).toBe('barbell_row');
       expect(result.workout!.exercises[0].sets).toBe(4); // compound
-      expect(result.workout!.exercises[0].reps).toBe(10); // hypertrophy goal default
+      expect(result.workout!.exercises[0].reps).toBe(8); // defaultRepsCompound
     });
 
-    it('uses strength defaults when settings have strength goal', () => {
-      const strengthSettings: AppSettings = {
+    it('uses custom rep defaults from settings', () => {
+      const customSettings: AppSettings = {
         ...DEFAULT_SETTINGS,
-        trainingGoal: 'strength',
+        defaultRepsCompound: 5,
         defaultSetsCompound: 5,
       };
       const text = [
@@ -234,10 +234,10 @@ describe('Import/Export', () => {
         'Barbell Row',
       ].join('\n');
 
-      const result = parseImport(text, graph, strengthSettings);
+      const result = parseImport(text, graph, customSettings);
       expect(result.errors).toEqual([]);
       expect(result.workout!.exercises[0].sets).toBe(5);
-      expect(result.workout!.exercises[0].reps).toBe(5); // strength goal default
+      expect(result.workout!.exercises[0].reps).toBe(5); // custom defaultRepsCompound
     });
 
     it('uses isolation defaults for name-only isolation exercises', () => {

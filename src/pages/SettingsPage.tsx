@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
@@ -8,65 +8,50 @@ import { AboutPage } from './AboutPage';
 import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { TermsOfUsePage } from './TermsOfUsePage';
 import { useStore } from '@/store';
-import { TRAINING_GOALS, TRAINING_GOAL_LABELS } from '@/types';
-import type { TrainingGoal } from '@/types';
+
+function NumberSetting({ value, min, fallback, onChange }: {
+  value: number; min: number; fallback: number;
+  onChange: (v: number) => void;
+}) {
+  const [local, setLocal] = useState(String(value));
+  // Sync from store when value changes externally (e.g. reset)
+  useEffect(() => { setLocal(String(value)); }, [value]);
+
+  return (
+    <input
+      type="number"
+      inputMode="numeric"
+      className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+      min={min}
+      value={local}
+      onChange={(e) => {
+        setLocal(e.target.value);
+        const n = parseInt(e.target.value);
+        if (!isNaN(n) && n >= min) onChange(n);
+      }}
+      onBlur={() => {
+        const n = parseInt(local);
+        if (isNaN(n) || n < min) {
+          onChange(fallback);
+          setLocal(String(fallback));
+        } else {
+          setLocal(String(n));
+        }
+      }}
+    />
+  );
+}
 
 export function SettingsPage() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showRepHint, setShowRepHint] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
   const { clearAll } = useStore((state) => state.libraryActions);
-
-  const handleCompoundChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = parseInt(e.target.value);
-      if (!isNaN(val) && val >= 0) {
-        updateSettings({ restTimerCompoundSeconds: val });
-      }
-    },
-    [updateSettings]
-  );
-
-  const handleIsolationChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = parseInt(e.target.value);
-      if (!isNaN(val) && val >= 0) {
-        updateSettings({ restTimerIsolationSeconds: val });
-      }
-    },
-    [updateSettings]
-  );
-
-  const handleGoalChange = useCallback(
-    (goal: TrainingGoal) => {
-      updateSettings({ trainingGoal: goal });
-    },
-    [updateSettings]
-  );
-
-  const handleCompoundSetsChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = parseInt(e.target.value);
-      if (!isNaN(val) && val >= 1) {
-        updateSettings({ defaultSetsCompound: val });
-      }
-    },
-    [updateSettings]
-  );
-
-  const handleIsolationSetsChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = parseInt(e.target.value);
-      if (!isNaN(val) && val >= 1) {
-        updateSettings({ defaultSetsIsolation: val });
-      }
-    },
-    [updateSettings]
-  );
 
   return (
     <div className="flex flex-col gap-4 pb-20">
@@ -138,32 +123,57 @@ export function SettingsPage() {
         </div>
       </div>
 
-      {/* Training Goal */}
+      {/* Default Reps */}
       <div className="space-y-3">
-        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
-          Training Goal
-        </h2>
-        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
-          <div className="flex gap-1">
-            {TRAINING_GOALS.map((goal) => (
-              <button
-                key={goal}
-                onClick={() => handleGoalChange(goal)}
-                className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  settings.trainingGoal === goal
-                    ? 'bg-accent-primary text-bg-root'
-                    : 'bg-bg-elevated text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                {TRAINING_GOAL_LABELS[goal]}
-              </button>
-            ))}
-          </div>
-          <p className="text-[11px] text-text-tertiary mt-2">
-            {settings.trainingGoal === 'strength' && 'Lower reps from strength ranges (e.g. 1–5)'}
-            {settings.trainingGoal === 'hypertrophy' && 'Moderate reps from hypertrophy ranges (e.g. 6–12)'}
-            {settings.trainingGoal === 'endurance' && 'Higher reps from hypertrophy ranges (e.g. 12–15+)'}
+        <div className="flex items-center gap-1.5">
+          <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+            Default Reps
+          </h2>
+          <button
+            onClick={() => setShowRepHint((v) => !v)}
+            className="text-text-tertiary hover:text-text-secondary transition-colors"
+            aria-label="Rep range guidance"
+          >
+            <HelpCircle size={14} />
+          </button>
+        </div>
+        {showRepHint && (
+          <p className="text-xs text-text-tertiary">
+            Strength: 1–5 reps · Hypertrophy: 6–12 reps · Endurance: 12–20+ reps
           </p>
+        )}
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="text-sm text-text-primary">
+              Compound exercises
+            </label>
+            <div className="flex items-center gap-1">
+              <NumberSetting
+                value={settings.defaultRepsCompound}
+                min={1}
+                fallback={8}
+                onChange={(v) => updateSettings({ defaultRepsCompound: v })}
+              />
+              <span className="text-xs text-text-tertiary">reps</span>
+            </div>
+          </div>
+
+          <div className="border-t border-border-subtle" />
+
+          <div className="flex items-center justify-between">
+            <label className="text-sm text-text-primary">
+              Isolation exercises
+            </label>
+            <div className="flex items-center gap-1">
+              <NumberSetting
+                value={settings.defaultRepsIsolation}
+                min={1}
+                fallback={12}
+                onChange={(v) => updateSettings({ defaultRepsIsolation: v })}
+              />
+              <span className="text-xs text-text-tertiary">reps</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -174,17 +184,15 @@ export function SettingsPage() {
         </h2>
         <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-3">
           <div className="flex items-center justify-between">
-            <label htmlFor="compound-sets" className="text-sm text-text-primary">
+            <label className="text-sm text-text-primary">
               Compound exercises
             </label>
             <div className="flex items-center gap-1">
-              <input
-                id="compound-sets"
-                type="number"
+              <NumberSetting
                 value={settings.defaultSetsCompound}
-                onChange={handleCompoundSetsChange}
                 min={1}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                fallback={4}
+                onChange={(v) => updateSettings({ defaultSetsCompound: v })}
               />
               <span className="text-xs text-text-tertiary">sets</span>
             </div>
@@ -193,17 +201,15 @@ export function SettingsPage() {
           <div className="border-t border-border-subtle" />
 
           <div className="flex items-center justify-between">
-            <label htmlFor="isolation-sets" className="text-sm text-text-primary">
+            <label className="text-sm text-text-primary">
               Isolation exercises
             </label>
             <div className="flex items-center gap-1">
-              <input
-                id="isolation-sets"
-                type="number"
+              <NumberSetting
                 value={settings.defaultSetsIsolation}
-                onChange={handleIsolationSetsChange}
                 min={1}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                fallback={3}
+                onChange={(v) => updateSettings({ defaultSetsIsolation: v })}
               />
               <span className="text-xs text-text-tertiary">sets</span>
             </div>
@@ -219,17 +225,15 @@ export function SettingsPage() {
 
         <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-3">
           <div className="flex items-center justify-between">
-            <label htmlFor="compound-rest" className="text-sm text-text-primary">
+            <label className="text-sm text-text-primary">
               Compound exercises
             </label>
             <div className="flex items-center gap-1">
-              <input
-                id="compound-rest"
-                type="number"
+              <NumberSetting
                 value={settings.restTimerCompoundSeconds}
-                onChange={handleCompoundChange}
                 min={0}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                fallback={120}
+                onChange={(v) => updateSettings({ restTimerCompoundSeconds: v })}
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>
@@ -238,17 +242,15 @@ export function SettingsPage() {
           <div className="border-t border-border-subtle" />
 
           <div className="flex items-center justify-between">
-            <label htmlFor="isolation-rest" className="text-sm text-text-primary">
+            <label className="text-sm text-text-primary">
               Isolation exercises
             </label>
             <div className="flex items-center gap-1">
-              <input
-                id="isolation-rest"
-                type="number"
+              <NumberSetting
                 value={settings.restTimerIsolationSeconds}
-                onChange={handleIsolationChange}
                 min={0}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                fallback={60}
+                onChange={(v) => updateSettings({ restTimerIsolationSeconds: v })}
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>
@@ -371,9 +373,24 @@ export function SettingsPage() {
             asChild
             className="w-full justify-start text-text-secondary"
           >
-            <a href="https://simonelongo.com/contact" target="_blank" rel="noopener noreferrer">
+            <a href="mailto:contact@curlbro.com">
               <Mail size={14} className="mr-2" />
               Contact
+            </a>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="w-full justify-start text-text-secondary"
+          >
+            <a
+              href={`https://github.com/SpacemanSpiff7/CurlBro/issues/new?title=Bug%3A+&body=${encodeURIComponent(`**Describe the bug**\n\n\n**Steps to reproduce**\n1. \n2. \n3. \n\n**Expected behavior**\n\n\n---\n**Device info** (auto-filled)\n- Browser: ${navigator.userAgent}\n- Platform: ${navigator.platform}\n- Screen: ${window.screen.width}x${window.screen.height}\n- Viewport: ${window.innerWidth}x${window.innerHeight}\n- Touch: ${navigator.maxTouchPoints > 0 ? 'yes' : 'no'}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Bug size={14} className="mr-2" />
+              Report a Bug
             </a>
           </Button>
         </div>

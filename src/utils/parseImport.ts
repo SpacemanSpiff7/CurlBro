@@ -52,11 +52,9 @@ function resolveByName(name: string, nameIndex: Map<string, ExerciseId>): Exerci
   return null;
 }
 
-/** Pick a simple default rep count based on training goal (no exercise context) */
+/** Pick a simple default rep count from settings (compound is the safer default for imports) */
 function goalDefaultReps(settings: AppSettings): number {
-  if (settings.trainingGoal === 'strength') return 5;
-  if (settings.trainingGoal === 'endurance') return 15;
-  return 10; // hypertrophy
+  return settings.defaultRepsCompound;
 }
 
 /** Try to parse optional fields from pipe-separated remainder */

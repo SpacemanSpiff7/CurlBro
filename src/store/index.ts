@@ -14,7 +14,6 @@ import type {
   ActiveSession,
   TimerState,
   AppSettings,
-  TrainingGoal,
   SuggestionGroups,
   WorkoutValidation,
   TabId,
@@ -63,6 +62,9 @@ interface AppState {
     reorderExercises: (from: number, to: number) => void;
     updateExercise: (index: number, updates: Partial<WorkoutExercise>) => void;
     swapExercise: (index: number, newExerciseId: ExerciseId) => void;
+    mergeExerciseIntoGroup: (fromIndex: number, targetIndex: number) => void;
+    groupSelectedExercises: (indices: number[]) => void;
+    removeSelectedExercises: (indices: number[]) => void;
     resetWorkout: () => void;
     loadWorkout: (workout: SavedWorkout) => void;
     loadTemplate: (name: string, split: WorkoutSplit | null, exercises: { exerciseId: ExerciseId; sets: number; reps: number; restSeconds: number }[]) => void;
@@ -169,18 +171,11 @@ const emptyTimer: TimerState = {
   timerStartedAt: null,
 };
 
-/** Pick the default rep count for an exercise based on training goal */
-export function getDefaultReps(exercise: Exercise, goal: TrainingGoal): number {
-  const fallback = 8;
-  if (goal === 'strength') {
-    return parseInt(exercise.rep_range_strength.split('-')[0]) || fallback;
-  }
-  if (goal === 'endurance') {
-    const parts = exercise.rep_range_hypertrophy.split('-');
-    return parseInt(parts[parts.length - 1]) || fallback;
-  }
-  // hypertrophy (default)
-  return parseInt(exercise.rep_range_hypertrophy.split('-')[0]) || fallback;
+/** Pick the default rep count for an exercise based on user settings */
+export function getDefaultReps(exercise: Exercise, settings: AppSettings): number {
+  return exercise.category === 'compound' || exercise.category === 'cardio'
+    ? settings.defaultRepsCompound
+    : settings.defaultRepsIsolation;
 }
 
 // ─── Store ───────────────────────────────────────────────
@@ -231,7 +226,7 @@ export const useStore = create<AppState>()(
           const sets = exercise.category === 'compound'
             ? settings.defaultSetsCompound
             : settings.defaultSetsIsolation;
-          const reps = getDefaultReps(exercise, settings.trainingGoal);
+          const reps = getDefaultReps(exercise, settings);
 
           set((state) => {
             state.builder.workout.exercises.push({
@@ -258,7 +253,7 @@ export const useStore = create<AppState>()(
           const sets = exercise.category === 'compound'
             ? settings.defaultSetsCompound
             : settings.defaultSetsIsolation;
-          const reps = getDefaultReps(exercise, settings.trainingGoal);
+          const reps = getDefaultReps(exercise, settings);
 
           set((state) => {
             const exercises = state.builder.workout.exercises;
@@ -379,6 +374,121 @@ export const useStore = create<AppState>()(
               ex.exerciseId = newExerciseId;
               state.builder.workout.updatedAt = new Date().toISOString();
             }
+          });
+        },
+        mergeExerciseIntoGroup: (fromIndex: number, targetIndex: number) => {
+          set((state) => {
+            const exercises = state.builder.workout.exercises;
+            const source = exercises[fromIndex];
+            const target = exercises[targetIndex];
+            if (!source || !target || fromIndex === targetIndex) return;
+
+            // Assign group ID if target doesn't have one
+            if (!target.supersetGroupId) {
+              target.supersetGroupId = crypto.randomUUID();
+            }
+            const targetGroupId = target.supersetGroupId;
+
+            // Record source's old group before modifying
+            const oldGroupId = source.supersetGroupId;
+
+            // Assign target's groupId to source
+            source.supersetGroupId = targetGroupId;
+
+            // Splice source out of its current position
+            const [removed] = exercises.splice(fromIndex, 1);
+
+            // Find the last consecutive member of target's group
+            let lastGroupIndex = -1;
+            for (let i = 0; i < exercises.length; i++) {
+              if (exercises[i].supersetGroupId === targetGroupId) {
+                lastGroupIndex = i;
+              }
+            }
+
+            // Insert source after last target group member
+            const insertAt = lastGroupIndex >= 0 ? lastGroupIndex + 1 : exercises.length;
+            exercises.splice(insertAt, 0, removed);
+
+            // If source's old group now has ≤1 member → clear its supersetGroupId
+            if (oldGroupId) {
+              const remaining = exercises.filter((e) => e.supersetGroupId === oldGroupId);
+              if (remaining.length === 1) {
+                remaining[0].supersetGroupId = undefined;
+              }
+            }
+
+            state.builder.workout.updatedAt = new Date().toISOString();
+          });
+        },
+        groupSelectedExercises: (indices: number[]) => {
+          if (indices.length < 2) return;
+          set((state) => {
+            const exercises = state.builder.workout.exercises;
+            const sorted = [...indices].sort((a, b) => a - b);
+            const newGroupId = crypto.randomUUID();
+
+            // Track old groups that may need cleanup
+            const oldGroupIds = new Set<string>();
+            for (const idx of sorted) {
+              const ex = exercises[idx];
+              if (ex?.supersetGroupId) {
+                oldGroupIds.add(ex.supersetGroupId);
+              }
+            }
+
+            // Assign new group ID
+            for (const idx of sorted) {
+              exercises[idx].supersetGroupId = newGroupId;
+            }
+
+            // Collect exercises and remove from array (reverse order)
+            const collected: WorkoutExercise[] = [];
+            for (let i = sorted.length - 1; i >= 0; i--) {
+              const [ex] = exercises.splice(sorted[i], 1);
+              collected.unshift(ex);
+            }
+
+            // Insert all at position of first selected index
+            const insertAt = Math.min(sorted[0], exercises.length);
+            exercises.splice(insertAt, 0, ...collected);
+
+            // Clean up orphaned old groups
+            for (const gid of oldGroupIds) {
+              const remaining = exercises.filter((e) => e.supersetGroupId === gid);
+              if (remaining.length === 1) {
+                remaining[0].supersetGroupId = undefined;
+              }
+            }
+
+            state.builder.workout.updatedAt = new Date().toISOString();
+          });
+        },
+        removeSelectedExercises: (indices: number[]) => {
+          if (indices.length === 0) return;
+          set((state) => {
+            const exercises = state.builder.workout.exercises;
+            const sorted = [...indices].sort((a, b) => b - a); // descending
+
+            // Track affected groups
+            const affectedGroupIds = new Set<string>();
+            for (const idx of sorted) {
+              const ex = exercises[idx];
+              if (ex?.supersetGroupId) {
+                affectedGroupIds.add(ex.supersetGroupId);
+              }
+              exercises.splice(idx, 1);
+            }
+
+            // Clean up groups with ≤1 member
+            for (const gid of affectedGroupIds) {
+              const remaining = exercises.filter((e) => e.supersetGroupId === gid);
+              if (remaining.length === 1) {
+                remaining[0].supersetGroupId = undefined;
+              }
+            }
+
+            state.builder.workout.updatedAt = new Date().toISOString();
           });
         },
         resetWorkout: () => {

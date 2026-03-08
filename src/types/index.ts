@@ -25,11 +25,11 @@ export const EQUIPMENT_TYPES = [
   'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
   'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
   'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
-  'ab_crunch_machine', 'pull_up_bar', 'dip_station', 'flat_bench', 'adjustable_bench',
-  'preacher_curl_bench', 'roman_chair', 'ab_wheel', 'kettlebell',
+  'ab_crunch_machine', 'hip_thrust_machine', 'pull_up_bar', 'dip_station', 'flat_bench',
+  'adjustable_bench', 'preacher_curl_bench', 'roman_chair', 'ab_wheel', 'kettlebell',
   'resistance_band', 'trap_bar', 'medicine_ball', 'battle_ropes', 'bodyweight',
   'foam_roller', 'treadmill', 'elliptical', 'stationary_bike', 'rowing_machine',
-  'stair_climber', 'jump_rope',
+  'stair_climber', 'jump_rope', 'sled',
 ] as const;
 export type Equipment = typeof EQUIPMENT_TYPES[number];
 
@@ -47,7 +47,7 @@ export const EQUIPMENT_GROUP_MEMBERS: Record<EquipmentGroup, Equipment[]> = {
   barbell: ['barbell', 'ez_bar', 'trap_bar'],
   bodyweight: ['bodyweight', 'resistance_band', 'ab_wheel', 'medicine_ball', 'battle_ropes', 'foam_roller'],
   cable: ['cable_machine'],
-  cardio: ['treadmill', 'elliptical', 'stationary_bike', 'rowing_machine', 'stair_climber', 'jump_rope'],
+  cardio: ['treadmill', 'elliptical', 'stationary_bike', 'rowing_machine', 'stair_climber', 'jump_rope', 'sled'],
   dumbbell: ['dumbbell'],
   kettlebell: ['kettlebell'],
   machine: [
@@ -57,7 +57,7 @@ export const EQUIPMENT_GROUP_MEMBERS: Record<EquipmentGroup, Equipment[]> = {
     'seated_row_machine', 'pec_deck_machine', 'reverse_fly_machine',
     'pullover_machine', 'lateral_raise_machine', 'hip_adduction_machine',
     'hip_abduction_machine', 'calf_raise_machine', 'assisted_pull_up_machine',
-    'ab_crunch_machine', 'flat_bench', 'adjustable_bench', 'preacher_curl_bench', 'roman_chair',
+    'ab_crunch_machine', 'hip_thrust_machine', 'flat_bench', 'adjustable_bench', 'preacher_curl_bench', 'roman_chair',
     'pull_up_bar', 'dip_station',
   ],
 };
@@ -83,6 +83,22 @@ export type DifficultyLevel = typeof DIFFICULTY_LEVELS[number];
 export const CATEGORIES = ['compound', 'isolation', 'stretch_dynamic', 'stretch_static', 'mobility', 'cardio'] as const;
 export type Category = typeof CATEGORIES[number];
 
+// ─── Load Profile ────────────────────────────────────────
+export const LOAD_LEVELS = ['none', 'low', 'moderate', 'high'] as const;
+export type LoadLevel = typeof LOAD_LEVELS[number];
+
+export const LoadProfileSchema = z.object({
+  spinal: z.enum(LOAD_LEVELS),
+  shoulder: z.enum(LOAD_LEVELS),
+  elbow: z.enum(LOAD_LEVELS),
+  knee: z.enum(LOAD_LEVELS),
+  grip: z.enum(LOAD_LEVELS),
+  lumbar_stabilizer: z.enum(LOAD_LEVELS),
+  rotator_cuff: z.enum(LOAD_LEVELS),
+});
+
+export type LoadProfile = z.infer<typeof LoadProfileSchema>;
+
 // ─── Exercise Schema ──────────────────────────────────────
 export const ExerciseSchema = z.object({
   id: z.string(),
@@ -104,6 +120,7 @@ export const ExerciseSchema = z.object({
   complements: z.array(z.string()),
   superset_candidates: z.array(z.string()),
   notes: z.string(),
+  load_profile: LoadProfileSchema.optional(),
 });
 
 export type Exercise = z.infer<typeof ExerciseSchema> & { id: ExerciseId };
@@ -278,41 +295,34 @@ export const TimerStateSchema = z.object({
   timerStartedAt: z.string().nullable(),
 });
 
-// ─── Training Goals ──────────────────────────────────────
-export const TRAINING_GOALS = ['strength', 'hypertrophy', 'endurance'] as const;
-export type TrainingGoal = typeof TRAINING_GOALS[number];
-
-export const TRAINING_GOAL_LABELS: Record<TrainingGoal, string> = {
-  strength: 'Strength',
-  hypertrophy: 'Hypertrophy',
-  endurance: 'Endurance',
-};
-
 // ─── Settings ────────────────────────────────────────────
 export interface AppSettings {
   restTimerCompoundSeconds: number;
   restTimerIsolationSeconds: number;
-  trainingGoal: TrainingGoal;
   defaultSetsCompound: number;
   defaultSetsIsolation: number;
+  defaultRepsCompound: number;
+  defaultRepsIsolation: number;
   exportIncludeTips: boolean;
 }
 
 export const AppSettingsSchema = z.object({
   restTimerCompoundSeconds: z.number().int().min(0).default(120),
   restTimerIsolationSeconds: z.number().int().min(0).default(60),
-  trainingGoal: z.enum(TRAINING_GOALS).default('hypertrophy'),
   defaultSetsCompound: z.number().int().min(1).default(4),
   defaultSetsIsolation: z.number().int().min(1).default(3),
+  defaultRepsCompound: z.number().int().min(1).default(8),
+  defaultRepsIsolation: z.number().int().min(1).default(12),
   exportIncludeTips: z.boolean().default(false),
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
   restTimerCompoundSeconds: 120,
   restTimerIsolationSeconds: 60,
-  trainingGoal: 'hypertrophy',
   defaultSetsCompound: 4,
   defaultSetsIsolation: 3,
+  defaultRepsCompound: 8,
+  defaultRepsIsolation: 12,
   exportIncludeTips: false,
 };
 
