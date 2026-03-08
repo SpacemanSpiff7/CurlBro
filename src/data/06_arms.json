@@ -1,7 +1,7 @@
 {
   "file": "06_arms.json",
   "description": "Bicep curls, tricep extensions, forearm and grip work",
-  "exercise_count": 24,
+  "exercise_count": 39,
   "exercises": [
     {
       "id": "barbell_curl",
@@ -10,8 +10,7 @@
       "movement_pattern": "elbow_flexion",
       "force_type": "pull",
       "equipment": [
-        "barbell",
-        "ez_bar"
+        "barbell"
       ],
       "primary_muscles": [
         "biceps"
@@ -24,13 +23,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/standing-barbell-curl.html",
-      "beginner_tips": "Stand with bar, arms extended, palms forward. Curl to shoulders bending elbows only. Keep elbows pinned to sides — don't swing the weight or let your elbows drift forward. A slight body lean at the start is okay, but the weight should be moving because of your biceps, not momentum. EZ bar (wavy bar) is easier on wrists.",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-curl.html",
+      "beginner_tips": "Stand with bar, arms extended, palms forward. Curl to shoulders bending elbows only. Keep elbows pinned to sides \u2014 don't swing the weight or let your elbows drift forward. A slight body lean at the start is okay, but the weight should be moving because of your biceps, not momentum. EZ bar (wavy bar) is easier on wrists.",
       "substitutes": [
         "dumbbell_curl",
         "cable_curl",
         "ez_bar_curl",
-        "reverse_grip_pulldown"
+        "band_curl"
       ],
       "complements": [
         "tricep_pushdown",
@@ -43,7 +42,16 @@
         "skull_crusher",
         "overhead_tricep_extension"
       ],
-      "notes": "The standard bilateral bicep exercise. Allows the heaviest curl loading. If wrists hurt with a straight bar, switch to the EZ bar — the angled grip reduces wrist extension stress. Elbows pinned at your sides hits the biceps through their mid-range; letting elbows drift forward shifts to a shortened-position emphasis."
+      "notes": "The standard bilateral bicep exercise. Allows the heaviest curl loading. If wrists hurt with a straight bar, switch to the EZ bar \u2014 the angled grip reduces wrist extension stress. Elbows pinned at your sides hits the biceps through their mid-range; letting elbows drift forward shifts to a shortened-position emphasis.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "ez_bar_curl",
@@ -84,7 +92,16 @@
         "skull_crusher",
         "overhead_tricep_extension"
       ],
-      "notes": "Preferred by most people over straight barbell for wrist comfort. The slight pronation of the wrist shifts a small amount of work to the brachialis and brachioradialis, which some argue makes it a slightly more complete arm exercise than the straight bar. Practically, the difference is minimal — use whichever bar feels better on your joints."
+      "notes": "Preferred by most people over straight barbell for wrist comfort. The slight pronation of the wrist shifts a small amount of work to the brachialis and brachioradialis, which some argue makes it a slightly more complete arm exercise than the straight bar. Practically, the difference is minimal \u2014 use whichever bar feels better on your joints.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "dumbbell_curl",
@@ -107,12 +124,13 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/standing-dumbbell-curl.html",
-      "beginner_tips": "Stand with dumbbells at sides, palms facing thighs. As you curl up, rotate your palms to face your shoulders (supination). Lower slowly, rotating back. Both arms at once or alternating — alternating lets you focus on one arm at a time and is generally better for mind-muscle connection.",
+      "beginner_tips": "Stand with dumbbells at sides, palms facing thighs. As you curl up, rotate your palms to face your shoulders (supination). Lower slowly, rotating back. Both arms at once or alternating \u2014 alternating lets you focus on one arm at a time and is generally better for mind-muscle connection.",
       "substitutes": [
         "barbell_curl",
         "cable_curl",
         "hammer_curl",
-        "ez_bar_curl"
+        "ez_bar_curl",
+        "band_curl"
       ],
       "complements": [
         "tricep_pushdown",
@@ -126,7 +144,16 @@
         "single_arm_overhead_extension",
         "tricep_kickback"
       ],
-      "notes": "The most versatile bicep exercise. The wrist supination (rotating palm upward during the curl) maximizes bicep activation because the bicep is a supinator as well as an elbow flexor. Dumbbells also reveal and fix left/right imbalances. Can be done seated to eliminate all momentum."
+      "notes": "The most versatile bicep exercise. The wrist supination (rotating palm upward during the curl) maximizes bicep activation because the bicep is a supinator as well as an elbow flexor. Dumbbells also reveal and fix left/right imbalances. Can be done seated to eliminate all momentum.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hammer_curl",
@@ -147,12 +174,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/standing-hammer-curl.html",
-      "beginner_tips": "Like a regular curl but palms face each other (neutral grip, like holding hammers) the ENTIRE time. No wrist rotation. Targets the brachialis — the muscle UNDER the bicep — and the brachioradialis on the outer forearm. Both make your arms look thicker from the side and front.",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-hammer-curl.html",
+      "beginner_tips": "Like a regular curl but palms face each other (neutral grip, like holding hammers) the ENTIRE time. No wrist rotation. Targets the brachialis \u2014 the muscle UNDER the bicep \u2014 and the brachioradialis on the outer forearm. Both make your arms look thicker from the side and front.",
       "substitutes": [
         "rope_cable_curl",
         "reverse_curl",
-        "dumbbell_curl"
+        "dumbbell_curl",
+        "band_hammer_curl"
       ],
       "complements": [
         "dumbbell_curl",
@@ -165,7 +193,16 @@
         "tricep_pushdown",
         "overhead_tricep_extension"
       ],
-      "notes": "Essential for arm thickness and a well-developed look from all angles. The biceps have two main functions: elbow flexion AND forearm supination. With a neutral grip you take supination out of the equation, so the brachialis (which can only flex the elbow) does proportionally more work. Do BOTH hammer curls AND supinated curls for complete arm development. Most people are stronger on hammer curls than regular curls."
+      "notes": "Essential for arm thickness and a well-developed look from all angles. The biceps have two main functions: elbow flexion AND forearm supination. With a neutral grip you take supination out of the equation, so the brachialis (which can only flex the elbow) does proportionally more work. Do BOTH hammer curls AND supinated curls for complete arm development. Most people are stronger on hammer curls than regular curls.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "preacher_curl",
@@ -188,12 +225,13 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/preacher-curl.html",
-      "beginner_tips": "Sit at preacher bench, back of upper arms on pad. Curl weight up, lower slowly. The pad prevents all cheating — very strict form is mandatory. Be careful at the bottom — don't fully straighten your arms explosively, as the stretched position under load puts stress on the distal bicep tendon. Control the lowering phase.",
+      "beginner_tips": "Sit at preacher bench, back of upper arms on pad. Curl weight up, lower slowly. The pad prevents all cheating \u2014 very strict form is mandatory. Be careful at the bottom \u2014 don't fully straighten your arms explosively, as the stretched position under load puts stress on the distal bicep tendon. Control the lowering phase.",
       "substitutes": [
         "barbell_curl",
         "concentration_curl",
         "cable_curl",
-        "spider_curl"
+        "spider_curl",
+        "machine_preacher_curl"
       ],
       "complements": [
         "hammer_curl",
@@ -204,7 +242,16 @@
         "overhead_tricep_extension",
         "single_arm_overhead_extension"
       ],
-      "notes": "The angled pad with shoulders flexed forward places the bicep in a slightly shortened position, so the hardest part of the movement is in the mid-range and contracted position. This makes it a good complement to incline curls (which emphasize the stretched position). Don't fully extend at the bottom under heavy load — stop just short of lockout to protect the distal bicep tendon."
+      "notes": "The angled pad with shoulders flexed forward places the bicep in a slightly shortened position, so the hardest part of the movement is in the mid-range and contracted position. This makes it a good complement to incline curls (which emphasize the stretched position). Don't fully extend at the bottom under heavy load \u2014 stop just short of lockout to protect the distal bicep tendon.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "incline_dumbbell_curl",
@@ -226,11 +273,12 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/incline-dumbbell-curl.html",
-      "beginner_tips": "Bench at 45-60 degrees. Sit back, let dumbbells hang straight down at your sides with arms fully extended. Curl up, lower slowly all the way back to full extension. The incline puts your shoulders into extension (arms behind your body), which stretches the long head of the bicep at the bottom — this is where the growth stimulus is strongest.",
+      "beginner_tips": "Bench at 45-60 degrees. Sit back, let dumbbells hang straight down at your sides with arms fully extended. Curl up, lower slowly all the way back to full extension. The incline puts your shoulders into extension (arms behind your body), which stretches the long head of the bicep at the bottom \u2014 this is where the growth stimulus is strongest.",
       "substitutes": [
         "barbell_curl",
         "cable_curl",
-        "bayesian_curl"
+        "bayesian_curl",
+        "prone_incline_curl"
       ],
       "complements": [
         "preacher_curl",
@@ -241,7 +289,16 @@
         "skull_crusher",
         "overhead_tricep_extension"
       ],
-      "notes": "Growing body of research on stretch-mediated hypertrophy suggests that exercises loading a muscle in its lengthened position may produce superior growth. The incline curl is one of the best examples of this for the biceps — the shoulder extension at the bottom creates a deep stretch on the long head under load. Use a full range of motion and don't cut the bottom short. The long head is the outer part of the bicep that creates the peaked look."
+      "notes": "Growing body of research on stretch-mediated hypertrophy suggests that exercises loading a muscle in its lengthened position may produce superior growth. The incline curl is one of the best examples of this for the biceps \u2014 the shoulder extension at the bottom creates a deep stretch on the long head under load. Use a full range of motion and don't cut the bottom short. The long head is the outer part of the bicep that creates the peaked look.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "bayesian_curl",
@@ -262,7 +319,7 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/standing-dumbbell-curl.html",
-      "beginner_tips": "Stand facing AWAY from a low cable with a D-handle. Your arm hangs behind your body — the cable pulls your arm into shoulder extension (behind you). From this stretched position, curl the handle forward and up by bending only your elbow. Control the lowering back to full stretch. One arm at a time. Stagger your feet for balance.",
+      "beginner_tips": "Stand facing AWAY from a low cable with a D-handle. Your arm hangs behind your body \u2014 the cable pulls your arm into shoulder extension (behind you). From this stretched position, curl the handle forward and up by bending only your elbow. Control the lowering back to full stretch. One arm at a time. Stagger your feet for balance.",
       "substitutes": [
         "incline_dumbbell_curl",
         "cable_curl",
@@ -281,7 +338,16 @@
         "overhead_tricep_extension",
         "single_arm_overhead_extension"
       ],
-      "notes": "The cable version of the incline curl concept — loads the bicep long head in a stretched position with constant cable tension throughout. Unlike incline dumbbell curls (where tension drops at the top), the cable maintains resistance across the entire range of motion, including the peak contraction. Increasingly popular due to stretch-mediated hypertrophy research. Arguably the single best bicep isolation exercise for long head growth when combining stretch loading with constant tension."
+      "notes": "The cable version of the incline curl concept \u2014 loads the bicep long head in a stretched position with constant cable tension throughout. Unlike incline dumbbell curls (where tension drops at the top), the cable maintains resistance across the entire range of motion, including the peak contraction. Increasingly popular due to stretch-mediated hypertrophy research. Arguably the single best bicep isolation exercise for long head growth when combining stretch loading with constant tension.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "spider_curl",
@@ -304,7 +370,7 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/spider-curl.html",
-      "beginner_tips": "Set an adjustable bench to about 45 degrees. Lie face DOWN on the bench with your arms hanging straight down toward the floor. Curl the weight up, squeezing hard at the top. Your arms are vertical, so gravity provides the most resistance at the fully contracted (top) position — the opposite of most curls. Use light weight and focus on the squeeze.",
+      "beginner_tips": "Set an adjustable bench to about 45 degrees. Lie face DOWN on the bench with your arms hanging straight down toward the floor. Curl the weight up, squeezing hard at the top. Your arms are vertical, so gravity provides the most resistance at the fully contracted (top) position \u2014 the opposite of most curls. Use light weight and focus on the squeeze.",
       "substitutes": [
         "preacher_curl",
         "concentration_curl",
@@ -319,7 +385,16 @@
         "skull_crusher",
         "tricep_pushdown"
       ],
-      "notes": "The counterpart to incline curls. Where incline curls load the stretched position, spider curls load the shortened/contracted position. The vertical arm position means peak tension occurs when the bicep is fully contracted — where most other curls have the least tension. For complete bicep development across the entire range of motion, include exercises from both ends: incline or bayesian curls (stretch-emphasis) plus spider or concentration curls (contraction-emphasis)."
+      "notes": "The counterpart to incline curls. Where incline curls load the stretched position, spider curls load the shortened/contracted position. The vertical arm position means peak tension occurs when the bicep is fully contracted \u2014 where most other curls have the least tension. For complete bicep development across the entire range of motion, include exercises from both ends: incline or bayesian curls (stretch-emphasis) plus spider or concentration curls (contraction-emphasis).",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "cable_curl",
@@ -342,12 +417,13 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/cable-curl.html",
-      "beginner_tips": "Bar or rope on low cable. Curl like a barbell curl. The cable keeps tension constant through the entire range of motion — unlike dumbbells and barbells which lose tension at the top and bottom of the movement. Try different attachments: straight bar, EZ bar, rope, D-handles.",
+      "beginner_tips": "Bar or rope on low cable. Curl like a barbell curl. The cable keeps tension constant through the entire range of motion \u2014 unlike dumbbells and barbells which lose tension at the top and bottom of the movement. Try different attachments: straight bar, EZ bar, rope, D-handles.",
       "substitutes": [
         "barbell_curl",
         "dumbbell_curl",
         "ez_bar_curl",
-        "bayesian_curl"
+        "bayesian_curl",
+        "band_curl"
       ],
       "complements": [
         "tricep_pushdown",
@@ -359,7 +435,16 @@
         "tricep_pushdown",
         "cable_overhead_extension"
       ],
-      "notes": "Constant tension profile makes this an excellent finisher after heavier free-weight curls. Different attachments shift emphasis slightly: straight bar for heavy bilateral work, rope for neutral grip and peak contraction squeeze, D-handles for unilateral work. The cable's direction of pull (angled toward the pulley) provides a unique resistance curve compared to free weights."
+      "notes": "Constant tension profile makes this an excellent finisher after heavier free-weight curls. Different attachments shift emphasis slightly: straight bar for heavy bilateral work, rope for neutral grip and peak contraction squeeze, D-handles for unilateral work. The cable's direction of pull (angled toward the pulley) provides a unique resistance curve compared to free weights.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "rope_cable_curl",
@@ -380,8 +465,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/rope-cable-curl.html",
-      "beginner_tips": "Rope on low cable. Curl with neutral grip (palms facing each other) throughout the movement. At the top, you can spread the rope ends apart for an extra squeeze. This is the cable version of hammer curls — same brachialis emphasis with constant tension.",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-rope-hammer-curl.html",
+      "beginner_tips": "Rope on low cable. Curl with neutral grip (palms facing each other) throughout the movement. At the top, you can spread the rope ends apart for an extra squeeze. This is the cable version of hammer curls \u2014 same brachialis emphasis with constant tension.",
       "substitutes": [
         "hammer_curl",
         "reverse_curl",
@@ -398,7 +483,16 @@
         "overhead_tricep_extension",
         "cable_overhead_extension"
       ],
-      "notes": "Combines the benefits of hammer curls (brachialis and brachioradialis emphasis) with constant cable tension. The rope also allows you to spread the ends at peak contraction, which some people find gives a better squeeze than a fixed handle. Good finishing exercise after heavier free-weight curls."
+      "notes": "Combines the benefits of hammer curls (brachialis and brachioradialis emphasis) with constant cable tension. The rope also allows you to spread the ends at peak contraction, which some people find gives a better squeeze than a fixed handle. Good finishing exercise after heavier free-weight curls.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "concentration_curl",
@@ -418,8 +512,8 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/concentration-cur.html",
-      "beginner_tips": "Sit on bench, lean forward, brace the back of your upper arm against your inner thigh. Curl the dumbbell up, squeeze the bicep hard at the top for 1-2 seconds, then lower slowly. The braced position eliminates all momentum — your bicep does 100% of the work.",
+      "video_url": "https://www.muscleandstrength.com/exercises/concentration-curl.html",
+      "beginner_tips": "Sit on bench, lean forward, brace the back of your upper arm against your inner thigh. Curl the dumbbell up, squeeze the bicep hard at the top for 1-2 seconds, then lower slowly. The braced position eliminates all momentum \u2014 your bicep does 100% of the work.",
       "substitutes": [
         "preacher_curl",
         "cable_curl",
@@ -435,7 +529,16 @@
         "single_arm_overhead_extension",
         "tricep_kickback"
       ],
-      "notes": "One of the highest-activation bicep exercises due to the completely isolated, cheat-free position. An ACE-sponsored EMG study ranked it #1 for bicep activation, though EMG studies have limitations — activation doesn't always perfectly predict growth. The main advantage is the mind-muscle connection: the braced position and visual contact with the working muscle make it very easy to feel the bicep working. Great for beginners learning to \"feel\" their biceps."
+      "notes": "One of the highest-activation bicep exercises due to the completely isolated, cheat-free position. An ACE-sponsored EMG study ranked it #1 for bicep activation, though EMG studies have limitations \u2014 activation doesn't always perfectly predict growth. The main advantage is the mind-muscle connection: the braced position and visual contact with the working muscle make it very easy to feel the bicep working. Great for beginners learning to \"feel\" their biceps.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "reverse_curl",
@@ -458,7 +561,7 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/reverse-barbell-curl.html",
-      "beginner_tips": "Same as a regular barbell curl but grip the bar with palms facing DOWN (overhand/pronated). Curl up keeping the overhand grip. You'll use significantly less weight than regular curls — the biceps are in a mechanically weak position and the brachioradialis does most of the work. EZ bar is much more comfortable than straight bar for this exercise.",
+      "beginner_tips": "Same as a regular barbell curl but grip the bar with palms facing DOWN (overhand/pronated). Curl up keeping the overhand grip. You'll use significantly less weight than regular curls \u2014 the biceps are in a mechanically weak position and the brachioradialis does most of the work. EZ bar is much more comfortable than straight bar for this exercise.",
       "substitutes": [
         "hammer_curl",
         "rope_cable_curl",
@@ -475,7 +578,16 @@
         "overhead_tricep_extension",
         "dip_tricep"
       ],
-      "notes": "The most direct exercise for the brachioradialis — the thick forearm muscle on the thumb side that's visible when your arms are at your sides. This muscle is responsible for the 'thick forearm' look and is only partially hit by hammer curls (neutral grip) and barely hit by regular curls (supinated grip). Reverse curls also strengthen the wrist extensors isometrically, which helps prevent tennis elbow. Include if forearm size is a priority."
+      "notes": "The most direct exercise for the brachioradialis \u2014 the thick forearm muscle on the thumb side that's visible when your arms are at your sides. This muscle is responsible for the 'thick forearm' look and is only partially hit by hammer curls (neutral grip) and barely hit by regular curls (supinated grip). Reverse curls also strengthen the wrist extensors isometrically, which helps prevent tennis elbow. Include if forearm size is a priority.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "tricep_pushdown",
@@ -496,13 +608,14 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/rope-tricep-extension.html",
-      "beginner_tips": "Face high cable, rope or bar attachment. Pin elbows to sides and keep them there throughout. Push down by straightening arms. Squeeze triceps hard at the bottom. Slowly release back up — don't let the weight stack slam. With the rope, spread the ends apart at the bottom for a better contraction.",
+      "beginner_tips": "Face high cable, rope or bar attachment. Pin elbows to sides and keep them there throughout. Push down by straightening arms. Squeeze triceps hard at the bottom. Slowly release back up \u2014 don't let the weight stack slam. With the rope, spread the ends apart at the bottom for a better contraction.",
       "substitutes": [
         "overhead_tricep_extension",
         "skull_crusher",
         "dip_tricep",
         "diamond_push_up",
-        "cable_overhead_extension"
+        "cable_overhead_extension",
+        "band_tricep_extension"
       ],
       "complements": [
         "barbell_curl",
@@ -518,7 +631,16 @@
         "ez_bar_curl",
         "rope_cable_curl"
       ],
-      "notes": "The most popular tricep exercise. Primarily targets the lateral and medial heads of the tricep because the shoulder is in a neutral position (not overhead). The rope attachment allows wrist rotation at the bottom for a harder peak contraction. Straight bar allows heavier loading. For complete tricep development, PAIR pushdowns with an overhead movement (overhead extensions or skull crushers) to also hit the long head in its stretched position."
+      "notes": "The most popular tricep exercise. Primarily targets the lateral and medial heads of the tricep because the shoulder is in a neutral position (not overhead). The rope attachment allows wrist rotation at the bottom for a harder peak contraction. Straight bar allows heavier loading. For complete tricep development, PAIR pushdowns with an overhead movement (overhead extensions or skull crushers) to also hit the long head in its stretched position.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "overhead_tricep_extension",
@@ -539,12 +661,13 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/overhead-tricep-extension.html",
-      "beginner_tips": "Hold one dumbbell with both hands behind your head, elbows pointing up toward the ceiling. Extend your arms up by straightening the elbows. Lower the weight behind your head with control — feel the deep stretch in the tricep at the bottom. Keep your elbows pointing forward, not flaring out to the sides.",
+      "beginner_tips": "Hold one dumbbell with both hands behind your head, elbows pointing up toward the ceiling. Extend your arms up by straightening the elbows. Lower the weight behind your head with control \u2014 feel the deep stretch in the tricep at the bottom. Keep your elbows pointing forward, not flaring out to the sides.",
       "substitutes": [
         "cable_overhead_extension",
         "skull_crusher",
         "single_arm_overhead_extension",
-        "tricep_pushdown"
+        "tricep_pushdown",
+        "band_tricep_extension"
       ],
       "complements": [
         "tricep_pushdown",
@@ -559,7 +682,16 @@
         "dumbbell_curl",
         "hammer_curl"
       ],
-      "notes": "The overhead position stretches the long head of the tricep — the biggest of the three tricep heads, running from the elbow up to the shoulder blade. Pushdowns alone don't fully load the long head because the shoulder stays neutral. Research consistently shows that training a muscle in its lengthened position produces more growth (Maeo et al., 2021), making overhead extensions essential for complete tricep development. Pair with pushdowns: pushdowns for lateral/medial heads, overhead for the long head."
+      "notes": "The overhead position stretches the long head of the tricep \u2014 the biggest of the three tricep heads, running from the elbow up to the shoulder blade. Pushdowns alone don't fully load the long head because the shoulder stays neutral. Research consistently shows that training a muscle in its lengthened position produces more growth (Maeo et al., 2021), making overhead extensions essential for complete tricep development. Pair with pushdowns: pushdowns for lateral/medial heads, overhead for the long head.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "single_arm_overhead_extension",
@@ -579,8 +711,8 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-dumbbell-extension.html",
-      "beginner_tips": "Hold one dumbbell overhead in one hand. Lower it behind your head by bending only at the elbow, then extend back to the start. Use your free hand to support the working elbow and keep it pointing straight up — this prevents it from flaring out and reduces shoulder stress. Start with light weight to learn the path.",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-overhead-dumbbell-extension.html",
+      "beginner_tips": "Hold one dumbbell overhead in one hand. Lower it behind your head by bending only at the elbow, then extend back to the start. Use your free hand to support the working elbow and keep it pointing straight up \u2014 this prevents it from flaring out and reduces shoulder stress. Start with light weight to learn the path.",
       "substitutes": [
         "overhead_tricep_extension",
         "cable_overhead_extension",
@@ -598,7 +730,16 @@
         "bayesian_curl",
         "preacher_curl"
       ],
-      "notes": "Unilateral version for identifying and correcting left/right tricep imbalances. The single-arm position allows slightly more range of motion and a deeper stretch than the two-hand version. Also useful when you don't have a dumbbell heavy enough for the two-hand version — one arm at a time effectively doubles the relative load."
+      "notes": "Unilateral version for identifying and correcting left/right tricep imbalances. The single-arm position allows slightly more range of motion and a deeper stretch than the two-hand version. Also useful when you don't have a dumbbell heavy enough for the two-hand version \u2014 one arm at a time effectively doubles the relative load.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "skull_crusher",
@@ -620,11 +761,12 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/lying-tricep-extension.html",
-      "beginner_tips": "Lie on bench, EZ bar above chest. Bend elbows to lower bar toward your forehead (hence the name), then extend back up. Pro tip: lower the bar BEHIND your head instead of to your forehead — this creates a deeper stretch on the long head and is actually safer because the bar path moves away from your face. Keep upper arms slightly angled back (not vertical) throughout.",
+      "beginner_tips": "Lie on bench, EZ bar above chest. Bend elbows to lower bar toward your forehead (hence the name), then extend back up. Pro tip: lower the bar BEHIND your head instead of to your forehead \u2014 this creates a deeper stretch on the long head and is actually safer because the bar path moves away from your face. Keep upper arms slightly angled back (not vertical) throughout.",
       "substitutes": [
         "overhead_tricep_extension",
         "tricep_pushdown",
-        "cable_overhead_extension"
+        "cable_overhead_extension",
+        "jm_press"
       ],
       "complements": [
         "close_grip_bench_press",
@@ -637,7 +779,16 @@
         "incline_dumbbell_curl",
         "spider_curl"
       ],
-      "notes": "Classic intermediate tricep builder. The behind-head variation is sometimes called a 'French press' and is preferred because it increases the stretch on the long head. Use an EZ bar for wrist comfort. The lying position allows you to use heavier weight than standing overhead extensions since you don't need to stabilize your torso. Some people experience elbow pain — if so, switch to overhead cable extensions which have a smoother resistance curve."
+      "notes": "Classic intermediate tricep builder. The behind-head variation is sometimes called a 'French press' and is preferred because it increases the stretch on the long head. Use an EZ bar for wrist comfort. The lying position allows you to use heavier weight than standing overhead extensions since you don't need to stabilize your torso. Some people experience elbow pain \u2014 if so, switch to overhead cable extensions which have a smoother resistance curve.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "dip_tricep",
@@ -662,11 +813,13 @@
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10",
       "video_url": "https://www.muscleandstrength.com/exercises/tricep-dip.html",
-      "beginner_tips": "Same setup as chest dip but keep body UPRIGHT — don't lean forward. This focuses the load on the triceps rather than the chest. Lower until upper arms are about parallel to the floor, then push back up. Don't go deeper than parallel — excessive depth puts unnecessary stress on the shoulders.",
+      "beginner_tips": "Same setup as chest dip but keep body UPRIGHT \u2014 don't lean forward. This focuses the load on the triceps rather than the chest. Lower until upper arms are about parallel to the floor, then push back up. Don't go deeper than parallel \u2014 excessive depth puts unnecessary stress on the shoulders.",
       "substitutes": [
         "close_grip_bench_press",
         "tricep_pushdown",
-        "diamond_push_up"
+        "diamond_push_up",
+        "bench_dip",
+        "machine_dip"
       ],
       "complements": [
         "overhead_tricep_extension",
@@ -678,7 +831,16 @@
         "chin_up",
         "pull_up"
       ],
-      "notes": "The heaviest bodyweight tricep exercise. Use the assisted dip machine or a resistance band if you can't do full bodyweight. Progress by adding a weight belt or holding a dumbbell between your feet. The upright torso position is the key tricep emphasis cue — as soon as you lean forward, the chest takes over."
+      "notes": "The heaviest bodyweight tricep exercise. Use the assisted dip machine or a resistance band if you can't do full bodyweight. Progress by adding a weight belt or holding a dumbbell between your feet. The upright torso position is the key tricep emphasis cue \u2014 as soon as you lean forward, the chest takes over.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "tricep_kickback",
@@ -698,12 +860,13 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-15",
       "rep_range_strength": "10-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/tricep-kickback.html",
-      "beginner_tips": "Lean forward with one hand on bench for support. Upper arm parallel to floor, elbow at 90 degrees. Straighten your arm completely behind you, squeezing the tricep hard at full extension. Hold for a beat. Lower with control. Use light weight — the effectiveness comes from the full lockout squeeze, not the load.",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-kickback.html",
+      "beginner_tips": "Lean forward with one hand on bench for support. Upper arm parallel to floor, elbow at 90 degrees. Straighten your arm completely behind you, squeezing the tricep hard at full extension. Hold for a beat. Lower with control. Use light weight \u2014 the effectiveness comes from the full lockout squeeze, not the load.",
       "substitutes": [
         "tricep_pushdown",
         "cable_overhead_extension",
-        "diamond_push_up"
+        "diamond_push_up",
+        "cable_tricep_kickback"
       ],
       "complements": [
         "skull_crusher",
@@ -715,7 +878,16 @@
         "concentration_curl",
         "dumbbell_curl"
       ],
-      "notes": "EMG shows high tricep activation when performed correctly — the key is fully extending the elbow at the top and holding. The problem is that most people use too much weight and never reach full lockout, which defeats the purpose. The shoulder-extended position (arm behind body) shortens the long head, so this exercise primarily targets the lateral head. Think of it as a complement to overhead extensions, not a replacement."
+      "notes": "EMG shows high tricep activation when performed correctly \u2014 the key is fully extending the elbow at the top and holding. The problem is that most people use too much weight and never reach full lockout, which defeats the purpose. The shoulder-extended position (arm behind body) shortens the long head, so this exercise primarily targets the lateral head. Think of it as a complement to overhead extensions, not a replacement.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "cable_overhead_extension",
@@ -735,12 +907,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/overhead-tricep-extension.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-overhead-tricep-extension.html",
       "beginner_tips": "Face away from a high cable with a rope attachment. Step forward into a split stance for balance. The rope starts behind your head with your elbows bent. Extend your arms overhead by straightening the elbows. The cable keeps constant tension through the entire stretch and contraction. Let the weight pull your hands back behind your head for the full stretch on each rep.",
       "substitutes": [
         "overhead_tricep_extension",
         "skull_crusher",
-        "single_arm_overhead_extension"
+        "single_arm_overhead_extension",
+        "band_tricep_extension"
       ],
       "complements": [
         "tricep_pushdown",
@@ -752,7 +925,16 @@
         "cable_curl",
         "bayesian_curl"
       ],
-      "notes": "Arguably the best long head tricep exercise. The cable maintains tension even in the fully stretched position (behind your head), where dumbbells and barbells lose tension due to the gravity angle. The constant tension through the stretch is exactly what the stretch-mediated hypertrophy research suggests is most effective for muscle growth. If you only pick one overhead tricep movement, make it this one."
+      "notes": "Arguably the best long head tricep exercise. The cable maintains tension even in the fully stretched position (behind your head), where dumbbells and barbells lose tension due to the gravity angle. The constant tension through the stretch is exactly what the stretch-mediated hypertrophy research suggests is most effective for muscle growth. If you only pick one overhead tricep movement, make it this one.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "diamond_push_up",
@@ -775,8 +957,8 @@
       "bilateral": true,
       "rep_range_hypertrophy": "to failure",
       "rep_range_strength": "to failure",
-      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-push-up.html",
-      "beginner_tips": "Push-up position but hands close together, forming a diamond shape with thumbs and index fingers touching. Lower chest to hands, push back up. If too hard, do them on your knees first or use an incline (hands on a bench). Keep your elbows tucked close to your body — flaring them wide shifts work to the chest.",
+      "video_url": "https://www.muscleandstrength.com/exercises/diamond-push-ups.html",
+      "beginner_tips": "Push-up position but hands close together, forming a diamond shape with thumbs and index fingers touching. Lower chest to hands, push back up. If too hard, do them on your knees first or use an incline (hands on a bench). Keep your elbows tucked close to your body \u2014 flaring them wide shifts work to the chest.",
       "substitutes": [
         "tricep_pushdown",
         "close_grip_bench_press",
@@ -793,7 +975,16 @@
         "barbell_curl",
         "hammer_curl"
       ],
-      "notes": "EMG research consistently shows this as one of the highest tricep activation exercises. No equipment needed — excellent for home training or as a finisher at the end of a gym session. The close hand position shifts work from the chest to the triceps compared to a standard push-up. Progression: knees → incline → floor → feet elevated → weighted vest."
+      "notes": "EMG research consistently shows this as one of the highest tricep activation exercises. No equipment needed \u2014 excellent for home training or as a finisher at the end of a gym session. The close hand position shifts work from the chest to the triceps compared to a standard push-up. Progression: knees \u2192 incline \u2192 floor \u2192 feet elevated \u2192 weighted vest.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "wrist_curl",
@@ -829,7 +1020,16 @@
       "superset_candidates": [
         "reverse_wrist_curl"
       ],
-      "notes": "Targets the wrist flexors on the palm side of the forearm. ALWAYS do grip and forearm work LAST in your workout — fatigued forearms will limit pulling exercises like rows, deadlifts, and curls. Most people will develop adequate forearm strength from heavy pulling exercises alone. Add direct wrist work if forearm size is a specific goal or if grip is limiting your pulling."
+      "notes": "Targets the wrist flexors on the palm side of the forearm. ALWAYS do grip and forearm work LAST in your workout \u2014 fatigued forearms will limit pulling exercises like rows, deadlifts, and curls. Most people will develop adequate forearm strength from heavy pulling exercises alone. Add direct wrist work if forearm size is a specific goal or if grip is limiting your pulling.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "reverse_wrist_curl",
@@ -851,7 +1051,7 @@
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
       "video_url": "https://www.muscleandstrength.com/exercises/reverse-barbell-curl.html",
-      "beginner_tips": "Same position as wrist curls but palms face DOWN. Extend wrists by pulling the back of your hands upward. You'll use much lighter weight than regular wrist curls — the wrist extensors are smaller muscles.",
+      "beginner_tips": "Same position as wrist curls but palms face DOWN. Extend wrists by pulling the back of your hands upward. You'll use much lighter weight than regular wrist curls \u2014 the wrist extensors are smaller muscles.",
       "substitutes": [
         "farmer_walk",
         "reverse_curl",
@@ -864,7 +1064,16 @@
       "superset_candidates": [
         "wrist_curl"
       ],
-      "notes": "Important for balanced forearm development and preventing overuse injuries like tennis elbow (lateral epicondylitis). The wrist extensors are often neglected because they're not visible like the flexors, but they're critical for joint health. If you do any wrist curls, always pair them with reverse wrist curls to maintain balance across the joint."
+      "notes": "Important for balanced forearm development and preventing overuse injuries like tennis elbow (lateral epicondylitis). The wrist extensors are often neglected because they're not visible like the flexors, but they're critical for joint health. If you do any wrist curls, always pair them with reverse wrist curls to maintain balance across the joint.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "farmer_walk",
@@ -892,7 +1101,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "30-60 seconds",
       "rep_range_strength": "20-30 seconds heavy",
-      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
       "beginner_tips": "Pick up heavy dumbbells or kettlebells and walk. Stand tall, shoulders back and down, core braced. Walk for distance or time with controlled, measured steps. Simple concept, brutally effective execution. The trap bar version allows the heaviest loads because the weight is centered around you.",
       "substitutes": [
         "dead_hang",
@@ -908,7 +1117,16 @@
         "dead_hang",
         "plank"
       ],
-      "notes": "One of the best exercises most people never do. Builds grip, traps, core stability, and mental toughness simultaneously. Also trains your body to maintain posture under load while moving — which is how your body actually functions in real life. Variations: single-arm (suitcase carry) adds anti-lateral flexion core work, overhead carry adds shoulder stability. The trap bar is the best implement for heavy farmer's walks."
+      "notes": "One of the best exercises most people never do. Builds grip, traps, core stability, and mental toughness simultaneously. Also trains your body to maintain posture under load while moving \u2014 which is how your body actually functions in real life. Variations: single-arm (suitcase carry) adds anti-lateral flexion core work, overhead carry adds shoulder stability. The trap bar is the best implement for heavy farmer's walks.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "dead_hang",
@@ -931,7 +1149,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "30-90 seconds",
       "rep_range_strength": "max hold",
-      "video_url": "https://www.strengthlog.com/bar-hang/",
+      "video_url": "https://www.muscleandstrength.com/exercises/dead-hang.html",
       "beginner_tips": "Hang from a pull-up bar with straight arms, shoulder-width grip. Hold as long as you can. Relax your body and let gravity decompress your spine. If you can hold for 90+ seconds, add weight with a dip belt or switch to single-arm hangs.",
       "substitutes": [
         "farmer_walk",
@@ -947,7 +1165,744 @@
         "lat_pulldown",
         "plank"
       ],
-      "notes": "Deceptively simple but extremely effective. Builds grip endurance, decompresses the spine after heavy training, and gently stretches the lats and shoulders. Also builds the specific grip strength needed for pull-ups and heavy deadlifts. Great end-of-workout exercise. Can be progressed: two-hand → thick bar → towel hang → single-arm."
+      "notes": "Deceptively simple but extremely effective. Builds grip endurance, decompresses the spine after heavy training, and gently stretches the lats and shoulders. Also builds the specific grip strength needed for pull-ups and heavy deadlifts. Great end-of-workout exercise. Can be progressed: two-hand \u2192 thick bar \u2192 towel hang \u2192 single-arm.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "kb_curl",
+      "name": "Kettlebell Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-dumbbell-curl.html",
+      "beginner_tips": "Hold the kettlebell by the handle with one hand. Curl up like a normal dumbbell curl but the weight hangs below your hand, which forces your grip and forearms to work harder to control the bell. Keep your elbow pinned to your side. Can also be done bottoms-up (bell upside down) for an extreme grip challenge \u2014 start very light with the bottoms-up variation.",
+      "substitutes": [
+        "dumbbell_curl",
+        "hammer_curl",
+        "concentration_curl"
+      ],
+      "complements": [
+        "barbell_curl",
+        "incline_dumbbell_curl",
+        "tricep_pushdown",
+        "barbell_row",
+        "cable_row"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "tricep_kickback"
+      ],
+      "notes": "The offset center of mass of a kettlebell forces greater grip and forearm stabilization than a dumbbell. The bottoms-up variation (holding the bell upside down by the handle) is particularly effective for grip strength and shoulder stabilization, as you must actively prevent the bell from flipping. The standard handle-grip version adds a unique wrist-stability challenge compared to dumbbells because the weight hangs below the hand rather than sitting on either side.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "bench_dip",
+      "name": "Bench Dip (Tricep Dip on Bench)",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "flat_bench",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/bench-dips.html",
+      "beginner_tips": "Sit on the edge of a bench with hands gripping the edge beside your hips. Slide your hips off the bench with feet on the floor, knees bent. Lower your body by bending your elbows to about 90 degrees, then push back up. Keep your back close to the bench throughout. To make it harder, straighten your legs or elevate your feet on another bench.",
+      "substitutes": [
+        "dip_tricep",
+        "diamond_push_up",
+        "tricep_pushdown",
+        "machine_dip"
+      ],
+      "complements": [
+        "overhead_tricep_extension",
+        "cable_overhead_extension",
+        "dumbbell_curl",
+        "barbell_bench_press",
+        "machine_chest_press"
+      ],
+      "superset_candidates": [
+        "dumbbell_curl",
+        "barbell_curl",
+        "hammer_curl"
+      ],
+      "notes": "The easiest dip variation and a great entry point for beginners who cannot yet do parallel bar dips. Primarily loads the triceps with some chest and anterior deltoid involvement. Bending the knees reduces the load; straightening the legs or elevating the feet increases it. Watch shoulder depth \u2014 don't go much past 90 degrees at the elbow, as excessive depth places high stress on the anterior shoulder capsule. Progress to parallel bar dips when you can do 15+ reps with straight legs.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "band_curl",
+      "name": "Resistance Band Bicep Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-dumbbell-curl.html",
+      "beginner_tips": "Stand on the center of a resistance band with both feet. Hold the ends (or handles) with palms facing forward. Curl up just like a regular bicep curl. The band gets harder as you curl higher because it stretches more \u2014 this provides an ascending resistance curve that peaks at the contracted position. Keep your elbows pinned to your sides.",
+      "substitutes": [
+        "dumbbell_curl",
+        "cable_curl",
+        "barbell_curl"
+      ],
+      "complements": [
+        "band_tricep_extension",
+        "band_hammer_curl",
+        "hammer_curl",
+        "barbell_row",
+        "cable_row"
+      ],
+      "superset_candidates": [
+        "band_tricep_extension",
+        "tricep_pushdown",
+        "overhead_tricep_extension"
+      ],
+      "notes": "Excellent for home workouts, travel, and warm-ups. The ascending resistance curve (more tension at the top) provides a unique stimulus different from free weights, where tension drops at full contraction. Bands are also easier on the joints due to their progressive loading nature \u2014 no sudden impact or heavy starting load. Combine with free weights in the same session for coverage across the full strength curve.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "band_tricep_extension",
+      "name": "Resistance Band Tricep Extension",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/rope-tricep-extension.html",
+      "beginner_tips": "Anchor the band overhead (on a door anchor, pull-up bar, or hold the center behind your head). Push the ends downward by straightening your elbows, like a cable pushdown. You can also do the overhead variation: hold one end behind your head and extend upward against resistance. Keep elbows pinned in position throughout the movement.",
+      "substitutes": [
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "diamond_push_up"
+      ],
+      "complements": [
+        "band_curl",
+        "band_hammer_curl",
+        "cable_overhead_extension",
+        "barbell_bench_press",
+        "machine_chest_press"
+      ],
+      "superset_candidates": [
+        "band_curl",
+        "band_hammer_curl",
+        "dumbbell_curl"
+      ],
+      "notes": "The band version of cable pushdowns or overhead extensions. The ascending resistance curve means maximum tension at full lockout, which is where the tricep is strongest. Excellent for home training, warm-ups, pump work, and high-rep finishers. When done overhead, the band provides an excellent stretch on the long head with peak tension at full extension. Very joint-friendly due to the progressive loading nature of bands.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "band_hammer_curl",
+      "name": "Resistance Band Hammer Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "biceps",
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-hammer-curl.html",
+      "beginner_tips": "Stand on a resistance band with both feet. Hold the ends with a neutral grip (palms facing each other, like holding hammers). Curl up keeping the neutral grip throughout. The band tension increases as you curl higher. Keep elbows pinned to your sides.",
+      "substitutes": [
+        "hammer_curl",
+        "rope_cable_curl",
+        "band_curl"
+      ],
+      "complements": [
+        "band_curl",
+        "band_tricep_extension",
+        "reverse_curl"
+      ],
+      "superset_candidates": [
+        "band_tricep_extension",
+        "tricep_pushdown",
+        "overhead_tricep_extension"
+      ],
+      "notes": "Combines the brachialis and brachioradialis emphasis of a neutral grip with the ascending resistance curve of a band. Good for arm thickness when dumbbells are unavailable. The progressive resistance is particularly well-suited to hammer curls since you can handle heavier loads in this grip position. Pair with band curls (supinated) for complete bicep coverage using only bands.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "cable_drag_curl",
+      "name": "Cable Drag Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-drag-curl.html",
+      "beginner_tips": "Stand facing a low cable with a straight or EZ bar attachment. Instead of curling the bar in an arc, drag it straight UP along your body by pulling your elbows BEHIND you. Your elbows move backward as the bar travels up your torso. The range of motion is shorter than a regular curl. Squeeze hard at the top. This is a very different feeling from a standard curl.",
+      "substitutes": [
+        "bayesian_curl",
+        "incline_dumbbell_curl",
+        "cable_curl"
+      ],
+      "complements": [
+        "spider_curl",
+        "preacher_curl",
+        "hammer_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "cable_overhead_extension"
+      ],
+      "notes": "The drag curl emphasizes the bicep long head by keeping the elbows behind the body throughout the movement, placing the long head in a shortened shoulder position while the elbow flexes. Combined with cable constant tension, this provides a unique stimulus. The behind-body elbow position means the short head contributes less, making this a long head isolator. Pair with preacher or spider curls (short head emphasis) for complete bicep development.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "cross_body_cable_curl",
+      "name": "Cross-Body Cable Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-curl.html",
+      "beginner_tips": "Stand sideways to a low cable. Grab the D-handle with the far hand (the one away from the machine). Curl the cable across your body toward the opposite shoulder. The diagonal line of pull creates a unique angle of resistance that targets the bicep differently than straight-ahead curls. Keep your elbow stationary and curl smoothly.",
+      "substitutes": [
+        "cable_curl",
+        "bayesian_curl",
+        "concentration_curl"
+      ],
+      "complements": [
+        "cable_curl",
+        "hammer_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "cable_overhead_extension",
+        "cable_tricep_kickback"
+      ],
+      "notes": "The cross-body pulling angle emphasizes the short head (inner) of the bicep because the shoulder is slightly adducted and flexed during the curl. This is a useful variation for lifters who want to target the short head specifically, complementing long-head exercises like incline curls and bayesian curls. The cable provides constant tension throughout the arc. Unilateral nature also helps correct strength imbalances between arms.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "cable_tricep_kickback",
+      "name": "Cable Tricep Kickback",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-15",
+      "rep_range_strength": "10-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-tricep-kickback.html",
+      "beginner_tips": "Set a cable to a low position with a D-handle. Hinge forward at the hips, pin your upper arm parallel to the floor. Extend your arm fully behind you against the cable resistance. Squeeze the tricep hard at full lockout, then slowly return. The cable maintains tension throughout the entire range \u2014 unlike the dumbbell version where tension drops at the bottom.",
+      "substitutes": [
+        "tricep_kickback",
+        "tricep_pushdown",
+        "cable_overhead_extension"
+      ],
+      "complements": [
+        "cable_overhead_extension",
+        "skull_crusher",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "cable_curl",
+        "concentration_curl",
+        "cross_body_cable_curl"
+      ],
+      "notes": "Superior to the dumbbell kickback because the cable maintains constant tension through the entire range of motion, including the bottom where dumbbells provide almost no resistance. The cable direction can also be adjusted (low, mid) to change the resistance angle. The shoulder-extended position (arm behind body) shortens the long head, so this primarily targets the lateral and medial heads. Excellent for peak contraction work and mind-muscle connection with the tricep.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "machine_preacher_curl",
+      "name": "Machine Preacher Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "preacher_curl_bench"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-preacher-curl.html",
+      "beginner_tips": "Adjust the seat so your upper arms rest flat on the pad with armpits at the top edge. Grip the handles and curl up, squeezing at the top. Lower slowly with control. The machine guides the path, so just focus on contracting your biceps. Don't let the weight slam at the bottom \u2014 stop just short of full extension to protect the bicep tendon.",
+      "substitutes": [
+        "preacher_curl",
+        "concentration_curl",
+        "cable_curl",
+        "spider_curl"
+      ],
+      "complements": [
+        "incline_dumbbell_curl",
+        "hammer_curl",
+        "bayesian_curl"
+      ],
+      "superset_candidates": [
+        "machine_tricep_extension",
+        "tricep_pushdown",
+        "overhead_tricep_extension"
+      ],
+      "notes": "The machine version eliminates all stabilization demands and guides the movement path, making it extremely beginner-friendly and excellent for isolating the biceps with minimal technique requirements. The cam-based resistance profile on most machines provides a more even resistance curve than free-weight preacher curls, which have a very steep difficulty increase at the bottom. Good for beginners, rehab, and high-rep burnout sets.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "machine_tricep_extension",
+      "name": "Machine Tricep Extension",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/tricep-extension-machine.html",
+      "beginner_tips": "Sit in the machine and adjust the seat so your elbows align with the machine's pivot point. Grip the handles and extend your arms by pushing downward or forward (depending on machine type). Squeeze the triceps at full extension. Return slowly. The machine guides the movement \u2014 just focus on pushing through the handles.",
+      "substitutes": [
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "cable_overhead_extension"
+      ],
+      "complements": [
+        "machine_preacher_curl",
+        "cable_overhead_extension",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "machine_preacher_curl",
+        "cable_curl",
+        "barbell_curl"
+      ],
+      "notes": "Plate-loaded or selectorized machines for tricep extension provide a guided movement path with consistent resistance. Most modern tricep machines position the arms overhead, effectively loading the long head in a stretched position similar to overhead cable extensions. Extremely beginner-friendly due to the fixed path. Good for high-rep work, drop sets, and training to failure safely without a spotter.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "machine_dip",
+      "name": "Machine Dip (Assisted or Plate-Loaded)",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "assisted_pull_up_machine"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-assisted-dip.html",
+      "beginner_tips": "On an assisted dip machine, kneel on the pad and grip the handles. More weight on the stack means MORE assistance (easier). Lower yourself by bending your elbows until upper arms are parallel to the floor, then push back up. Keep your body upright for tricep emphasis, or lean slightly forward for more chest involvement. Gradually reduce the assistance weight as you get stronger.",
+      "substitutes": [
+        "dip_tricep",
+        "bench_dip",
+        "tricep_pushdown",
+        "diamond_push_up"
+      ],
+      "complements": [
+        "overhead_tricep_extension",
+        "cable_overhead_extension",
+        "barbell_curl"
+      ],
+      "superset_candidates": [
+        "cable_curl",
+        "barbell_curl",
+        "hammer_curl"
+      ],
+      "notes": "The assisted dip machine is the best way for beginners to build toward full bodyweight dips. The counterweight lets you train the exact dip movement pattern with reduced load, which is superior to bench dips for building the specific strength and motor pattern. Progress by reducing assistance weight over time. Most assisted dip machines also have pull-up handles, making them a two-for-one station for antagonist supersets (dips + assisted pull-ups).",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "jm_press",
+      "name": "JM Press",
+      "category": "compound",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "ez_bar",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "4-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/lying-tricep-extension.html",
+      "beginner_tips": "This is an ADVANCED exercise \u2014 master skull crushers and close-grip bench press first. Lie on a flat bench with a barbell. Lower the bar toward your upper chest/neck area by bending at BOTH the elbows and shoulders simultaneously \u2014 it's a hybrid between a skull crusher and a close-grip bench press. The elbows come forward as the bar descends. Press back up by extending the elbows forcefully. Keep the weight moderate until the groove is dialed in.",
+      "substitutes": [
+        "skull_crusher",
+        "close_grip_bench_press",
+        "tate_press"
+      ],
+      "complements": [
+        "tricep_pushdown",
+        "cable_overhead_extension",
+        "barbell_curl"
+      ],
+      "superset_candidates": [
+        "barbell_curl",
+        "ez_bar_curl",
+        "incline_dumbbell_curl"
+      ],
+      "notes": "Invented by powerlifter JM Blakley, this hybrid exercise combines elements of the skull crusher (elbow extension) with the close-grip bench press (horizontal push). The result is an exercise that allows heavier loading than a skull crusher while maintaining strong tricep emphasis. Popular in powerlifting for building lockout strength on the bench press. The combined elbow and shoulder flexion at the bottom creates a deep tricep stretch. Not recommended for beginners due to the complex bar path and high joint demands.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "tate_press",
+      "name": "Tate Press",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/lying-tricep-extension.html",
+      "beginner_tips": "Lie on a flat bench holding dumbbells above your chest with arms extended. Point your elbows OUT to the sides. Lower the dumbbells toward your chest by bending your elbows outward \u2014 the dumbbells move in an arc toward the center of your chest. Extend back up by straightening the elbows. The flared-elbow position is the opposite of most tricep exercises and creates a unique stretch.",
+      "substitutes": [
+        "skull_crusher",
+        "overhead_tricep_extension",
+        "jm_press"
+      ],
+      "complements": [
+        "tricep_pushdown",
+        "cable_overhead_extension",
+        "dumbbell_curl"
+      ],
+      "superset_candidates": [
+        "dumbbell_curl",
+        "incline_dumbbell_curl",
+        "hammer_curl"
+      ],
+      "notes": "Named after powerlifter Dave Tate. The elbows-out position uniquely targets the medial head of the tricep, which is often undertrained by standard pushdowns and overhead extensions that keep elbows tucked. The lying position and dumbbell path create a different stretch and loading angle compared to skull crushers. Popular in powerlifting circles for building the medial tricep head, which contributes to lockout strength. Use moderate weight \u2014 the flared-elbow position is mechanically demanding.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "zottman_curl",
+      "name": "Zottman Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "biceps",
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/zottman-curl.html",
+      "beginner_tips": "Start like a regular dumbbell curl with palms facing forward (supinated). Curl up to the top. At the top, ROTATE your wrists so palms face DOWN (pronated). Lower the weight with this overhand grip \u2014 this is the reverse curl portion. At the bottom, rotate back to palms up and repeat. The key is the grip switch at the top: supinated up, pronated down.",
+      "substitutes": [
+        "dumbbell_curl",
+        "hammer_curl",
+        "reverse_curl"
+      ],
+      "complements": [
+        "barbell_curl",
+        "incline_dumbbell_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "overhead_tricep_extension",
+        "skull_crusher"
+      ],
+      "notes": "A two-in-one exercise that trains the biceps (supinated concentric) and the brachioradialis/forearms (pronated eccentric) in a single movement. Named after 19th-century strongman George Zottman. The pronated eccentric (lowering phase) is where the brachioradialis gets its primary stimulus, since it's the strongest elbow flexor in pronation. Efficient for lifters who want bicep and forearm development without adding extra exercises. The wrist rotation also builds forearm rotational strength.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "prone_incline_curl",
+      "name": "Prone Incline Curl (Face-Down Incline Curl)",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/spider-curl.html",
+      "beginner_tips": "Set an adjustable bench to about 30-45 degrees. Lie face DOWN on the bench with your chest on the pad and arms hanging straight down. Curl the dumbbells up with a supinated grip. The prone position eliminates all momentum and body swing \u2014 your biceps do 100% of the work. Use lighter weight than standing curls; the strict position is very humbling.",
+      "substitutes": [
+        "spider_curl",
+        "preacher_curl",
+        "incline_dumbbell_curl",
+        "concentration_curl"
+      ],
+      "complements": [
+        "incline_dumbbell_curl",
+        "bayesian_curl",
+        "hammer_curl"
+      ],
+      "superset_candidates": [
+        "skull_crusher",
+        "tate_press",
+        "tricep_pushdown"
+      ],
+      "notes": "Similar to the spider curl but with a lower bench angle (30-45 vs 45-60 degrees), which shifts the peak resistance point slightly compared to a standard spider curl. The prone (face-down) position with arms hanging creates a moderate stretch at the bottom and peak contraction at the top, covering the mid-range to shortened spectrum. Eliminates all cheating \u2014 excellent for lifters who tend to use momentum on standing curls. The strict position also reduces spinal load to zero, making it back-friendly.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     }
   ]
 }

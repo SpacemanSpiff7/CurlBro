@@ -1,7 +1,7 @@
 {
   "file": "09_cardio_warmup.json",
   "description": "Cardio warmup exercises using gym machines and equipment for general warm-up before strength training",
-  "exercise_count": 7,
+  "exercise_count": 15,
   "exercises": [
     {
       "id": "treadmill_walk",
@@ -30,7 +30,8 @@
       "substitutes": [
         "treadmill_jog",
         "stationary_bike",
-        "elliptical"
+        "elliptical",
+        "sled_pull"
       ],
       "complements": [
         "leg_swing_forward",
@@ -38,7 +39,16 @@
         "walking_lunge_dynamic"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at a brisk pace. The simplest and most accessible cardio warm-up. Adding an incline (3-5%) increases glute and hamstring activation without impact stress. A walking warm-up is especially beneficial for older lifters or those recovering from lower body injuries."
+      "notes": "5-10 minutes at a brisk pace. The simplest and most accessible cardio warm-up. Adding an incline (3-5%) increases glute and hamstring activation without impact stress. A walking warm-up is especially beneficial for older lifters or those recovering from lower body injuries.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "treadmill_jog",
@@ -76,7 +86,16 @@
         "a_skip"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at conversational pace. Raises core body temperature, increases blood flow to the legs, and elevates heart rate for the session ahead. Keep the pace easy — this is a warm-up, not a conditioning session. If your legs feel heavy from a previous leg day, switch to the bike or elliptical for a lower-impact option."
+      "notes": "5-10 minutes at conversational pace. Raises core body temperature, increases blood flow to the legs, and elevates heart rate for the session ahead. Keep the pace easy — this is a warm-up, not a conditioning session. If your legs feel heavy from a previous leg day, switch to the bike or elliptical for a lower-impact option.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "elliptical",
@@ -114,7 +133,16 @@
         "arm_circle"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at moderate effort. Zero-impact warm-up that engages both upper and lower body. The elliptical motion closely mimics walking/running without the joint stress, making it ideal for those with knee or ankle issues. Reverse pedaling shifts emphasis to the hamstrings and glutes."
+      "notes": "5-10 minutes at moderate effort. Zero-impact warm-up that engages both upper and lower body. The elliptical motion closely mimics walking/running without the joint stress, making it ideal for those with knee or ankle issues. Reverse pedaling shifts emphasis to the hamstrings and glutes.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "stationary_bike",
@@ -143,7 +171,9 @@
       "substitutes": [
         "elliptical",
         "stair_climber",
-        "rowing_machine"
+        "rowing_machine",
+        "assault_bike",
+        "sled_pull"
       ],
       "complements": [
         "leg_swing_forward",
@@ -151,7 +181,16 @@
         "standing_quad_stretch"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at easy to moderate effort. Low-impact and non-weight-bearing, making it the gentlest cardio warm-up option. Particularly useful on leg day when your quads need blood flow without added joint stress. Recumbent bikes are even easier on the lower back."
+      "notes": "5-10 minutes at easy to moderate effort. Low-impact and non-weight-bearing, making it the gentlest cardio warm-up option. Particularly useful on leg day when your quads need blood flow without added joint stress. Recumbent bikes are even easier on the lower back.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "rowing_machine",
@@ -182,7 +221,9 @@
       "substitutes": [
         "elliptical",
         "treadmill_jog",
-        "stationary_bike"
+        "stationary_bike",
+        "ski_erg",
+        "sled_pull"
       ],
       "complements": [
         "thoracic_rotation",
@@ -190,7 +231,16 @@
         "hip_circle"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at a steady pace. The only cardio warm-up that significantly engages the upper body pulling muscles, making it ideal before back or full-body sessions. Uses 60% legs, 20% core, 20% arms. The most common form error is pulling with the arms first — always initiate the drive with your legs."
+      "notes": "5-10 minutes at a steady pace. The only cardio warm-up that significantly engages the upper body pulling muscles, making it ideal before back or full-body sessions. Uses 60% legs, 20% core, 20% arms. The most common form error is pulling with the arms first — always initiate the drive with your legs.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "stair_climber",
@@ -227,7 +277,16 @@
         "standing_quad_stretch"
       ],
       "superset_candidates": [],
-      "notes": "5-10 minutes at a steady pace. High glute activation compared to other cardio machines, making it an excellent warm-up before squat or glute-focused sessions. Also raises heart rate quickly due to the constant uphill nature. Avoid the common mistake of hunching over the console — stand tall to get full hip extension."
+      "notes": "5-10 minutes at a steady pace. High glute activation compared to other cardio machines, making it an excellent warm-up before squat or glute-focused sessions. Also raises heart rate quickly due to the constant uphill nature. Avoid the common mistake of hunching over the console — stand tall to get full hip extension.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "jump_rope",
@@ -256,7 +315,8 @@
       "substitutes": [
         "high_knee",
         "treadmill_jog",
-        "a_skip"
+        "a_skip",
+        "jumping_jacks"
       ],
       "complements": [
         "ankle_mobility_drill",
@@ -264,7 +324,411 @@
         "arm_circle"
       ],
       "superset_candidates": [],
-      "notes": "3-5 minutes for warm-up. Excellent for coordination, calf activation, and raising heart rate quickly. Also warms up the shoulders and wrists. If you trip frequently, practice the two-foot bounce without the rope first. Boxers and CrossFit athletes use this as their primary warm-up — it's time-efficient and portable."
+      "notes": "3-5 minutes for warm-up. Excellent for coordination, calf activation, and raising heart rate quickly. Also warms up the shoulders and wrists. If you trip frequently, practice the two-foot bounce without the rope first. Boxers and CrossFit athletes use this as their primary warm-up — it's time-efficient and portable.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "assault_bike",
+      "name": "Assault Bike (Air Bike)",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "isometric",
+      "equipment": [
+        "stationary_bike"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "shoulders",
+        "core",
+        "biceps",
+        "triceps"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Adjust the seat height so your knee is slightly bent at the bottom of the pedal stroke. Start at a relaxed pace with smooth arm pushes and pulls. The air resistance is self-regulating — the harder you push, the harder it gets. Begin with 30-second easy intervals and 30-second rest for 5-8 rounds. Keep your core engaged and avoid bouncing in the seat.",
+      "substitutes": [
+        "stationary_bike",
+        "elliptical",
+        "rowing_machine"
+      ],
+      "complements": [
+        "hip_circle",
+        "arm_circle",
+        "leg_swing_forward"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes for warm-up, or 10-20 minutes for interval conditioning. The assault/air bike uses fan-based resistance that scales with effort — it is impossible to outpace, making it one of the most effective tools for cardiovascular conditioning. Unlike a standard stationary bike, the moving handles recruit the upper body (shoulders, biceps, triceps), creating a true full-body cardio stimulus. Studies show air bike intervals produce comparable VO2max improvements to traditional cycling at higher RPE (Falcone et al., 2015). Popular in CrossFit and tactical strength programs.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "ski_erg",
+      "name": "Ski Erg",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "pull",
+      "equipment": [
+        "rowing_machine"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "core",
+        "triceps",
+        "glutes",
+        "hamstrings"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Stand with feet hip-width apart, knees slightly bent. Reach overhead to grab the handles, then drive them down powerfully by hinging at the hips and pulling with your lats and core. Allow the handles to return smoothly overhead before the next rep. Start at moderate resistance (damper 4-6) and aim for a consistent stroke rate of 30-40 SPM. The movement is similar to a double-pole cross-country ski stride.",
+      "substitutes": [
+        "rowing_machine",
+        "elliptical",
+        "assault_bike"
+      ],
+      "complements": [
+        "thoracic_rotation",
+        "band_dislocate",
+        "arm_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "5-10 minutes for warm-up, or 10-20 minutes for conditioning intervals. The ski erg uniquely emphasizes the posterior chain and upper body pulling muscles in a cardio context — making it an excellent warm-up before back or shoulder sessions. The hip hinge component activates the glutes and hamstrings while the pull-down pattern primes the lats and triceps (long head). Unlike rowing, it is performed standing, which demands greater core stabilization. Particularly effective for improving overhead pressing performance when used as a warm-up due to the full-range shoulder flexion/extension pattern (Hegyi et al., 2019). Less common in commercial gyms — rowing_machine equipment type is used as the closest available category.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "burpee",
+      "name": "Burpee",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps",
+        "core",
+        "glutes",
+        "hamstrings"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start standing, then squat down and place your hands on the floor. Jump or step your feet back to a push-up position, perform a push-up (optional for beginners), then jump or step your feet forward and stand or jump up. Beginners should step back and step forward rather than jumping to reduce impact. Focus on controlled transitions between positions rather than speed. Keep your core braced when in the plank/push-up position to protect your lower back.",
+      "substitutes": [
+        "jumping_jacks",
+        "high_knees_timed",
+        "mountain_climber"
+      ],
+      "complements": [
+        "jump_rope",
+        "high_knee",
+        "squat_jump"
+      ],
+      "superset_candidates": [],
+      "notes": "Perform in sets of 5-10 reps for warm-up, or as intervals (30 sec on / 30 sec off) for conditioning. The burpee is one of the most metabolically demanding bodyweight exercises, combining a squat thrust, plank, push-up, and vertical jump into a single movement. It elevates heart rate faster than almost any other exercise — research shows burpees elicit >80% of VO2max within 30 seconds of work (McRae et al., 2012). The full-body muscle recruitment pattern makes it an efficient warm-up, but the high impact and spinal flexion/extension demands make it unsuitable for those with back issues. Scale by removing the push-up and/or jump for lower intensity.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "jumping_jacks",
+      "name": "Jumping Jacks",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "calves",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "glutes",
+        "abductors",
+        "adductors",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start standing with arms at your sides and feet together. Simultaneously jump your feet out to slightly wider than shoulder-width while raising your arms overhead. Jump back to the starting position, lowering your arms. Land softly on the balls of your feet with knees slightly bent. Keep a steady rhythm — aim for a pace you can sustain for 30-60 seconds without losing form.",
+      "substitutes": [
+        "seal_jacks",
+        "high_knees_timed",
+        "jump_rope"
+      ],
+      "complements": [
+        "arm_circle",
+        "hip_circle",
+        "butt_kick"
+      ],
+      "superset_candidates": [],
+      "notes": "30-60 seconds for warm-up activation, or 2-3 minutes as part of a dynamic warm-up circuit. The jumping jack is a classic calisthenic warm-up that simultaneously raises heart rate, activates the shoulder abductors/adductors, and mobilizes the hip abductors. Despite its simplicity, it effectively elevates core temperature and primes the neuromuscular system for dynamic movements. The overhead arm swing provides gentle shoulder range-of-motion work. Low skill requirement makes it universally accessible. For reduced impact, perform 'step jacks' by stepping one foot out at a time instead of jumping.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "sled_push",
+      "name": "Sled Push",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "sled"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "hamstrings",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Grip the sled handles at chest or shoulder height. Lean forward at roughly a 45-degree angle and drive through the balls of your feet with powerful, alternating steps. Keep your arms extended and locked, core braced, and hips low. Start with bodyweight or light load and push for 20-30 meters. If your hips rise and your steps shorten, the weight is too heavy. Rest 60-90 seconds between pushes.",
+      "substitutes": [
+        "treadmill_walk",
+        "stair_climber",
+        "burpee",
+        "sled_pull"
+      ],
+      "complements": [
+        "hip_circle",
+        "walking_lunge_dynamic",
+        "leg_swing_forward",
+        "sled_pull"
+      ],
+      "superset_candidates": [],
+      "notes": "4-8 pushes of 20-40 meters for conditioning, or 2-3 light pushes for warm-up. The sled push is a concentric-only lower body exercise — there is virtually no eccentric phase, which means minimal muscle soreness relative to its conditioning effect. This makes it exceptional for high-frequency training and active recovery sessions. Research by Contreras et al. (2013) demonstrated high glute and quad EMG activity comparable to barbell squats, but without the spinal compression. The sled push is also self-limiting: when you fatigue, you simply stop moving. Equipment listed as bodyweight because sled availability varies by gym — many facilities have a prowler sled or turf track. If no sled is available, substitute with a heavy treadmill walk at maximum incline.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "sled_pull",
+      "name": "Sled Pull (Backward Drag)",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "pull",
+      "equipment": [
+        "sled"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "hamstrings",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-60 sec",
+      "rep_range_strength": "15-30 sec heavy",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-sled-drag",
+      "beginner_tips": "Attach a strap or rope to the sled and face toward it. Grip the handles at hip height with a neutral grip. Walk backward in controlled, deliberate steps, driving through the balls of your feet. Keep your chest up, core braced, and arms extended. Start with a very light load — even an empty sled is effective for beginners. Focus on smooth, rhythmic steps rather than speed. If you lose your balance walking backward, the weight is too heavy.",
+      "substitutes": [
+        "treadmill_walk",
+        "stationary_bike",
+        "rowing_machine"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "leg_press",
+        "leg_extension",
+        "leg_curl_lying"
+      ],
+      "superset_candidates": [
+        "plank",
+        "ab_wheel_rollout",
+        "dead_bug"
+      ],
+      "notes": "The backward sled pull (drag) is a concentric-only lower body conditioning exercise — there is virtually no eccentric phase, which means minimal delayed-onset muscle soreness (DOMS) relative to its training effect. This makes it exceptional for high-frequency training and active recovery days. Popularized by Ben Patrick ('Knees Over Toes Guy') for knee rehabilitation and quad strengthening, and by Westside Barbell as a GPP (general physical preparedness) staple. Walking backward under load strengthens the VMO (vastus medialis oblique) and the muscles around the knee in a lengthened position, which can improve knee health over time. The sled pull is also self-limiting: when you fatigue, you simply can't move the sled. Typical programming: 4-8 pulls of 20-40 meters for conditioning, or 2-3 light pulls as part of a warm-up. Can be loaded very heavy for strength work (15-30 second efforts) or kept light for longer duration cardio/conditioning sets.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "high_knees_timed",
+      "name": "High Knees (Timed)",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "core"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "glutes",
+        "hamstrings"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Stand tall with feet hip-width apart. Drive one knee up toward your chest, then quickly switch to the other knee — like running in place with exaggerated knee lift. Pump your arms in sync with the opposite leg (right knee up, left arm forward). Aim to bring your thigh at least parallel to the floor on each rep. Start at a moderate pace you can sustain for 20-30 seconds, then rest. Keep your torso upright — leaning back means your hip flexors are fatiguing.",
+      "substitutes": [
+        "jumping_jacks",
+        "butt_kick",
+        "jump_rope"
+      ],
+      "complements": [
+        "a_skip",
+        "leg_swing_forward",
+        "high_knee"
+      ],
+      "superset_candidates": [],
+      "notes": "20-40 seconds per set, 2-4 sets for warm-up. High knees performed for time (rather than distance) provide a stationary, space-efficient way to elevate heart rate and activate the hip flexors, quads, and core. The rapid hip flexion pattern primes the nervous system for sprinting, squatting, and lunging movements. This exercise also develops coordination between the arms and legs. The timed version allows precise intensity control — beginners can march in place at moderate speed, while advanced athletes can sprint in place at maximum effort. Distinct from the dynamic warm-up 'high_knee' drill which emphasizes form and is performed for reps/distance rather than sustained time intervals.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "seal_jacks",
+      "name": "Seal Jacks",
+      "category": "cardio",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "upper_back",
+        "quadriceps",
+        "core",
+        "abductors",
+        "adductors"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Start standing with feet together and arms extended straight out to your sides at shoulder height. Simultaneously jump your feet out to slightly wider than shoulder-width while clapping your hands together in front of your chest. Jump back to the starting position while spreading your arms back out. Maintain a consistent rhythm and land softly. The arm motion should be a horizontal clap — not overhead like a standard jumping jack.",
+      "substitutes": [
+        "jumping_jacks",
+        "high_knees_timed",
+        "jump_rope"
+      ],
+      "complements": [
+        "arm_circle",
+        "band_dislocate",
+        "hip_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "30-60 seconds for warm-up, or 2-3 minutes as part of a dynamic warm-up circuit. The seal jack is a variation of the jumping jack that replaces the overhead arm swing with a horizontal arm clap. This changes the upper body emphasis from shoulder abduction/adduction (deltoids) to horizontal adduction/abduction (pectorals and rear deltoids). The clapping motion dynamically stretches the chest and rear delts through a full range of horizontal motion, making seal jacks an excellent warm-up before pressing or upper body sessions. The horizontal arm pattern also activates the scapular stabilizers (rhomboids, serratus anterior), which helps prepare the shoulder girdle for bench press and overhead work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     }
   ]
 }

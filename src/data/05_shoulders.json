@@ -1,7 +1,7 @@
 {
   "file": "05_shoulders.json",
-  "description": "Overhead presses, lateral raises, face pulls, rear delt work, shrugs, prehab",
-  "exercise_count": 20,
+  "description": "Overhead presses, lateral raises, face pulls, rear delt work, shrugs, prehab, kettlebell presses, bodyweight presses, band work, cable rotations",
+  "exercise_count": 34,
   "exercises": [
     {
       "id": "overhead_press",
@@ -49,7 +49,16 @@
         "barbell_row",
         "cable_row"
       ],
-      "notes": "Best overall shoulder builder. Standing requires significantly more core than seated — the core demand is one of the main advantages. If you find yourself leaning back excessively, the weight is too heavy. The strict standing press is one of the best measures of real-world upper body strength."
+      "notes": "Best overall shoulder builder. Standing requires significantly more core than seated — the core demand is one of the main advantages. If you find yourself leaning back excessively, the weight is too heavy. The strict standing press is one of the best measures of real-world upper body strength.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "high"
+      }
     },
     {
       "id": "dumbbell_shoulder_press",
@@ -65,7 +74,8 @@
         "shoulders"
       ],
       "secondary_muscles": [
-        "triceps"
+        "triceps",
+        "traps"
       ],
       "workout_position": "early_mid",
       "difficulty": "beginner",
@@ -78,7 +88,8 @@
         "overhead_press",
         "machine_shoulder_press",
         "arnold_press",
-        "smith_machine_overhead_press"
+        "smith_machine_overhead_press",
+        "band_overhead_press"
       ],
       "complements": [
         "lateral_raise",
@@ -95,7 +106,16 @@
         "face_pull",
         "band_pull_apart"
       ],
-      "notes": "Easier to learn than barbell. Dumbbells allow a more natural pressing arc and greater range of motion. The back support removes the core demand — this isn't worse, it just lets you focus entirely on the shoulders and use more weight. Good default pressing option for most trainees."
+      "notes": "Easier to learn than barbell. Dumbbells allow a more natural pressing arc and greater range of motion. The back support removes the core demand — this isn't worse, it just lets you focus entirely on the shoulders and use more weight. Good default pressing option for most trainees.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "high"
+      }
     },
     {
       "id": "arnold_press",
@@ -111,14 +131,15 @@
         "shoulders"
       ],
       "secondary_muscles": [
-        "triceps"
+        "triceps",
+        "traps"
       ],
       "workout_position": "early_mid",
       "difficulty": "intermediate",
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/seated-arnold-press.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/arnold-dumbbell-press.html",
       "beginner_tips": "Start with palms facing YOU at chin level. As you press up, rotate palms to face forward at the top. Reverse the rotation on the way down. The rotation should be smooth and continuous, not a pause-and-twist. Use lighter weight than regular dumbbell presses — the rotation increases time under tension.",
       "substitutes": [
         "dumbbell_shoulder_press",
@@ -137,7 +158,16 @@
         "cable_row",
         "face_pull"
       ],
-      "notes": "Named after Arnold Schwarzenegger. The rotation through the pressing motion means the front delt works at the bottom (palms toward you) and the side delt gets more work through the middle and top of the press. Effectively combines a front raise into a shoulder press. Uses lighter weight than standard presses due to the mechanical disadvantage of the rotation."
+      "notes": "Named after Arnold Schwarzenegger. The rotation through the pressing motion means the front delt works at the bottom (palms toward you) and the side delt gets more work through the middle and top of the press. Effectively combines a front raise into a shoulder press. Uses lighter weight than standard presses due to the mechanical disadvantage of the rotation.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "high"
+      }
     },
     {
       "id": "machine_shoulder_press",
@@ -159,7 +189,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/machine-shoulder-press",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-shoulder-press.html",
       "beginner_tips": "Sit, grab handles at shoulder height, press up. Machine guides the motion so you can focus entirely on pushing. Adjust the seat height so the handles start at about ear level — too low puts excessive stretch on the shoulders, too high reduces range of motion.",
       "substitutes": [
         "overhead_press",
@@ -181,7 +211,16 @@
         "machine_row",
         "face_pull"
       ],
-      "notes": "Safest overhead press. Great for beginners learning the pressing pattern, for training to failure safely, and for drop sets. Some machines offer converging paths that feel more natural than straight-up tracks."
+      "notes": "Safest overhead press. Great for beginners learning the pressing pattern, for training to failure safely, and for drop sets. Some machines offer converging paths that feel more natural than straight-up tracks.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "smith_machine_overhead_press",
@@ -204,7 +243,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-shoulder-press.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-smith-machine-shoulder-press.html",
       "beginner_tips": "Set an adjustable bench to just under 90 degrees inside the Smith machine. Position yourself so the bar travels in front of your face (not behind your head). Unhook, lower to about chin level, press up. Twist to re-rack at any point. The fixed bar path means you only need to focus on pushing.",
       "substitutes": [
         "machine_shoulder_press",
@@ -225,7 +264,385 @@
         "smith_machine_row",
         "face_pull"
       ],
-      "notes": "Safe overhead pressing alone without a spotter. The fixed path eliminates the stabilization demand, letting you focus on pure overhead pressing force. Allows heavier loading than free-weight presses for some people. Good option for gyms without a dedicated shoulder press machine."
+      "notes": "Safe overhead pressing alone without a spotter. The fixed path eliminates the stabilization demand, letting you focus on pure overhead pressing force. Allows heavier loading than free-weight presses for some people. Good option for gyms without a dedicated shoulder press machine.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "kb_press",
+      "name": "Kettlebell Overhead Press (Single-Arm)",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core",
+        "traps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per side",
+      "rep_range_strength": "5-8 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-kettlebell-press.html",
+      "beginner_tips": "Clean the kettlebell to rack position — bell resting on back of forearm, elbow tucked, wrist straight. Press straight up by rotating the arm so palm faces forward at lockout. The offset center of mass demands more stabilization than a dumbbell. Keep your core braced and avoid leaning to the opposite side.",
+      "substitutes": [
+        "dumbbell_shoulder_press",
+        "overhead_press",
+        "kb_push_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "kb_halo"
+      ],
+      "superset_candidates": [
+        "lat_pulldown",
+        "cable_row",
+        "face_pull",
+        "band_pull_apart",
+        "band_row",
+        "inverted_row"
+      ],
+      "notes": "The kettlebell's offset center of mass forces greater rotator cuff and core stabilization compared to a dumbbell press. Single-arm work also addresses left-right strength imbalances. A staple in kettlebell training programs (StrongFirst, RKC). The rack position itself builds shoulder and thoracic mobility over time.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "kb_push_press",
+      "name": "Kettlebell Push Press",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core",
+        "quadriceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "6-10 per side",
+      "rep_range_strength": "3-6 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-kettlebell-press.html",
+      "beginner_tips": "Start in the rack position. Initiate with a quick quarter-squat dip (2-3 inches), then drive through the legs and immediately press overhead. The leg drive should be explosive — think 'jump and press.' This allows heavier loads than a strict press. Control the descent back to rack position.",
+      "substitutes": [
+        "kb_press",
+        "overhead_press",
+        "dumbbell_shoulder_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "face_pull",
+        "kb_press",
+        "kb_halo"
+      ],
+      "superset_candidates": [
+        "lat_pulldown",
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "The push press uses leg drive to move heavier loads overhead than a strict press. This overloads the eccentric (lowering) phase — you press with legs but lower under strict control. Popular in CrossFit and strength sports. The leg dip component also builds explosive power transfer from lower to upper body. Use when a strict press stalls.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "kb_bottoms_up_press",
+      "name": "Kettlebell Bottoms-Up Press",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "workout_position": "mid",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "6-10 per side",
+      "rep_range_strength": "3-6 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-kettlebell-press.html",
+      "beginner_tips": "Hold the kettlebell with the bottom facing UP — the bell is above your hand. This is extremely unstable. Start light (much lighter than your normal press weight). Grip hard, keep your wrist perfectly straight, and press slowly. The bell will wobble — that's the point. If you can't keep it balanced, go lighter. Start from the rack position at shoulder height.",
+      "substitutes": [
+        "kb_press",
+        "dumbbell_shoulder_press"
+      ],
+      "complements": [
+        "face_pull",
+        "band_pull_apart",
+        "cable_external_rotation",
+        "kb_halo",
+        "kb_press"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart",
+        "cable_external_rotation"
+      ],
+      "notes": "The ultimate shoulder stabilizer exercise. The inverted position creates massive rotator cuff and grip demand — the shoulder stabilizers fire at near-maximal levels to keep the bell balanced. Used extensively in physical therapy and return-to-sport protocols. Also excellent for improving shoulder proprioception. Load is necessarily light (typically 50-60% of strict press weight), so joint stress is low despite the difficulty rating. Gray Cook and FMS popularized this as a corrective exercise.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "kb_halo",
+      "name": "Kettlebell Halo",
+      "category": "mobility",
+      "movement_pattern": "scapular_stabilization",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "core",
+        "traps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12 per direction",
+      "rep_range_strength": "6-10 per direction",
+      "video_url": "https://www.muscleandstrength.com/exercises/kettlebell-halo.html",
+      "beginner_tips": "Hold the kettlebell by the horns (sides of the handle) upside down at chest level. Circle it around your head — passing behind the neck, around to the other side, and back to the front. Keep the KB close to your head throughout. Alternate directions each set. Stand tall, keep your core tight, and don't let your torso sway.",
+      "substitutes": [
+        "band_dislocate",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "kb_press",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "superset_candidates": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "kb_press",
+        "face_pull"
+      ],
+      "notes": "Excellent warmup and mobility exercise that takes the shoulder through its full range of motion under light load. Builds shoulder stability in all planes — flexion, extension, abduction, and rotation are all trained in one movement. Often used in kettlebell programs as the first exercise to prepare the shoulders for pressing. Also trains thoracic spine mobility as you rotate to pass the bell behind your head. Use a light KB (8-12 kg for most people).",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "pike_push_up",
+      "name": "Pike Push-Up",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "5-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/pike-push-ups.html",
+      "beginner_tips": "Start in a push-up position, then walk your hands back and push your hips up high so your body forms an inverted V shape. Your head should be between your arms looking at your feet. Bend elbows and lower your head toward the floor between your hands. Press back up. The closer your feet are to your hands, the more vertical the pressing angle (harder). Elevating your feet on a bench increases difficulty further.",
+      "substitutes": [
+        "dumbbell_shoulder_press",
+        "overhead_press",
+        "handstand_push_up_wall",
+        "band_overhead_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart",
+        "rear_delt_flye",
+        "lat_pulldown",
+        "inverted_row",
+        "band_row"
+      ],
+      "notes": "The best bodyweight substitute for overhead pressing. The inverted V position shifts most of your body weight onto the shoulders and triceps, mimicking an overhead press. A key stepping stone toward handstand push-ups. Elevating the feet on a bench (decline pike push-up) further increases the vertical pressing angle and difficulty. For home gym setups without heavy enough dumbbells, this is an excellent shoulder builder.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "handstand_push_up_wall",
+      "name": "Wall Handstand Push-Up",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core",
+        "traps"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "5-10",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/handstand-push-ups.html",
+      "beginner_tips": "Kick up into a handstand facing the wall (hands 6-12 inches from wall, fingers spread). Brace your core and squeeze your glutes. Lower under control until your head gently touches the floor. Press back up. Use a folded towel or mat under your head. If you can't do full reps yet, practice wall handstand holds (just hold the position) or partial range reps with an abmat under your head.",
+      "substitutes": [
+        "pike_push_up",
+        "overhead_press",
+        "dumbbell_shoulder_press"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart",
+        "pike_push_up"
+      ],
+      "superset_candidates": [
+        "pull_up",
+        "chin_up",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "The most demanding bodyweight vertical push exercise. Pressing your entire body weight overhead requires serious shoulder, tricep, and core strength. EMG studies show similar deltoid activation to heavy barbell overhead pressing. The wall provides balance support — freestanding handstand push-ups are a gymnastic skill beyond what most gym-goers need. A reasonable progression: pike push-up → feet-elevated pike push-up → wall handstand push-up. This exercise alone can build impressive shoulders without any equipment.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "band_overhead_press",
+      "name": "Resistance Band Overhead Press",
+      "category": "compound",
+      "movement_pattern": "vertical_push",
+      "force_type": "push",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-band-shoulder-press.html",
+      "beginner_tips": "Stand on the middle of the band with both feet. Grab the ends or handles at shoulder height. Press straight overhead. The band gets harder at the top (ascending resistance), so the lockout is the toughest part. Use a wider stance on the band for more resistance. Keep your core tight — same rules as barbell overhead press.",
+      "substitutes": [
+        "dumbbell_shoulder_press",
+        "pike_push_up",
+        "machine_shoulder_press"
+      ],
+      "complements": [
+        "band_lateral_raise",
+        "band_pull_apart",
+        "face_pull",
+        "lateral_raise"
+      ],
+      "superset_candidates": [
+        "band_pull_apart",
+        "face_pull",
+        "band_lateral_raise",
+        "lat_pulldown",
+        "band_row",
+        "inverted_row"
+      ],
+      "notes": "Great option for home training, travel, rehab, and warmups. The ascending resistance profile (harder at the top) is actually beneficial for lockout strength. Bands also eliminate the deceleration phase that free weights have — you must push hard through the entire range. Combine with band lateral raises and band pull-aparts for a complete shoulder workout with just one $10 band.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "lateral_raise",
@@ -252,7 +669,8 @@
       "substitutes": [
         "cable_lateral_raise",
         "machine_lateral_raise",
-        "upright_row"
+        "upright_row",
+        "band_lateral_raise"
       ],
       "complements": [
         "overhead_press",
@@ -269,7 +687,16 @@
         "band_pull_apart",
         "lat_pulldown"
       ],
-      "notes": "THE exercise for wider shoulders. The side delts are the most visible part of the shoulder and respond well to high volume (15-20+ sets per week across the training week). Recent research on lengthened partials suggests that the bottom portion of the movement (where the side delt is stretched) may be the most growth-producing part — so don't neglect the bottom half of the range. #1 mistake = going too heavy and turning it into a trap exercise."
+      "notes": "THE exercise for wider shoulders. The side delts are the most visible part of the shoulder and respond well to high volume (15-20+ sets per week across the training week). Recent research on lengthened partials suggests that the bottom portion of the movement (where the side delt is stretched) may be the most growth-producing part — so don't neglect the bottom half of the range. #1 mistake = going too heavy and turning it into a trap exercise.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "cable_lateral_raise",
@@ -295,7 +722,8 @@
       "beginner_tips": "Low cable pulley. Stand sideways to the machine. Grab with the FAR hand (cable crosses behind your body). Raise arm to the side to about shoulder height. Cable keeps tension the whole time, including at the bottom where dumbbells have zero tension. You can lean slightly away from the cable to increase the stretch at the bottom.",
       "substitutes": [
         "lateral_raise",
-        "machine_lateral_raise"
+        "machine_lateral_raise",
+        "band_lateral_raise"
       ],
       "complements": [
         "overhead_press",
@@ -312,7 +740,16 @@
         "band_pull_apart",
         "lat_pulldown"
       ],
-      "notes": "Better constant tension than dumbbells, especially at the bottom of the movement where the side delt is in a stretched position. The behind-the-body cable path provides tension even at the starting position. One arm at a time allows better mind-muscle connection. Many coaches consider this superior to dumbbell laterals for side delt growth."
+      "notes": "Better constant tension than dumbbells, especially at the bottom of the movement where the side delt is in a stretched position. The behind-the-body cable path provides tension even at the starting position. One arm at a time allows better mind-muscle connection. Many coaches consider this superior to dumbbell laterals for side delt growth.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "machine_lateral_raise",
@@ -338,7 +775,8 @@
       "beginner_tips": "Sit in machine, push pads outward with your upper arms. The machine eliminates all cheating and momentum — every rep is strict. Adjust the seat so the pivot point of the machine aligns with your shoulder joint.",
       "substitutes": [
         "lateral_raise",
-        "cable_lateral_raise"
+        "cable_lateral_raise",
+        "band_lateral_raise"
       ],
       "complements": [
         "overhead_press",
@@ -355,7 +793,67 @@
         "lat_pulldown",
         "cable_rear_delt_flye"
       ],
-      "notes": "Not every gym has one. If yours does, it's excellent for strict side delt isolation — impossible to cheat. Great for drop sets since you just move the pin. The fixed path means you can train closer to failure with less injury risk."
+      "notes": "Not every gym has one. If yours does, it's excellent for strict side delt isolation — impossible to cheat. Great for drop sets since you just move the pin. The fixed path means you can train closer to failure with less injury risk.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "band_lateral_raise",
+      "name": "Resistance Band Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-25",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/resistance-band-lateral-raise.html",
+      "beginner_tips": "Stand on the middle of the band with both feet. Hold the ends at your sides. Raise arms out to the sides to about shoulder height, leading with elbows. The band resistance increases as you raise — the top is hardest. Lower with control. A narrower stance on the band gives less resistance; wider gives more. Can also be done one arm at a time with the band anchored under one foot.",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "machine_lateral_raise"
+      ],
+      "complements": [
+        "band_overhead_press",
+        "band_pull_apart",
+        "face_pull",
+        "lateral_raise",
+        "cable_lateral_raise"
+      ],
+      "superset_candidates": [
+        "band_pull_apart",
+        "face_pull",
+        "rear_delt_flye",
+        "band_overhead_press"
+      ],
+      "notes": "Accessible side delt training requiring only a resistance band. The ascending resistance profile is actually a good match for lateral raises — the side delt gets progressively stronger through abduction up to about 90 degrees. Ideal for home workouts, hotel training, and warmup sets before heavier dumbbell or cable laterals. High-rep band laterals (20-25 reps) are an excellent metabolic stress finisher.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "front_raise",
@@ -377,11 +875,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-front-raise.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-dumbbell-raise.html",
       "beginner_tips": "Dumbbells in front of thighs. Raise one or both arms straight in front to shoulder height. Lower slowly. Palms can face down or toward each other — the neutral grip is generally more comfortable. Use light weight.",
       "substitutes": [
         "cable_front_raise",
-        "low_to_high_cable_flye"
+        "plate_front_raise",
+        "lu_raise"
       ],
       "complements": [
         "lateral_raise",
@@ -397,7 +896,16 @@
         "face_pull",
         "band_pull_apart"
       ],
-      "notes": "Often unnecessary if you already bench press and overhead press — both hit the front delts heavily. The front delt is typically the most developed part of the shoulder in most trainees due to all the pressing they do. Add front raises only if your front delts are specifically underdeveloped (rare) or for physique balance."
+      "notes": "Often unnecessary if you already bench press and overhead press — both hit the front delts heavily. The front delt is typically the most developed part of the shoulder in most trainees due to all the pressing they do. Add front raises only if your front delts are specifically underdeveloped (rare) or for physique balance.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "cable_front_raise",
@@ -419,11 +927,12 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-cable-front-raise.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-dumbbell-raise.html",
       "beginner_tips": "Low cable behind you. Face away from the machine. Grab the handle and raise your arm straight in front to shoulder height. The cable provides tension throughout the entire movement, including at the bottom where dumbbells have zero resistance. One arm at a time.",
       "substitutes": [
         "front_raise",
-        "low_to_high_cable_flye"
+        "plate_front_raise",
+        "lu_raise"
       ],
       "complements": [
         "lateral_raise",
@@ -439,7 +948,118 @@
         "face_pull",
         "band_pull_apart"
       ],
-      "notes": "Cable version maintains tension at the bottom of the movement where dumbbells have none. Same caveat as dumbbell front raises applies — most people don't need direct front delt work. If you do add them, the cable version is mechanically superior to dumbbells."
+      "notes": "Cable version maintains tension at the bottom of the movement where dumbbells have none. Same caveat as dumbbell front raises applies — most people don't need direct front delt work. If you do add them, the cable version is mechanically superior to dumbbells.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "plate_front_raise",
+      "name": "Plate Front Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_flexion",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-plate-raise.html",
+      "beginner_tips": "Hold a weight plate with both hands at the 3 and 9 o'clock positions (or through the center hole). Start with the plate at thigh level. Raise it straight in front of you to shoulder height or slightly above. Lower with control. The wider grip on the plate activates the side delts slightly more than a narrow-grip dumbbell front raise. Start with a 10-25 lb plate.",
+      "substitutes": [
+        "front_raise",
+        "cable_front_raise",
+        "lu_raise"
+      ],
+      "complements": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "rear_delt_flye",
+        "cable_rear_delt_flye",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "A simple front raise variation using a weight plate instead of dumbbells. The wide grip position slightly increases side delt and upper chest involvement compared to a neutral-grip dumbbell front raise. Some lifters raise the plate overhead for extra range of motion. Good as a finisher or burnout set. The plate's grip demands also provide mild forearm work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "lu_raise",
+      "name": "Lu Raise (Front-to-Lateral Raise)",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-dumbbell-raise.html",
+      "beginner_tips": "Hold light dumbbells at your sides with thumbs forward. Raise arms straight in front to shoulder height (front raise), then without lowering, sweep arms out to the sides (lateral raise position), then lower to your sides. That's one rep: front raise up, arc to the sides, lower. Keep a slight bend in the elbows. Use much lighter weight than you'd use for either exercise alone — this is brutally long time under tension.",
+      "substitutes": [
+        "front_raise",
+        "lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "face_pull",
+        "rear_delt_flye",
+        "cable_lateral_raise"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "cable_rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "Named after Chinese Olympic weightlifter Lu Xiaojun, who popularized this exercise in training footage. Combines a front raise with a lateral raise in one continuous movement, hitting both front and side delts with extended time under tension. The transition from front to lateral position also works the often-neglected area between the front and side delt heads. Use very light dumbbells (5-15 lbs) — the continuous tension accumulates rapidly. An excellent shoulder finisher.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "face_pull",
@@ -460,14 +1080,15 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/cable-face-pull",
+      "video_url": "https://www.muscleandstrength.com/exercises/face-pull.html",
       "beginner_tips": "Cable at face height, rope attachment. Pull toward face, spreading rope ends apart at the end. Squeeze shoulder blades together, rotate thumbs backward as you finish. Hold for 1 second in the fully contracted position. Think about making a double bicep pose at the end of each rep. This is a LIGHT exercise — if you need to lean back or use momentum, the weight is too heavy.",
       "substitutes": [
         "band_pull_apart",
         "rear_delt_flye",
         "reverse_fly_machine",
         "cable_rear_delt_flye",
-        "prone_y_raise"
+        "prone_y_raise",
+        "band_face_pull"
       ],
       "complements": [
         "barbell_bench_press",
@@ -487,7 +1108,16 @@
         "dip_chest",
         "lateral_raise"
       ],
-      "notes": "The single most important exercise for shoulder health in any program. Trains external rotation and scapular retraction — the exact movements that counterbalance all the internal rotation from pressing. Should be in EVERY program, regardless of goals. Do 2-4 sets of 15-20 on every upper body or push day. The rear delts and external rotators can handle very high weekly volume without recovery issues."
+      "notes": "The single most important exercise for shoulder health in any program. Trains external rotation and scapular retraction — the exact movements that counterbalance all the internal rotation from pressing. Should be in EVERY program, regardless of goals. Do 2-4 sets of 15-20 on every upper body or push day. The rear delts and external rotators can handle very high weekly volume without recovery issues.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "reverse_fly_machine",
@@ -509,7 +1139,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/machine-reverse-fly",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-machine-flyes.html",
       "beginner_tips": "Sit FACING the pec deck machine (opposite direction from chest flyes). Arms extended in front, open wide to the sides squeezing shoulder blades together. The machine guides the movement — focus entirely on squeezing the rear delts. Adjust the handles/pads so your arms are at about shoulder height.",
       "substitutes": [
         "face_pull",
@@ -530,7 +1160,16 @@
         "dumbbell_bench_press",
         "incline_dumbbell_press"
       ],
-      "notes": "Same machine as pec deck but you sit the other way. One of the most efficient supersets in the gym: chest flyes → immediately turn around → reverse flyes for rear delts. Great for drop sets since you just move the pin. The fixed path ensures strict rear delt isolation."
+      "notes": "Same machine as pec deck but you sit the other way. One of the most efficient supersets in the gym: chest flyes → immediately turn around → reverse flyes for rear delts. Great for drop sets since you just move the pin. The fixed path ensures strict rear delt isolation.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "rear_delt_flye",
@@ -558,7 +1197,8 @@
         "face_pull",
         "reverse_fly_machine",
         "band_pull_apart",
-        "cable_rear_delt_flye"
+        "cable_rear_delt_flye",
+        "prone_incline_lateral_raise"
       ],
       "complements": [
         "lateral_raise",
@@ -575,7 +1215,16 @@
         "cable_flye",
         "front_raise"
       ],
-      "notes": "Targets rear delts — the most commonly underdeveloped part of the shoulder. Light weights and high reps are the key. The rear delts are small muscles that fatigue quickly but also recover quickly, so high frequency (3-4x per week) works well. Can also be done lying face down on an incline bench to eliminate any momentum."
+      "notes": "Targets rear delts — the most commonly underdeveloped part of the shoulder. Light weights and high reps are the key. The rear delts are small muscles that fatigue quickly but also recover quickly, so high frequency (3-4x per week) works well. Can also be done lying face down on an incline bench to eliminate any momentum.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "cable_rear_delt_flye",
@@ -619,7 +1268,70 @@
         "cable_front_raise",
         "rear_delt_flye"
       ],
-      "notes": "Constant cable tension throughout the entire movement — unlike dumbbells which have no tension at the bottom and peak tension only at the top. The cables also allow easy angle adjustment to find the exact line of pull that hits your rear delts best. Pairs naturally with cable lateral raises for an efficient cable-only shoulder finisher."
+      "notes": "Constant cable tension throughout the entire movement — unlike dumbbells which have no tension at the bottom and peak tension only at the top. The cables also allow easy angle adjustment to find the exact line of pull that hits your rear delts best. Pairs naturally with cable lateral raises for an efficient cable-only shoulder finisher.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "prone_incline_lateral_raise",
+      "name": "Prone Incline Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-bench-lateral-raise.html",
+      "beginner_tips": "Set an adjustable bench to about 30-45 degrees incline. Lie face down on the bench with your chest against the pad. Let dumbbells hang straight down. Raise arms out to the sides to about shoulder height, leading with elbows. The bench completely eliminates momentum and cheating — every rep is strict. Use lighter weight than standing lateral raises (about 60-70% of your usual weight).",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "machine_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "face_pull",
+        "rear_delt_flye",
+        "lateral_raise",
+        "cable_lateral_raise"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "band_pull_apart",
+        "rear_delt_flye",
+        "prone_y_raise"
+      ],
+      "notes": "The prone position on an incline bench completely eliminates body English and momentum, making this one of the strictest lateral raise variations. The incline angle also shifts the resistance curve — the side delt is loaded more heavily in the stretched (bottom) position compared to standing laterals, which aligns with recent lengthened-partial hypertrophy research (Pedrosa et al., 2023). Also hits the rear delts more than standing laterals due to the prone position. A favorite of evidence-based coaches like Jeff Nippard and Mike Israetel.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "band_pull_apart",
@@ -640,7 +1352,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "15-30",
       "rep_range_strength": "12-20",
-      "video_url": "https://www.strengthlog.com/band-pull-apart/",
+      "video_url": "https://www.muscleandstrength.com/exercises/band-pull-apart.html",
       "beginner_tips": "Hold band at shoulder height with straight arms in front of you, about shoulder-width grip. Pull apart until band touches your chest, squeezing shoulder blades together. Control the return — don't let the band snap your arms back. Keep arms at shoulder height throughout. A light band is all you need.",
       "substitutes": [
         "face_pull",
@@ -665,7 +1377,16 @@
         "dip_chest",
         "lateral_raise"
       ],
-      "notes": "Do these every single training day as a warmup or between pressing sets. 2-3 sets of 15-30 reps costs almost nothing in terms of fatigue but accumulates massive rear delt and external rotator volume over time. A resistance band is a $10 investment that can save your shoulders. The simplest and most effective prehab tool in the gym."
+      "notes": "Do these every single training day as a warmup or between pressing sets. 2-3 sets of 15-30 reps costs almost nothing in terms of fatigue but accumulates massive rear delt and external rotator volume over time. A resistance band is a $10 investment that can save your shoulders. The simplest and most effective prehab tool in the gym.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "prone_y_raise",
@@ -693,7 +1414,8 @@
       "beginner_tips": "Lie face down on a bench inclined at about 30-45 degrees. Let very light dumbbells or just your thumbs hang toward the floor. Raise arms up and out at a Y angle (about 45 degrees from your head) with thumbs pointing up. Squeeze at the top for 1-2 seconds. These are VERY light — start with just your thumbs pointing up and no weight. If you need more than 5 lbs per hand, you're doing it wrong.",
       "substitutes": [
         "face_pull",
-        "band_pull_apart"
+        "band_pull_apart",
+        "cable_y_raise"
       ],
       "complements": [
         "face_pull",
@@ -710,7 +1432,165 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Targets the lower traps and the rotator cuff — two muscle groups that are critical for shoulder health but rarely trained directly. The lower traps depress and upwardly rotate the scapula, which is essential for safe overhead pressing. Widely used in physical therapy and sports medicine. If you have any history of shoulder impingement or pain, these should be a staple. Can also do T-raises (arms straight to sides) and W-raises (bent elbows, external rotation) in the same position for complete scapular stabilizer coverage."
+      "notes": "Targets the lower traps and the rotator cuff — two muscle groups that are critical for shoulder health but rarely trained directly. The lower traps depress and upwardly rotate the scapula, which is essential for safe overhead pressing. Widely used in physical therapy and sports medicine. If you have any history of shoulder impingement or pain, these should be a staple. Can also do T-raises (arms straight to sides) and W-raises (bent elbows, external rotation) in the same position for complete scapular stabilizer coverage.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "cable_y_raise",
+      "name": "Cable Y-Raise",
+      "category": "isolation",
+      "movement_pattern": "scapular_stabilization",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-y-raise.html",
+      "beginner_tips": "Set a cable at the lowest position. Stand facing the machine and grab the handle with one hand. Pull up and out at a 45-degree angle from your body (forming a Y shape when done with both arms), leading with your thumb pointing up. Squeeze at the top for 1-2 seconds. Keep the weight light — this is a corrective/prehab exercise, not a strength move. Can also be done with both arms simultaneously using two low cables.",
+      "substitutes": [
+        "prone_y_raise",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "face_pull",
+        "lateral_raise",
+        "cable_lateral_raise",
+        "overhead_press",
+        "cable_external_rotation"
+      ],
+      "superset_candidates": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "barbell_bench_press",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "The cable version of the Y-raise provides constant tension throughout the movement, unlike the prone dumbbell version where tension drops at the bottom. Targets the lower trapezius and rotator cuff — critical stabilizers for overhead pressing and shoulder health. The cable allows precise angle adjustment. Often used in physical therapy settings for scapular dyskinesis and impingement rehabilitation. Combine with cable external rotations for a complete rotator cuff circuit.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "cable_external_rotation",
+      "name": "Cable External Rotation",
+      "category": "isolation",
+      "movement_pattern": "external_rotation_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20 per side",
+      "rep_range_strength": "10-15 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-external-rotation.html",
+      "beginner_tips": "Set cable at elbow height. Stand sideways to the machine. Grab handle with the FAR hand (arm crosses body). Pin your elbow to your side with a 90-degree bend. Rotate your forearm outward, away from your body, keeping elbow pinned. Return slowly. Think about opening a door with your forearm while keeping your elbow glued to your ribs. Can place a rolled towel between elbow and ribs as a proprioceptive cue. Use VERY light weight.",
+      "substitutes": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "cable_internal_rotation",
+        "face_pull",
+        "prone_y_raise",
+        "cable_y_raise",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "cable_internal_rotation",
+        "cable_lateral_raise",
+        "lateral_raise",
+        "face_pull"
+      ],
+      "notes": "The most targeted rotator cuff exercise available. Specifically trains the infraspinatus and teres minor — the primary external rotators that counterbalance the much stronger internal rotators (pecs, lats, subscapularis). Essential prehab for anyone who does heavy bench pressing or overhead work. Also a key rehab exercise for rotator cuff tendinopathy. The cable provides constant tension throughout the rotation arc. Recommended by ACSM and NSCA as a foundational shoulder health exercise. Use light loads — the external rotators are small muscles.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "cable_internal_rotation",
+      "name": "Cable Internal Rotation",
+      "category": "isolation",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20 per side",
+      "rep_range_strength": "10-15 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-internal-rotation.html",
+      "beginner_tips": "Set cable at elbow height. Stand sideways to the machine. Grab handle with the NEAR hand (hand closest to machine). Pin your elbow to your side with a 90-degree bend. Rotate your forearm inward, across your body, keeping elbow pinned. Return slowly. This is the opposite motion of external rotation — you're pulling the forearm in toward your belly. Use light weight.",
+      "substitutes": [
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "cable_external_rotation",
+        "face_pull",
+        "prone_y_raise",
+        "cable_y_raise",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "cable_external_rotation",
+        "cable_lateral_raise",
+        "lateral_raise",
+        "face_pull"
+      ],
+      "notes": "Trains the subscapularis — the primary internal rotator of the shoulder and the largest rotator cuff muscle. While internal rotation is heavily trained by pressing movements, direct internal rotation work can address specific weaknesses in throwing athletes, swimmers, and anyone recovering from shoulder instability. Most lifters should prioritize external rotation work over internal, but pairing both in a rotator cuff circuit ensures balanced rotator cuff strength. Common in sports medicine protocols.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "upright_row",
@@ -755,7 +1635,16 @@
         "cable_row",
         "reverse_fly_machine"
       ],
-      "notes": "Controversial exercise. The concern is subacromial impingement — when you pull a weight upward with internally rotated shoulders (narrow grip, high pull), the supraspinatus tendon can get pinched. The FIX: use a wide grip (reduces internal rotation), pull to chest height only (not chin), and use cables or dumbbells instead of a barbell (allows natural wrist rotation). With these modifications, the exercise is reasonably safe and hits both side delts and upper traps. If it still irritates your shoulders, replace with lateral raises + shrugs — you get the same muscles without the risk."
+      "notes": "Controversial exercise. The concern is subacromial impingement — when you pull a weight upward with internally rotated shoulders (narrow grip, high pull), the supraspinatus tendon can get pinched. The FIX: use a wide grip (reduces internal rotation), pull to chest height only (not chin), and use cables or dumbbells instead of a barbell (allows natural wrist rotation). With these modifications, the exercise is reasonably safe and hits both side delts and upper traps. If it still irritates your shoulders, replace with lateral raises + shrugs — you get the same muscles without the risk.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "high"
+      }
     },
     {
       "id": "barbell_shrug",
@@ -796,7 +1685,16 @@
         "barbell_curl",
         "hammer_curl"
       ],
-      "notes": "The upper traps respond well to heavy loads with moderate reps. However, many people find that heavy deadlifts and rows already build their traps sufficiently without direct shrug work. Add shrugs if you want extra trap development or if you don't deadlift. Focus on the squeeze at the top, not the weight."
+      "notes": "The upper traps respond well to heavy loads with moderate reps. However, many people find that heavy deadlifts and rows already build their traps sufficiently without direct shrug work. Add shrugs if you want extra trap development or if you don't deadlift. Focus on the squeeze at the top, not the weight.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "dumbbell_shrug",
@@ -818,7 +1716,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-shrugs.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-shrug.html",
       "beginner_tips": "Dumbbells at sides. Shrug up, hold 1 second, lower slowly. Hands at sides can feel more natural than a barbell in front of you. Straight up and down — no rolling.",
       "substitutes": [
         "barbell_shrug",
@@ -838,7 +1736,16 @@
         "hammer_curl",
         "lateral_raise"
       ],
-      "notes": "Dumbbells at your sides allow a slightly greater range of motion than a barbell in front. The neutral hand position is also more comfortable for most people. Pair with farmer's walks for complete trap development — shrugs hit the upper traps, heavy carries build the mid and lower traps."
+      "notes": "Dumbbells at your sides allow a slightly greater range of motion than a barbell in front. The neutral hand position is also more comfortable for most people. Pair with farmer's walks for complete trap development — shrugs hit the upper traps, heavy carries build the mid and lower traps.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "trap_bar_shrug",
@@ -881,7 +1788,16 @@
         "hammer_curl",
         "lateral_raise"
       ],
-      "notes": "Allows the heaviest shrug loading of any variation — the centered weight and neutral grip eliminate the barbell's tendency to pull you forward or the dumbbell's tendency to bump your thighs. The trap bar was literally named after the trapezius muscle. If your gym has one, this is the optimal shrug tool."
+      "notes": "Allows the heaviest shrug loading of any variation — the centered weight and neutral grip eliminate the barbell's tendency to pull you forward or the dumbbell's tendency to bump your thighs. The trap bar was literally named after the trapezius muscle. If your gym has one, this is the optimal shrug tool.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     }
   ]
 }

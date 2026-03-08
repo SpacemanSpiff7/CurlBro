@@ -1,7 +1,7 @@
 {
   "file": "04_back.json",
   "description": "Rows, pull-ups, pulldowns, pullovers, back isolation",
-  "exercise_count": 24,
+  "exercise_count": 38,
   "exercises": [
     {
       "id": "barbell_row",
@@ -34,14 +34,13 @@
         "t_bar_row",
         "pendlay_row",
         "smith_machine_row",
-        "seal_row"
+        "seal_row",
+        "yates_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -51,7 +50,16 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Major back builder. Grip width matters more than over/underhand for targeting: wider grip with elbows flared hits mid-traps and rhomboids, narrower grip with elbows tucked emphasizes lats. Underhand grip increases bicep involvement and allows heavier weight for some people. Torso angle also matters — more upright = more traps, more bent over = more lats."
+      "notes": "Major back builder. Grip width matters more than over/underhand for targeting: wider grip with elbows flared hits mid-traps and rhomboids, narrower grip with elbows tucked emphasizes lats. Underhand grip increases bicep involvement and allows heavier weight for some people. Torso angle also matters — more upright = more traps, more bent over = more lats.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "pendlay_row",
@@ -80,13 +88,13 @@
         "barbell_row",
         "t_bar_row",
         "seal_row",
-        "dumbbell_row"
+        "dumbbell_row",
+        "snatch_grip_barbell_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -94,7 +102,16 @@
         "incline_barbell_press",
         "overhead_press"
       ],
-      "notes": "Named after weightlifting coach Glenn Pendlay. The dead stop eliminates the stretch reflex, making every rep harder and stricter than a standard bent-over row. The parallel torso position maximizes lat recruitment. Excellent for building explosive pulling power. Requires good hip hinge mechanics — master the bent-over row first."
+      "notes": "Named after weightlifting coach Glenn Pendlay. The dead stop eliminates the stretch reflex, making every rep harder and stricter than a standard bent-over row. The parallel torso position maximizes lat recruitment. Excellent for building explosive pulling power. Requires good hip hinge mechanics — master the bent-over row first.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "dumbbell_row",
@@ -125,14 +142,13 @@
         "cable_row",
         "machine_row",
         "single_arm_cable_row",
-        "landmine_row"
+        "landmine_row",
+        "kb_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -142,7 +158,16 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Best row for beginners — bench supports lower back. Great for fixing left/right imbalances since each side works independently. Can go quite heavy with some controlled body english for an overload effect (sometimes called a Kroc row)."
+      "notes": "Best row for beginners — bench supports lower back. Great for fixing left/right imbalances since each side works independently. Can go quite heavy with some controlled body english for an overload effect (sometimes called a Kroc row).",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "chest_supported_row",
@@ -165,19 +190,19 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row",
+      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html",
       "beginner_tips": "Bench at 30-45 degrees, lie face down with chest on the pad. Row both dumbbells by driving elbows back and squeezing shoulder blades. Your chest on the bench means ZERO lower back involvement — all the work goes to your back muscles.",
       "substitutes": [
         "dumbbell_row",
         "machine_row",
         "cable_row",
-        "seal_row"
+        "seal_row",
+        "chest_supported_cable_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -186,7 +211,16 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "If bent-over rows hurt your lower back, use these instead. 100% back focus with zero cheating. The bench angle affects which back muscles are emphasized: steeper angle = more mid-traps/rhomboids, flatter angle = more lats."
+      "notes": "If bent-over rows hurt your lower back, use these instead. 100% back focus with zero cheating. The bench angle affects which back muscles are emphasized: steeper angle = more mid-traps/rhomboids, flatter angle = more lats.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "seal_row",
@@ -209,7 +243,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/incline-bench-barbell-row.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html",
       "beginner_tips": "Lie face down on a bench that's elevated enough for your arms to hang straight with the barbell (stack the bench on boxes or plates, or use a dedicated seal row station). Row the barbell to the underside of the bench by squeezing shoulder blades. Lower with control. Zero momentum possible.",
       "substitutes": [
         "chest_supported_row",
@@ -220,8 +254,7 @@
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -229,7 +262,16 @@
         "incline_barbell_press",
         "overhead_press"
       ],
-      "notes": "The ultimate anti-cheat row. Your entire body is supported so the ONLY way to move the weight is with your back muscles. Allows heavier loading than dumbbell chest-supported rows. Setup can be awkward if your gym doesn't have a dedicated station — stacking the bench on blocks works but takes time. Growing in popularity for good reason."
+      "notes": "The ultimate anti-cheat row. Your entire body is supported so the ONLY way to move the weight is with your back muscles. Allows heavier loading than dumbbell chest-supported rows. Setup can be awkward if your gym doesn't have a dedicated station — stacking the bench on blocks works but takes time. Growing in popularity for good reason.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "cable_row",
@@ -258,14 +300,14 @@
         "barbell_row",
         "machine_row",
         "dumbbell_row",
-        "single_arm_cable_row"
+        "single_arm_cable_row",
+        "chest_supported_cable_row",
+        "band_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -275,7 +317,16 @@
         "smith_machine_bench_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Constant cable tension throughout the movement. Different attachments change the emphasis: V-handle (neutral grip) = more lat emphasis with elbows tucked, wide bar = more mid-traps/rhomboids with elbows flared. The cable's constant tension profile makes this a great complement to barbell rows where the resistance curve is different."
+      "notes": "Constant cable tension throughout the movement. Different attachments change the emphasis: V-handle (neutral grip) = more lat emphasis with elbows tucked, wide bar = more mid-traps/rhomboids with elbows flared. The cable's constant tension profile makes this a great complement to barbell rows where the resistance curve is different.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "t_bar_row",
@@ -298,7 +349,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/machine-t-bar-row.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/t-bar-row.html",
       "beginner_tips": "Straddle the bar, use the handles or a V-handle placed under the bar. Row to chest, squeezing shoulder blades. Keep back flat — don't round. The neutral grip feels natural for most people and is easy on the wrists.",
       "substitutes": [
         "barbell_row",
@@ -310,9 +361,7 @@
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -321,7 +370,16 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Neutral grip allows most people to row heavier than with a barbell. Classic bodybuilding exercise. The fixed end of the barbell creates a natural arc that many find more comfortable than straight barbell rows. If your gym doesn't have a T-bar station, wedge a barbell in a corner and use a V-handle."
+      "notes": "Neutral grip allows most people to row heavier than with a barbell. Classic bodybuilding exercise. The fixed end of the barbell creates a natural arc that many find more comfortable than straight barbell rows. If your gym doesn't have a T-bar station, wedge a barbell in a corner and use a V-handle.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "machine_row",
@@ -350,13 +408,13 @@
         "barbell_row",
         "dumbbell_row",
         "chest_supported_row",
-        "smith_machine_row"
+        "smith_machine_row",
+        "low_row_machine"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -366,7 +424,16 @@
         "machine_shoulder_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Very beginner-friendly. Chest pad supports you so you can focus entirely on pulling. Plate-loaded versions (like Hammer Strength) allow independent arm movement on some models, which helps identify and fix left/right imbalances."
+      "notes": "Very beginner-friendly. Chest pad supports you so you can focus entirely on pulling. Plate-loaded versions (like Hammer Strength) allow independent arm movement on some models, which helps identify and fix left/right imbalances.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "smith_machine_row",
@@ -400,8 +467,7 @@
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -411,7 +477,16 @@
         "machine_chest_press",
         "machine_shoulder_press"
       ],
-      "notes": "Good entry point for learning the barbell row pattern with added safety. The fixed bar path means you can't cheat by swinging the bar outward, which teaches a clean vertical pull to the torso. Pairs naturally with Smith machine pressing for efficient supersets."
+      "notes": "Good entry point for learning the barbell row pattern with added safety. The fixed bar path means you can't cheat by swinging the bar outward, which teaches a clean vertical pull to the torso. Pairs naturally with Smith machine pressing for efficient supersets.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "landmine_row",
@@ -434,26 +509,35 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per arm",
       "rep_range_strength": "6-10 per arm",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-machine-row.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-landmine-row.html",
       "beginner_tips": "Barbell wedged in corner or landmine attachment. Stand to one side, stagger your feet, hinge forward. Row the free end up toward your hip. The thick end of the barbell forces a wide grip which can improve grip strength. Minimal lower back stress.",
       "substitutes": [
         "dumbbell_row",
         "cable_row",
-        "single_arm_cable_row"
+        "single_arm_cable_row",
+        "meadows_row"
       ],
       "complements": [
-        "landmine_press",
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl"
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "landmine_press",
         "incline_dumbbell_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "The arcing bar path creates a unique pulling angle that hits the back differently from standard rows. Sometimes called a Meadows row when performed standing perpendicular to the bar. Great variation to cycle in when standard rows feel stale."
+      "notes": "The arcing bar path creates a unique pulling angle that hits the back differently from standard rows. Great variation to cycle in when standard rows feel stale. Standing alongside the bar allows different elbow tracking compared to the Meadows row variation (which is performed perpendicular to the bar).",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "bodyweight_row",
@@ -477,18 +561,19 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "6-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/high-inverted-row.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/inverted-row.html",
       "beginner_tips": "Bar at waist height on Smith machine or rack. Lie under it, grab bar, pull chest up keeping body straight like a reverse plank. Like an upside-down push-up. Higher bar = easier, lower bar = harder. Keep your body rigid — don't let your hips sag.",
       "substitutes": [
         "cable_row",
         "dumbbell_row",
-        "machine_row"
+        "machine_row",
+        "inverted_row",
+        "band_row"
       ],
       "complements": [
-        "push_up",
         "lat_pulldown",
-        "face_pull",
-        "barbell_curl"
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
       ],
       "superset_candidates": [
         "push_up",
@@ -497,7 +582,16 @@
         "diamond_push_up",
         "machine_chest_press"
       ],
-      "notes": "The pulling equivalent of a push-up. Great stepping stone toward barbell rows and pull-ups. Can also be done with gymnastics rings or TRX straps, which add instability and allow grip rotation. Progression: high bar (easy) → low bar → feet elevated → weighted vest."
+      "notes": "The pulling equivalent of a push-up. Great stepping stone toward barbell rows and pull-ups. Can also be done with gymnastics rings or TRX straps, which add instability and allow grip rotation. Progression: high bar (easy) → low bar → feet elevated → weighted vest.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "single_arm_cable_row",
@@ -520,18 +614,18 @@
       "bilateral": false,
       "rep_range_hypertrophy": "10-12 per arm",
       "rep_range_strength": "8-10 per arm",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-cable-row.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-seated-cable-row.html",
       "beginner_tips": "Use a single D-handle on the cable row. Pull to your hip one arm at a time. You can allow a slight torso rotation — this actually increases the range of motion and is how your back works naturally. Feel each side independently.",
       "substitutes": [
         "dumbbell_row",
         "cable_row",
-        "landmine_row"
+        "landmine_row",
+        "kb_row"
       ],
       "complements": [
         "lat_pulldown",
         "pull_up",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "single_arm_lat_pulldown"
       ],
       "superset_candidates": [
@@ -540,7 +634,16 @@
         "machine_chest_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Fixes left/right back imbalances. The slight rotation allowed at the cable station actually increases ROM and matches how the lats function (they assist with torso rotation). Constant cable tension throughout. Pairs well with single-arm lat pulldown for a complete unilateral back session."
+      "notes": "Fixes left/right back imbalances. The slight rotation allowed at the cable station actually increases ROM and matches how the lats function (they assist with torso rotation). Constant cable tension throughout. Pairs well with single-arm lat pulldown for a complete unilateral back session.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "pull_up",
@@ -565,7 +668,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "6-12",
       "rep_range_strength": "3-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/pull-up",
+      "video_url": "https://www.muscleandstrength.com/exercises/pull-up.html",
       "beginner_tips": "Palms AWAY from you (overhand/pronated), grip wider than shoulders. Hang with straight arms, then pull chin over bar by driving elbows down and back. Lower with control — don't just drop. Can't do one? Use the progression: lat pulldowns → band-assisted → negatives (jump up, lower as slowly as possible) → full pull-ups.",
       "substitutes": [
         "lat_pulldown",
@@ -577,9 +680,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -589,7 +690,16 @@
         "machine_shoulder_press",
         "hanging_leg_raise"
       ],
-      "notes": "The ultimate back exercise. Overhand grip emphasizes the lats and teres major with less bicep involvement compared to chin-ups. Research shows similar lat activation across grip types (Youdas et al., 2010), so the best grip is the one that lets you do the most quality reps. Add weight with a belt or dumbbell between feet once bodyweight becomes easy for 12+ reps."
+      "notes": "The ultimate back exercise. Overhand grip emphasizes the lats and teres major with less bicep involvement compared to chin-ups. Research shows similar lat activation across grip types (Youdas et al., 2010), so the best grip is the one that lets you do the most quality reps. Add weight with a belt or dumbbell between feet once bodyweight becomes easy for 12+ reps.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "chin_up",
@@ -625,9 +735,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -637,7 +745,16 @@
         "machine_shoulder_press",
         "hanging_leg_raise"
       ],
-      "notes": "Equally effective as pull-ups for lat development — EMG research shows no significant difference in lat activation between grips. The higher bicep involvement makes these a great two-for-one exercise on pull days. Usually the first bodyweight vertical pull people master due to the mechanical advantage."
+      "notes": "Equally effective as pull-ups for lat development — EMG research shows no significant difference in lat activation between grips. The higher bicep involvement makes these a great two-for-one exercise on pull days. Usually the first bodyweight vertical pull people master due to the mechanical advantage.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "neutral_grip_pull_up",
@@ -673,9 +790,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -685,7 +800,16 @@
         "machine_chest_press",
         "hanging_leg_raise"
       ],
-      "notes": "The most joint-friendly pull-up variation. The neutral grip places the shoulder in a packed, stable position and eliminates the wrist/forearm rotation stress of pronated and supinated grips. If pull-ups or chin-ups bother your shoulders or elbows, try these first. Requires a bar with parallel handles (common on most pull-up stations)."
+      "notes": "The most joint-friendly pull-up variation. The neutral grip places the shoulder in a packed, stable position and eliminates the wrist/forearm rotation stress of pronated and supinated grips. If pull-ups or chin-ups bother your shoulders or elbows, try these first. Requires a bar with parallel handles (common on most pull-up stations).",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "assisted_pull_up",
@@ -709,7 +833,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://weighttraining.guide/exercises/assisted-pull-up/",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-assisted-pull-up.html",
       "beginner_tips": "Kneel on the pad (or stand on the platform depending on the machine). The machine pushes you up — MORE weight on the stack = MORE help (opposite of most machines). Set it to the weight that lets you do 8-12 clean reps. Gradually reduce the assistance weight each week.",
       "substitutes": [
         "lat_pulldown",
@@ -721,8 +845,7 @@
         "barbell_row",
         "cable_row",
         "lat_pulldown",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -731,7 +854,16 @@
         "dumbbell_shoulder_press",
         "machine_chest_press"
       ],
-      "notes": "The bridge between lat pulldowns and real pull-ups. Track your assistance weight and reduce it by 5-10 lbs every week or two. Once you can do the movement with less than ~25% of your bodyweight in assistance, try unassisted negatives."
+      "notes": "The bridge between lat pulldowns and real pull-ups. Track your assistance weight and reduce it by 5-10 lbs every week or two. Once you can do the movement with less than ~25% of your bodyweight in assistance, try unassisted negatives.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "band_assisted_pull_up",
@@ -757,7 +889,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "6-12",
       "rep_range_strength": "4-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/band-assisted-pull-up-from-knee",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-assisted-pull-up.html",
       "beginner_tips": "Loop a resistance band over the pull-up bar and place one foot or knee in the loop. The band stretches and helps push you up — most at the bottom where you're weakest. Use a thicker band for more help, thinner for less. Use overhand, underhand, or neutral grip.",
       "substitutes": [
         "assisted_pull_up",
@@ -767,8 +899,7 @@
       "complements": [
         "cable_row",
         "lat_pulldown",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "bodyweight_row"
       ],
       "superset_candidates": [
@@ -777,7 +908,16 @@
         "machine_chest_press",
         "overhead_press"
       ],
-      "notes": "Differs from the machine in an important way: the band provides the most assistance at the bottom (where the band is most stretched and you're weakest) and the least at the top (where the band is slack and you're strongest). This resistance profile more closely matches the actual pull-up than a machine does. Progress by using thinner bands until you don't need one."
+      "notes": "Differs from the machine in an important way: the band provides the most assistance at the bottom (where the band is most stretched and you're weakest) and the least at the top (where the band is slack and you're strongest). This resistance profile more closely matches the actual pull-up than a machine does. Progress by using thinner bands until you don't need one.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "lat_pulldown",
@@ -811,9 +951,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -823,7 +961,16 @@
         "smith_machine_overhead_press",
         "machine_shoulder_press"
       ],
-      "notes": "Machine version of the pull-up. Adjustable weight makes it accessible for any level. Different grips shift emphasis slightly: wide overhand increases the stretch on the lats, close neutral increases ROM and bicep involvement, underhand mimics a chin-up. All grips produce similar lat activation — variation keeps things fresh and hits slightly different angles."
+      "notes": "Machine version of the pull-up. Adjustable weight makes it accessible for any level. Different grips shift emphasis slightly: wide overhand increases the stretch on the lats, close neutral increases ROM and bicep involvement, underhand mimics a chin-up. All grips produce similar lat activation — variation keeps things fresh and hits slightly different angles.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "close_grip_pulldown",
@@ -846,7 +993,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-pull-down.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-lat-pull-down.html",
       "beginner_tips": "Use a V-handle or close-grip parallel attachment. Pull to upper chest, lean back slightly. This version emphasizes the lower lats and biceps more than the wide-grip version due to the greater range of motion and supination-friendly position.",
       "substitutes": [
         "lat_pulldown",
@@ -857,8 +1004,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -867,7 +1013,16 @@
         "machine_shoulder_press",
         "machine_chest_press"
       ],
-      "notes": "The neutral grip is easiest on the shoulders and wrists. The longer range of motion compared to wide-grip may actually be superior for lat growth. Good default pulldown variation for anyone with shoulder or wrist discomfort."
+      "notes": "The neutral grip is easiest on the shoulders and wrists. The longer range of motion compared to wide-grip may actually be superior for lat growth. Good default pulldown variation for anyone with shoulder or wrist discomfort.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "reverse_grip_pulldown",
@@ -900,9 +1055,7 @@
       "complements": [
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl"
+        "cable_face_pull_high"
       ],
       "superset_candidates": [
         "overhead_press",
@@ -910,7 +1063,16 @@
         "machine_shoulder_press",
         "machine_chest_press"
       ],
-      "notes": "The cable chin-up. Great for people who can't do bodyweight chin-ups yet but want the same grip and muscle emphasis. The supinated grip puts the biceps in a strong position, so most people can pull more weight than with an overhand grip. Counts as both back and bicep work — useful on pull days when time is limited."
+      "notes": "The cable chin-up. Great for people who can't do bodyweight chin-ups yet but want the same grip and muscle emphasis. The supinated grip puts the biceps in a strong position, so most people can pull more weight than with an overhand grip. Counts as both back and bicep work — useful on pull days when time is limited.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "single_arm_lat_pulldown",
@@ -919,7 +1081,6 @@
       "movement_pattern": "vertical_pull",
       "force_type": "pull",
       "equipment": [
-        "lat_pulldown_machine",
         "cable_machine"
       ],
       "primary_muscles": [
@@ -945,16 +1106,23 @@
         "barbell_row",
         "single_arm_cable_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
-        "hammer_curl"
+        "cable_face_pull_high"
       ],
       "superset_candidates": [
         "overhead_press",
         "dumbbell_shoulder_press",
         "machine_shoulder_press"
       ],
-      "notes": "The best way to identify and fix left/right lat imbalances — most people have a dominant side that takes over during bilateral pulldowns. The single-arm position allows a slight rotation that increases the range of motion. Pairs naturally with single-arm cable rows for a complete unilateral back session."
+      "notes": "The best way to identify and fix left/right lat imbalances — most people have a dominant side that takes over during bilateral pulldowns. The single-arm position allows a slight rotation that increases the range of motion. Pairs naturally with single-arm cable rows for a complete unilateral back session.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "straight_arm_pulldown",
@@ -976,26 +1144,35 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-lat-pull-down.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-pulldown.html",
       "beginner_tips": "Stand facing a high cable with a straight bar or rope. Arms straight with a slight fixed bend in the elbows. Push the bar down toward your thighs by squeezing your lats — your arms should stay mostly straight throughout. You should feel the contraction deep in the sides of your back.",
       "substitutes": [
         "dumbbell_pullover",
-        "pullover_machine"
+        "pullover_machine",
+        "cable_pullover"
       ],
       "complements": [
         "pull_up",
         "lat_pulldown",
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl"
+        "cable_face_pull_high"
       ],
       "superset_candidates": [
         "cable_flye",
         "machine_pec_deck",
         "dumbbell_bench_press"
       ],
-      "notes": "Isolates the lats without any bicep involvement — the biceps can't contribute because the elbow doesn't bend. Excellent for building the mind-muscle connection with your lats, which many beginners struggle with. Great as a lat activation exercise before pull-ups or pulldowns, or as a finisher after heavy rowing."
+      "notes": "Isolates the lats without any bicep involvement — the biceps can't contribute because the elbow doesn't bend. Excellent for building the mind-muscle connection with your lats, which many beginners struggle with. Great as a lat activation exercise before pull-ups or pulldowns, or as a finisher after heavy rowing.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "pullover_machine",
@@ -1018,18 +1195,18 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/lying-cable-pullover.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-pulldown.html",
       "beginner_tips": "Sit in the machine, reach back to grip the bar or pad overhead. Pull the bar down in an arc toward your lap using your lats. Arms stay relatively straight throughout — the elbows press against the pads, not your hands. The deep stretch overhead is the most valuable part of the movement.",
       "substitutes": [
         "straight_arm_pulldown",
-        "dumbbell_pullover"
+        "dumbbell_pullover",
+        "cable_pullover"
       ],
       "complements": [
         "lat_pulldown",
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
+        "cable_face_pull_high",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -1038,7 +1215,16 @@
         "dumbbell_bench_press",
         "incline_dumbbell_press"
       ],
-      "notes": "Not every gym has one, but if yours does, it provides something no other exercise can: true lat isolation with a deep stretch under load through a full range of motion, all on a guided path. The machine handles the stability so you can focus entirely on the lat contraction. Originally designed by Arthur Jones for Nautilus. Having a resurgence in well-equipped gyms."
+      "notes": "Not every gym has one, but if yours does, it provides something no other exercise can: true lat isolation with a deep stretch under load through a full range of motion, all on a guided path. The machine handles the stability so you can focus entirely on the lat contraction. Originally designed by Arthur Jones for Nautilus. Having a resurgence in well-equipped gyms.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
     },
     {
       "id": "cable_face_pull_high",
@@ -1066,14 +1252,13 @@
       "substitutes": [
         "face_pull",
         "cable_row",
-        "barbell_row"
+        "barbell_row",
+        "band_face_pull"
       ],
       "complements": [
         "lat_pulldown",
         "barbell_row",
         "cable_row",
-        "face_pull",
-        "barbell_curl",
         "straight_arm_pulldown"
       ],
       "superset_candidates": [
@@ -1082,7 +1267,735 @@
         "overhead_press",
         "dumbbell_shoulder_press"
       ],
-      "notes": "Hits upper back and rear delts simultaneously. Great for posture since it strengthens the muscles that pull your shoulders back and down. The high cable angle targets the mid-traps and rhomboids more than a standard low cable row."
+      "notes": "Hits upper back and rear delts simultaneously. Great for posture since it strengthens the muscles that pull your shoulders back and down. The high cable angle targets the mid-traps and rhomboids more than a standard low cable row.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "low_row_machine",
+      "name": "Low Row Machine (Plate-Loaded)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "seated_row_machine"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-row.html",
+      "beginner_tips": "Sit with chest against the pad. Grip the converging handles and pull toward your lower ribs. The converging arm path mimics a natural rowing arc and provides a strong peak contraction. Focus on squeezing your shoulder blades together at the end of each rep.",
+      "substitutes": [
+        "machine_row",
+        "cable_row",
+        "chest_supported_row",
+        "dumbbell_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "pull_up",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "machine_chest_press",
+        "incline_machine_press",
+        "machine_shoulder_press"
+      ],
+      "notes": "The converging arm path of plate-loaded low row machines (like the Hammer Strength Iso-Lateral Low Row) provides a unique pulling angle that targets the lower lats more than standard machine rows. The chest pad eliminates spinal loading, making this very beginner-friendly. Independent arms on some models help address imbalances.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "chest_supported_cable_row",
+      "name": "Chest-Supported Cable Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html",
+      "beginner_tips": "Set an adjustable bench at 30-45 degrees in front of a low cable station. Lie face down on the bench and row the cable handles toward your lower chest. The chest support removes lower back demands while the cable provides constant tension through the full range of motion.",
+      "substitutes": [
+        "chest_supported_row",
+        "cable_row",
+        "machine_row",
+        "seal_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "pull_up",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "cable_flye",
+        "incline_dumbbell_press",
+        "machine_chest_press"
+      ],
+      "notes": "Combines the spinal-friendly benefits of chest-supported rows with the constant tension of cables. The cable's linear resistance profile differs from dumbbells (where gravity creates the hardest point at the bottom) — cables are hardest at peak contraction, which enhances the squeeze at the top. Requires a cable station and an adjustable bench positioned in front of it.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "kb_row",
+      "name": "Kettlebell Row (Single-Arm)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per arm",
+      "rep_range_strength": "6-8 per arm",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-dumbbell-row.html",
+      "beginner_tips": "Same setup as a dumbbell row — one hand and knee on a bench, other hand holding the kettlebell. The offset center of mass of a kettlebell makes the grip work harder than a dumbbell. Pull to hip, drive elbow back, squeeze at the top.",
+      "substitutes": [
+        "dumbbell_row",
+        "single_arm_cable_row",
+        "landmine_row",
+        "kb_gorilla_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "dumbbell_bench_press",
+        "incline_dumbbell_press",
+        "dumbbell_shoulder_press",
+        "push_up",
+        "machine_chest_press"
+      ],
+      "notes": "The kettlebell's offset center of mass (handle above the bell) creates a unique grip and stability challenge compared to dumbbells. This additional grip demand enhances forearm development. The thicker handle also helps build grip endurance. A good option for home gyms with limited equipment.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "kb_gorilla_row",
+      "name": "Kettlebell Gorilla Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per arm",
+      "rep_range_strength": "6-8 per arm",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-dumbbell-row.html",
+      "beginner_tips": "Place two kettlebells on the floor between your feet. Hinge at the hips into a bent-over position. Row one kettlebell while the other stays on the ground, then alternate sides. Each rep starts from the floor (dead stop) like a Pendlay row. Keep your core braced and back flat throughout.",
+      "substitutes": [
+        "dumbbell_row",
+        "kb_row",
+        "landmine_row",
+        "barbell_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "dumbbell_bench_press",
+        "dumbbell_shoulder_press"
+      ],
+      "notes": "An excellent home gym or kettlebell-focused row. The dead stop from the floor eliminates momentum (similar to Pendlay rows), and the alternating pattern provides built-in core anti-rotation training. The bent-over position demands hip hinge endurance. Named for the gorilla-like stance assumed during the movement.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "kb_high_pull",
+      "name": "Kettlebell High Pull",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "glutes",
+        "hamstrings"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/kettlebell-high-pull.html",
+      "beginner_tips": "Start with the kettlebell between your feet. Hinge at the hips and explosively extend, pulling the kettlebell to chest/chin height with elbows high and wide. The movement is a hip hinge with an explosive high pull — power comes from the hips, not the arms. Lower with control and reset. Master the kettlebell swing before attempting this.",
+      "substitutes": [
+        "upright_row",
+        "barbell_row",
+        "t_bar_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "dumbbell_shoulder_press",
+        "overhead_press"
+      ],
+      "notes": "An explosive pulling movement that trains power production through the posterior chain and upper back simultaneously. Bridges the gap between traditional rowing and Olympic-style pulling. The high elbow position targets the upper traps and rear delts more than standard rows. Keep the kettlebell close to the body throughout — it should travel in a straight line, not swing out in an arc.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "inverted_row",
+      "name": "Inverted Row (Bar or Rings)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "pull_up_bar",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/inverted-row.html",
+      "beginner_tips": "Find any sturdy bar at waist to chest height (squat rack, pull-up bar lowered, or gymnastics rings). Lie underneath, grab the bar with an overhand grip, and pull your chest to the bar while keeping your body straight. Higher bar = easier, lower bar = harder. Feet elevated on a bench increases difficulty further.",
+      "substitutes": [
+        "bodyweight_row",
+        "cable_row",
+        "band_row",
+        "machine_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "incline_push_up",
+        "decline_push_up",
+        "dip_chest",
+        "banded_push_up",
+        "band_chest_flye"
+      ],
+      "notes": "Differs from the Smith machine bodyweight row by using a fixed bar or rings, which allows more natural grip rotation and shoulder movement. Rings add an instability component that increases core and rotator cuff demand. An excellent progression exercise: high bar → low bar → feet elevated → rings → weighted vest. Useful for home gyms without machines.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "superman",
+      "name": "Superman (Prone Back Extension Hold)",
+      "category": "isolation",
+      "movement_pattern": "spinal_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "core"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings",
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-20 sec hold x 3-4 sets",
+      "rep_range_strength": "10-15 sec hold x 4-5 sets",
+      "video_url": "https://www.muscleandstrength.com/exercises/superman.html",
+      "beginner_tips": "Lie face down on the floor, arms extended overhead. Simultaneously lift your arms, chest, and legs off the floor by squeezing your lower back and glutes. Hold the top position for a beat, then lower. Don't hyperextend your neck — keep it in a neutral position by looking at the floor.",
+      "substitutes": [
+        "back_extension",
+        "bird_dog"
+      ],
+      "complements": [
+        "bodyweight_row",
+        "inverted_row",
+        "band_row"
+      ],
+      "superset_candidates": [
+        "plank",
+        "dead_bug",
+        "hollow_body_hold"
+      ],
+      "notes": "A bodyweight spinal extension exercise that strengthens the erector spinae, glutes, and posterior chain without any equipment. The isometric hold variation builds endurance in the postural muscles. Can also be performed dynamically (lift and lower for reps) for more volume. A staple in physical therapy programs for lower back strengthening. Avoid if you have acute lower back pain — try bird dogs instead as a regression.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "band_row",
+      "name": "Resistance Band Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-row.html",
+      "beginner_tips": "Sit on the floor with legs extended, loop the band around your feet. Pull the band toward your stomach, squeezing shoulder blades together. You can also stand on the band and row from a bent-over position, or anchor it to a door or pole at chest height for a standing row. The tension increases as you stretch the band, so squeeze hard at the back.",
+      "substitutes": [
+        "cable_row",
+        "bodyweight_row",
+        "inverted_row",
+        "machine_row"
+      ],
+      "complements": [
+        "band_face_pull",
+        "lat_pulldown",
+        "cable_face_pull_high"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "incline_push_up",
+        "overhead_press",
+        "banded_push_up",
+        "band_chest_flye"
+      ],
+      "notes": "The most accessible rowing exercise — requires only a resistance band, which can be used anywhere. The ascending resistance curve (hardest at peak contraction) complements free-weight rows (hardest at the stretch). Excellent for warm-ups, travel workouts, rehabilitation, and home training. Use thicker bands for more resistance.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "band_face_pull",
+      "name": "Band Face Pull",
+      "category": "compound",
+      "movement_pattern": "external_rotation_pull",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/face-pull.html",
+      "beginner_tips": "Anchor the band at head height on a door, pole, or rack. Grip both ends and pull toward your face, splitting your hands apart so they end up beside your ears. Elbows should be high and wide. Squeeze your rear delts and upper back at the end position. Light resistance with high reps is the goal — this is a health and posture exercise, not a strength exercise.",
+      "substitutes": [
+        "face_pull",
+        "cable_face_pull_high",
+        "band_pull_apart"
+      ],
+      "complements": [
+        "band_row",
+        "bodyweight_row",
+        "inverted_row"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "lateral_raise",
+        "overhead_press",
+        "band_overhead_press",
+        "kb_press"
+      ],
+      "notes": "The band version of the cable face pull — equally effective for rear delt and rotator cuff health. The ascending resistance of the band matches the strength curve of external rotation well. Can be done anywhere with a band and an anchor point, making it perfect for warm-ups and travel. Should be in every program regardless of training level for shoulder health and posture (Schoenfeld, 2010).",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "meadows_row",
+      "name": "Meadows Row (Single-Arm Landmine Row)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per arm",
+      "rep_range_strength": "6-8 per arm",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-landmine-row.html",
+      "beginner_tips": "Stand perpendicular to the barbell (not alongside it like a standard landmine row). Stagger your stance with the leg closest to the bar forward. Reach across your body to grip the fat end of the barbell with an overhand grip. Row explosively, driving the elbow up and back. The perpendicular stance creates a unique arc that stretches the lat deeply at the bottom.",
+      "substitutes": [
+        "landmine_row",
+        "dumbbell_row",
+        "single_arm_cable_row",
+        "kb_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "landmine_press",
+        "incline_dumbbell_press",
+        "dumbbell_shoulder_press",
+        "machine_chest_press"
+      ],
+      "notes": "Named after the late bodybuilder John Meadows (Mountain Dog Training). The perpendicular stance and overhand grip on the fat end of the barbell create a unique pulling angle that emphasizes the upper lats and teres major with a deep stretch at the bottom of each rep. The thick bar grip challenges forearm strength. More advanced than a standard landmine row due to the stance and grip demands. A favorite in bodybuilding programs for targeting the upper/outer lats.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "yates_row",
+      "name": "Yates Row (Underhand Barbell Row)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "4-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-grip-barbell-row.html",
+      "beginner_tips": "Grip the barbell with an underhand (supinated) grip, about shoulder-width apart. Hinge forward to about 45-60 degrees (more upright than a Pendlay row). Row the bar to your lower stomach, driving elbows behind you. The supinated grip allows your elbows to tuck closer to your sides, which emphasizes the lower lats. Don't round your back.",
+      "substitutes": [
+        "barbell_row",
+        "t_bar_row",
+        "cable_row",
+        "dumbbell_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "pull_up",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "overhead_press"
+      ],
+      "notes": "Named after 6x Mr. Olympia Dorian Yates, who made this his primary back builder. The supinated grip increases bicep involvement and allows heavier loading for some lifters. The more upright torso angle (compared to Pendlay rows) reduces lower back stress while shifting emphasis to the lower lats. Note: the supinated grip puts more stress on the bicep tendons — warm up properly and avoid jerking the weight.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "cable_shrug",
+      "name": "Cable Shrug",
+      "category": "isolation",
+      "movement_pattern": "scapular_elevation",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-shrug.html",
+      "beginner_tips": "Stand between two low cable pulleys (or in front of a single cable with a straight bar). Grip the handles and shrug your shoulders straight up toward your ears. Hold the top for a beat and lower slowly. Don't roll your shoulders — straight up and down is sufficient and safer for the shoulder joint.",
+      "substitutes": [
+        "barbell_shrug",
+        "dumbbell_shrug",
+        "trap_bar_shrug"
+      ],
+      "complements": [
+        "barbell_row",
+        "cable_face_pull_high",
+        "lat_pulldown"
+      ],
+      "superset_candidates": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "face_pull"
+      ],
+      "notes": "The cable's constant tension makes this superior to dumbbell or barbell shrugs for some lifters, as the resistance doesn't disappear at the top of the movement. The angle of the cable can be adjusted — low cables pull down and slightly forward, which can increase range of motion compared to vertical-only shrugs. Lighter weight with a slow tempo and peak contraction hold tends to work better than heavy momentum shrugs for trap hypertrophy.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "snatch_grip_barbell_row",
+      "name": "Snatch-Grip Barbell Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "shoulders"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "4-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/bent-over-barbell-row.html",
+      "beginner_tips": "Use a very wide overhand grip (snatch-width — index fingers on or near the rings of an Olympic bar). Hinge forward with a flat back, similar to a Pendlay row. Row the bar to your upper chest/sternum area. The wide grip forces your elbows wide, shifting emphasis to the mid-traps, rhomboids, and rear delts. Use lighter weight than a regular barbell row due to the mechanical disadvantage.",
+      "substitutes": [
+        "barbell_row",
+        "pendlay_row",
+        "t_bar_row",
+        "seal_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "overhead_press"
+      ],
+      "notes": "The ultra-wide grip shifts the row emphasis from the lats to the mid-traps, rhomboids, and rear delts — essentially a row and a face pull in one movement. Also builds significant grip and forearm strength due to the wide hand spacing. Popular in Olympic weightlifting accessory work to strengthen the upper back position for snatches. The wider grip reduces the weight you can row by 20-30% compared to a standard-width row, so ego-check accordingly.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "cable_pullover",
+      "name": "Cable Pullover (Standing)",
+      "category": "isolation",
+      "movement_pattern": "shoulder_extension",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/straight-arm-pulldown.html",
+      "beginner_tips": "Stand facing a high cable with a straight bar or rope attachment. Step back slightly so there's tension at the top. With arms nearly straight (slight elbow bend), pull the bar down in an arc from overhead toward your hips. Hinge slightly at the waist to get a deeper stretch overhead. Control the return to the overhead position — feel the stretch in your lats.",
+      "substitutes": [
+        "straight_arm_pulldown",
+        "pullover_machine",
+        "dumbbell_pullover"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "barbell_row",
+        "cable_row",
+        "cable_face_pull_high"
+      ],
+      "superset_candidates": [
+        "cable_flye",
+        "machine_pec_deck",
+        "incline_dumbbell_press",
+        "band_overhead_press",
+        "kb_press"
+      ],
+      "notes": "Similar to the straight-arm pulldown but performed with a wider arc and slight hip hinge that allows a deeper overhead stretch. The cable provides constant tension through the entire range, unlike dumbbell pullovers where gravity reduces tension at the bottom. Targets the lats through shoulder extension without bicep involvement. An excellent lat isolation exercise for those who don't have a pullover machine.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
     }
   ]
 }

@@ -46,9 +46,18 @@
   Swiping reveals a Delete button requiring tap to confirm (no auto-delete on release).
   API preserved: `onDelete`, `children`, `enabled`. Used by SetTracker, GroupSetTracker,
   WorkoutList (for grouped exercises).
-- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder. Standalone exercises
-  get SwipeToReveal from ExerciseCard internally (Swap/Super/Delete). Grouped exercises
-  (SupersetContainer) are wrapped in SwipeToReveal with Ungroup/Delete actions.
+- WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder and drag-to-superset.
+  Uses DragOverlay for smooth drag visuals. Drop intent (reorder vs superset) detected via
+  pointer Y position relative to target card (top/bottom 30% = reorder, center 40% = superset).
+  Standalone exercises get SwipeToReveal from ExerciseCard internally (Swap/Super/Delete).
+  Grouped exercises (SupersetContainer) are wrapped in SwipeToReveal with Ungroup/Delete actions.
+  Accepts `editMode`, `selectedIndices`, `onToggleSelect` props for multi-select editing.
+- DragOverlayCard (`workout/`) — Simplified read-only card shown during drag. Displays exercise
+  name, muscle tags, sets × reps. For groups: shows group label + stacked card preview.
+  Styled with `scale-[1.03]` + elevated shadow per design system.
+- EditModeBar (`workout/`) — Floating action bar for edit mode. Shows selected count, Select All,
+  Group (≥2 selected), Delete buttons. Positioned above BottomNav with spring slide-up animation.
+  Wrapped in AnimatePresence for enter/exit.
 - FilterSection (`exercise/`) — Reusable collapsible section with colored header text,
   optional active-filter count badge, AnimatePresence height animation. Used by ExercisePicker
   for Exercise Type, Muscles, Equipment, and Body State sections.
@@ -65,6 +74,10 @@
   `open && (suggestions.length > 0 || onSearchAll)`.
 - ExerciseCard — uses `activePanel` enum state (`'none' | 'substitutes' | 'supersets'`) for
   mutually exclusive inline panels. Collapsing the card resets `activePanel` to `'none'`.
+  Sortable wrapper is a plain `<div>` (dnd-kit only); animated content uses Framer Motion
+  `initial`/`animate`/`exit` (NOT `layout` — conflicts with dnd-kit transforms). Shows ghost
+  placeholder when `isDragging`. Supports edit mode: checkbox replaces drag handle, selection
+  styling, disabled drag/swipe. `isDropTarget` prop shows highlight ring for superset merge.
   Includes superset/ungroup actions in its expand menu AND swipe-to-reveal actions
   (Swap/Super/Delete). Swipe "Super" opens inline SupersetPanel (not ExercisePicker sheet).
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap

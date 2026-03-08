@@ -11,6 +11,7 @@ export interface SwipeAction {
   icon: ReactNode;
   color: string; // Tailwind bg class like 'bg-destructive'
   onAction: () => void;
+  requiresConfirm?: boolean; // If true, first tap shows "Confirm?", second tap executes
 }
 
 interface SwipeToRevealProps {
@@ -43,6 +44,7 @@ export function SwipeToReveal({
   const totalWidth = actions.length * actionWidth;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [confirmingKey, setConfirmingKey] = useState<string | null>(null);
 
   useMotionValueEvent(motionX, 'change', (v) => {
     const next = v < -5;
@@ -54,6 +56,7 @@ export function SwipeToReveal({
 
   const snapClosed = useCallback(() => {
     animate(motionX, 0, { type: 'spring', stiffness: 500, damping: 30 });
+    setConfirmingKey(null);
     if (closeCurrentRow === snapClosedRef.current) {
       closeCurrentRow = null;
     }
@@ -141,24 +144,32 @@ export function SwipeToReveal({
     >
       {/* Action buttons behind content */}
       <div className="absolute inset-y-0 right-0 flex">
-        {actions.map((action) => (
-          <button
-            key={action.key}
-            onClick={() => {
-              snapClosed();
-              action.onAction();
-            }}
-            className={cn(
-              'flex flex-col items-center justify-center text-white text-[10px] font-medium',
-              action.color,
-            )}
-            style={{ width: actionWidth }}
-            aria-label={action.label}
-          >
-            {action.icon}
-            <span className="mt-0.5">{action.label}</span>
-          </button>
-        ))}
+        {actions.map((action) => {
+          const isConfirming = confirmingKey === action.key;
+          return (
+            <button
+              key={action.key}
+              onClick={() => {
+                if (action.requiresConfirm && !isConfirming) {
+                  setConfirmingKey(action.key);
+                  vibrate(10);
+                  return;
+                }
+                snapClosed();
+                action.onAction();
+              }}
+              className={cn(
+                'flex flex-col items-center justify-center text-white text-[10px] font-medium transition-colors',
+                isConfirming ? 'bg-red-700 dark:bg-red-800' : action.color,
+              )}
+              style={{ width: actionWidth }}
+              aria-label={isConfirming ? `Confirm ${action.label.toLowerCase()}` : action.label}
+            >
+              {action.icon}
+              <span className="mt-0.5">{isConfirming ? 'Confirm?' : action.label}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Foreground content that slides */}

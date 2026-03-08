@@ -1,7 +1,7 @@
 {
   "file": "07_core_and_functional.json",
-  "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics",
-  "exercise_count": 21,
+  "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics, kettlebell complexes",
+  "exercise_count": 39,
   "exercises": [
     {
       "id": "cable_crunch",
@@ -21,12 +21,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/cable-crunch.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/kneeling-cable-crunch.html",
       "beginner_tips": "Kneel in front of high cable with rope behind head. Crunch DOWN by rounding your spine and driving your elbows toward your knees. Curl your ribcage toward your pelvis — this is a SHORT movement, not a full sit-up. Your hips should barely move. If your hips are hinging, you're using hip flexors instead of abs.",
       "substitutes": [
         "crunch",
         "hanging_leg_raise",
         "decline_crunch",
+        "v_up",
         "ab_crunch_machine"
       ],
       "complements": [
@@ -40,7 +41,1857 @@
         "barbell_back_squat",
         "barbell_row"
       ],
-      "notes": "Best ab exercise for progressive overload — increase cable weight over time. Floor crunches can't do that. The cable provides constant tension through the entire range of motion. Excellent for pairing as a rest-period filler between heavy compound sets, since it doesn't compete with any major lift for muscle recovery."
+      "notes": "Best ab exercise for progressive overload — increase cable weight over time. Floor crunches can't do that. The cable provides constant tension through the entire range of motion. Excellent for pairing as a rest-period filler between heavy compound sets, since it doesn't compete with any major lift for muscle recovery.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "crunch",
+      "name": "Crunch (Floor)",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-25",
+      "rep_range_strength": "10-20",
+      "video_url": "https://www.muscleandstrength.com/exercises/crunch.html",
+      "beginner_tips": "Lie on back, knees bent, feet flat on the floor. Hands lightly behind head (don't pull your neck — your hands are just resting there). Curl your shoulders off the floor using your abs. This is a small movement — your lower back stays on the floor the entire time. Think about bringing your ribcage toward your pelvis, not sitting up.",
+      "substitutes": [
+        "cable_crunch",
+        "hanging_leg_raise",
+        "decline_crunch",
+        "lying_leg_raise",
+        "v_up",
+        "ab_crunch_machine"
+      ],
+      "complements": [
+        "plank",
+        "russian_twist",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "back_extension"
+      ],
+      "notes": "The most basic ab exercise. No equipment needed. When 25+ reps per set is easy, progress to cable crunches for loadable resistance, or add a weight plate held at your chest. The crunch specifically targets the rectus abdominis (the 'six-pack' muscle). Pair with planks (anti-extension) and side planks (anti-lateral flexion) for complete core training.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "hanging_leg_raise",
+      "name": "Hanging Leg Raise",
+      "category": "isolation",
+      "movement_pattern": "hip_flexion_spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "pull_up_bar"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/hanging-leg-raise.html",
+      "beginner_tips": "Hang from bar with straight arms. Raise legs by curling your pelvis upward — this is the key cue. Simply lifting your legs uses hip flexors; curling your pelvis posterior tilts it and engages the abs. Bent knees = easier, straight legs = harder. Control the lowering — don't swing. If you swing too much, start with hanging knee raises instead.",
+      "substitutes": [
+        "cable_crunch",
+        "lying_leg_raise",
+        "hanging_knee_raise",
+        "decline_crunch",
+        "v_up"
+      ],
+      "complements": [
+        "plank",
+        "russian_twist",
+        "crunch",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "pull_up",
+        "chin_up",
+        "overhead_press"
+      ],
+      "notes": "One of the most effective exercises for the lower portion of the rectus abdominis. The key is the posterior pelvic tilt at the top — without it, the hip flexors do most of the work. Pairs naturally between sets of pull-ups or chin-ups since you're already at the bar. Can also be done between heavy squat sets. Progression: hanging knee raises → bent-leg raises → straight-leg raises → toes-to-bar.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "hanging_knee_raise",
+      "name": "Hanging Knee Raise",
+      "category": "isolation",
+      "movement_pattern": "hip_flexion_spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "pull_up_bar"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/hanging-leg-raise.html",
+      "beginner_tips": "Hang from bar with straight arms. Bring knees up toward your chest by curling your pelvis forward and upward. The bent knees make this much easier than straight-leg raises because the lever arm is shorter. Focus on the pelvic curl at the top — don't just lift your knees, roll your pelvis under. Lower with control.",
+      "substitutes": [
+        "lying_leg_raise",
+        "hanging_leg_raise",
+        "cable_crunch"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "dead_bug"
+      ],
+      "superset_candidates": [
+        "pull_up",
+        "chin_up",
+        "barbell_back_squat"
+      ],
+      "notes": "The stepping stone between lying leg raises and hanging leg raises. The bent knees reduce the difficulty significantly while still training the same movement pattern. When you can do 15-20 clean reps with a clear pelvic curl at the top, progress to hanging leg raises with straight legs. Also builds grip endurance as a side benefit.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "lying_leg_raise",
+      "name": "Lying Leg Raise",
+      "category": "isolation",
+      "movement_pattern": "hip_flexion_spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/lying-floor-leg-raise.html",
+      "beginner_tips": "Flat on floor, hands under your butt or gripping something behind your head for stability. Legs straight, raise them toward the ceiling by curling your pelvis off the floor. Lower slowly without letting your feet touch the floor between reps. If your lower back arches off the floor, bend your knees to reduce the lever arm. Press your lower back into the floor throughout.",
+      "substitutes": [
+        "hanging_leg_raise",
+        "crunch",
+        "hanging_knee_raise",
+        "dead_bug",
+        "v_up"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift",
+        "overhead_press",
+        "plank"
+      ],
+      "notes": "Easier version of hanging leg raises — no pull-up bar needed and no grip limitation. The same pelvic curl cue applies: the abs only work when you curl your pelvis off the floor, not when you simply lift your legs (which is hip flexion). If your lower back hurts, you're not bracing properly — either bend your knees or switch to dead bugs until your core is stronger.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "plank",
+      "name": "Plank (Front)",
+      "category": "isolation",
+      "movement_pattern": "anti_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-60 seconds",
+      "rep_range_strength": "add weight for overload",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-plank.html",
+      "beginner_tips": "Forearm push-up position. Straight line from head to heels — check in a mirror if possible. Squeeze abs hard (imagine bracing for a punch), squeeze glutes, press forearms into the floor. Don't let your hips sag or pike up. Start with 20-30 seconds and build up. If your lower back hurts, you're sagging — shorten the hold or do it from your knees.",
+      "substitutes": [
+        "dead_bug",
+        "ab_wheel_rollout",
+        "hollow_body_hold"
+      ],
+      "complements": [
+        "crunch",
+        "hanging_leg_raise",
+        "side_plank",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "conventional_deadlift",
+        "overhead_press",
+        "goblet_squat",
+        "side_plank"
+      ],
+      "notes": "Trains the deep stabilizing core muscles (transverse abdominis) through anti-extension — resisting the force of gravity trying to pull your spine into extension. This is actually how your core works during squats, deadlifts, and overhead pressing, making the plank directly functional. Once 60 seconds is easy, add a weight plate on your back or progress to an ab wheel rollout rather than just holding longer — research shows diminishing returns beyond 60 seconds for strength. An excellent rest-period filler between heavy compound sets.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "side_plank",
+      "name": "Side Plank",
+      "category": "isolation",
+      "movement_pattern": "anti_lateral_flexion",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "20-45 seconds per side",
+      "rep_range_strength": "add weight or lift top leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/side-plank.html",
+      "beginner_tips": "On your side, prop up on forearm with elbow directly under shoulder. Lift hips to make a straight line from head to feet. Hold. If too hard, bend your bottom knee for a wider base of support. Keep your hips stacked vertically — the most common mistake is rotating forward or backward.",
+      "substitutes": [
+        "pallof_press",
+        "woodchop",
+        "suitcase_carry"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "plank",
+        "barbell_back_squat",
+        "conventional_deadlift",
+        "russian_twist"
+      ],
+      "notes": "Targets the obliques and quadratus lumborum through anti-lateral flexion. Builds the lateral core stability needed to prevent your torso from collapsing sideways during heavy squats and deadlifts. Research by McGill shows side planks are among the most effective exercises for spinal stability with the lowest spinal compression. Progression: knees bent → full side plank → top leg raised → Copenhagen plank (top foot on bench).",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "ab_wheel_rollout",
+      "name": "Ab Wheel Rollout",
+      "category": "isolation",
+      "movement_pattern": "anti_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "ab_wheel"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "upper_back"
+      ],
+      "workout_position": "late",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "5-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/ab-wheel-roll-out.html",
+      "beginner_tips": "Kneel holding ab wheel on the floor. Slowly roll forward while keeping your abs tight and preventing your back from arching. Go ONLY as far as you can control without your lower back dipping — this is the critical safety point. Pull back using your abs, not your hip flexors. Start with a very small range of motion and increase it gradually over weeks.",
+      "substitutes": [
+        "plank",
+        "hanging_leg_raise",
+        "hollow_body_hold"
+      ],
+      "complements": [
+        "plank",
+        "russian_twist",
+        "pallof_press",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "overhead_press",
+        "barbell_bench_press",
+        "barbell_row"
+      ],
+      "notes": "One of the most effective core exercises in research — EMG studies show very high rectus abdominis and oblique activation. Essentially a moving plank with a progressively longer lever arm. The eccentric (rolling out) phase is where the core works hardest. Master 60-second planks before attempting these. Progression: kneeling partial range → kneeling full range → standing partial → standing full. The standing version from feet is an elite-level exercise. Pairs well between heavy pressing or rowing sets.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "russian_twist",
+      "name": "Russian Twist",
+      "category": "isolation",
+      "movement_pattern": "spinal_rotation",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight",
+        "medicine_ball",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20 per side",
+      "rep_range_strength": "8-12 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/russian-twist.html",
+      "beginner_tips": "Sit on floor, knees bent, lean back slightly so your abs engage. Hold weight at chest or extend arms for more difficulty. Rotate torso side to side — the rotation should come from your torso, not your arms swinging. Keep your hips relatively stable while your shoulders rotate. Lift feet off floor for more challenge.",
+      "substitutes": [
+        "woodchop",
+        "pallof_press",
+        "cable_crunch",
+        "bicycle_crunch"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "plank",
+        "side_plank"
+      ],
+      "notes": "Targets the obliques through active rotation. Keep rotation controlled and deliberate — don't whip back and forth using momentum. Some coaches caution against loaded spinal rotation, especially combined with the flexed spinal position. If you have any history of disc issues, the Pallof press (anti-rotation) and woodchop (cable-guided rotation) are safer alternatives that train the obliques without the combined flexion-rotation pattern.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "woodchop",
+      "name": "Cable Woodchop",
+      "category": "compound",
+      "movement_pattern": "spinal_rotation",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15 per side",
+      "rep_range_strength": "8-12 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-wood-chop.html",
+      "beginner_tips": "Cable set high. Stand sideways to the machine. Both hands on handle, pull diagonally across your body from high-to-low (like chopping wood). Rotate through your torso — your hips can rotate slightly but the movement should be driven by your core. Arms stay fairly straight throughout; they're just holding the handle, not pulling it.",
+      "substitutes": [
+        "russian_twist",
+        "pallof_press",
+        "cable_crunch",
+        "bicycle_crunch"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "side_plank",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "pallof_press"
+      ],
+      "notes": "The cable guides the rotation, making this safer than free-weight rotational exercises like Russian twists. High-to-low targets the obliques through a diagonal pattern similar to throwing, swinging, or rotational sports movements. Reverse the direction (low-to-high) to target a different oblique activation pattern. Both directions are worth including. Great functional core exercise for athletes.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "pallof_press",
+      "name": "Pallof Press",
+      "category": "isolation",
+      "movement_pattern": "anti_rotation",
+      "force_type": "isometric",
+      "equipment": [
+        "cable_machine",
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15 per side",
+      "rep_range_strength": "8-12 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/pallof-press.html",
+      "beginner_tips": "Stand sideways to a cable at chest height. Hold handle at chest with both hands. Press straight out in front of you and RESIST the pull trying to rotate your torso. Hold for 1-2 seconds with arms extended, then return to chest. You're training your core to RESIST rotation — the movement looks simple but your obliques are firing hard to keep you from twisting.",
+      "substitutes": [
+        "woodchop",
+        "russian_twist",
+        "side_plank"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "side_plank",
+        "woodchop"
+      ],
+      "superset_candidates": [
+        "plank",
+        "barbell_back_squat",
+        "conventional_deadlift",
+        "barbell_bench_press",
+        "overhead_press",
+        "woodchop"
+      ],
+      "notes": "Anti-rotation is how your core actually works in real life and during heavy lifts — resisting forces that try to twist you, not actively crunching. The Pallof press is the gold standard anti-rotation exercise. Light weight is all you need — if you have to lean or brace hard against the cable, it's too heavy. Can be done from a tall kneeling, half-kneeling, or standing position. Half-kneeling is the hardest because it narrows your base of support. Arguably the most underrated core exercise — pairs excellently between any heavy compound sets.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "dead_bug",
+      "name": "Dead Bug",
+      "category": "isolation",
+      "movement_pattern": "anti_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per side",
+      "rep_range_strength": "6-10 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/dead-bug.html",
+      "beginner_tips": "Lie on your back, arms pointing to ceiling, knees bent at 90 degrees above your hips. Slowly extend your opposite arm and leg away from each other while keeping your lower back PRESSED into the floor — this is the critical cue. If your back arches off the floor, you've gone too far. Return, switch sides. Breathe out as you extend.",
+      "substitutes": [
+        "plank",
+        "bird_dog",
+        "hollow_body_hold"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "bird_dog",
+        "hanging_leg_raise"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "overhead_press",
+        "conventional_deadlift"
+      ],
+      "notes": "Excellent warmup and core stability exercise. Teaches your core to stay braced while your limbs move — which is exactly what happens during squats, deadlifts, and overhead pressing. The back-flat-on-floor position provides instant feedback: if your back lifts off, your core isn't doing its job. One of the best exercises for learning core bracing before heavy lifting. Pair with bird dogs for a complete stability warmup. Ideal rest-period filler between heavy compounds since it doubles as active recovery.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "bird_dog",
+      "name": "Bird Dog",
+      "category": "isolation",
+      "movement_pattern": "anti_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per side",
+      "rep_range_strength": "6-10 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/bird-dog.html",
+      "beginner_tips": "Start on hands and knees with a flat back. Simultaneously extend one arm forward and the opposite leg backward until both are parallel to the floor. Hold for 1-2 seconds. Your hips and shoulders should stay completely level — imagine balancing a glass of water on your lower back. Return to start and switch sides. Move slowly and with control.",
+      "substitutes": [
+        "dead_bug",
+        "plank",
+        "hollow_body_hold"
+      ],
+      "complements": [
+        "dead_bug",
+        "plank",
+        "side_plank",
+        "back_extension"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift",
+        "overhead_press"
+      ],
+      "notes": "Featured prominently in Dr. Stuart McGill's 'Big 3' core exercises alongside the curl-up and side plank. Trains anti-extension and anti-rotation simultaneously because your body wants to twist toward the extended leg. Also activates the glute on the extended side. One of the safest core exercises for people with lower back issues — McGill recommends it as foundational for spinal health. Pair with dead bugs for a complete warmup: dead bugs (supine) + bird dogs (prone) covers anti-extension in both positions.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "hollow_body_hold",
+      "name": "Hollow Body Hold",
+      "category": "isolation",
+      "movement_pattern": "anti_extension",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "20-45 seconds",
+      "rep_range_strength": "add weight or extend holds",
+      "video_url": "https://www.muscleandstrength.com/exercises/crunch.html",
+      "beginner_tips": "Lie on your back. Press your lower back into the floor. Lift your shoulders and legs slightly off the floor simultaneously — arms extended overhead, legs straight. Your body should form a gentle banana shape. Hold this position. The key is keeping your lower back pressed down throughout. Start with knees bent and arms at sides if the full position is too hard.",
+      "substitutes": [
+        "plank",
+        "dead_bug",
+        "ab_wheel_rollout",
+        "l_sit"
+      ],
+      "complements": [
+        "plank",
+        "hanging_leg_raise",
+        "crunch",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "pull_up"
+      ],
+      "notes": "A gymnastics fundamental that's one of the best anti-extension exercises. Teaches total-body tension — the exact kind of bracing needed during heavy lifts. Harder than it looks because the long lever arms (extended arms and legs) create a strong extension force on the spine that your abs must resist. Progression: tuck (knees bent, arms at sides) → arms extended → legs extended → full hollow (both extended) → hollow body rocks. The position also transfers directly to pull-ups and hanging exercises where maintaining a hollow body prevents swinging.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "decline_crunch",
+      "name": "Decline Crunch",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/decline-crunch.html",
+      "beginner_tips": "Set bench to a decline angle, hook feet under pads. Cross arms at chest or hold a weight plate. Crunch up by rounding your spine — don't do a full sit-up. Curl up about 30-45 degrees while actively rounding your upper back. The decline angle means gravity works against you throughout more of the range.",
+      "substitutes": [
+        "cable_crunch",
+        "crunch",
+        "hanging_leg_raise",
+        "v_up",
+        "ab_crunch_machine"
+      ],
+      "complements": [
+        "plank",
+        "hanging_leg_raise",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "back_extension"
+      ],
+      "notes": "The decline angle adds gravity-based resistance, making each rep harder than a floor crunch. A stepping stone between floor crunches (bodyweight) and cable crunches (loadable). Hold a plate at your chest for additional resistance. Still limited in loading compared to cable crunches, but requires no cable machine.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "mountain_climber",
+      "name": "Mountain Climbers",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "quadriceps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "20-40 seconds",
+      "rep_range_strength": "n/a",
+      "video_url": "https://www.muscleandstrength.com/exercises/mountain-climbers.html",
+      "beginner_tips": "Start in push-up position with arms straight. Alternate driving knees toward your chest as if running in place. Keep your hips level — don't bounce them up and down. Your hands stay planted and your arms stay straight. Go fast for cardio emphasis, slow and controlled for core emphasis.",
+      "substitutes": [
+        "plank",
+        "battle_ropes",
+        "squat_jump",
+        "bear_crawl"
+      ],
+      "complements": [
+        "plank",
+        "push_up",
+        "squat_jump"
+      ],
+      "superset_candidates": [
+        "push_up",
+        "squat_jump",
+        "plank"
+      ],
+      "notes": "Great core and cardio finisher that requires zero equipment. The plank position with alternating leg movement combines anti-extension core work with hip flexor conditioning and cardiovascular demand. Slow mountain climbers (2-3 second hold per leg) are a legitimate core exercise; fast mountain climbers are primarily cardio conditioning. Can be used as a warmup before training or a finisher after.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "battle_ropes",
+      "name": "Battle Ropes",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "battle_ropes"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "forearms",
+        "glutes"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "20-30 second intervals",
+      "rep_range_strength": "n/a",
+      "video_url": "https://www.muscleandstrength.com/exercises/battle-ropes.html",
+      "beginner_tips": "One rope end per hand. Quarter-squat position with feet wider than shoulders. Try alternating waves (arms alternate up and down), double waves (both arms together), or slams (lift high, slam down). Work 20-30 seconds hard, rest 30-60 seconds. This is conditioning, not strength work — go for sustained intensity.",
+      "substitutes": [
+        "kettlebell_swing",
+        "mountain_climber",
+        "squat_jump",
+        "mb_slam"
+      ],
+      "complements": [
+        "farmer_walk",
+        "push_up",
+        "goblet_squat"
+      ],
+      "superset_candidates": [
+        "goblet_squat",
+        "plank",
+        "kettlebell_swing"
+      ],
+      "notes": "Great cardio finisher after strength training. Different wave patterns hit different muscles: alternating waves emphasize shoulders, slams emphasize core and lats, circles emphasize shoulder rotation. The constant core bracing in the athletic stance makes this double as core work. Heart rate spikes very quickly — 3-5 rounds of 30 seconds is a brutally effective conditioning session.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "box_jump",
+      "name": "Box Jump",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump.html",
+      "beginner_tips": "Face a sturdy box or platform. Swing arms back, then explosively jump up and forward, landing softly on both feet on top of the box. Stand fully on top. STEP back down — do NOT jump down, as the landing impact is very hard on your joints. Start with a low box (12-16 inches) and increase height gradually. Reset fully between each rep.",
+      "substitutes": [
+        "squat_jump",
+        "broad_jump",
+        "tuck_jump"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "leg_press",
+        "goblet_squat"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "leg_press"
+      ],
+      "notes": "Builds explosive power and rate of force development. ALWAYS step down — jumping down adds high-impact eccentric stress with zero benefit for power development. Do these when fresh, BEFORE heavy lifting, not after. Low reps with full recovery between sets (60-90 seconds). The goal is maximum height and explosive intent on every rep, not fatigue. If you're too tired to jump explosively, stop the set.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "squat_jump",
+      "name": "Squat Jump (Bodyweight)",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "5-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/bodyweight-squat.html",
+      "beginner_tips": "Stand with feet shoulder-width apart. Squat down to about parallel, then EXPLODE upward as high as you can, leaving the ground. Swing arms for momentum. Land softly by bending your knees to absorb the impact — land quietly. Reset to a full standing position between each rep. Keep your chest up throughout.",
+      "substitutes": [
+        "box_jump",
+        "broad_jump",
+        "tuck_jump"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "leg_press",
+        "goblet_squat"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "goblet_squat"
+      ],
+      "notes": "The simplest plyometric exercise — no equipment or box needed. A good entry point before box jumps since there's no landing on an elevated surface. The emphasis is on maximal jump height with each rep. Like box jumps, do these when fresh, before heavy leg work. Soft, quiet landings are the sign of good technique — loud landings mean poor absorption and higher joint stress.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "suitcase_carry",
+      "name": "Suitcase Carry (Single-Arm Farmer's Walk)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "traps",
+        "glutes"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-45 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
+      "beginner_tips": "Pick up one heavy dumbbell or kettlebell in one hand and walk. The key: stand PERFECTLY upright and don't lean to either side. The weight is trying to pull you sideways — your core resists. Walk for distance or time, then switch sides. Your opposite-side obliques and quadratus lumborum do the most work.",
+      "substitutes": [
+        "farmer_walk",
+        "side_plank",
+        "pallof_press",
+        "overhead_carry"
+      ],
+      "complements": [
+        "farmer_walk",
+        "side_plank",
+        "plank",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift"
+      ],
+      "notes": "One of the best functional anti-lateral flexion exercises — trains the same stabilization pattern as a side plank but under heavy load while walking. Directly builds the lateral core strength needed to prevent shifting during heavy squats and deadlifts. More core-specific than a bilateral farmer's walk because the unilateral loading creates a strong rotational and lateral demand. Also reveals left/right asymmetries. Can be done with very heavy weight relative to bilateral carries.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "broad_jump",
+      "name": "Broad Jump (Standing Long Jump)",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump.html",
+      "beginner_tips": "Stand with feet shoulder-width apart. Swing arms back while lowering into a quarter squat, then explode forward and upward, jumping as far as possible. Land softly on both feet with knees bent to absorb impact. Reset completely between each rep — walk back to the start line. Focus on horizontal distance, not height.",
+      "substitutes": [
+        "box_jump",
+        "squat_jump",
+        "tuck_jump"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "box_jump",
+        "squat_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "leg_press"
+      ],
+      "notes": "Trains horizontal power production — the ability to propel your body forward explosively. More hip-dominant than vertical jumps because the takeoff angle loads the glutes and hamstrings more heavily. Used extensively in athletic testing (NFL Combine, track and field). Like all plyometrics, do these fresh before strength work. 3-5 sets of 3-5 reps with full recovery. Measure distance to track progress over time.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "depth_jump",
+      "name": "Depth Jump",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "3-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump.html",
+      "beginner_tips": "Step (don't jump) off a box 30-50 cm high. The instant both feet hit the ground, immediately jump as high as possible — minimize ground contact time. The goal is to absorb the landing and redirect upward as fast as you can. This is an ADVANCED exercise — master box jumps and squat jumps first. Start with a low box and increase height slowly over weeks.",
+      "substitutes": [
+        "box_jump",
+        "squat_jump",
+        "broad_jump"
+      ],
+      "complements": [
+        "box_jump",
+        "barbell_back_squat",
+        "squat_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat"
+      ],
+      "notes": "The most intense plyometric exercise — exploits the stretch-shortening cycle by pre-loading the muscles eccentrically during the drop. Developed by Soviet sport scientist Yuri Verkhoshansky. Produces more reactive strength than any other jump variation. NOT appropriate for beginners — requires a solid foundation of squat strength (1.5x bodyweight squat recommended by NSCA) and proficiency with simpler plyometrics. Limit volume to 3-4 sets of 3-5 reps, 1-2 times per week maximum. Higher boxes are NOT better — if ground contact time exceeds 0.25 seconds, the box is too high.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "skater_jump",
+      "name": "Skater Jump",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "calves",
+        "core",
+        "abductors"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "5-8 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump.html",
+      "beginner_tips": "Stand on one leg. Push off laterally and land on the opposite foot, absorbing the impact by bending the knee into a slight single-leg squat. Swing your arms to generate momentum. Immediately push off to jump back to the other side. Land softly and with control — this trains single-leg stability as much as power.",
+      "substitutes": [
+        "lateral_bound",
+        "squat_jump",
+        "box_jump"
+      ],
+      "complements": [
+        "squat_jump",
+        "box_jump",
+        "broad_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "goblet_squat"
+      ],
+      "notes": "Trains lateral power and single-leg landing mechanics — two athletic qualities neglected by sagittal-plane-only training. The lateral component loads the gluteus medius and abductors more than forward/vertical jumps. Builds the deceleration ability needed in change-of-direction sports. Also develops ankle and knee stability through single-leg landing. Start with smaller jumps and gradually increase lateral distance.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "tuck_jump",
+      "name": "Tuck Jump",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "calves"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/bodyweight-squat.html",
+      "beginner_tips": "Stand with feet shoulder-width apart. Jump as high as possible while tucking both knees to your chest at the peak. Land softly with bent knees and immediately repeat. Swing your arms up as you jump to generate more height. If you can't land quietly, you're fatigued — stop the set. Reset between reps if needed.",
+      "substitutes": [
+        "squat_jump",
+        "box_jump",
+        "broad_jump"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "broad_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "goblet_squat"
+      ],
+      "notes": "Higher intensity than basic squat jumps because the tuck demands greater hip flexor power and core engagement at the top of the jump. The knee-to-chest motion also improves body awareness and coordination in the air. Often used in NSCA plyometric progressions between squat jumps and depth jumps. Good for conditioning circuits at moderate rep ranges (5-8 per set) or power development at low reps (3-5) with full recovery.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "lateral_bound",
+      "name": "Lateral Bound",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "calves",
+        "core",
+        "abductors"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "4-6 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/box-jump.html",
+      "beginner_tips": "Stand on one leg. Push off explosively to the side, landing on the opposite foot. Stick the landing — hold for 1-2 seconds in a single-leg quarter squat before pushing back or continuing in the same direction. Keep your chest up and hips square. Focus on sticking each landing cleanly before adding speed or distance.",
+      "substitutes": [
+        "skater_jump",
+        "squat_jump",
+        "broad_jump"
+      ],
+      "complements": [
+        "skater_jump",
+        "squat_jump",
+        "box_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "leg_press"
+      ],
+      "notes": "Similar to skater jumps but with a deliberate pause (stick) on each landing, emphasizing the eccentric deceleration and single-leg stability components. The held landing position trains the glute medius and ankle stabilizers under impact loading. A key exercise in ACL injury prevention protocols — builds the lateral deceleration ability that protects the knee during cutting movements. Progress from short bounds with long holds to longer bounds with quick transitions.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "plyo_push_up",
+      "name": "Plyo Push-Up (Explosive Push-Up)",
+      "category": "compound",
+      "movement_pattern": "plyometric",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest",
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "3-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/plyometric-pushup.html",
+      "beginner_tips": "Start in a standard push-up position. Lower yourself to the bottom, then push up explosively so your hands leave the ground. Land with slightly bent elbows to absorb the impact and immediately go into the next rep. If you can't get your hands off the ground, you need to build more pushing strength with regular push-ups first. Clapping is optional and just for show — the key is explosive intent.",
+      "substitutes": [
+        "push_up",
+        "box_jump",
+        "squat_jump"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "broad_jump"
+      ],
+      "superset_candidates": [
+        "barbell_row",
+        "pull_up"
+      ],
+      "notes": "The upper-body equivalent of a box jump — trains explosive pushing power. EMG research shows significantly higher pec and tricep activation compared to regular push-ups due to the maximal intent. Most beneficial for athletes who need upper-body power (combat sports, football). Requires solid regular push-up strength (at least 20 good reps) before attempting. Keep reps low (3-8) and focus on maximum height per rep. Wrist-friendly landing technique: land on the heel of your palms, not flat-handed.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "overhead_carry",
+      "name": "Overhead Carry",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "triceps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-45 seconds",
+      "rep_range_strength": "20-30 seconds heavy",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
+      "beginner_tips": "Press weights overhead and lock your arms out completely. Walk with controlled steps while keeping your ribs down and abs braced — do NOT let your lower back arch. Shoulders should be packed (pushed away from your ears). If you can't walk without arching your back, the weight is too heavy or you lack thoracic mobility. Start light.",
+      "substitutes": [
+        "farmer_walk",
+        "suitcase_carry",
+        "waiter_walk",
+        "rack_carry"
+      ],
+      "complements": [
+        "farmer_walk",
+        "suitcase_carry",
+        "plank",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_row"
+      ],
+      "notes": "The most shoulder-demanding carry variation. Forces the core to resist extension under overhead load while walking — directly functional for overhead pressing strength and shoulder stability. Requires good thoracic extension and shoulder mobility. If ribs flare (lower back arches), the weight is too heavy or mobility is insufficient. Also builds overhead endurance useful for overhead press lockout. Can be done single-arm for an added anti-lateral flexion challenge (see waiter walk).",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "rack_carry",
+      "name": "Rack Carry (Front Rack Walk)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "kettlebell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-45 seconds",
+      "rep_range_strength": "20-30 seconds heavy",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
+      "beginner_tips": "Clean two kettlebells (or hold two dumbbells) in the front rack position — weights resting on your upper chest/shoulders, elbows tucked. Walk with an upright posture. Keep your ribs down and abs braced. The front-loaded position forces your core to work hard to prevent rounding forward. Breathe in short, controlled breaths.",
+      "substitutes": [
+        "farmer_walk",
+        "suitcase_carry",
+        "overhead_carry"
+      ],
+      "complements": [
+        "farmer_walk",
+        "suitcase_carry",
+        "overhead_carry",
+        "plank"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_row"
+      ],
+      "notes": "Front-loaded carries challenge the anterior core more than farmer's walks because the weight is in front of the body's center of gravity. Similar demand to front squats but with a lower injury risk since there's no dynamic movement. Builds the thoracic extension and anterior core strength needed for front squats and cleans. Also teaches diaphragmatic breathing under load — you can't take a big belly breath with weight on your chest. Single-arm rack carry adds anti-lateral flexion and anti-rotation demands.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "cross_body_carry",
+      "name": "Cross-Body Carry (Offset Carry)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "kettlebell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "forearms",
+        "glutes"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-40 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
+      "beginner_tips": "Hold one weight overhead (arm fully locked out) and the other weight at your side like a suitcase carry. Walk with perfect posture — no leaning, no rib flare. The asymmetric loading creates a strong anti-rotation and anti-lateral flexion demand. Switch sides at the halfway mark. Master overhead carries and suitcase carries individually before combining them.",
+      "substitutes": [
+        "suitcase_carry",
+        "overhead_carry",
+        "waiter_walk"
+      ],
+      "complements": [
+        "overhead_carry",
+        "suitcase_carry",
+        "farmer_walk"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift"
+      ],
+      "notes": "The most demanding carry variation — combines overhead stability, anti-lateral flexion, and anti-rotation in one exercise. The asymmetric loading (one weight high, one weight low) creates competing rotational forces that your core must resist simultaneously. Requires prerequisite proficiency in both overhead carries and suitcase carries. Excellent for exposing and correcting left-right imbalances. Keep loads moderate — technique breakdown under heavy asymmetric load is a real injury risk.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "waiter_walk",
+      "name": "Waiter Walk (Single-Arm Overhead Carry)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "kettlebell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "triceps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-45 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/farmers-walk.html",
+      "beginner_tips": "Press one weight overhead with the arm fully locked out. Keep your shoulder packed (pulled away from your ear) and your ribs down. Walk with an upright posture — don't lean to the unloaded side. Your opposite-side obliques work to prevent lateral lean while your shoulder stabilizers keep the weight locked out. Switch arms at the halfway mark. Kettlebell bottoms-up version is an advanced variation that also demands extreme grip.",
+      "substitutes": [
+        "overhead_carry",
+        "suitcase_carry",
+        "cross_body_carry"
+      ],
+      "complements": [
+        "overhead_carry",
+        "suitcase_carry",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_row"
+      ],
+      "notes": "Combines the overhead stability challenge with unilateral anti-lateral flexion — your core works to prevent leaning away from the loaded side while your shoulder stabilizers keep the weight locked overhead. Excellent for building the single-arm overhead stability needed for jerks, snatches, and overhead pressing. The bottoms-up kettlebell variation (bell pointing up) dramatically increases rotator cuff and grip demand. Lighter loads are more appropriate than bilateral overhead carries since one shoulder bears the entire load.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "kb_windmill",
+      "name": "Kettlebell Windmill",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "isometric",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "6-10 per side",
+      "rep_range_strength": "4-6 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/kettlebell-windmill.html",
+      "beginner_tips": "Press a KB overhead with one arm. Turn your feet about 45 degrees away from the loaded side. Keeping the KB locked out overhead and your eyes on it, hinge at the hip and slide your free hand down your front leg. Go as low as your hamstring flexibility allows while keeping the KB directly above your shoulder. Reverse the motion to stand. Start with no weight to learn the movement pattern.",
+      "substitutes": [
+        "side_plank",
+        "pallof_press",
+        "kb_turkish_get_up"
+      ],
+      "complements": [
+        "kb_turkish_get_up",
+        "overhead_carry",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_row"
+      ],
+      "notes": "A multi-plane exercise that combines hip hinge, lateral flexion, and overhead stability. Builds oblique strength through a loaded lateral bend while simultaneously training shoulder stability and hamstring flexibility. The overhead KB demands constant rotator cuff and deltoid engagement. Popular in StrongFirst and RKC kettlebell systems. Master the bodyweight version before adding load. Also an excellent assessment tool — inability to perform a clean windmill reveals mobility restrictions in the thoracic spine, shoulders, or hamstrings.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "kb_turkish_get_up",
+      "name": "Turkish Get-Up (Kettlebell)",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "quadriceps",
+        "triceps"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "3-5 per side",
+      "rep_range_strength": "1-3 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/turkish-get-up.html",
+      "beginner_tips": "Lie on your back holding a KB with one arm pressed to the ceiling. Roll to your elbow, then to your hand, bridge your hips up, sweep your leg under to a kneeling position, then stand up — all while keeping the KB locked out overhead. Reverse the entire sequence to return to the floor. Learn each step individually before chaining them together. Use a shoe balanced on your fist before adding weight.",
+      "substitutes": [
+        "kb_windmill",
+        "overhead_carry",
+        "plank"
+      ],
+      "complements": [
+        "kb_windmill",
+        "overhead_carry",
+        "waiter_walk"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "conventional_deadlift"
+      ],
+      "notes": "Often called the 'perfect exercise' — trains shoulder stability, core anti-rotation, hip mobility, single-leg strength, and proprioception in one movement. Each phase of the get-up targets different muscles and movement patterns. Gray Cook (FMS creator) considers it one of the most important corrective exercises. Demands total concentration — never rush reps. Heavy TGUs (32kg+) are a genuine strength exercise, not just a warmup. Sets of 1-3 per side with full focus on each rep. StrongFirst's 'Simple' standard is 5 singles per side with half-bodyweight.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "high"
+      }
+    },
+    {
+      "id": "kb_snatch",
+      "name": "Kettlebell Snatch",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "glutes",
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "core",
+        "upper_back",
+        "forearms"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per side",
+      "rep_range_strength": "5-8 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-kettlebell-snatch.html",
+      "beginner_tips": "Start with the KB between your legs in a hip hinge position. Explosively extend your hips to swing the KB upward in one continuous motion, guiding it overhead. At the top, the KB should roll gently over your wrist — don't let it slam. Lock out overhead with a straight arm, then control the descent back to the backswing. Master KB swings and KB cleans before attempting snatches.",
+      "substitutes": [
+        "kettlebell_swing",
+        "battle_ropes",
+        "mb_slam"
+      ],
+      "complements": [
+        "kettlebell_swing",
+        "kb_turkish_get_up",
+        "kb_windmill"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "pull_up"
+      ],
+      "notes": "The king of kettlebell exercises — combines explosive hip extension, overhead strength, and cardiovascular conditioning in one movement. The USSS (Secret Service) snatch test (100 snatches in 5 minutes with a 24kg KB) is a renowned conditioning benchmark. Builds powerful hip extension, shoulder endurance, and grip strength simultaneously. The snatch is essentially a single-arm swing that continues overhead. Common mistake: using the arm to lift the KB instead of driving with the hips. The hand insertion (threading the hand around the handle at the top) takes practice to avoid wrist bruising.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "bear_crawl",
+      "name": "Bear Crawl",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "triceps",
+        "glutes"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "20-40 seconds",
+      "rep_range_strength": "n/a",
+      "video_url": "https://www.muscleandstrength.com/exercises/mountain-climbers.html",
+      "beginner_tips": "Start on hands and knees with knees hovering 1-2 inches off the ground. Move forward by stepping opposite hand and foot simultaneously (right hand + left foot, then left hand + right foot). Keep your back flat and hips low — don't pike up. Move slowly and controlled at first. If your hips sway side to side, narrow your stance or slow down.",
+      "substitutes": [
+        "mountain_climber",
+        "plank",
+        "dead_bug"
+      ],
+      "complements": [
+        "mountain_climber",
+        "plank",
+        "bird_dog"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "barbell_row"
+      ],
+      "notes": "A primal movement pattern that challenges core stability, shoulder endurance, and coordination simultaneously. The quadruped position with knees hovering (not touching the ground) requires constant anti-extension bracing. Moving forward adds a dynamic stability challenge that static holds like planks don't provide. Excellent warmup or conditioning finisher. Variations: forward, backward, lateral, and loaded (weight vest). Backward bear crawl is significantly harder on the shoulders and core.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "l_sit",
+      "name": "L-Sit (Hold)",
+      "category": "isolation",
+      "movement_pattern": "hip_flexion_spinal_flexion",
+      "force_type": "isometric",
+      "equipment": [
+        "dip_station",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "late",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-30 seconds",
+      "rep_range_strength": "add weight or extend holds",
+      "video_url": "https://www.muscleandstrength.com/exercises/hanging-leg-raise.html",
+      "beginner_tips": "On parallel bars or dip handles, support yourself with straight arms. Lift both legs until they're parallel to the floor, forming an 'L' shape. Hold. If too hard, start with bent knees (tuck L-sit). On the floor, place palms flat beside your hips, press down, and try to lift your butt and legs off the ground — this requires more compression strength and wrist flexibility.",
+      "substitutes": [
+        "hanging_leg_raise",
+        "hollow_body_hold",
+        "v_up"
+      ],
+      "complements": [
+        "hanging_leg_raise",
+        "hollow_body_hold",
+        "plank"
+      ],
+      "superset_candidates": [
+        "pull_up",
+        "barbell_bench_press",
+        "overhead_press"
+      ],
+      "notes": "A gymnastics staple that builds extreme hip flexor and core isometric strength. Demands shoulder depression strength (pushing down through the arms) and quadricep contraction to keep the legs extended. The floor version is harder than parallettes/dip bars because it requires compressing the hips more to clear the ground. Progression: foot-supported L-sit → tuck L-sit → one-leg extended → full L-sit → V-sit. One of the best exercises for building the compression strength needed for advanced calisthenics movements.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "v_up",
+      "name": "V-Up",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/v-up.html",
+      "beginner_tips": "Lie flat on your back with arms extended overhead and legs straight. Simultaneously raise your legs and torso, reaching your hands toward your toes — your body forms a 'V' at the top. Lower everything back down with control. If you can't reach your toes, start with bent knees or do alternating single-leg V-ups. Keep your lower back on the floor during the starting position.",
+      "substitutes": [
+        "crunch",
+        "cable_crunch",
+        "hanging_leg_raise",
+        "bicycle_crunch"
+      ],
+      "complements": [
+        "plank",
+        "side_plank",
+        "russian_twist"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "barbell_row"
+      ],
+      "notes": "Combines upper and lower ab work in one movement — the simultaneous torso and leg raise creates both spinal flexion and hip flexion. More challenging than standard crunches due to the longer lever arms (arms overhead, legs straight). EMG studies show high rectus abdominis activation throughout the entire range. Not recommended for people with lower back issues — the rapid spinal flexion combined with hip flexion creates significant lumbar stress. Progression from crunches and lying leg raises when those become too easy.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "bicycle_crunch",
+      "name": "Bicycle Crunch",
+      "category": "isolation",
+      "movement_pattern": "spinal_rotation",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20 per side",
+      "rep_range_strength": "8-15 per side",
+      "video_url": "https://www.muscleandstrength.com/exercises/bicycle-crunch.html",
+      "beginner_tips": "Lie on your back with hands lightly behind your head. Bring one knee toward your chest while simultaneously rotating your torso to bring the opposite elbow toward that knee. Extend the other leg out straight. Alternate sides in a pedaling motion. Move slowly and deliberately — this is NOT a speed exercise. Focus on rotating your TORSO, not just moving your elbow. Your shoulder should come off the ground, not just your arm.",
+      "substitutes": [
+        "russian_twist",
+        "woodchop",
+        "crunch"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "side_plank"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "overhead_press",
+        "back_extension"
+      ],
+      "notes": "An ACE-sponsored study ranked the bicycle crunch as the #1 exercise for rectus abdominis activation and #2 for oblique activation (behind captain's chair). Combines spinal flexion with rotation, hitting both the rectus abdominis and obliques simultaneously. The slow, controlled version is far superior to the fast 'pedaling' version most people do — speed reduces muscle activation and increases momentum. Keep continuous tension by not resting your shoulders or feet on the ground between reps.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "mb_slam",
+      "name": "Medicine Ball Slam",
+      "category": "compound",
+      "movement_pattern": "full_body_conditioning",
+      "force_type": "push",
+      "equipment": [
+        "medicine_ball"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "triceps",
+        "quadriceps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-20",
+      "rep_range_strength": "n/a",
+      "video_url": "https://www.muscleandstrength.com/exercises/medicine-ball-slam.html",
+      "beginner_tips": "Stand with feet shoulder-width apart, holding a slam ball (not a bouncing medicine ball). Reach the ball overhead by extending your hips and rising onto your toes, then slam it into the ground as hard as possible by flexing your core, snapping your hips, and driving your arms down. Squat to pick it up and repeat. The slam is full-body — use your whole body, not just your arms.",
+      "substitutes": [
+        "battle_ropes",
+        "kettlebell_swing",
+        "mountain_climber"
+      ],
+      "complements": [
+        "battle_ropes",
+        "mountain_climber",
+        "box_jump"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "pull_up"
+      ],
+      "notes": "Combines explosive concentric power with aggressive spinal flexion — the opposite of a deadlift pattern. Excellent conditioning finisher and stress reliever. Uses a slam ball (dead bounce), NOT a rubber medicine ball (which bounces back at your face). The overhead reach into the slam trains the full kinetic chain: hip extension → core flexion → shoulder flexion/extension. Heart rate spikes rapidly, making sets of 10-20 an effective HIIT interval. Also one of the few exercises that trains aggressive spinal flexion against resistance, complementing anti-extension work.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "ab_crunch_machine",
@@ -80,766 +1931,16 @@
         "barbell_row",
         "back_extension"
       ],
-      "notes": "Machine-guided spinal flexion with adjustable resistance. The fixed path makes it beginner-friendly — harder to cheat than cable crunches or floor crunches. Provides consistent resistance throughout the range of motion. Good option for progressive overload when cable crunches aren't available. Some machines also allow loading the eccentric (negative) phase more effectively than free-weight ab exercises."
-    },
-    {
-      "id": "crunch",
-      "name": "Crunch (Floor)",
-      "category": "isolation",
-      "movement_pattern": "spinal_flexion",
-      "force_type": "pull",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "15-25",
-      "rep_range_strength": "10-20",
-      "video_url": "https://www.muscleandstrength.com/exercises/ab-crunch",
-      "beginner_tips": "Lie on back, knees bent, feet flat on the floor. Hands lightly behind head (don't pull your neck — your hands are just resting there). Curl your shoulders off the floor using your abs. This is a small movement — your lower back stays on the floor the entire time. Think about bringing your ribcage toward your pelvis, not sitting up.",
-      "substitutes": [
-        "cable_crunch",
-        "hanging_leg_raise",
-        "decline_crunch",
-        "lying_leg_raise",
-        "ab_crunch_machine"
-      ],
-      "complements": [
-        "plank",
-        "russian_twist",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "back_extension"
-      ],
-      "notes": "The most basic ab exercise. No equipment needed. When 25+ reps per set is easy, progress to cable crunches for loadable resistance, or add a weight plate held at your chest. The crunch specifically targets the rectus abdominis (the 'six-pack' muscle). Pair with planks (anti-extension) and side planks (anti-lateral flexion) for complete core training."
-    },
-    {
-      "id": "hanging_leg_raise",
-      "name": "Hanging Leg Raise",
-      "category": "isolation",
-      "movement_pattern": "hip_flexion_spinal_flexion",
-      "force_type": "pull",
-      "equipment": [
-        "pull_up_bar"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "forearms"
-      ],
-      "workout_position": "late",
-      "difficulty": "intermediate",
-      "bilateral": true,
-      "rep_range_hypertrophy": "8-15",
-      "rep_range_strength": "6-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/hanging-leg-raise.html",
-      "beginner_tips": "Hang from bar with straight arms. Raise legs by curling your pelvis upward — this is the key cue. Simply lifting your legs uses hip flexors; curling your pelvis posterior tilts it and engages the abs. Bent knees = easier, straight legs = harder. Control the lowering — don't swing. If you swing too much, start with hanging knee raises instead.",
-      "substitutes": [
-        "cable_crunch",
-        "lying_leg_raise",
-        "hanging_knee_raise",
-        "decline_crunch"
-      ],
-      "complements": [
-        "plank",
-        "russian_twist",
-        "crunch",
-        "pallof_press"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "pull_up",
-        "chin_up",
-        "overhead_press"
-      ],
-      "notes": "One of the most effective exercises for the lower portion of the rectus abdominis. The key is the posterior pelvic tilt at the top — without it, the hip flexors do most of the work. Pairs naturally between sets of pull-ups or chin-ups since you're already at the bar. Can also be done between heavy squat sets. Progression: hanging knee raises → bent-leg raises → straight-leg raises → toes-to-bar."
-    },
-    {
-      "id": "hanging_knee_raise",
-      "name": "Hanging Knee Raise",
-      "category": "isolation",
-      "movement_pattern": "hip_flexion_spinal_flexion",
-      "force_type": "pull",
-      "equipment": [
-        "pull_up_bar"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "forearms"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "10-20",
-      "rep_range_strength": "8-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/hanging-leg-raise.html",
-      "beginner_tips": "Hang from bar with straight arms. Bring knees up toward your chest by curling your pelvis forward and upward. The bent knees make this much easier than straight-leg raises because the lever arm is shorter. Focus on the pelvic curl at the top — don't just lift your knees, roll your pelvis under. Lower with control.",
-      "substitutes": [
-        "lying_leg_raise",
-        "hanging_leg_raise",
-        "cable_crunch"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "dead_bug"
-      ],
-      "superset_candidates": [
-        "pull_up",
-        "chin_up",
-        "barbell_back_squat"
-      ],
-      "notes": "The stepping stone between lying leg raises and hanging leg raises. The bent knees reduce the difficulty significantly while still training the same movement pattern. When you can do 15-20 clean reps with a clear pelvic curl at the top, progress to hanging leg raises with straight legs. Also builds grip endurance as a side benefit."
-    },
-    {
-      "id": "lying_leg_raise",
-      "name": "Lying Leg Raise",
-      "category": "isolation",
-      "movement_pattern": "hip_flexion_spinal_flexion",
-      "force_type": "pull",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "10-20",
-      "rep_range_strength": "8-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/lying-floor-leg-raise.html",
-      "beginner_tips": "Flat on floor, hands under your butt or gripping something behind your head for stability. Legs straight, raise them toward the ceiling by curling your pelvis off the floor. Lower slowly without letting your feet touch the floor between reps. If your lower back arches off the floor, bend your knees to reduce the lever arm. Press your lower back into the floor throughout.",
-      "substitutes": [
-        "hanging_leg_raise",
-        "crunch",
-        "hanging_knee_raise",
-        "dead_bug"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "conventional_deadlift",
-        "overhead_press",
-        "plank"
-      ],
-      "notes": "Easier version of hanging leg raises — no pull-up bar needed and no grip limitation. The same pelvic curl cue applies: the abs only work when you curl your pelvis off the floor, not when you simply lift your legs (which is hip flexion). If your lower back hurts, you're not bracing properly — either bend your knees or switch to dead bugs until your core is stronger."
-    },
-    {
-      "id": "plank",
-      "name": "Plank (Front)",
-      "category": "isolation",
-      "movement_pattern": "anti_extension",
-      "force_type": "isometric",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "shoulders"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "30-60 seconds",
-      "rep_range_strength": "add weight for overload",
-      "video_url": "https://www.muscleandstrength.com/exercises/hover.html",
-      "beginner_tips": "Forearm push-up position. Straight line from head to heels — check in a mirror if possible. Squeeze abs hard (imagine bracing for a punch), squeeze glutes, press forearms into the floor. Don't let your hips sag or pike up. Start with 20-30 seconds and build up. If your lower back hurts, you're sagging — shorten the hold or do it from your knees.",
-      "substitutes": [
-        "dead_bug",
-        "ab_wheel_rollout",
-        "hollow_body_hold"
-      ],
-      "complements": [
-        "crunch",
-        "hanging_leg_raise",
-        "side_plank",
-        "pallof_press"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "barbell_bench_press",
-        "conventional_deadlift",
-        "overhead_press",
-        "goblet_squat",
-        "side_plank"
-      ],
-      "notes": "Trains the deep stabilizing core muscles (transverse abdominis) through anti-extension — resisting the force of gravity trying to pull your spine into extension. This is actually how your core works during squats, deadlifts, and overhead pressing, making the plank directly functional. Once 60 seconds is easy, add a weight plate on your back or progress to an ab wheel rollout rather than just holding longer — research shows diminishing returns beyond 60 seconds for strength. An excellent rest-period filler between heavy compound sets."
-    },
-    {
-      "id": "side_plank",
-      "name": "Side Plank",
-      "category": "isolation",
-      "movement_pattern": "anti_lateral_flexion",
-      "force_type": "isometric",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "shoulders"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "20-45 seconds per side",
-      "rep_range_strength": "add weight or lift top leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/side-hover.html",
-      "beginner_tips": "On your side, prop up on forearm with elbow directly under shoulder. Lift hips to make a straight line from head to feet. Hold. If too hard, bend your bottom knee for a wider base of support. Keep your hips stacked vertically — the most common mistake is rotating forward or backward.",
-      "substitutes": [
-        "pallof_press",
-        "woodchop",
-        "suitcase_carry"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "pallof_press"
-      ],
-      "superset_candidates": [
-        "plank",
-        "barbell_back_squat",
-        "conventional_deadlift",
-        "russian_twist"
-      ],
-      "notes": "Targets the obliques and quadratus lumborum through anti-lateral flexion. Builds the lateral core stability needed to prevent your torso from collapsing sideways during heavy squats and deadlifts. Research by McGill shows side planks are among the most effective exercises for spinal stability with the lowest spinal compression. Progression: knees bent → full side plank → top leg raised → Copenhagen plank (top foot on bench)."
-    },
-    {
-      "id": "ab_wheel_rollout",
-      "name": "Ab Wheel Rollout",
-      "category": "isolation",
-      "movement_pattern": "anti_extension",
-      "force_type": "isometric",
-      "equipment": [
-        "ab_wheel"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "shoulders",
-        "upper_back"
-      ],
-      "workout_position": "late",
-      "difficulty": "advanced",
-      "bilateral": true,
-      "rep_range_hypertrophy": "8-15",
-      "rep_range_strength": "5-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/abdominal-barbell-rollouts.html",
-      "beginner_tips": "Kneel holding ab wheel on the floor. Slowly roll forward while keeping your abs tight and preventing your back from arching. Go ONLY as far as you can control without your lower back dipping — this is the critical safety point. Pull back using your abs, not your hip flexors. Start with a very small range of motion and increase it gradually over weeks.",
-      "substitutes": [
-        "plank",
-        "hanging_leg_raise",
-        "hollow_body_hold"
-      ],
-      "complements": [
-        "plank",
-        "russian_twist",
-        "pallof_press",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "overhead_press",
-        "barbell_bench_press",
-        "barbell_row"
-      ],
-      "notes": "One of the most effective core exercises in research — EMG studies show very high rectus abdominis and oblique activation. Essentially a moving plank with a progressively longer lever arm. The eccentric (rolling out) phase is where the core works hardest. Master 60-second planks before attempting these. Progression: kneeling partial range → kneeling full range → standing partial → standing full. The standing version from feet is an elite-level exercise. Pairs well between heavy pressing or rowing sets."
-    },
-    {
-      "id": "russian_twist",
-      "name": "Russian Twist",
-      "category": "isolation",
-      "movement_pattern": "spinal_rotation",
-      "force_type": "pull",
-      "equipment": [
-        "bodyweight",
-        "medicine_ball",
-        "dumbbell"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "10-20 per side",
-      "rep_range_strength": "8-12 per side",
-      "video_url": "https://www.muscleandstrength.com/exercises/russian-twist.html",
-      "beginner_tips": "Sit on floor, knees bent, lean back slightly so your abs engage. Hold weight at chest or extend arms for more difficulty. Rotate torso side to side — the rotation should come from your torso, not your arms swinging. Keep your hips relatively stable while your shoulders rotate. Lift feet off floor for more challenge.",
-      "substitutes": [
-        "woodchop",
-        "pallof_press",
-        "cable_crunch"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "plank",
-        "side_plank"
-      ],
-      "notes": "Targets the obliques through active rotation. Keep rotation controlled and deliberate — don't whip back and forth using momentum. Some coaches caution against loaded spinal rotation, especially combined with the flexed spinal position. If you have any history of disc issues, the Pallof press (anti-rotation) and woodchop (cable-guided rotation) are safer alternatives that train the obliques without the combined flexion-rotation pattern."
-    },
-    {
-      "id": "woodchop",
-      "name": "Cable Woodchop",
-      "category": "compound",
-      "movement_pattern": "spinal_rotation",
-      "force_type": "push",
-      "equipment": [
-        "cable_machine"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "shoulders"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "10-15 per side",
-      "rep_range_strength": "8-12 per side",
-      "video_url": "https://www.muscleandstrength.com/exercises/wood-chop.html",
-      "beginner_tips": "Cable set high. Stand sideways to the machine. Both hands on handle, pull diagonally across your body from high-to-low (like chopping wood). Rotate through your torso — your hips can rotate slightly but the movement should be driven by your core. Arms stay fairly straight throughout; they're just holding the handle, not pulling it.",
-      "substitutes": [
-        "russian_twist",
-        "pallof_press",
-        "cable_crunch"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "side_plank",
-        "pallof_press"
-      ],
-      "superset_candidates": [
-        "pallof_press"
-      ],
-      "notes": "The cable guides the rotation, making this safer than free-weight rotational exercises like Russian twists. High-to-low targets the obliques through a diagonal pattern similar to throwing, swinging, or rotational sports movements. Reverse the direction (low-to-high) to target a different oblique activation pattern. Both directions are worth including. Great functional core exercise for athletes."
-    },
-    {
-      "id": "pallof_press",
-      "name": "Pallof Press",
-      "category": "isolation",
-      "movement_pattern": "anti_rotation",
-      "force_type": "isometric",
-      "equipment": [
-        "cable_machine",
-        "resistance_band"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "10-15 per side",
-      "rep_range_strength": "8-12 per side",
-      "video_url": "https://www.strengthlog.com/pallof-press/",
-      "beginner_tips": "Stand sideways to a cable at chest height. Hold handle at chest with both hands. Press straight out in front of you and RESIST the pull trying to rotate your torso. Hold for 1-2 seconds with arms extended, then return to chest. You're training your core to RESIST rotation — the movement looks simple but your obliques are firing hard to keep you from twisting.",
-      "substitutes": [
-        "woodchop",
-        "russian_twist",
-        "side_plank"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "side_plank",
-        "woodchop"
-      ],
-      "superset_candidates": [
-        "plank",
-        "barbell_back_squat",
-        "conventional_deadlift",
-        "barbell_bench_press",
-        "overhead_press",
-        "woodchop"
-      ],
-      "notes": "Anti-rotation is how your core actually works in real life and during heavy lifts — resisting forces that try to twist you, not actively crunching. The Pallof press is the gold standard anti-rotation exercise. Light weight is all you need — if you have to lean or brace hard against the cable, it's too heavy. Can be done from a tall kneeling, half-kneeling, or standing position. Half-kneeling is the hardest because it narrows your base of support. Arguably the most underrated core exercise — pairs excellently between any heavy compound sets."
-    },
-    {
-      "id": "dead_bug",
-      "name": "Dead Bug",
-      "category": "isolation",
-      "movement_pattern": "anti_extension",
-      "force_type": "isometric",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "8-12 per side",
-      "rep_range_strength": "6-10 per side",
-      "video_url": "https://www.strengthlog.com/dead-bugs/",
-      "beginner_tips": "Lie on your back, arms pointing to ceiling, knees bent at 90 degrees above your hips. Slowly extend your opposite arm and leg away from each other while keeping your lower back PRESSED into the floor — this is the critical cue. If your back arches off the floor, you've gone too far. Return, switch sides. Breathe out as you extend.",
-      "substitutes": [
-        "plank",
-        "bird_dog",
-        "hollow_body_hold"
-      ],
-      "complements": [
-        "plank",
-        "crunch",
-        "bird_dog",
-        "hanging_leg_raise"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "barbell_bench_press",
-        "overhead_press",
-        "conventional_deadlift"
-      ],
-      "notes": "Excellent warmup and core stability exercise. Teaches your core to stay braced while your limbs move — which is exactly what happens during squats, deadlifts, and overhead pressing. The back-flat-on-floor position provides instant feedback: if your back lifts off, your core isn't doing its job. One of the best exercises for learning core bracing before heavy lifting. Pair with bird dogs for a complete stability warmup. Ideal rest-period filler between heavy compounds since it doubles as active recovery."
-    },
-    {
-      "id": "bird_dog",
-      "name": "Bird Dog",
-      "category": "isolation",
-      "movement_pattern": "anti_extension",
-      "force_type": "isometric",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "glutes",
-        "shoulders"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "8-12 per side",
-      "rep_range_strength": "6-10 per side",
-      "video_url": "https://www.muscleandstrength.com/exercises/contralateral-bird-dog",
-      "beginner_tips": "Start on hands and knees with a flat back. Simultaneously extend one arm forward and the opposite leg backward until both are parallel to the floor. Hold for 1-2 seconds. Your hips and shoulders should stay completely level — imagine balancing a glass of water on your lower back. Return to start and switch sides. Move slowly and with control.",
-      "substitutes": [
-        "dead_bug",
-        "plank",
-        "hollow_body_hold"
-      ],
-      "complements": [
-        "dead_bug",
-        "plank",
-        "side_plank",
-        "back_extension"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "conventional_deadlift",
-        "overhead_press"
-      ],
-      "notes": "Featured prominently in Dr. Stuart McGill's 'Big 3' core exercises alongside the curl-up and side plank. Trains anti-extension and anti-rotation simultaneously because your body wants to twist toward the extended leg. Also activates the glute on the extended side. One of the safest core exercises for people with lower back issues — McGill recommends it as foundational for spinal health. Pair with dead bugs for a complete warmup: dead bugs (supine) + bird dogs (prone) covers anti-extension in both positions."
-    },
-    {
-      "id": "hollow_body_hold",
-      "name": "Hollow Body Hold",
-      "category": "isolation",
-      "movement_pattern": "anti_extension",
-      "force_type": "isometric",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "intermediate",
-      "bilateral": true,
-      "rep_range_hypertrophy": "20-45 seconds",
-      "rep_range_strength": "add weight or extend holds",
-      "video_url": "https://www.strengthlog.com/hollow-hold/",
-      "beginner_tips": "Lie on your back. Press your lower back into the floor. Lift your shoulders and legs slightly off the floor simultaneously — arms extended overhead, legs straight. Your body should form a gentle banana shape. Hold this position. The key is keeping your lower back pressed down throughout. Start with knees bent and arms at sides if the full position is too hard.",
-      "substitutes": [
-        "plank",
-        "dead_bug",
-        "ab_wheel_rollout"
-      ],
-      "complements": [
-        "plank",
-        "hanging_leg_raise",
-        "crunch",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "barbell_bench_press",
-        "overhead_press",
-        "pull_up"
-      ],
-      "notes": "A gymnastics fundamental that's one of the best anti-extension exercises. Teaches total-body tension — the exact kind of bracing needed during heavy lifts. Harder than it looks because the long lever arms (extended arms and legs) create a strong extension force on the spine that your abs must resist. Progression: tuck (knees bent, arms at sides) → arms extended → legs extended → full hollow (both extended) → hollow body rocks. The position also transfers directly to pull-ups and hanging exercises where maintaining a hollow body prevents swinging."
-    },
-    {
-      "id": "decline_crunch",
-      "name": "Decline Crunch",
-      "category": "isolation",
-      "movement_pattern": "spinal_flexion",
-      "force_type": "pull",
-      "equipment": [
-        "adjustable_bench"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [],
-      "workout_position": "late",
-      "difficulty": "intermediate",
-      "bilateral": true,
-      "rep_range_hypertrophy": "12-20",
-      "rep_range_strength": "8-15",
-      "video_url": "https://weighttraining.guide/exercises/decline-crunch/",
-      "beginner_tips": "Set bench to a decline angle, hook feet under pads. Cross arms at chest or hold a weight plate. Crunch up by rounding your spine — don't do a full sit-up. Curl up about 30-45 degrees while actively rounding your upper back. The decline angle means gravity works against you throughout more of the range.",
-      "substitutes": [
-        "cable_crunch",
-        "crunch",
-        "hanging_leg_raise",
-        "ab_crunch_machine"
-      ],
-      "complements": [
-        "plank",
-        "hanging_leg_raise",
-        "side_plank"
-      ],
-      "superset_candidates": [
-        "back_extension"
-      ],
-      "notes": "The decline angle adds gravity-based resistance, making each rep harder than a floor crunch. A stepping stone between floor crunches (bodyweight) and cable crunches (loadable). Hold a plate at your chest for additional resistance. Still limited in loading compared to cable crunches, but requires no cable machine."
-    },
-    {
-      "id": "mountain_climber",
-      "name": "Mountain Climbers",
-      "category": "compound",
-      "movement_pattern": "full_body_conditioning",
-      "force_type": "push",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "core"
-      ],
-      "secondary_muscles": [
-        "shoulders",
-        "quadriceps"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "20-40 seconds",
-      "rep_range_strength": "n/a",
-      "video_url": "https://www.strengthlog.com/mountain-climbers/",
-      "beginner_tips": "Start in push-up position with arms straight. Alternate driving knees toward your chest as if running in place. Keep your hips level — don't bounce them up and down. Your hands stay planted and your arms stay straight. Go fast for cardio emphasis, slow and controlled for core emphasis.",
-      "substitutes": [
-        "plank",
-        "battle_ropes",
-        "squat_jump"
-      ],
-      "complements": [
-        "plank",
-        "push_up",
-        "squat_jump"
-      ],
-      "superset_candidates": [
-        "push_up",
-        "squat_jump",
-        "plank"
-      ],
-      "notes": "Great core and cardio finisher that requires zero equipment. The plank position with alternating leg movement combines anti-extension core work with hip flexor conditioning and cardiovascular demand. Slow mountain climbers (2-3 second hold per leg) are a legitimate core exercise; fast mountain climbers are primarily cardio conditioning. Can be used as a warmup before training or a finisher after."
-    },
-    {
-      "id": "battle_ropes",
-      "name": "Battle Ropes",
-      "category": "compound",
-      "movement_pattern": "full_body_conditioning",
-      "force_type": "push",
-      "equipment": [
-        "battle_ropes"
-      ],
-      "primary_muscles": [
-        "shoulders",
-        "core"
-      ],
-      "secondary_muscles": [
-        "biceps",
-        "forearms",
-        "glutes"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "20-30 second intervals",
-      "rep_range_strength": "n/a",
-      "video_url": "https://www.muscleandstrength.com/exercises/double-waves-battle-ropes",
-      "beginner_tips": "One rope end per hand. Quarter-squat position with feet wider than shoulders. Try alternating waves (arms alternate up and down), double waves (both arms together), or slams (lift high, slam down). Work 20-30 seconds hard, rest 30-60 seconds. This is conditioning, not strength work — go for sustained intensity.",
-      "substitutes": [
-        "kettlebell_swing",
-        "mountain_climber",
-        "squat_jump"
-      ],
-      "complements": [
-        "farmer_walk",
-        "push_up",
-        "goblet_squat"
-      ],
-      "superset_candidates": [
-        "goblet_squat",
-        "plank",
-        "kettlebell_swing"
-      ],
-      "notes": "Great cardio finisher after strength training. Different wave patterns hit different muscles: alternating waves emphasize shoulders, slams emphasize core and lats, circles emphasize shoulder rotation. The constant core bracing in the athletic stance makes this double as core work. Heart rate spikes very quickly — 3-5 rounds of 30 seconds is a brutally effective conditioning session."
-    },
-    {
-      "id": "box_jump",
-      "name": "Box Jump",
-      "category": "compound",
-      "movement_pattern": "plyometric",
-      "force_type": "push",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "quadriceps",
-        "glutes",
-        "calves"
-      ],
-      "secondary_muscles": [
-        "hamstrings",
-        "core"
-      ],
-      "workout_position": "early",
-      "difficulty": "intermediate",
-      "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
-      "rep_range_strength": "3-6",
-      "video_url": "https://www.muscleandstrength.com/exercises/box-jump",
-      "beginner_tips": "Face a sturdy box or platform. Swing arms back, then explosively jump up and forward, landing softly on both feet on top of the box. Stand fully on top. STEP back down — do NOT jump down, as the landing impact is very hard on your joints. Start with a low box (12-16 inches) and increase height gradually. Reset fully between each rep.",
-      "substitutes": [
-        "squat_jump",
-        "kettlebell_swing"
-      ],
-      "complements": [
-        "barbell_back_squat",
-        "leg_press",
-        "goblet_squat"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "leg_press"
-      ],
-      "notes": "Builds explosive power and rate of force development. ALWAYS step down — jumping down adds high-impact eccentric stress with zero benefit for power development. Do these when fresh, BEFORE heavy lifting, not after. Low reps with full recovery between sets (60-90 seconds). The goal is maximum height and explosive intent on every rep, not fatigue. If you're too tired to jump explosively, stop the set."
-    },
-    {
-      "id": "squat_jump",
-      "name": "Squat Jump (Bodyweight)",
-      "category": "compound",
-      "movement_pattern": "plyometric",
-      "force_type": "push",
-      "equipment": [
-        "bodyweight"
-      ],
-      "primary_muscles": [
-        "quadriceps",
-        "glutes",
-        "calves"
-      ],
-      "secondary_muscles": [
-        "hamstrings",
-        "core"
-      ],
-      "workout_position": "early",
-      "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
-      "rep_range_strength": "5-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/bodyweight-squat.html",
-      "beginner_tips": "Stand with feet shoulder-width apart. Squat down to about parallel, then EXPLODE upward as high as you can, leaving the ground. Swing arms for momentum. Land softly by bending your knees to absorb the impact — land quietly. Reset to a full standing position between each rep. Keep your chest up throughout.",
-      "substitutes": [
-        "box_jump",
-        "bodyweight_squat",
-        "kettlebell_swing"
-      ],
-      "complements": [
-        "barbell_back_squat",
-        "leg_press",
-        "goblet_squat"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "goblet_squat"
-      ],
-      "notes": "The simplest plyometric exercise — no equipment or box needed. A good entry point before box jumps since there's no landing on an elevated surface. The emphasis is on maximal jump height with each rep. Like box jumps, do these when fresh, before heavy leg work. Soft, quiet landings are the sign of good technique — loud landings mean poor absorption and higher joint stress."
-    },
-    {
-      "id": "suitcase_carry",
-      "name": "Suitcase Carry (Single-Arm Farmer's Walk)",
-      "category": "compound",
-      "movement_pattern": "loaded_carry",
-      "force_type": "isometric",
-      "equipment": [
-        "dumbbell",
-        "kettlebell"
-      ],
-      "primary_muscles": [
-        "core",
-        "forearms"
-      ],
-      "secondary_muscles": [
-        "shoulders",
-        "traps",
-        "glutes"
-      ],
-      "workout_position": "late",
-      "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "30-45 seconds per side",
-      "rep_range_strength": "20-30 seconds heavy per side",
-      "video_url": "https://www.strengthlog.com/farmers-carry/",
-      "beginner_tips": "Pick up one heavy dumbbell or kettlebell in one hand and walk. The key: stand PERFECTLY upright and don't lean to either side. The weight is trying to pull you sideways — your core resists. Walk for distance or time, then switch sides. Your opposite-side obliques and quadratus lumborum do the most work.",
-      "substitutes": [
-        "farmer_walk",
-        "side_plank",
-        "pallof_press"
-      ],
-      "complements": [
-        "farmer_walk",
-        "side_plank",
-        "plank",
-        "pallof_press"
-      ],
-      "superset_candidates": [
-        "barbell_back_squat",
-        "conventional_deadlift"
-      ],
-      "notes": "One of the best functional anti-lateral flexion exercises — trains the same stabilization pattern as a side plank but under heavy load while walking. Directly builds the lateral core strength needed to prevent shifting during heavy squats and deadlifts. More core-specific than a bilateral farmer's walk because the unilateral loading creates a strong rotational and lateral demand. Also reveals left/right asymmetries. Can be done with very heavy weight relative to bilateral carries."
+      "notes": "Machine-guided spinal flexion with adjustable resistance. The fixed path makes it beginner-friendly — harder to cheat than cable crunches or floor crunches. Provides consistent resistance throughout the range of motion. Good option for progressive overload when cable crunches aren't available. Some machines also allow loading the eccentric (negative) phase more effectively than free-weight ab exercises.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     }
   ]
 }

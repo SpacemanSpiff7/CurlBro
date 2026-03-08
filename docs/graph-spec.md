@@ -1,12 +1,12 @@
 # Exercise Graph Specification
 
 ## Overview
-- 194 exercises across 8 JSON files (162 strength + 32 stretching/mobility)
-- ~1500 total edges (substitutes, complements, superset candidates)
-- 434+ cross-file edges
-- 37+ unique movement patterns (including stretch and mobility patterns)
-- 19 fields per exercise
-- 5 categories: compound, isolation, stretch_dynamic, stretch_static, mobility
+- 323 exercises across 9 JSON files (strength, stretching/mobility, cardio)
+- 3000+ total edges (substitutes, complements, superset candidates)
+- Extensive cross-file edges
+- 37+ unique movement patterns (including stretch, mobility, and conditioning patterns)
+- 20 fields per exercise (including load_profile)
+- 6 categories: compound, isolation, stretch_dynamic, stretch_static, mobility, cardio
 
 ## Node Structure (Exercise)
 Each exercise has: id, name, category, movement_pattern, force_type, equipment,

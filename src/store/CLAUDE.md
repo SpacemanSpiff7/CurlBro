@@ -42,6 +42,9 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `goToGroup(index)` — navigates to a group by index during active session (replaces per-exercise navigation)
 - `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
 - Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group
+- `mergeExerciseIntoGroup(fromIndex, targetIndex)` — moves a single exercise into the target's superset group. Creates a new group if target is solo. Inserts after last group member. Cleans up old group if source was last member.
+- `groupSelectedExercises(indices)` — creates a new superset from exercises at given indices. Moves them consecutively at the position of the first selected. Cleans up orphaned old groups. Requires ≥2 indices.
+- `removeSelectedExercises(indices)` — removes exercises at given indices. Cleans up groups left with ≤1 member. Removes from end first to preserve indices.
 - `addActivity(activity)` — adds an ActivityEntry to `library.activities` (type + timing)
 - `removeActivity(id)` — removes an activity entry by id
 - `setSoreness(entries)` — replaces all soreness entries in `library.soreness` (none/mild/moderate/severe)

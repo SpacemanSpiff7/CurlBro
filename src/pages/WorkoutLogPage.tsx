@@ -34,21 +34,11 @@ function formatDuration(minutes: number): string {
 function LogRow({
   log,
   onSelect,
-  onDelete,
 }: {
   log: WorkoutLog;
   onSelect: (log: WorkoutLog) => void;
-  onDelete: (id: LogId) => void;
 }) {
   const stats = useMemo(() => computeLogStats(log), [log]);
-
-  const handleDelete = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      onDelete(log.id);
-    },
-    [log.id, onDelete]
-  );
 
   return (
     <div
@@ -91,15 +81,6 @@ function LogRow({
           </span>
         </div>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleDelete}
-        aria-label={`Delete ${log.workoutName} log`}
-        className="h-9 w-9 flex-shrink-0 text-destructive hover:text-destructive"
-      >
-        <Trash2 size={14} />
-      </Button>
     </div>
   );
 }
@@ -275,6 +256,7 @@ export function WorkoutLogPage() {
                 icon: <Trash2 size={16} />,
                 color: 'bg-destructive',
                 onAction: () => handleDelete(log.id),
+                requiresConfirm: true,
               },
             ];
 
@@ -284,7 +266,6 @@ export function WorkoutLogPage() {
                   <LogRow
                     log={log}
                     onSelect={handleSelect}
-                    onDelete={handleDelete}
                   />
                 </SwipeToReveal>
                 {sortedLogs.length >= 5 && (index + 1) % 4 === 0 && index < sortedLogs.length - 1 && (

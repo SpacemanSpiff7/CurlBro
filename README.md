@@ -1,6 +1,6 @@
 # CurlBro
 
-A client-side gym workout builder powered by an exercise graph of 162 exercises and 1,340 relationships. Build workouts with intelligent suggestions, exercise conflict warnings, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
+A client-side gym workout builder powered by an exercise graph of 300+ exercises and extensive relationships. Build workouts with intelligent suggestions, exercise conflict warnings, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
 
 Mobile-first. Dark mode. No server required.
 
@@ -38,7 +38,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ## Features
 
 ### Build Tab
-- Search 162 exercises with fuzzy matching (Fuse.js)
+- Search 300+ exercises with fuzzy matching (Fuse.js)
 - Filter by muscle group
 - Drag-to-reorder exercises
 - Inline set/rep/weight editing
@@ -111,7 +111,7 @@ src/
     workout/       # WorkoutList, SuggestionPanel, WorkoutStatusBar, TemplateSelector,
                    # ConflictWarnings
   data/
-    exercises.ts   # Merges 7 JSON files (162 exercises)
+    exercises.ts   # Merges 9 JSON files into the exercise graph
     graphBuilder.ts# Pure function: raw JSON -> ExerciseGraph
     exerciseConflicts.ts  # 33 exercise conflict rules with scientific citations
     seededWorkouts.ts     # Pre-built workout templates
@@ -135,9 +135,9 @@ docs/              # Architecture, graph spec, design system, testing strategy
 
 The app is built on a pre-computed exercise graph:
 
-- **162 exercises** across 7 muscle-group JSON files
+- **300+ exercises** across 9 JSON files (strength, stretching/mobility, cardio)
 - **3 edge types**: substitutes, complements, superset candidates
-- **1,340 total edges** with full bidirectional integrity
+- **Extensive cross-exercise relationships** with full bidirectional integrity
 - **4 indexes**: by muscle, equipment, movement pattern, force type
 
 The graph is loaded once at startup and treated as immutable. All queries go through custom hooks -- components never access the graph directly.

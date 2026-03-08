@@ -10,7 +10,7 @@
 - [x] Test fixture graph (8 exercises)
 - [x] Bottom nav shell with 4 tabs
 - [x] CSS custom properties + Google Fonts
-- [x] Graph builds with 162 exercises, 1340 edges
+- [x] Graph builds with 323 exercises, 3000+ edges
 - [x] Full dataset edge integrity tests pass
 - [x] `npm run build` succeeds with zero errors
 

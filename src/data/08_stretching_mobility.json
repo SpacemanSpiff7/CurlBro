@@ -1,14 +1,14 @@
 {
   "file": "08_stretching_mobility.json",
   "description": "Dynamic stretches, static stretches, and mobility drills for warm-up, cool-down, and recovery",
-  "exercise_count": 32,
+  "exercise_count": 44,
   "exercises": [
     {
       "id": "leg_swing_forward",
       "name": "Leg Swings (Forward/Back)",
       "category": "stretch_dynamic",
       "movement_pattern": "hip_flexion_extension",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -22,7 +22,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "10-15 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Hold onto a wall or rack for balance. Keep your standing leg slightly bent and your torso upright. Start with small swings and gradually increase range of motion as your muscles warm up.",
@@ -37,14 +37,23 @@
         "walking_lunge_dynamic"
       ],
       "superset_candidates": [],
-      "notes": "10-15 swings per leg. Excellent pre-squat and pre-deadlift warm-up. Progressively increase the range of motion over the first few reps rather than starting at full amplitude."
+      "notes": "10-15 swings per leg. Excellent pre-squat and pre-deadlift warm-up. Progressively increase the range of motion over the first few reps rather than starting at full amplitude.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "leg_swing_lateral",
       "name": "Leg Swings (Lateral)",
       "category": "stretch_dynamic",
       "movement_pattern": "hip_adduction_abduction",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -56,7 +65,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "10-15 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Face a wall or rack and hold on with both hands. Swing one leg side to side in front of your body. Keep your hips level and avoid rotating your torso.",
@@ -71,14 +80,23 @@
         "hip_ninety_ninety"
       ],
       "superset_candidates": [],
-      "notes": "10-15 swings per leg. Targets the inner and outer thigh. Particularly useful before sumo deadlifts, wide-stance squats, or any lateral movement work."
+      "notes": "10-15 swings per leg. Targets the inner and outer thigh. Particularly useful before sumo deadlifts, wide-stance squats, or any lateral movement work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "arm_circle",
       "name": "Arm Circles",
       "category": "stretch_dynamic",
       "movement_pattern": "shoulder_circumduction",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -88,8 +106,8 @@
       "secondary_muscles": [],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15 per direction",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand with arms extended to the sides. Make small circles first and gradually increase to larger circles. Do both forward and backward directions.",
@@ -103,14 +121,23 @@
         "thoracic_rotation"
       ],
       "superset_candidates": [],
-      "notes": "10-15 circles in each direction. A simple but effective way to warm up the shoulder girdle before any pressing or overhead work. Progress to band dislocates for a deeper shoulder warm-up."
+      "notes": "10-15 circles in each direction. A simple but effective way to warm up the shoulder girdle before any pressing or overhead work. Progress to band dislocates for a deeper shoulder warm-up.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "hip_circle",
       "name": "Hip Circles",
       "category": "stretch_dynamic",
       "movement_pattern": "hip_circumduction",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -118,12 +145,14 @@
         "glutes"
       ],
       "secondary_muscles": [
-        "core"
+        "core",
+        "adductors",
+        "abductors"
       ],
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "10 per direction per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand on one leg and draw large circles with your knee. You can also do standing hip circles with hands on hips, rotating your hips in a hula-hoop motion. Hold onto something for balance if needed.",
@@ -137,14 +166,23 @@
         "hip_ninety_ninety"
       ],
       "superset_candidates": [],
-      "notes": "10 circles per direction per leg. Lubricates the hip joint and activates the stabilizer muscles around the hip. Essential warm-up for squats, lunges, and deadlifts."
+      "notes": "10 circles per direction per leg. Lubricates the hip joint and activates the stabilizer muscles around the hip. Essential warm-up for squats, lunges, and deadlifts.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "walking_lunge_dynamic",
       "name": "Walking Lunge (Dynamic)",
       "category": "stretch_dynamic",
       "movement_pattern": "lunge",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -158,7 +196,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "8-10 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Take a long step forward and lower your back knee toward the floor. Keep your torso upright and front knee tracking over your toes. Push through the front heel to step into the next lunge.",
@@ -173,14 +211,23 @@
         "worlds_greatest_stretch"
       ],
       "superset_candidates": [],
-      "notes": "8-10 lunges per leg. Doubles as both a dynamic stretch and glute activation drill. The longer the stride, the more hip flexor and hamstring stretch you get. Keep the movement controlled — this is a warm-up, not a loaded exercise."
+      "notes": "8-10 lunges per leg. Doubles as both a dynamic stretch and glute activation drill. The longer the stride, the more hip flexor and hamstring stretch you get. Keep the movement controlled — this is a warm-up, not a loaded exercise.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "butt_kick",
       "name": "Butt Kicks",
       "category": "stretch_dynamic",
       "movement_pattern": "knee_flexion_dynamic",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -193,7 +240,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "15-20 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Jog in place while kicking your heels up toward your glutes. Keep your knees pointing down and stay on the balls of your feet. Pump your arms naturally as if jogging.",
@@ -208,14 +255,23 @@
         "leg_swing_forward"
       ],
       "superset_candidates": [],
-      "notes": "15-20 reps per leg. Dynamically stretches the quadriceps while warming up the hamstrings. Also raises heart rate and body temperature. Pair with high knees for a complete lower body dynamic warm-up."
+      "notes": "15-20 reps per leg. Dynamically stretches the quadriceps while warming up the hamstrings. Also raises heart rate and body temperature. Pair with high knees for a complete lower body dynamic warm-up.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "inchworm",
       "name": "Inchworm",
       "category": "stretch_dynamic",
       "movement_pattern": "full_body_flexion_extension",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -229,7 +285,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "From standing, hinge at the hips and walk your hands out to a push-up position. Pause briefly, then walk your feet toward your hands keeping legs as straight as possible. Stand up and repeat.",
@@ -243,14 +299,23 @@
         "thoracic_rotation"
       ],
       "superset_candidates": [],
-      "notes": "5-8 reps. A full-body dynamic stretch that warms up the hamstrings, shoulders, and core simultaneously. Add a push-up at the bottom for extra upper body activation. Excellent all-purpose warm-up for any workout."
+      "notes": "5-8 reps. A full-body dynamic stretch that warms up the hamstrings, shoulders, and core simultaneously. Add a push-up at the bottom for extra upper body activation. Excellent all-purpose warm-up for any workout.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "high_knee",
       "name": "High Knees",
       "category": "stretch_dynamic",
       "movement_pattern": "hip_flexion_dynamic",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -263,8 +328,8 @@
       ],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": false,
+      "rep_range_hypertrophy": "15-20 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Jog in place while driving your knees up to hip height. Stay on the balls of your feet and pump your arms. Keep your core tight and torso upright — avoid leaning backward.",
@@ -279,14 +344,23 @@
         "leg_swing_forward"
       ],
       "superset_candidates": [],
-      "notes": "15-20 reps per leg. Raises heart rate and dynamically warms up the hip flexors, quads, and calves. Also improves coordination and prepares the nervous system for explosive lower body work."
+      "notes": "15-20 reps per leg. Raises heart rate and dynamically warms up the hip flexors, quads, and calves. Also improves coordination and prepares the nervous system for explosive lower body work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "a_skip",
       "name": "A-Skip",
       "category": "stretch_dynamic",
       "movement_pattern": "hip_flexion_dynamic",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -299,8 +373,8 @@
       ],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Skip forward while driving one knee up to hip height on each skip. Focus on a quick ground contact and an upright posture. Coordinate opposite arm with opposite knee.",
@@ -314,14 +388,23 @@
         "ankle_mobility_drill"
       ],
       "superset_candidates": [],
-      "notes": "10-15 skips per leg over 20-30 meters. A classic track and field warm-up drill that activates the calves, quads, and hip flexors while improving coordination. Great before any lower body session or plyometric work."
+      "notes": "10-15 skips per leg over 20-30 meters. A classic track and field warm-up drill that activates the calves, quads, and hip flexors while improving coordination. Great before any lower body session or plyometric work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "worlds_greatest_stretch",
       "name": "World's Greatest Stretch",
       "category": "stretch_dynamic",
       "movement_pattern": "multi_joint_mobility",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -336,13 +419,14 @@
       "workout_position": "early",
       "difficulty": "intermediate",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "3-5 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Step into a deep lunge, place both hands on the floor inside the front foot, then rotate your torso and reach one arm toward the ceiling. Return hand to floor and repeat on the other side. Take your time — quality over speed.",
       "substitutes": [
         "inchworm",
-        "walking_lunge_dynamic"
+        "walking_lunge_dynamic",
+        "spiderman_lunge"
       ],
       "complements": [
         "inchworm",
@@ -350,14 +434,23 @@
         "hip_flexor_stretch"
       ],
       "superset_candidates": [],
-      "notes": "3-5 reps per side. Nicknamed the world's greatest stretch because it hits the hip flexors, hamstrings, thoracic spine, adductors, and shoulders in one movement. One of the most efficient warm-up drills you can do."
+      "notes": "3-5 reps per side. Nicknamed the world's greatest stretch because it hits the hip flexors, hamstrings, thoracic spine, adductors, and shoulders in one movement. One of the most efficient warm-up drills you can do.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "cat_cow",
       "name": "Cat-Cow",
       "category": "stretch_dynamic",
       "movement_pattern": "spinal_flexion_extension",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -369,7 +462,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "8-10",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Start on hands and knees. For cat: round your back up toward the ceiling while tucking your chin. For cow: drop your belly toward the floor while lifting your head and tailbone. Move slowly and breathe — inhale on cow, exhale on cat.",
@@ -383,14 +476,23 @@
         "childs_pose"
       ],
       "superset_candidates": [],
-      "notes": "8-10 slow cycles. Gently mobilizes the entire spine from cervical to lumbar. Ideal first movement of any warm-up, especially after sitting all day. Synchronize breathing with the movement for a calming effect."
+      "notes": "8-10 slow cycles. Gently mobilizes the entire spine from cervical to lumbar. Ideal first movement of any warm-up, especially after sitting all day. Synchronize breathing with the movement for a calming effect.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "thoracic_rotation",
       "name": "Thoracic Rotation",
       "category": "stretch_dynamic",
       "movement_pattern": "spinal_rotation",
-      "force_type": "isometric",
+      "force_type": "pull",
       "equipment": [
         "bodyweight"
       ],
@@ -403,13 +505,14 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "8-10 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Start on hands and knees or in a half-kneeling position. Place one hand behind your head, then rotate your elbow toward the ceiling while opening your chest. Return and repeat. Keep your hips square and only rotate through the upper back.",
       "substitutes": [
         "cat_cow",
-        "worlds_greatest_stretch"
+        "worlds_greatest_stretch",
+        "scorpion_stretch"
       ],
       "complements": [
         "cat_cow",
@@ -417,7 +520,152 @@
         "worlds_greatest_stretch"
       ],
       "superset_candidates": [],
-      "notes": "8-10 rotations per side. Targets the thoracic spine (mid-back), which tends to stiffen from desk work. Improved thoracic rotation translates to better overhead pressing position and reduced lower back compensation."
+      "notes": "8-10 rotations per side. Targets the thoracic spine (mid-back), which tends to stiffen from desk work. Improved thoracic rotation translates to better overhead pressing position and reduced lower back compensation.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "scorpion_stretch",
+      "name": "Scorpion Stretch",
+      "category": "stretch_dynamic",
+      "movement_pattern": "spinal_rotation",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "quadriceps"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "5-8 per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Lie face down with arms extended to the sides in a T shape. Lift one foot and reach it across your body toward the opposite hand, rotating through the hips and thoracic spine. Return slowly and alternate sides. Only go as far as comfortable — do not force the rotation.",
+      "substitutes": [
+        "thoracic_rotation",
+        "worlds_greatest_stretch",
+        "seated_spinal_twist"
+      ],
+      "complements": [
+        "thoracic_rotation",
+        "cat_cow",
+        "hip_ninety_ninety"
+      ],
+      "superset_candidates": [],
+      "notes": "5-8 reps per side. Combines hip rotation with thoracic rotation in a prone position. The weight of the leg provides a gentle dynamic stretch through the hip flexors and obliques. Keep shoulders pinned to the floor to maximize thoracic rotation rather than compensating with shoulder movement.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "spiderman_lunge",
+      "name": "Spiderman Lunge",
+      "category": "stretch_dynamic",
+      "movement_pattern": "multi_joint_mobility",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "adductors"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-10 per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "From a push-up position, step one foot forward outside the same-side hand. Drop your hips and hold briefly, then rotate your torso and reach the inside arm to the ceiling. Return to push-up position and repeat on the other side.",
+      "substitutes": [
+        "worlds_greatest_stretch",
+        "walking_lunge_dynamic",
+        "hip_flexor_stretch"
+      ],
+      "complements": [
+        "worlds_greatest_stretch",
+        "thoracic_rotation",
+        "hip_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "5-8 reps per side. A cousin of the world's greatest stretch with more emphasis on adductor opening and hip flexor stretch. The rotation component addresses thoracic mobility. One of the most popular warm-up drills in professional sports and strength training.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "toe_touch_progression",
+      "name": "Toe Touch Progression",
+      "category": "stretch_dynamic",
+      "movement_pattern": "hip_flexion_stretch",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "calves",
+        "core"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Stand with feet hip-width apart. Reach toward your toes with a controlled, rhythmic movement — gently bouncing through the bottom range. With each rep, try to go slightly deeper. Keep a slight bend in the knees if your hamstrings are very tight.",
+      "substitutes": [
+        "seated_hamstring_stretch",
+        "inchworm"
+      ],
+      "complements": [
+        "leg_swing_forward",
+        "standing_calf_stretch",
+        "foam_roll_calves"
+      ],
+      "superset_candidates": [],
+      "notes": "10-15 controlled reaches. A progressive dynamic stretch that gradually increases hamstring length through repeated end-range loading. Unlike a static hold, the dynamic nature activates the stretch reflex and provides a more functional warm-up. Use the standing toe touch as a benchmark — measure distance from fingertips to floor to track flexibility gains.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "standing_quad_stretch",
@@ -435,13 +683,14 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand on one leg and grab the opposite ankle behind you. Pull your heel toward your glute while keeping your knees together. Hold onto a wall or rack for balance if needed.",
       "substitutes": [
         "hip_flexor_stretch",
-        "foam_roll_quads"
+        "foam_roll_quads",
+        "couch_stretch"
       ],
       "complements": [
         "seated_hamstring_stretch",
@@ -449,7 +698,16 @@
         "foam_roll_quads"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Keep your pelvis neutral — avoid arching your lower back. To increase the stretch, gently push your hips forward. Best performed after squats, lunges, or any quad-dominant work."
+      "notes": "Hold 30-60 seconds per side. Keep your pelvis neutral — avoid arching your lower back. To increase the stretch, gently push your hips forward. Best performed after squats, lunges, or any quad-dominant work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "seated_hamstring_stretch",
@@ -463,16 +721,18 @@
       "primary_muscles": [
         "hamstrings"
       ],
-      "secondary_muscles": [],
+      "secondary_muscles": [
+        "calves"
+      ],
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Sit on the floor with one leg extended and the other bent with foot against the inner thigh. Hinge forward from the hips, reaching toward your toes. Keep your back flat — the stretch should be in the back of the thigh, not by rounding your spine.",
       "substitutes": [
-        "standing_quad_stretch",
+        "toe_touch_progression",
         "pigeon_pose"
       ],
       "complements": [
@@ -481,7 +741,16 @@
         "hip_flexor_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Also called the modified hurdler stretch. Keeping the back flat ensures the stretch targets the hamstrings rather than the lower back. Especially important after deadlifts and RDLs."
+      "notes": "Hold 30-60 seconds per side. Also called the modified hurdler stretch. Keeping the back flat ensures the stretch targets the hamstrings rather than the lower back. Especially important after deadlifts and RDLs.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "pigeon_pose",
@@ -501,13 +770,14 @@
       "workout_position": "late",
       "difficulty": "intermediate",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "From a push-up position, bring one knee forward and place it behind the same-side wrist. Extend the back leg straight behind you. Lower your torso toward the floor over the bent leg. If this is too intense, use a pillow or yoga block under the hip of the bent leg.",
       "substitutes": [
         "figure_four_stretch",
-        "hip_ninety_ninety"
+        "hip_ninety_ninety",
+        "piriformis_stretch"
       ],
       "complements": [
         "figure_four_stretch",
@@ -515,7 +785,16 @@
         "seated_spinal_twist"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. A deep hip opener that targets the piriformis and external rotators of the hip. If knee discomfort occurs, switch to the supine figure-4 stretch which provides the same stretch with less stress on the knee."
+      "notes": "Hold 30-60 seconds per side. A deep hip opener that targets the piriformis and external rotators of the hip. If knee discomfort occurs, switch to the supine figure-4 stretch which provides the same stretch with less stress on the knee.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "doorway_chest_stretch",
@@ -535,7 +814,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand in a doorway and place your forearm against the door frame at shoulder height. Step through the doorway until you feel a stretch across your chest. Adjust arm height to target different fibers — lower for upper chest, higher for lower chest.",
@@ -549,7 +828,16 @@
         "childs_pose"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Counteracts the forward-rounded shoulder posture from desk work and heavy pressing. Can also be done with both arms simultaneously on either side of a doorway for a bilateral stretch."
+      "notes": "Hold 30-60 seconds per side. Counteracts the forward-rounded shoulder posture from desk work and heavy pressing. Can also be done with both arms simultaneously on either side of a doorway for a bilateral stretch.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "cross_body_shoulder_stretch",
@@ -563,11 +851,13 @@
       "primary_muscles": [
         "shoulders"
       ],
-      "secondary_muscles": [],
+      "secondary_muscles": [
+        "upper_back"
+      ],
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Bring one arm straight across your body at shoulder height. Use the opposite hand to gently pull the arm closer to your chest. Keep the stretching arm straight and your shoulder down — don't shrug up toward your ear.",
@@ -581,7 +871,16 @@
         "lat_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Primarily targets the posterior deltoid and infraspinatus. Important for maintaining shoulder mobility, especially after heavy rowing or pulling work. Avoid this stretch immediately before pressing — it can temporarily reduce shoulder stability."
+      "notes": "Hold 30-60 seconds per side. Primarily targets the posterior deltoid and infraspinatus. Important for maintaining shoulder mobility, especially after heavy rowing or pulling work. Avoid this stretch immediately before pressing — it can temporarily reduce shoulder stability.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "tricep_overhead_stretch",
@@ -595,11 +894,13 @@
       "primary_muscles": [
         "triceps"
       ],
-      "secondary_muscles": [],
+      "secondary_muscles": [
+        "shoulders"
+      ],
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Raise one arm overhead and bend the elbow so your hand reaches behind your head toward the opposite shoulder blade. Use the other hand to gently push the elbow back. Keep your core tight to avoid arching your lower back.",
@@ -612,7 +913,16 @@
         "lat_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Stretches the long head of the triceps, which crosses the shoulder joint. Particularly useful after overhead pressing, dips, and skull crushers."
+      "notes": "Hold 30-60 seconds per side. Stretches the long head of the triceps, which crosses the shoulder joint. Particularly useful after overhead pressing, dips, and skull crushers.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "standing_calf_stretch",
@@ -630,12 +940,13 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Place your hands on a wall with one foot forward and one foot back. Keep the back leg straight and press the back heel into the floor. Lean forward until you feel a stretch in the back calf. For the soleus, bend the back knee slightly.",
       "substitutes": [
-        "ankle_mobility_drill"
+        "ankle_mobility_drill",
+        "wall_ankle_stretch"
       ],
       "complements": [
         "ankle_mobility_drill",
@@ -643,7 +954,16 @@
         "seated_hamstring_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Do one set with the back knee straight (targets gastrocnemius) and one set with the back knee slightly bent (targets soleus). Important after calf raises, running, and any lower body work."
+      "notes": "Hold 30-60 seconds per side. Do one set with the back knee straight (targets gastrocnemius) and one set with the back knee slightly bent (targets soleus). Important after calf raises, running, and any lower body work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hip_flexor_stretch",
@@ -663,13 +983,14 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Kneel on one knee with the other foot flat on the floor in front. Shift your hips forward while squeezing the glute on the kneeling side. Keep your torso upright — the stretch should be in the front of the hip on the kneeling side.",
       "substitutes": [
         "standing_quad_stretch",
-        "walking_lunge_dynamic"
+        "walking_lunge_dynamic",
+        "couch_stretch"
       ],
       "complements": [
         "standing_quad_stretch",
@@ -677,7 +998,100 @@
         "seated_hamstring_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Tight hip flexors from prolonged sitting can cause anterior pelvic tilt and lower back pain. Squeezing the glute on the kneeling side posteriorly tilts the pelvis, deepening the stretch. Raise the arm on the kneeling side overhead for an additional stretch through the psoas."
+      "notes": "Hold 30-60 seconds per side. Tight hip flexors from prolonged sitting can cause anterior pelvic tilt and lower back pain. Squeezing the glute on the kneeling side posteriorly tilts the pelvis, deepening the stretch. Raise the arm on the kneeling side overhead for an additional stretch through the psoas.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "couch_stretch",
+      "name": "Couch Stretch",
+      "category": "stretch_static",
+      "movement_pattern": "hip_extension_stretch",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-60 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Kneel with your back foot against a wall or couch. Place the top of your rear foot against the wall with your knee on the floor. Step your front foot forward into a lunge and drive your hips forward. Use your hands on the floor for support if needed.",
+      "substitutes": [
+        "hip_flexor_stretch",
+        "standing_quad_stretch"
+      ],
+      "complements": [
+        "hip_flexor_stretch",
+        "pigeon_pose",
+        "standing_quad_stretch"
+      ],
+      "superset_candidates": [],
+      "notes": "Hold 30-60 seconds per side. An intensified version of the kneeling hip flexor stretch that simultaneously stretches the quadriceps and hip flexors. Popularized by Kelly Starrett. The wall contact for the rear foot maximizes the quad stretch that a standard kneeling hip flexor stretch misses. Progress to an upright torso as flexibility improves.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "piriformis_stretch",
+      "name": "Piriformis Stretch (Seated)",
+      "category": "stretch_static",
+      "movement_pattern": "hip_external_rotation_stretch",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-60 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Sit in a chair and cross one ankle over the opposite knee. Sit tall, then lean your torso forward until you feel a deep stretch in the crossed leg's glute. Gently press down on the crossed knee for more stretch. You can also do this lying on your back.",
+      "substitutes": [
+        "figure_four_stretch",
+        "pigeon_pose"
+      ],
+      "complements": [
+        "figure_four_stretch",
+        "hip_ninety_ninety",
+        "foam_roll_glutes"
+      ],
+      "superset_candidates": [],
+      "notes": "Hold 30-60 seconds per side. Targets the piriformis, a deep external rotator of the hip that sits beneath the glutes. A tight piriformis can compress the sciatic nerve, causing radiating pain down the leg. This stretch is a first-line treatment for piriformis syndrome. The seated version is accessible for those who cannot get on the floor.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "childs_pose",
@@ -697,7 +1111,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Kneel on the floor, sit your hips back toward your heels, and reach your arms forward on the ground. Spread your knees wider for a deeper stretch. Relax your forehead onto the floor and breathe into your back.",
@@ -711,7 +1125,16 @@
         "seated_spinal_twist"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds. A restorative position that gently stretches the lats, thoracolumbar fascia, and shoulders. Walk your hands to one side to add a lateral stretch. Excellent cool-down finisher after back or shoulder workouts."
+      "notes": "Hold 30-60 seconds. A restorative position that gently stretches the lats, thoracolumbar fascia, and shoulders. Walk your hands to one side to add a lateral stretch. Excellent cool-down finisher after back or shoulder workouts.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "seated_spinal_twist",
@@ -731,7 +1154,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Sit on the floor with legs extended. Bend one knee and cross that foot over the opposite leg. Place the opposite elbow on the outside of the bent knee and rotate your torso toward the bent leg. Sit tall — lengthen your spine before rotating.",
@@ -745,7 +1168,16 @@
         "seated_hamstring_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Stretches the obliques, erector spinae, and glutes while improving rotational mobility. Breathe deeply and try to rotate a little further on each exhale. Avoid forcing the twist — let gravity and your breathing deepen the stretch."
+      "notes": "Hold 30-60 seconds per side. Stretches the obliques, erector spinae, and glutes while improving rotational mobility. Breathe deeply and try to rotate a little further on each exhale. Avoid forcing the twist — let gravity and your breathing deepen the stretch.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "lat_stretch",
@@ -765,7 +1197,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Grab a doorframe or squat rack at about head height with one hand. Step back and let your hips sink away from your hand while keeping your arm straight. You should feel the stretch along the side of your back and under your armpit.",
@@ -779,7 +1211,16 @@
         "tricep_overhead_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. Targets the latissimus dorsi, teres major, and posterior shoulder. Particularly helpful after pull-ups, rows, and pulldowns. Lean slightly forward or backward to shift the stretch emphasis."
+      "notes": "Hold 30-60 seconds per side. Targets the latissimus dorsi, teres major, and posterior shoulder. Particularly helpful after pull-ups, rows, and pulldowns. Lean slightly forward or backward to shift the stretch emphasis.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "figure_four_stretch",
@@ -799,13 +1240,14 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-60 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Lie on your back with knees bent. Cross one ankle over the opposite knee to form a figure-4 shape. Pull the bottom leg toward your chest using both hands behind the thigh. Keep your head and shoulders on the floor.",
       "substitutes": [
         "pigeon_pose",
-        "hip_ninety_ninety"
+        "hip_ninety_ninety",
+        "piriformis_stretch"
       ],
       "complements": [
         "pigeon_pose",
@@ -813,7 +1255,16 @@
         "hip_flexor_stretch"
       ],
       "superset_candidates": [],
-      "notes": "Hold 30-60 seconds per side. A supine alternative to pigeon pose that is easier on the knees. Targets the piriformis and deep external rotators. Especially effective for sciatic nerve relief. Gently push the crossed knee away from you to deepen the stretch."
+      "notes": "Hold 30-60 seconds per side. A supine alternative to pigeon pose that is easier on the knees. Targets the piriformis and deep external rotators. Especially effective for sciatic nerve relief. Gently push the crossed knee away from you to deepen the stretch.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hip_ninety_ninety",
@@ -834,7 +1285,7 @@
       "workout_position": "early",
       "difficulty": "intermediate",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "30-45 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Sit on the floor with one leg bent 90 degrees in front of you and the other bent 90 degrees behind you. Keep your torso upright and try to get both knees flat on the floor. Switch sides by rotating your legs to the opposite position.",
@@ -849,7 +1300,16 @@
         "hip_circle"
       ],
       "superset_candidates": [],
-      "notes": "Hold each position 30-45 seconds, or flow side-to-side for 8-10 transitions. A comprehensive hip mobility drill that simultaneously trains internal and external rotation. Popularized by functional range conditioning (FRC). If you can't sit upright, place your hands behind you for support."
+      "notes": "Hold each position 30-45 seconds, or flow side-to-side for 8-10 transitions. A comprehensive hip mobility drill that simultaneously trains internal and external rotation. Popularized by functional range conditioning (FRC). If you can't sit upright, place your hands behind you for support.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "band_dislocate",
@@ -868,8 +1328,8 @@
       ],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Hold a resistance band with a wide grip in front of your hips. Keeping your arms straight, slowly raise the band overhead and continue behind your back until it touches your glutes. Reverse the movement. Use a wider grip if the movement feels restricted.",
@@ -883,7 +1343,60 @@
         "thoracic_spine_extension"
       ],
       "superset_candidates": [],
-      "notes": "10-15 reps. Can also be done with a PVC pipe or broomstick. Progressively narrow your grip as mobility improves. One of the best shoulder warm-up drills before bench press, overhead press, or pull-ups. Avoid jerky movements — smooth and controlled throughout."
+      "notes": "10-15 reps. Can also be done with a PVC pipe or broomstick. Progressively narrow your grip as mobility improves. One of the best shoulder warm-up drills before bench press, overhead press, or pull-ups. Avoid jerky movements — smooth and controlled throughout.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "banded_shoulder_distraction",
+      "name": "Banded Shoulder Distraction",
+      "category": "mobility",
+      "movement_pattern": "shoulder_circumduction_loaded",
+      "force_type": "isometric",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "upper_back"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-60 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Attach a resistance band to a squat rack at about shoulder height. Place your hand or wrist through the loop and step away to create tension. Let the band gently pull your arm as you rotate through different positions — overhead, to the side, and behind you. The band provides a distraction force that creates space in the joint.",
+      "substitutes": [
+        "band_dislocate",
+        "wall_slide",
+        "controlled_articular_rotation"
+      ],
+      "complements": [
+        "band_dislocate",
+        "wall_slide",
+        "arm_circle"
+      ],
+      "superset_candidates": [],
+      "notes": "30-60 seconds per position per side. A joint distraction technique that uses band tension to create separation in the glenohumeral joint, improving range of motion. Popularized by Kelly Starrett in MobilityWOD. Particularly effective before overhead pressing or for those with shoulder impingement symptoms. Do not use if you have shoulder instability.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "ankle_mobility_drill",
@@ -901,20 +1414,71 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "10-15 per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand facing a wall with one foot a few inches from the wall. Drive your knee forward over your toes, trying to touch the wall while keeping your heel on the ground. If you can touch easily, move your foot further from the wall.",
       "substitutes": [
-        "standing_calf_stretch"
+        "standing_calf_stretch",
+        "wall_ankle_stretch"
       ],
       "complements": [
         "standing_calf_stretch",
         "a_skip",
-        "foam_roll_quads"
+        "foam_roll_calves"
       ],
       "superset_candidates": [],
-      "notes": "10-15 reps per side, or hold the end position for 30 seconds. Also called the knee-to-wall test. Ankle dorsiflexion is essential for deep squats — limited ankle mobility forces excessive forward lean. Test both ankles and spend extra time on the tighter side."
+      "notes": "10-15 reps per side, or hold the end position for 30 seconds. Also called the knee-to-wall test. Ankle dorsiflexion is essential for deep squats — limited ankle mobility forces excessive forward lean. Test both ankles and spend extra time on the tighter side.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "wall_ankle_stretch",
+      "name": "Wall Ankle Stretch",
+      "category": "mobility",
+      "movement_pattern": "ankle_dorsiflexion_mobility",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-45 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Place the ball of one foot against a wall with the heel on the floor. Lean your body weight forward into the wall, driving the knee past the toes. Keep your heel glued to the floor throughout. Adjust the angle of your foot up the wall to control intensity.",
+      "substitutes": [
+        "ankle_mobility_drill",
+        "standing_calf_stretch"
+      ],
+      "complements": [
+        "ankle_mobility_drill",
+        "standing_calf_stretch",
+        "foam_roll_calves"
+      ],
+      "superset_candidates": [],
+      "notes": "Hold 30-45 seconds per side, or oscillate gently for 10-15 reps. This wall-based variation provides a more sustained dorsiflexion load than the knee-to-wall drill. Limited ankle dorsiflexion is one of the most common restrictions in the squat — address this before trying to squat deeper. Can also be done on a slant board.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "foam_roll_quads",
@@ -932,7 +1496,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "60-90 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Lie face down with the foam roller under your thighs. Support yourself on your forearms and slowly roll from just above the knee to the hip. Pause on tender spots for 20-30 seconds. Rotate slightly inward and outward to cover the inner and outer quad.",
@@ -946,7 +1510,16 @@
         "ankle_mobility_drill"
       ],
       "superset_candidates": [],
-      "notes": "60-90 seconds per leg. Self-myofascial release reduces muscle tension and may improve range of motion before training. Useful before squats and lunges. Research is mixed on performance benefits, but most lifters report improved squat depth after foam rolling the quads."
+      "notes": "60-90 seconds per leg. Self-myofascial release reduces muscle tension and may improve range of motion before training. Useful before squats and lunges. Research is mixed on performance benefits, but most lifters report improved squat depth after foam rolling the quads.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "foam_roll_it_band",
@@ -966,7 +1539,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "60-90 seconds per side",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Lie on your side with the foam roller under your outer thigh. Support your weight on your forearm and top foot. Roll slowly from hip to just above the knee. This area is often very tender — start with lighter pressure by keeping more weight on the support foot.",
@@ -980,7 +1553,182 @@
         "leg_swing_lateral"
       ],
       "superset_candidates": [],
-      "notes": "60-90 seconds per side. The IT band itself doesn't actually stretch much — the goal is to release tension in the surrounding muscles (vastus lateralis and TFL). Particularly helpful for runners and those with knee tracking issues. If the pressure is unbearable, stack your legs to reduce the load."
+      "notes": "60-90 seconds per side. The IT band itself doesn't actually stretch much — the goal is to release tension in the surrounding muscles (vastus lateralis and TFL). Particularly helpful for runners and those with knee tracking issues. If the pressure is unbearable, stack your legs to reduce the load.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "foam_roll_thoracic",
+      "name": "Foam Roll Thoracic Spine",
+      "category": "mobility",
+      "movement_pattern": "soft_tissue_mobilization",
+      "force_type": "isometric",
+      "equipment": [
+        "foam_roller"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "60-90 seconds",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Lie on your back with the foam roller perpendicular to your spine at mid-back level. Cross your arms over your chest or hug yourself. Slowly roll from the mid-back to the upper back, pausing on tight spots. Keep your hips on the floor and avoid rolling into the lower back.",
+      "substitutes": [
+        "thoracic_spine_extension",
+        "cat_cow"
+      ],
+      "complements": [
+        "thoracic_spine_extension",
+        "thoracic_rotation",
+        "foam_roll_lats"
+      ],
+      "superset_candidates": [],
+      "notes": "60-90 seconds, rolling slowly through the mid and upper back. Excellent for desk workers with a rounded upper back (thoracic kyphosis). Pair with thoracic spine extension over the roller for a mobility combo. Stay above the last rib — do not roll the lower back on a foam roller, as it lacks the rib cage protection and the lumbar spine can hyperextend.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "foam_roll_lats",
+      "name": "Foam Roll Lats",
+      "category": "mobility",
+      "movement_pattern": "soft_tissue_mobilization",
+      "force_type": "isometric",
+      "equipment": [
+        "foam_roller"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "60-90 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Lie on your side with the foam roller under your armpit area. Extend the bottom arm overhead and slowly roll from the armpit down to just above the hip. Keep your thumb pointing up to expose the lat. Use your feet to control the pressure and speed.",
+      "substitutes": [
+        "lat_stretch",
+        "childs_pose"
+      ],
+      "complements": [
+        "lat_stretch",
+        "foam_roll_thoracic",
+        "thoracic_spine_extension"
+      ],
+      "superset_candidates": [],
+      "notes": "60-90 seconds per side. The lats are one of the largest muscles in the body and become very dense from heavy pulling work. Tight lats restrict overhead mobility and can contribute to shoulder impingement. Foam rolling before pressing or overhead work can temporarily improve range of motion. Expect tenderness on the first few sessions.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "foam_roll_calves",
+      "name": "Foam Roll Calves",
+      "category": "mobility",
+      "movement_pattern": "soft_tissue_mobilization",
+      "force_type": "isometric",
+      "equipment": [
+        "foam_roller"
+      ],
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "60-90 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Sit on the floor with the foam roller under one calf. Cross the other leg on top for added pressure if needed. Roll slowly from just above the ankle to below the knee. Rotate your foot inward and outward to target the inner and outer calf.",
+      "substitutes": [
+        "standing_calf_stretch",
+        "ankle_mobility_drill"
+      ],
+      "complements": [
+        "standing_calf_stretch",
+        "ankle_mobility_drill",
+        "wall_ankle_stretch"
+      ],
+      "superset_candidates": [],
+      "notes": "60-90 seconds per side. Calf tightness directly limits ankle dorsiflexion, which is essential for squatting depth. Foam rolling the calves before squats can improve ankle mobility acutely. The gastrocnemius (upper calf) and soleus (lower calf) both benefit — roll the full length. Cross-leg stacking adds significant pressure for those who need a deeper release.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "foam_roll_glutes",
+      "name": "Foam Roll Glutes",
+      "category": "mobility",
+      "movement_pattern": "soft_tissue_mobilization",
+      "force_type": "isometric",
+      "equipment": [
+        "foam_roller"
+      ],
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "60-90 seconds per side",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Sit on the foam roller with one ankle crossed over the opposite knee (figure-4 position). Lean toward the crossed-leg side and roll slowly through the glute and piriformis area. Use your hands behind you for support and control.",
+      "substitutes": [
+        "piriformis_stretch",
+        "figure_four_stretch"
+      ],
+      "complements": [
+        "piriformis_stretch",
+        "figure_four_stretch",
+        "hip_ninety_ninety"
+      ],
+      "superset_candidates": [],
+      "notes": "60-90 seconds per side. Targets the gluteus maximus and the deeper piriformis. The figure-4 position exposes the piriformis for more direct pressure. A lacrosse ball can provide more targeted release than a foam roller for the deeper hip rotators. Especially useful before squats, deadlifts, and after prolonged sitting.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "thoracic_spine_extension",
@@ -999,14 +1747,15 @@
       ],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": true,
+      "rep_range_hypertrophy": "5-8 per segment",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Lie on your back with the foam roller perpendicular to your spine at mid-back level. Cross your arms over your chest or place hands behind your head. Gently arch backward over the roller, then return to neutral. Move the roller up or down to target different segments.",
       "substitutes": [
         "cat_cow",
-        "thoracic_rotation"
+        "thoracic_rotation",
+        "foam_roll_thoracic"
       ],
       "complements": [
         "cat_cow",
@@ -1014,7 +1763,59 @@
         "band_dislocate"
       ],
       "superset_candidates": [],
-      "notes": "5-8 extensions at each spinal segment, working from mid-back to upper back. Improves thoracic extension which is critical for overhead pressing and front squat rack position. Keep the movement in the upper back — avoid extending through the lower back by bracing your core."
+      "notes": "5-8 extensions at each spinal segment, working from mid-back to upper back. Improves thoracic extension which is critical for overhead pressing and front squat rack position. Keep the movement in the upper back — avoid extending through the lower back by bracing your core.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "prone_press_up",
+      "name": "Prone Press-Up (McKenzie)",
+      "category": "mobility",
+      "movement_pattern": "spinal_extension_mobilization",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "upper_back"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Lie face down with your hands beside your shoulders as if about to do a push-up. Press your upper body up while keeping your hips on the floor. Straighten your arms as far as comfortable, then lower back down. Exhale as you press up and allow your lower back to relax and sag.",
+      "substitutes": [
+        "cat_cow",
+        "thoracic_spine_extension"
+      ],
+      "complements": [
+        "cat_cow",
+        "childs_pose",
+        "foam_roll_thoracic"
+      ],
+      "superset_candidates": [],
+      "notes": "10-15 reps, holding the top for 2-3 seconds. The McKenzie press-up is a cornerstone of lumbar rehabilitation, promoting extension-based loading of the spine. It can help centralize disc-related symptoms by encouraging the nucleus to shift anteriorly. Contraindicated for spinal stenosis or facet joint pain that worsens with extension. Best performed first thing in the morning after overnight flexion bias.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "wall_slide",
@@ -1033,8 +1834,8 @@
       ],
       "workout_position": "early",
       "difficulty": "beginner",
-      "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand with your back, head, and arms flat against a wall. Start with arms in a 'W' position (elbows at 90 degrees). Slowly slide your arms up into a 'Y' position while keeping everything in contact with the wall. Return to the 'W' and repeat.",
@@ -1048,7 +1849,16 @@
         "thoracic_spine_extension"
       ],
       "superset_candidates": [],
-      "notes": "8-12 reps. Also called wall angels. Trains scapular upward rotation and shoulder flexion in a controlled range. If you cannot keep your lower back flat against the wall, you likely have tight lats or poor thoracic extension — address those first. An excellent diagnostic tool for shoulder mobility."
+      "notes": "8-12 reps. Also called wall angels. Trains scapular upward rotation and shoulder flexion in a controlled range. If you cannot keep your lower back flat against the wall, you likely have tight lats or poor thoracic extension — address those first. An excellent diagnostic tool for shoulder mobility.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "controlled_articular_rotation",
@@ -1066,7 +1876,7 @@
       "workout_position": "early",
       "difficulty": "intermediate",
       "bilateral": false,
-      "rep_range_hypertrophy": "n/a",
+      "rep_range_hypertrophy": "3-5 per direction per arm",
       "rep_range_strength": "n/a",
       "video_url": "",
       "beginner_tips": "Stand tall and brace your core. Slowly raise one arm forward and overhead, rotate it behind you, and return to the start — tracing the largest circle you can with your fingertips. Move as slowly as possible and create tension throughout the movement.",
@@ -1080,7 +1890,16 @@
         "wall_slide"
       ],
       "superset_candidates": [],
-      "notes": "3-5 slow rotations per direction per arm. A Functional Range Conditioning (FRC) staple. Unlike arm circles, CARs use maximal tension and the slowest speed possible to explore and maintain joint range of motion. Think of irradiating tension through your entire body while moving only the shoulder. Can be performed daily for joint health."
+      "notes": "3-5 slow rotations per direction per arm. A Functional Range Conditioning (FRC) staple. Unlike arm circles, CARs use maximal tension and the slowest speed possible to explore and maintain joint range of motion. Think of irradiating tension through your entire body while moving only the shoulder. Can be performed daily for joint health.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "low"
+      }
     }
   ]
 }

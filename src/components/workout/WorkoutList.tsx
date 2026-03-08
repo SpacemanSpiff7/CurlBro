@@ -1,59 +1,152 @@
-import { useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
   DndContext,
   closestCenter,
+  DragOverlay,
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { AnimatePresence } from 'framer-motion';
 import { Trash2, Unlink } from 'lucide-react';
+import { toast } from 'sonner';
 import { ExerciseCard } from '@/components/exercise/ExerciseCard';
 import { SupersetContainer } from '@/components/workout/SupersetContainer';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
+import { DragOverlayCard } from '@/components/workout/DragOverlayCard';
+import { resolveDropIntent } from '@/utils/dropIntent';
+import type { DropIntent } from '@/utils/dropIntent';
+import { vibrateDragStart, vibrateSupersetIntent, vibrateGrouped } from '@/utils/haptics';
 import { useStore } from '@/store';
 import { useBuilderGroups } from '@/hooks/useBuilderGroups';
 import type { WorkoutExercise, ExerciseId } from '@/types';
 
-export function WorkoutList() {
+interface WorkoutListProps {
+  editMode?: boolean;
+  selectedIndices?: Set<number>;
+  onToggleSelect?: (index: number) => void;
+}
+
+export function WorkoutList({ editMode = false, selectedIndices, onToggleSelect }: WorkoutListProps) {
   const graph = useStore((state) => state.graph);
-  const { removeExercise, reorderExercises, updateExercise, swapExercise, ungroupExercise } =
+  const { removeExercise, reorderExercises, updateExercise, swapExercise, ungroupExercise, mergeExerciseIntoGroup } =
     useStore((state) => state.builderActions);
 
   const groups = useBuilderGroups();
 
+  const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
+  const [dropTargetGroupId, setDropTargetGroupId] = useState<string | null>(null);
+  const dropIntentRef = useRef<DropIntent | null>(null);
+  const lastIntentTypeRef = useRef<string | null>(null);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(TouchSensor, {
-      activationConstraint: { delay: 200, tolerance: 5 },
+      activationConstraint: { delay: 150, tolerance: 8 },
     }),
     useSensor(KeyboardSensor)
   );
 
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveGroupId(String(event.active.id));
+    vibrateDragStart();
+  }, []);
+
+  const handleDragOver = useCallback((event: DragOverEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) {
+      if (dropIntentRef.current) {
+        dropIntentRef.current = null;
+        lastIntentTypeRef.current = null;
+        setDropTargetGroupId(null);
+      }
+      return;
+    }
+
+    const overRect = over.rect;
+    const pointerY = event.activatorEvent instanceof PointerEvent
+      ? (event.activatorEvent as PointerEvent).clientY + (event.delta?.y ?? 0)
+      : overRect.top + overRect.height / 2;
+
+    const intent = resolveDropIntent(pointerY, overRect, String(over.id));
+
+    dropIntentRef.current = intent;
+
+    // Only update visual state when intent type changes to avoid re-renders
+    if (intent.type !== lastIntentTypeRef.current) {
+      lastIntentTypeRef.current = intent.type;
+      if (intent.type === 'superset') {
+        setDropTargetGroupId(intent.targetGroupId);
+        vibrateSupersetIntent();
+      } else {
+        setDropTargetGroupId(null);
+      }
+    }
+  }, []);
+
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
+      const intent = dropIntentRef.current;
+      setActiveGroupId(null);
+      setDropTargetGroupId(null);
+      dropIntentRef.current = null;
+      lastIntentTypeRef.current = null;
+
       const { active, over } = event;
       if (!over || active.id === over.id) return;
 
-      // IDs are group-level: use the first index of each group
-      const fromGroupIdx = groups.findIndex((g) => g.groupId === active.id);
-      const toGroupIdx = groups.findIndex((g) => g.groupId === over.id);
-      if (fromGroupIdx < 0 || toGroupIdx < 0) return;
+      if (intent?.type === 'superset') {
+        const fromGroupIdx = groups.findIndex((g) => g.groupId === active.id);
+        const toGroupIdx = groups.findIndex((g) => g.groupId === intent.targetGroupId);
+        if (fromGroupIdx >= 0 && toGroupIdx >= 0) {
+          const targetGroup = groups[toGroupIdx];
+          const sourceGroup = groups[fromGroupIdx];
+          if (targetGroup.exercises.length + sourceGroup.exercises.length > 5) {
+            toast.warning('Maximum 5 exercises per superset');
+            return;
+          }
+          // Merge each source member using instanceId to find current index
+          const sourceInstanceIds = sourceGroup.exercises.map((e) => e.instanceId);
+          const targetInstanceId = targetGroup.exercises[0].instanceId;
+          for (const srcId of sourceInstanceIds) {
+            const exs = useStore.getState().builder.workout.exercises;
+            const srcIdx = exs.findIndex((e) => e.instanceId === srcId);
+            const tgtIdx = exs.findIndex((e) => e.instanceId === targetInstanceId);
+            if (srcIdx >= 0 && tgtIdx >= 0) {
+              mergeExerciseIntoGroup(srcIdx, tgtIdx);
+            }
+          }
+          vibrateGrouped();
+          toast.success('Added to superset');
+        }
+      } else {
+        // Default: reorder
+        const fromGroupIdx = groups.findIndex((g) => g.groupId === active.id);
+        const toGroupIdx = groups.findIndex((g) => g.groupId === over.id);
+        if (fromGroupIdx < 0 || toGroupIdx < 0) return;
 
-      const fromIndex = groups[fromGroupIdx].indices[0];
-      const toIndex = groups[toGroupIdx].indices[0];
-      reorderExercises(fromIndex, toIndex);
+        const fromIndex = groups[fromGroupIdx].indices[0];
+        const toIndex = groups[toGroupIdx].indices[0];
+        reorderExercises(fromIndex, toIndex);
+      }
     },
-    [groups, reorderExercises]
+    [groups, reorderExercises, mergeExerciseIntoGroup]
   );
+
+  const handleDragCancel = useCallback(() => {
+    setActiveGroupId(null);
+    setDropTargetGroupId(null);
+    dropIntentRef.current = null;
+    lastIntentTypeRef.current = null;
+  }, []);
 
   const handleUpdate = useCallback(
     (index: number, updates: Partial<WorkoutExercise>) => {
@@ -80,11 +173,19 @@ export function WorkoutList() {
     return null;
   }
 
+  // Find active group data for DragOverlay
+  const activeGroup = activeGroupId
+    ? groups.find((g) => g.groupId === activeGroupId)
+    : null;
+
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
     >
       <SortableContext
         items={groups.map((g) => g.groupId)}
@@ -94,6 +195,7 @@ export function WorkoutList() {
           <AnimatePresence mode="popLayout">
             {groups.map((group) => {
               const isGrouped = group.exercises.length > 1;
+              const isTarget = dropTargetGroupId === group.groupId;
 
               if (isGrouped) {
                 const cards = group.exercises.map((workoutExercise, i) => {
@@ -110,6 +212,9 @@ export function WorkoutList() {
                       onUpdate={handleUpdate}
                       onRemove={handleRemove}
                       onSwap={handleSwap}
+                      editMode={editMode}
+                      selected={selectedIndices?.has(realIndex)}
+                      onToggleSelect={onToggleSelect ? () => onToggleSelect(realIndex) : undefined}
                     />
                   );
                 });
@@ -140,10 +245,12 @@ export function WorkoutList() {
                 ];
 
                 return (
-                  <SwipeToReveal key={group.groupId} actions={groupActions}>
+                  <SwipeToReveal key={group.groupId} actions={groupActions} enabled={!editMode}>
                     <SupersetContainer
                       sortableId={group.groupId}
                       indices={group.indices}
+                      isDropTarget={isTarget}
+                      editMode={editMode}
                     >
                       {cards}
                     </SupersetContainer>
@@ -166,12 +273,22 @@ export function WorkoutList() {
                   onRemove={handleRemove}
                   onSwap={handleSwap}
                   sortableId={group.groupId}
+                  editMode={editMode}
+                  selected={selectedIndices?.has(group.indices[0])}
+                  onToggleSelect={onToggleSelect ? () => onToggleSelect(group.indices[0]) : undefined}
+                  isDropTarget={isTarget}
                 />
               );
             })}
           </AnimatePresence>
         </div>
       </SortableContext>
+
+      <DragOverlay dropAnimation={null}>
+        {activeGroup ? (
+          <DragOverlayCard group={activeGroup} />
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

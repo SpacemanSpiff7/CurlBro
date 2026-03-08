@@ -6,7 +6,7 @@
 
 ## Exercise Catalog
 
-The full catalog of 162 exercises is available as JSON:
+The full catalog of 300+ exercises is available as JSON:
   /exercises.json
 
 Each exercise includes: id, name, category, movement_pattern, force_type,

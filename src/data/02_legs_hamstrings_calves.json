@@ -1,7 +1,7 @@
 {
   "file": "02_legs_hamstrings_calves.json",
-  "description": "Deadlift variations, leg curls, calf raises, lower leg work",
-  "exercise_count": 19,
+  "description": "Deadlift variations, leg curls, calf raises, lower leg work, hip hinge accessories",
+  "exercise_count": 33,
   "exercises": [
     {
       "id": "conventional_deadlift",
@@ -28,7 +28,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/deadlifts.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/deadlift.html",
       "beginner_tips": "Feet hip-width, bar over mid-foot. Grip just outside knees. Push the floor away with legs while keeping back flat. Bar drags up shins. DO NOT round your back. Learn with light weight. Push through the WHOLE foot.",
       "substitutes": [
         "trap_bar_deadlift",
@@ -48,7 +48,16 @@
         "bird_dog",
         "plank"
       ],
-      "notes": "Works more muscles than any other exercise. Very taxing — don't do heavy deadlifts and heavy squats same day when starting out."
+      "notes": "Works more muscles than any other exercise. Very taxing — don't do heavy deadlifts and heavy squats same day when starting out.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "sumo_deadlift",
@@ -75,7 +84,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/sumo-deadlift",
+      "video_url": "https://www.muscleandstrength.com/exercises/sumo-deadlift.html",
       "beginner_tips": "Wide stance, toes pointed out. Grip bar with arms between knees. Push knees out and drive hips forward to stand. More upright torso than conventional.",
       "substitutes": [
         "conventional_deadlift",
@@ -93,7 +102,16 @@
         "bird_dog",
         "plank"
       ],
-      "notes": "Shorter range of motion, easier on lower back. Great for people with longer torsos. Higher adductor demand than conventional."
+      "notes": "Shorter range of motion, easier on lower back. Great for people with longer torsos. Higher adductor demand than conventional.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "trap_bar_deadlift",
@@ -120,7 +138,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-10",
       "rep_range_strength": "1-5",
-      "video_url": "https://www.muscleandstrength.com/exercises/trap-bar-deadlift",
+      "video_url": "https://www.muscleandstrength.com/exercises/trap-bar-deadlift.html",
       "beginner_tips": "Step inside the hexagonal bar, grab side handles, stand up. Weight is around you instead of in front — much easier to learn than barbell deadlift. Keep chest up and push through whole foot.",
       "substitutes": [
         "conventional_deadlift",
@@ -140,7 +158,16 @@
         "bird_dog",
         "plank"
       ],
-      "notes": "THE BEST deadlift for beginners. Neutral grip, centered weight, lower injury risk. Start here if your gym has one."
+      "notes": "THE BEST deadlift for beginners. Neutral grip, centered weight, lower injury risk. Start here if your gym has one.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "romanian_deadlift",
@@ -165,13 +192,15 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/romanian-deadlift",
+      "video_url": "https://www.muscleandstrength.com/exercises/romanian-deadlift.html",
       "beginner_tips": "Start standing with bar at hips. Push hips BACK (like closing a car door with your butt), slight knee bend. Lower bar along legs until deep hamstring stretch, then squeeze glutes to stand back up. Bar stays close to legs the entire time.",
       "substitutes": [
         "dumbbell_rdl",
         "single_leg_rdl",
         "stiff_leg_deadlift",
-        "cable_pull_through"
+        "cable_pull_through",
+        "kb_rdl",
+        "landmine_rdl"
       ],
       "complements": [
         "barbell_back_squat",
@@ -182,7 +211,16 @@
       "superset_candidates": [
         "leg_extension"
       ],
-      "notes": "Essential hamstring/glute builder. Different from conventional deadlift — you start standing, not from the floor. Loads hamstrings in a deep stretch, which is a potent hypertrophy stimulus."
+      "notes": "Essential hamstring/glute builder. Different from conventional deadlift — you start standing, not from the floor. Loads hamstrings in a deep stretch, which is a potent hypertrophy stimulus.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "dumbbell_rdl",
@@ -206,12 +244,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-stiff-leg-deadlift.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-romanian-deadlift.html",
       "beginner_tips": "Same as barbell RDL but with dumbbells at your sides. Easier to learn — dumbbells allow more natural arm position. Great first hinge exercise.",
       "substitutes": [
         "romanian_deadlift",
         "single_leg_rdl",
-        "cable_pull_through"
+        "cable_pull_through",
+        "kb_rdl"
       ],
       "complements": [
         "goblet_squat",
@@ -220,7 +259,16 @@
       "superset_candidates": [
         "leg_extension"
       ],
-      "notes": "Best entry point for learning the hip hinge before graduating to barbell."
+      "notes": "Best entry point for learning the hip hinge before graduating to barbell.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "single_leg_rdl",
@@ -244,7 +292,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "6-10 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/single-leg-one-dumbbell-deadlift",
+      "video_url": "https://www.muscleandstrength.com/exercises/single-leg-dumbbell-romanian-deadlift.html",
       "beginner_tips": "Stand on one leg, dumbbell in opposite hand. Hinge forward while free leg extends behind as counterbalance. Hold something for balance if needed. It's okay to be wobbly — balance improves fast.",
       "substitutes": [
         "romanian_deadlift",
@@ -260,7 +308,16 @@
         "leg_extension",
         "leg_curl_lying"
       ],
-      "notes": "Amazing for fixing left/right imbalances and building hip stability. Pair with single-leg leg press for a complete unilateral leg session."
+      "notes": "Amazing for fixing left/right imbalances and building hip stability. Pair with single-leg leg press for a complete unilateral leg session.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "stiff_leg_deadlift",
@@ -272,18 +329,20 @@
         "barbell"
       ],
       "primary_muscles": [
-        "hamstrings"
+        "hamstrings",
+        "glutes"
       ],
       "secondary_muscles": [
-        "glutes",
-        "core"
+        "core",
+        "upper_back",
+        "forearms"
       ],
       "workout_position": "early_mid",
       "difficulty": "intermediate",
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "5-8",
-      "video_url": "https://www.muscleandstrength.com/exercises/stiff-leg-deadlift-aka-romanian-deadlift.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/stiff-leg-deadlift.html",
       "beginner_tips": "Like an RDL but with straighter (not locked) knees. More hamstring stretch. Don't round your back — if you can't go lower without rounding, stop there. Your hamstring flexibility is the limiting factor.",
       "substitutes": [
         "romanian_deadlift",
@@ -296,7 +355,16 @@
       "superset_candidates": [
         "leg_extension"
       ],
-      "notes": "Greater hamstring stretch than RDL. More lower back demand — keep weight lighter than your RDL."
+      "notes": "Greater hamstring stretch than RDL. More lower back demand — keep weight lighter than your RDL.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "good_morning",
@@ -312,18 +380,20 @@
         "glutes"
       ],
       "secondary_muscles": [
-        "core"
+        "core",
+        "upper_back"
       ],
       "workout_position": "mid",
       "difficulty": "intermediate",
       "bilateral": true,
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/good-mornings.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/good-morning.html",
       "beginner_tips": "Bar on upper back like a squat. Slight knee bend, bow forward at hips until hamstrings stretch, stand back up by squeezing glutes. Keep loads moderate. Learn with just the bar.",
       "substitutes": [
         "romanian_deadlift",
-        "cable_pull_through"
+        "cable_pull_through",
+        "banded_good_morning"
       ],
       "complements": [
         "barbell_back_squat",
@@ -335,7 +405,16 @@
         "leg_extension",
         "leg_press"
       ],
-      "notes": "Excellent posterior chain builder. Demands good hip hinge mechanics. Commonly used as a squat accessory in powerlifting programs."
+      "notes": "Excellent posterior chain builder. Demands good hip hinge mechanics. Commonly used as a squat accessory in powerlifting programs.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "rack_pull",
@@ -360,7 +439,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "5-8",
       "rep_range_strength": "1-5",
-      "video_url": "https://weighttraining.guide/exercises/barbell-rack-pull/",
+      "video_url": "https://www.muscleandstrength.com/exercises/rack-pull.html",
       "beginner_tips": "Set safety pins so bar starts at about knee height. Deadlift from this raised position. Shorter range of motion lets you use heavier weight. Keep back flat — same rules as a regular deadlift.",
       "substitutes": [
         "conventional_deadlift",
@@ -377,7 +456,16 @@
         "barbell_curl",
         "hammer_curl"
       ],
-      "notes": "Overloads the top half of the deadlift. Great for back/trap development and grip training."
+      "notes": "Overloads the top half of the deadlift. Great for back/trap development and grip training.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "leg_curl_lying",
@@ -399,12 +487,14 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/leg-curl.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/lying-leg-curl.html",
       "beginner_tips": "Lie face down, hook heels under pad. Curl heels toward butt by bending knees. Squeeze at top, lower slowly. Keep hips pressed into the pad — don't let them rise up.",
       "substitutes": [
         "leg_curl_seated",
         "nordic_curl",
-        "swiss_ball_leg_curl"
+        "swiss_ball_leg_curl",
+        "sliding_leg_curl",
+        "banded_leg_curl"
       ],
       "complements": [
         "romanian_deadlift",
@@ -417,7 +507,16 @@
         "hack_squat_machine",
         "barbell_back_squat"
       ],
-      "notes": "Simple hamstring isolation. Pair with RDLs for complete hamstrings — curls hit the knee-flexion function, RDLs hit the hip-extension function."
+      "notes": "Simple hamstring isolation. Pair with RDLs for complete hamstrings — curls hit the knee-flexion function, RDLs hit the hip-extension function.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "leg_curl_seated",
@@ -437,11 +536,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/seated-leg-curl",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-leg-curl.html",
       "beginner_tips": "Sit with back of legs on top of pad. Lock upper pad down. Curl heels under the seat. Adjust the back pad so you feel a stretch on your hamstrings at the start position.",
       "substitutes": [
         "leg_curl_lying",
-        "nordic_curl"
+        "nordic_curl",
+        "sliding_leg_curl"
       ],
       "complements": [
         "romanian_deadlift",
@@ -453,7 +553,16 @@
         "leg_press",
         "seated_leg_press"
       ],
-      "notes": "Research suggests seated may be slightly better for hamstring growth than lying — the seated position places hamstrings in a more stretched starting position at the hip (Maeo et al., 2021). If your gym has both, prefer seated."
+      "notes": "Research suggests seated may be slightly better for hamstring growth than lying — the seated position places hamstrings in a more stretched starting position at the hip (Maeo et al., 2021). If your gym has both, prefer seated.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "nordic_curl",
@@ -476,11 +585,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "3-8",
       "rep_range_strength": "3-6",
-      "video_url": "https://www.muscleandstrength.com/exercises/nordic-hamstring-curl-bodyweight",
+      "video_url": "https://www.muscleandstrength.com/exercises/nordic-hamstring-curl.html",
       "beginner_tips": "Kneel on a pad, ankles hooked under something solid (heavy dumbbell, partner's hands, dedicated Nordic bench). Slowly lower forward as far as you can control, catch with hands, push back up. Even just the slow lowering is incredibly effective. Start with a very small range of motion.",
       "substitutes": [
         "leg_curl_lying",
-        "leg_curl_seated"
+        "leg_curl_seated",
+        "glute_ham_raise"
       ],
       "complements": [
         "romanian_deadlift",
@@ -491,7 +601,16 @@
         "leg_extension",
         "reverse_nordic_curl"
       ],
-      "notes": "Gold standard for hamstring injury prevention — strong research backing (van der Horst et al., 2015). Start with just the slow lowering (eccentric) phase. Superset with reverse Nordic curls for a brutal bodyweight quad/hamstring finisher."
+      "notes": "Gold standard for hamstring injury prevention — strong research backing (van der Horst et al., 2015). Start with just the slow lowering (eccentric) phase. Superset with reverse Nordic curls for a brutal bodyweight quad/hamstring finisher.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "swiss_ball_leg_curl",
@@ -514,11 +633,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://www.muscleandstrength.com/exercises/exercise-ball-hamstring-curl",
+      "video_url": "https://www.muscleandstrength.com/exercises/stability-ball-leg-curl.html",
       "beginner_tips": "Lie on back, heels on stability ball. Lift hips, curl ball toward butt by bending knees. Good bodyweight alternative when machines are taken.",
       "substitutes": [
         "leg_curl_lying",
-        "leg_curl_seated"
+        "leg_curl_seated",
+        "sliding_leg_curl"
       ],
       "complements": [
         "glute_bridge",
@@ -528,24 +648,32 @@
         "leg_extension",
         "leg_press"
       ],
-      "notes": "No machine needed. Adds core stability challenge. Keep hips high throughout — if they drop, the exercise gets easier but less effective."
+      "notes": "No machine needed. Adds core stability challenge. Keep hips high throughout — if they drop, the exercise gets easier but less effective.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "back_extension",
       "name": "Back Extension (Roman Chair / Hyperextension)",
-      "category": "isolation",
+      "category": "compound",
       "movement_pattern": "spinal_extension",
       "force_type": "pull",
       "equipment": [
         "roman_chair"
       ],
       "primary_muscles": [
-        "core",
-        "glutes"
+        "hamstrings",
+        "glutes",
+        "core"
       ],
-      "secondary_muscles": [
-        "hamstrings"
-      ],
+      "secondary_muscles": [],
       "workout_position": "mid_late",
       "difficulty": "beginner",
       "bilateral": true,
@@ -555,6 +683,7 @@
       "beginner_tips": "Face down in roman chair, hips on pad, feet hooked. Cross arms over chest. Lower torso toward floor by hinging at hips, raise back to straight line. DON'T hyperextend past neutral — stop when your body is in a straight line.",
       "substitutes": [
         "good_morning",
+        "reverse_hyper",
         "glute_bridge"
       ],
       "complements": [
@@ -564,7 +693,16 @@
       "superset_candidates": [
         "crunch"
       ],
-      "notes": "Important for lower back endurance and health. Hold a plate for more resistance. Can bias toward glutes by rounding upper back slightly and squeezing glutes at top, or bias toward erectors by keeping a flat back throughout."
+      "notes": "Important for lower back endurance and health. Hold a plate for more resistance. Can bias toward glutes by rounding upper back slightly and squeezing glutes at top, or bias toward erectors by keeping a flat back throughout. Trains hip extension, spinal extension, and erector endurance simultaneously.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "calf_raise_standing",
@@ -589,7 +727,8 @@
       "substitutes": [
         "seated_calf_raise",
         "calf_raise_on_leg_press",
-        "single_leg_calf_raise"
+        "single_leg_calf_raise",
+        "donkey_calf_raise"
       ],
       "complements": [
         "seated_calf_raise"
@@ -597,7 +736,16 @@
       "superset_candidates": [
         "seated_calf_raise"
       ],
-      "notes": "Straight knees target the gastrocnemius (visible calf muscle). Full range of motion is key — don't bounce."
+      "notes": "Straight knees target the gastrocnemius (visible calf muscle). Full range of motion is key — don't bounce.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "seated_calf_raise",
@@ -629,7 +777,16 @@
       "superset_candidates": [
         "calf_raise_standing"
       ],
-      "notes": "Bent knee targets soleus (deeper calf muscle under the gastrocnemius). Do BOTH standing AND seated for complete calves. The soleus is actually a larger muscle than the gastrocnemius."
+      "notes": "Bent knee targets soleus (deeper calf muscle under the gastrocnemius). Do BOTH standing AND seated for complete calves. The soleus is actually a larger muscle than the gastrocnemius.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "calf_raise_on_leg_press",
@@ -649,7 +806,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/45-degress-calf-press.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/leg-press-calf-raise.html",
       "beginner_tips": "After leg press sets, slide feet to bottom of platform — only toes/balls on it. Push by pointing toes. Keep the safety catches engaged just in case. Easy calf work without switching machines.",
       "substitutes": [
         "calf_raise_standing",
@@ -661,7 +818,16 @@
       "superset_candidates": [
         "leg_press"
       ],
-      "notes": "Efficient — do right after leg press sets without moving. Straight legs = gastrocnemius focus."
+      "notes": "Efficient — do right after leg press sets without moving. Straight legs = gastrocnemius focus.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "single_leg_calf_raise",
@@ -681,7 +847,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-20 per leg",
       "rep_range_strength": "10-15 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-leg-standing-calf-raise.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-one-leg-calf-raise.html",
       "beginner_tips": "Stand on one foot on a step edge. Hold something for balance. Rise on toes, lower slowly past the edge for a full stretch. Hold dumbbell for resistance.",
       "substitutes": [
         "calf_raise_standing",
@@ -691,7 +857,16 @@
         "calf_raise_standing"
       ],
       "superset_candidates": [],
-      "notes": "Can be done anywhere with a step. Great for fixing calf imbalances between legs."
+      "notes": "Can be done anywhere with a step. Great for fixing calf imbalances between legs.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "kettlebell_swing",
@@ -716,11 +891,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/kettlebell-swing",
+      "video_url": "https://www.muscleandstrength.com/exercises/two-arm-kettlebell-swing.html",
       "beginner_tips": "Feet wider than shoulders. Hike kettlebell between legs, SNAP hips forward to swing it to chest height. Arms don't lift — hips do. It's a hip hinge, not a squat. Power comes from your glutes, not your arms or shoulders.",
       "substitutes": [
         "cable_pull_through",
-        "hip_thrust"
+        "hip_thrust",
+        "kb_single_arm_swing"
       ],
       "complements": [
         "goblet_squat",
@@ -729,7 +905,708 @@
       "superset_candidates": [
         "goblet_squat"
       ],
-      "notes": "Excellent for conditioning and explosive hip power. Form matters more than weight. Master the cable pull-through or RDL hip hinge pattern first."
+      "notes": "Excellent for conditioning and explosive hip power. Form matters more than weight. Master the cable pull-through or RDL hip hinge pattern first.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "glute_ham_raise",
+      "name": "Glute-Ham Raise (GHR)",
+      "category": "compound",
+      "movement_pattern": "knee_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "roman_chair"
+      ],
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "calves",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "4-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/glute-ham-raise.html",
+      "beginner_tips": "Set up in a GHR bench with knees on the pad and feet locked in. Start with torso parallel to the floor. Pull yourself up by curling your heels and squeezing glutes. Use a band for assistance if you can't do a full rep. Push off with hands at the bottom to assist if needed.",
+      "substitutes": [
+        "nordic_curl",
+        "leg_curl_lying",
+        "leg_curl_seated",
+        "sliding_leg_curl"
+      ],
+      "complements": [
+        "romanian_deadlift",
+        "back_extension",
+        "leg_extension"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "reverse_nordic_curl"
+      ],
+      "notes": "One of the best hamstring exercises — trains both knee flexion and hip extension simultaneously, mimicking how hamstrings function in sprinting. The eccentric loading is excellent for injury prevention (Schoenfeld, 2010). Requires a dedicated GHR machine or a modified roman chair.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "reverse_hyper",
+      "name": "Reverse Hyperextension",
+      "category": "compound",
+      "movement_pattern": "hip_extension",
+      "force_type": "pull",
+      "equipment": [
+        "roman_chair"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-hyperextension.html",
+      "beginner_tips": "Lie face-down on a bench or GHR with hips at the edge and upper body on the pad. Let legs hang down. Raise legs by squeezing glutes until body is in a straight line. Control the lowering — don't swing. Can be done on a flat bench or roman chair if no dedicated machine is available.",
+      "substitutes": [
+        "back_extension",
+        "good_morning",
+        "cable_pull_through"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "hip_thrust",
+        "romanian_deadlift"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "plank"
+      ],
+      "notes": "Made popular by Louie Simmons at Westside Barbell. Decompresses the spine under light load while strengthening glutes and hamstrings — excellent for lifters with back issues. Unlike back extensions, the torso is fixed and the legs move, which reduces spinal loading.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "hip_extension_machine",
+      "name": "Standing Hip Extension Machine",
+      "category": "isolation",
+      "movement_pattern": "hip_extension",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-15 per leg",
+      "rep_range_strength": "8-12 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-hip-extension.html",
+      "beginner_tips": "Attach ankle strap to low cable. Face the machine, hold the frame for balance. Drive your leg straight back, squeezing your glute at the top. Keep your torso upright — don't lean forward. Control the return. Can also be done on a dedicated hip extension machine.",
+      "substitutes": [
+        "cable_kickback",
+        "hip_thrust",
+        "glute_bridge"
+      ],
+      "complements": [
+        "hip_thrust",
+        "leg_curl_lying",
+        "hip_abduction_machine"
+      ],
+      "superset_candidates": [
+        "leg_extension"
+      ],
+      "notes": "Simple glute isolation that is easy on the lower back. Great for beginners learning to activate glutes before progressing to hip thrusts. The standing position allows a good glute stretch at the bottom of the movement.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "kb_single_arm_swing",
+      "name": "Single-Arm Kettlebell Swing",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "core",
+        "shoulders",
+        "forearms"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15 per arm",
+      "rep_range_strength": "8-12 per arm",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-kettlebell-swing.html",
+      "beginner_tips": "Same hip snap as the two-arm swing, but with one hand. This adds an anti-rotation core challenge. Start lighter than your two-arm swing weight. Keep shoulders square — don't rotate your torso. Switch hands at the top of the swing.",
+      "substitutes": [
+        "kettlebell_swing",
+        "cable_pull_through"
+      ],
+      "complements": [
+        "goblet_squat",
+        "farmer_walk",
+        "kettlebell_swing"
+      ],
+      "superset_candidates": [
+        "goblet_squat"
+      ],
+      "notes": "Adds anti-rotation core demand and grip challenge compared to the two-arm version. The asymmetric loading trains obliques and improves rotational stability. Master the two-arm swing first before progressing to single-arm.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "kb_rdl",
+      "name": "Kettlebell Romanian Deadlift",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/kettlebell-romanian-deadlift.html",
+      "beginner_tips": "Hold a kettlebell by the handle with both hands in front of you. Push hips back with slight knee bend, lowering the kettlebell along your legs. Feel the hamstring stretch, then squeeze glutes to stand. The kettlebell hangs between your legs — allows a deeper stretch than dumbbells at your sides.",
+      "substitutes": [
+        "dumbbell_rdl",
+        "romanian_deadlift",
+        "cable_pull_through"
+      ],
+      "complements": [
+        "goblet_squat",
+        "leg_curl_lying",
+        "kettlebell_swing",
+        "kb_front_squat",
+        "kb_goblet_lunge"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "goblet_squat",
+        "banded_squat",
+        "kb_front_squat"
+      ],
+      "notes": "The centered load position (between legs) allows a deeper hip hinge than dumbbells at the sides. Great for home gyms where a barbell is not available. Pairs naturally with goblet squats for a minimalist kettlebell leg session.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "sliding_leg_curl",
+      "name": "Sliding Leg Curl (Towel / Sliders)",
+      "category": "isolation",
+      "movement_pattern": "knee_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/sliding-leg-curl.html",
+      "beginner_tips": "Lie on your back with heels on sliders, towels, or paper plates on a smooth floor. Lift hips into a bridge. Slide heels away from you slowly (eccentric), then curl them back. Keep hips up the entire time. If too hard, do just the slide-out and reset between reps.",
+      "substitutes": [
+        "swiss_ball_leg_curl",
+        "leg_curl_lying",
+        "leg_curl_seated",
+        "banded_leg_curl"
+      ],
+      "complements": [
+        "single_leg_glute_bridge",
+        "glute_bridge",
+        "back_extension"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "reverse_nordic_curl",
+        "banded_squat",
+        "wall_sit"
+      ],
+      "notes": "Excellent at-home hamstring exercise requiring no equipment. The eccentric phase is very demanding — similar stimulus to Nordic curls but more accessible. Keep hips elevated throughout for maximum hamstring engagement. Progression: two-leg slide out, single-leg curl back.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "single_leg_glute_bridge",
+      "name": "Single-Leg Glute Bridge",
+      "category": "isolation",
+      "movement_pattern": "hip_extension",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-15 per leg",
+      "rep_range_strength": "8-12 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/single-leg-glute-bridge.html",
+      "beginner_tips": "Lie on your back, one foot flat on the floor with knee bent, other leg extended or held up. Drive through the planted heel to lift hips. Squeeze glute at top for 1-2 seconds. Lower slowly. Keep hips level — don't let them tilt to one side.",
+      "substitutes": [
+        "glute_bridge",
+        "hip_thrust",
+        "hip_extension_machine"
+      ],
+      "complements": [
+        "sliding_leg_curl",
+        "single_leg_rdl",
+        "back_extension"
+      ],
+      "superset_candidates": [
+        "leg_extension"
+      ],
+      "notes": "Unilateral glute exercise requiring zero equipment. Excellent for identifying and correcting left-right glute imbalances. Progresses naturally to single-leg hip thrusts. Can be used as a glute activation drill before heavy squats or deadlifts.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "donkey_calf_raise",
+      "name": "Donkey Calf Raise",
+      "category": "isolation",
+      "movement_pattern": "ankle_plantar_flexion",
+      "force_type": "push",
+      "equipment": [
+        "calf_raise_machine"
+      ],
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/donkey-calf-raise.html",
+      "beginner_tips": "Lean forward with torso roughly parallel to the floor, hips under the pad of a donkey calf raise machine. Balls of feet on the platform edge. Rise on toes as high as possible, then lower heels below the platform for a deep stretch. If no machine is available, lean on a raised surface and have a partner sit on your lower back.",
+      "substitutes": [
+        "calf_raise_standing",
+        "calf_raise_on_leg_press",
+        "single_leg_calf_raise"
+      ],
+      "complements": [
+        "seated_calf_raise",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "seated_calf_raise"
+      ],
+      "notes": "The bent-hip position pre-stretches the gastrocnemius more than a standing calf raise, potentially offering a superior hypertrophy stimulus. Arnold Schwarzenegger famously credited donkey calf raises for his calf development. Not available at every gym — use calf press on leg press as an alternative stretch position.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "banded_good_morning",
+      "name": "Banded Good Morning",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/banded-good-morning.html",
+      "beginner_tips": "Stand on the center of a resistance band with feet hip-width apart. Loop the other end around the back of your neck (over upper traps). Hinge forward at the hips with a slight knee bend, feel the hamstring stretch, then squeeze glutes to stand up. The band provides increasing resistance as you stand — hardest at the top.",
+      "substitutes": [
+        "good_morning",
+        "cable_pull_through",
+        "dumbbell_rdl"
+      ],
+      "complements": [
+        "banded_leg_curl",
+        "glute_bridge",
+        "single_leg_glute_bridge",
+        "banded_squat"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "reverse_nordic_curl",
+        "banded_squat",
+        "wall_sit"
+      ],
+      "notes": "Great entry-level hip hinge with accommodating resistance — the band is lightest at the bottom (where the spine is most vulnerable) and heaviest at the top (where you're strongest). Perfect for warm-ups, home training, or teaching the good morning pattern before loading with a barbell.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "banded_leg_curl",
+      "name": "Banded Leg Curl (Prone)",
+      "category": "isolation",
+      "movement_pattern": "knee_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-25",
+      "rep_range_strength": "12-20",
+      "video_url": "https://www.muscleandstrength.com/exercises/banded-leg-curl.html",
+      "beginner_tips": "Anchor a band low (around a rack or heavy furniture). Lie face down and loop the band around your ankles. Curl heels toward butt against band resistance. Squeeze at top, lower slowly. Band tension increases as you curl — hardest at full contraction.",
+      "substitutes": [
+        "leg_curl_lying",
+        "swiss_ball_leg_curl",
+        "sliding_leg_curl"
+      ],
+      "complements": [
+        "banded_good_morning",
+        "glute_bridge",
+        "single_leg_glute_bridge",
+        "banded_squat"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "reverse_nordic_curl",
+        "banded_squat",
+        "wall_sit"
+      ],
+      "notes": "Simple, low-cost hamstring isolation — only requires a resistance band and an anchor point. The ascending resistance profile (harder at contraction) is well-suited for hamstring curls since the muscle is strongest in the shortened position. Good for warm-ups, rehab, or home training when no leg curl machine is available.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "snatch_grip_deadlift",
+      "name": "Snatch-Grip Deadlift",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "upper_back",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "traps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "5-8",
+      "rep_range_strength": "2-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/snatch-grip-deadlift.html",
+      "beginner_tips": "Same setup as conventional deadlift but with hands much wider — roughly where they would be in a snatch (index fingers on the outer ring markings or wider). This forces a deeper start position and more upper back engagement. Start with significantly less weight than your conventional deadlift. Use hook grip or straps — the wide grip taxes grip heavily.",
+      "substitutes": [
+        "conventional_deadlift",
+        "deficit_deadlift",
+        "romanian_deadlift"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "barbell_row",
+        "barbell_shrug",
+        "farmer_walk"
+      ],
+      "superset_candidates": [
+        "dead_bug",
+        "plank"
+      ],
+      "notes": "The wide grip increases range of motion and forces a lower hip start position, dramatically increasing upper back, trap, and hamstring demand. A favorite of Olympic weightlifters and powerlifters for building pulling strength from the floor. Expect to use 20-30% less weight than conventional deadlift.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "moderate",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "deficit_deadlift",
+      "name": "Deficit Deadlift",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "glutes",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "core",
+        "forearms",
+        "traps"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "4-8",
+      "rep_range_strength": "1-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/deficit-deadlift.html",
+      "beginner_tips": "Stand on a 1-3 inch platform (bumper plate or low riser). Deadlift from this elevated position — the bar starts lower relative to your body, increasing range of motion. Use less weight than your floor deadlift. Keep your back flat — the deeper start position makes rounding more likely. Start with a 1-inch deficit.",
+      "substitutes": [
+        "conventional_deadlift",
+        "snatch_grip_deadlift",
+        "sumo_deadlift"
+      ],
+      "complements": [
+        "rack_pull",
+        "leg_curl_lying",
+        "leg_press",
+        "barbell_row"
+      ],
+      "superset_candidates": [
+        "dead_bug",
+        "plank"
+      ],
+      "notes": "Increases range of motion by 1-3 inches, making the pull off the floor harder. Excellent for lifters who are weak off the floor in conventional deadlifts. The extended ROM increases quad and hamstring demand. Pairs well with rack pulls — one trains the bottom, the other trains the top.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "pause_deadlift",
+      "name": "Pause Deadlift",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "glutes",
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "4-8",
+      "rep_range_strength": "2-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/pause-deadlift.html",
+      "beginner_tips": "Set up like a conventional deadlift. Pull bar off the floor, then PAUSE for 2-3 seconds just below knee height. Keep everything tight — don't let your back round. After the pause, complete the lift. Use 60-75% of your regular deadlift weight.",
+      "substitutes": [
+        "conventional_deadlift",
+        "deficit_deadlift"
+      ],
+      "complements": [
+        "rack_pull",
+        "leg_curl_lying",
+        "barbell_row",
+        "conventional_deadlift"
+      ],
+      "superset_candidates": [
+        "dead_bug",
+        "plank"
+      ],
+      "notes": "Eliminates the stretch-shortening cycle, forcing you to maintain tension through the sticking point. Builds positional strength and reinforces proper back position under load. If your back rounds during regular deadlifts, pause deadlifts will teach you to stay tight. Use 60-75% of 1RM.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "landmine_rdl",
+      "name": "Landmine Romanian Deadlift",
+      "category": "compound",
+      "movement_pattern": "hip_hinge",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "hamstrings",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/landmine-rdl.html",
+      "beginner_tips": "Insert one end of a barbell into a landmine attachment or corner. Stand facing the free end, feet hip-width apart. Hold the end of the bar with both hands. Hinge at the hips, pushing your butt back, lowering the bar between your legs. Squeeze glutes to stand. The arc path of the barbell naturally guides you into proper hinge form.",
+      "substitutes": [
+        "romanian_deadlift",
+        "dumbbell_rdl",
+        "kb_rdl"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "back_extension",
+        "leg_extension"
+      ],
+      "superset_candidates": [
+        "leg_extension"
+      ],
+      "notes": "The landmine's arc path provides a more natural movement trajectory than a barbell RDL. The load vector changes through the range of motion (more horizontal at the bottom, more vertical at the top), which some lifters find more comfortable on the lower back. Also works well for single-leg variations.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "file": "01_legs_quads_glutes.json",
-  "description": "Squat variations, lunges, leg press, leg extensions, hip thrusts, glute work",
-  "exercise_count": 30,
+  "description": "Squat variations, lunges, leg press, leg extensions, hip thrusts, glute work, single-leg work, banded movements",
+  "exercise_count": 46,
   "exercises": [
     {
       "id": "bodyweight_squat",
@@ -42,7 +42,16 @@
         "plank",
         "dead_bug"
       ],
-      "notes": "The starting point for all beginners. Great warmup before heavy squats."
+      "notes": "The starting point for all beginners. Great warmup before heavy squats.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "goblet_squat",
@@ -71,7 +80,8 @@
       "substitutes": [
         "barbell_back_squat",
         "leg_press",
-        "dumbbell_squat"
+        "dumbbell_squat",
+        "kb_front_squat"
       ],
       "complements": [
         "leg_curl_lying",
@@ -86,7 +96,16 @@
         "dead_bug",
         "kettlebell_swing"
       ],
-      "notes": "The front-loaded weight prevents leaning forward. Perfect learning tool. Practical loading ceiling — most people outgrow it and move to barbell or leg press."
+      "notes": "The front-loaded weight prevents leaning forward. Perfect learning tool. Practical loading ceiling — most people outgrow it and move to barbell or leg press.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "dumbbell_squat",
@@ -127,7 +146,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Simpler grip than goblet squat for heavier loads."
+      "notes": "Simpler grip than goblet squat for heavier loads.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "barbell_back_squat",
@@ -178,7 +206,16 @@
         "plank",
         "dead_bug"
       ],
-      "notes": "The king of leg exercises. Wider stance increases adductor demand, narrower increases knee travel and quad ROM. If you can only do one leg exercise, do this."
+      "notes": "The king of leg exercises. Wider stance increases adductor demand, narrower increases knee travel and quad ROM. If you can only do one leg exercise, do this.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "barbell_front_squat",
@@ -223,7 +260,16 @@
         "plank",
         "hanging_leg_raise"
       ],
-      "notes": "More quad-focused and easier on the lower back than back squat. The upright torso makes it self-correcting. Difficulty is intermediate, not advanced — the cross-arm grip makes it accessible."
+      "notes": "More quad-focused and easier on the lower back than back squat. The upright torso makes it self-correcting. Difficulty is intermediate, not advanced — the cross-arm grip makes it accessible.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "smith_machine_squat",
@@ -266,7 +312,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Safe solo squatting option. The fixed bar path removes the balance demand, letting you focus on pushing hard."
+      "notes": "Safe solo squatting option. The fixed bar path removes the balance demand, letting you focus on pushing hard.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
     },
     {
       "id": "hack_squat_machine",
@@ -295,7 +350,8 @@
         "leg_press",
         "barbell_back_squat",
         "smith_machine_squat",
-        "pendulum_squat"
+        "pendulum_squat",
+        "v_squat"
       ],
       "complements": [
         "romanian_deadlift",
@@ -309,7 +365,16 @@
         "plank",
         "hanging_leg_raise"
       ],
-      "notes": "Foot placement changes everything: high/wide = glute emphasis, low/narrow = quad emphasis."
+      "notes": "Foot placement changes everything: high/wide = glute emphasis, low/narrow = quad emphasis.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "pendulum_squat",
@@ -347,7 +412,16 @@
       "superset_candidates": [
         "leg_curl_lying"
       ],
-      "notes": "Increasingly common in well-equipped gyms. The arc path loads quads through a deeper stretch than a hack squat, with zero spinal compression. One of the best pure quad machines available."
+      "notes": "Increasingly common in well-equipped gyms. The arc path loads quads through a deeper stretch than a hack squat, with zero spinal compression. One of the best pure quad machines available.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "belt_squat",
@@ -390,7 +464,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Zero spinal compression — the best squat option for anyone with back issues or for adding squat volume without taxing recovery. Allows heavy loading with the spine completely unloaded. Not every gym has one, but more are adding them."
+      "notes": "Zero spinal compression — the best squat option for anyone with back issues or for adding squat volume without taxing recovery. Allows heavy loading with the spine completely unloaded. Not every gym has one, but more are adding them.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "leg_press",
@@ -435,7 +518,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Handles very heavy weight with almost zero spinal stress. High foot = more glute, low foot = more quad."
+      "notes": "Handles very heavy weight with almost zero spinal stress. High foot = more glute, low foot = more quad.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "seated_leg_press",
@@ -479,7 +571,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Many gyms have these alongside 45-degree presses. The horizontal path creates a slightly different resistance curve — tends to be harder at the bottom. Very beginner-friendly since you sit upright."
+      "notes": "Many gyms have these alongside 45-degree presses. The horizontal path creates a slightly different resistance curve — tends to be harder at the bottom. Very beginner-friendly since you sit upright.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "single_leg_leg_press",
@@ -507,7 +608,8 @@
       "substitutes": [
         "bulgarian_split_squat",
         "leg_press",
-        "step_up"
+        "step_up",
+        "single_leg_box_squat"
       ],
       "complements": [
         "single_leg_rdl",
@@ -519,7 +621,16 @@
         "leg_curl_lying",
         "leg_extension"
       ],
-      "notes": "Best way to find and fix left/right strength imbalances with measurable loading. Much more stable than single-leg squats — the machine handles the balance for you."
+      "notes": "Best way to find and fix left/right strength imbalances with measurable loading. Much more stable than single-leg squats — the machine handles the balance for you.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "leg_extension",
@@ -557,7 +668,16 @@
         "romanian_deadlift",
         "hip_thrust"
       ],
-      "notes": "The only machine that fully isolates quads. Great finisher after squats or leg press. Note: the seated position shortens the rectus femoris at the hip, so it primarily loads the vasti muscles. Pair with reverse nordics or sissy squats for complete quad coverage."
+      "notes": "The only machine that fully isolates quads. Great finisher after squats or leg press. Note: the seated position shortens the rectus femoris at the hip, so it primarily loads the vasti muscles. Pair with reverse nordics or sissy squats for complete quad coverage.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "reverse_nordic_curl",
@@ -593,7 +713,16 @@
       "superset_candidates": [
         "nordic_curl"
       ],
-      "notes": "The quad counterpart to the Nordic hamstring curl. Loads the rectus femoris at long muscle lengths, which leg extensions cannot do. Growing research support for both quad hypertrophy and patellar tendon health (Alonso-Fernandez et al., 2023). Superset with Nordic curls for a brutal bodyweight leg finisher."
+      "notes": "The quad counterpart to the Nordic hamstring curl. Loads the rectus femoris at long muscle lengths, which leg extensions cannot do. Growing research support for both quad hypertrophy and patellar tendon health (Alonso-Fernandez et al., 2023). Superset with Nordic curls for a brutal bodyweight leg finisher.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "sissy_squat",
@@ -627,7 +756,16 @@
       "superset_candidates": [
         "leg_curl_lying"
       ],
-      "notes": "Old-school quad exercise. No equipment needed. Similar to reverse Nordic but on toes instead of kneeling. Be cautious if you have existing knee pain — but for healthy knees, loading in deep knee flexion is generally safe and beneficial."
+      "notes": "Old-school quad exercise. No equipment needed. Similar to reverse Nordic but on toes instead of kneeling. Be cautious if you have existing knee pain — but for healthy knees, loading in deep knee flexion is generally safe and beneficial.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "spanish_squat",
@@ -664,7 +802,16 @@
       "superset_candidates": [
         "leg_curl_lying"
       ],
-      "notes": "Widely used in physio and sport science for patellar tendon rehab and quad strengthening. The band deloads the knee joint while keeping high quad demand. Great for warmups, prehab, or adding quad volume with minimal joint stress."
+      "notes": "Widely used in physio and sport science for patellar tendon rehab and quad strengthening. The band deloads the knee joint while keeping high quad demand. Great for warmups, prehab, or adding quad volume with minimal joint stress.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "walking_lunge",
@@ -708,7 +855,16 @@
         "leg_extension",
         "plank"
       ],
-      "notes": "Longer stride = more glute, shorter stride = more quad."
+      "notes": "Longer stride = more glute, shorter stride = more quad.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "reverse_lunge",
@@ -732,12 +888,13 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "6-10 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-rear-lunge.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-reverse-lunge.html",
       "beginner_tips": "Step BACKWARD instead of forward. Much easier on the knees. Lower until back knee nearly touches floor, then push back to standing.",
       "substitutes": [
         "walking_lunge",
         "bulgarian_split_squat",
-        "step_up"
+        "step_up",
+        "lateral_lunge"
       ],
       "complements": [
         "leg_curl_lying",
@@ -751,7 +908,16 @@
         "leg_extension",
         "plank"
       ],
-      "notes": "Recommended over forward lunges for beginners — less knee stress and easier to balance."
+      "notes": "Recommended over forward lunges for beginners — less knee stress and easier to balance.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "stationary_lunge",
@@ -793,7 +959,16 @@
         "leg_curl_lying",
         "plank"
       ],
-      "notes": "Simplest lunge variation. Perfect starting point before walking or Bulgarian."
+      "notes": "Simplest lunge variation. Perfect starting point before walking or Bulgarian.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "bulgarian_split_squat",
@@ -818,7 +993,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "8-12 per leg",
       "rep_range_strength": "5-8 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/one-leg-dumbbell-squat-aka-bulgarian-squat.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-bulgarian-split-squat.html",
       "beginner_tips": "Back foot elevated on a bench behind you. Hold dumbbells at sides. Lower until front thigh is parallel to floor. It burns — that's normal!",
       "substitutes": [
         "walking_lunge",
@@ -840,7 +1015,16 @@
         "leg_extension",
         "plank"
       ],
-      "notes": "Research shows these build quads as well as back squats (Speirs et al., 2016). Excellent for fixing left/right imbalances. Also loads glutes in a deep stretch which may be superior for hypertrophy."
+      "notes": "Research shows these build quads as well as back squats (Speirs et al., 2016). Excellent for fixing left/right imbalances. Also loads glutes in a deep stretch which may be superior for hypertrophy.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "step_up",
@@ -884,7 +1068,16 @@
         "leg_curl_lying",
         "leg_extension"
       ],
-      "notes": "Higher box = more glute. Very functional — mimics stair climbing. Common mistake: pushing off with the trailing leg, which defeats the purpose."
+      "notes": "Higher box = more glute. Very functional — mimics stair climbing. Common mistake: pushing off with the trailing leg, which defeats the purpose.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hip_thrust",
@@ -908,12 +1101,13 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10",
-      "video_url": "https://www.muscleandstrength.com/exercises/barbell-hip-thrust",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-hip-thrust.html",
       "beginner_tips": "Upper back on bench, barbell across hips (use a pad). Drive hips up by squeezing glutes until body is a straight line from shoulders to knees. Squeeze HARD at top. Tuck chin slightly — looking straight ahead, not at the ceiling.",
       "substitutes": [
         "glute_bridge",
         "cable_pull_through",
-        "smith_machine_hip_thrust"
+        "smith_machine_hip_thrust",
+        "glute_drive_machine"
       ],
       "complements": [
         "barbell_back_squat",
@@ -927,7 +1121,16 @@
         "banded_clamshell",
         "leg_curl_lying"
       ],
-      "notes": "Research shows very high peak glute activation (Contreras et al.). However, exercises that load glutes in a deep stretch — like deep squats, Bulgarian split squats, and RDLs — may produce comparable or superior glute growth. Best used alongside stretch-focused exercises, not instead of them."
+      "notes": "Research shows very high peak glute activation (Contreras et al.). However, exercises that load glutes in a deep stretch — like deep squats, Bulgarian split squats, and RDLs — may produce comparable or superior glute growth. Best used alongside stretch-focused exercises, not instead of them.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "smith_machine_hip_thrust",
@@ -951,11 +1154,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10",
-      "video_url": "https://weighttraining.guide/exercises/barbell-hip-thrust/",
+      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-hip-thrust.html",
       "beginner_tips": "Much easier setup than barbell version. Bench behind Smith machine, bar across hips with pad. Unhook and drive hips up. Bar won't roll around on you. Rotate to re-rack when done.",
       "substitutes": [
         "hip_thrust",
-        "glute_bridge"
+        "glute_bridge",
+        "glute_drive_machine"
       ],
       "complements": [
         "barbell_back_squat",
@@ -968,7 +1172,16 @@
         "banded_clamshell",
         "leg_curl_lying"
       ],
-      "notes": "Easier to get into position than free barbell. The Smith bar stays in place — no rolling. Great for beginners who find barbell hip thrust setup awkward."
+      "notes": "Easier to get into position than free barbell. The Smith bar stays in place — no rolling. Great for beginners who find barbell hip thrust setup awkward.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "glute_bridge",
@@ -990,11 +1203,12 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-20",
       "rep_range_strength": "8-15",
-      "video_url": "https://weighttraining.guide/exercises/barbell-glute-bridge/",
+      "video_url": "https://www.muscleandstrength.com/exercises/glute-bridge.html",
       "beginner_tips": "Lie on back, knees bent, feet flat. Push hips up by squeezing glutes. Hold 1 second at top. Easier than hip thrust — no bench needed.",
       "substitutes": [
         "hip_thrust",
-        "cable_pull_through"
+        "cable_pull_through",
+        "glute_drive_machine"
       ],
       "complements": [
         "barbell_back_squat",
@@ -1008,7 +1222,67 @@
         "banded_clamshell",
         "leg_curl_lying"
       ],
-      "notes": "Perfect warmup for activating glutes before squats/deadlifts. Add a barbell across hips for more resistance. Same movement pattern as hip thrust, just from the floor."
+      "notes": "Perfect warmup for activating glutes before squats/deadlifts. Add a barbell across hips for more resistance. Same movement pattern as hip thrust, just from the floor.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "glute_drive_machine",
+      "name": "Glute Drive Machine (Hip Thrust Machine)",
+      "category": "compound",
+      "movement_pattern": "hip_extension",
+      "force_type": "push",
+      "equipment": [
+        "hip_thrust_machine"
+      ],
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-hip-thrust",
+      "beginner_tips": "Sit in the machine with your upper back against the pad and feet flat on the platform, roughly shoulder-width apart. Adjust the belt or pad so it sits across your hip crease. Drive through your heels and squeeze your glutes to full extension — your torso and thighs should form a straight line at the top. Avoid hyperextending your lower back; think about tucking your ribs toward your pelvis at lockout. Lower under control. Start with a light load to learn the hip hinge pattern before adding plates.",
+      "substitutes": [
+        "hip_thrust",
+        "smith_machine_hip_thrust",
+        "glute_bridge"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "romanian_deadlift",
+        "leg_curl_lying",
+        "hip_abduction_machine",
+        "cable_kickback"
+      ],
+      "superset_candidates": [
+        "leg_extension",
+        "leg_curl_lying",
+        "leg_curl_seated"
+      ],
+      "notes": "The glute drive machine (e.g., Nautilus Glute Drive) is a plate-loaded hip thrust machine that eliminates the setup complexity of barbell hip thrusts — no bench positioning, no barbell pad, no rolling the bar into place. Research by Contreras et al. (2015, 2020) consistently shows hip thrusts produce among the highest glute EMG activation of any exercise, rivaling or exceeding squats and deadlifts for the gluteus maximus. The machine variant provides a fixed back pad and hip belt, making it easier to load progressively and reducing lower back involvement compared to barbell hip thrusts. The movement is primarily concentric/eccentric hip extension with minimal spinal loading, making it joint-friendly for lifters with back issues. Ideal placement: after heavy compounds (squats, deadlifts) for targeted glute work, or as a primary movement on a glute-focused day.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "cable_pull_through",
@@ -1031,7 +1305,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://weighttraining.guide/exercises/cable-pull-through/",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-pull-through.html",
       "beginner_tips": "Face away from low cable with rope between legs. Hinge forward at hips, then stand by squeezing glutes. Cable keeps tension the whole time. Best exercise for LEARNING the hip hinge before progressing to deadlifts.",
       "substitutes": [
         "hip_thrust",
@@ -1049,7 +1323,16 @@
         "leg_extension",
         "leg_curl_lying"
       ],
-      "notes": "If you can't feel your glutes/hamstrings during deadlifts, do these first to learn the pattern. Can also serve as a primary hip hinge for beginners not ready for barbell work."
+      "notes": "If you can't feel your glutes/hamstrings during deadlifts, do these first to learn the pattern. Can also serve as a primary hip hinge for beginners not ready for barbell work.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "cable_kickback",
@@ -1071,7 +1354,7 @@
       "bilateral": false,
       "rep_range_hypertrophy": "12-15 per leg",
       "rep_range_strength": "10-12 per leg",
-      "video_url": "https://www.muscleandstrength.com/exercises/glute-kick-back.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-glute-kickback.html",
       "beginner_tips": "Ankle strap on low cable. Face machine, hold on, kick leg straight back while squeezing glute. Don't arch lower back — movement comes from hip only.",
       "substitutes": [
         "hip_thrust",
@@ -1088,7 +1371,16 @@
         "leg_extension",
         "leg_curl_lying"
       ],
-      "notes": "Targets one glute at a time. Constant cable tension throughout the movement."
+      "notes": "Targets one glute at a time. Constant cable tension throughout the movement.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "sumo_squat",
@@ -1113,7 +1405,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
-      "video_url": "https://weighttraining.guide/exercises/dumbbell-sumo-squat/",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-sumo-squat.html",
       "beginner_tips": "Wide stance, toes pointed out. Hold dumbbell hanging between legs. Squat down until dumbbell nearly touches floor. Stand by pushing through whole foot.",
       "substitutes": [
         "goblet_squat",
@@ -1130,7 +1422,16 @@
         "leg_curl_lying",
         "hip_abduction_machine"
       ],
-      "notes": "Wide stance hits inner thighs (adductors) and glutes more than regular squat."
+      "notes": "Wide stance hits inner thighs (adductors) and glutes more than regular squat.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hip_adduction_machine",
@@ -1150,7 +1451,7 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/hip-adduction-machine.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-hip-adduction.html",
       "beginner_tips": "Sit in machine, pads on inner knees/thighs. Squeeze legs together against resistance, then slowly open back up.",
       "substitutes": [
         "sumo_squat"
@@ -1162,7 +1463,16 @@
       "superset_candidates": [
         "hip_abduction_machine"
       ],
-      "notes": "Often overlooked but important for inner thigh strength and knee stability."
+      "notes": "Often overlooked but important for inner thigh strength and knee stability.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "hip_abduction_machine",
@@ -1183,10 +1493,11 @@
       "bilateral": true,
       "rep_range_hypertrophy": "12-20",
       "rep_range_strength": "10-15",
-      "video_url": "https://www.muscleandstrength.com/exercises/hip-abduction-machine.html",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-hip-abduction.html",
       "beginner_tips": "Sit in machine, pads on outer knees/thighs. Push legs apart against resistance. You'll feel it in the sides of your hips.",
       "substitutes": [
-        "banded_clamshell"
+        "banded_clamshell",
+        "banded_lateral_walk"
       ],
       "complements": [
         "hip_adduction_machine",
@@ -1196,7 +1507,16 @@
       "superset_candidates": [
         "hip_adduction_machine"
       ],
-      "notes": "Targets glute medius — important for hip stability and preventing knee cave during squats."
+      "notes": "Targets glute medius — important for hip stability and preventing knee cave during squats.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
     },
     {
       "id": "banded_clamshell",
@@ -1218,10 +1538,11 @@
       "bilateral": false,
       "rep_range_hypertrophy": "15-25 per side",
       "rep_range_strength": "12-20 per side",
-      "video_url": "https://weighttraining.guide/exercises/resistance-band-clamshell/",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-hip-abduction.html",
       "beginner_tips": "Lie on your side, knees bent 90 degrees, band around knees. Keep feet together and open your top knee like a clamshell. Squeeze at the top for a second. You should feel it deep in the side/back of your hip. Don't roll your hips backward.",
       "substitutes": [
-        "hip_abduction_machine"
+        "hip_abduction_machine",
+        "banded_lateral_walk"
       ],
       "complements": [
         "hip_thrust",
@@ -1231,7 +1552,786 @@
       "superset_candidates": [
         "glute_bridge"
       ],
-      "notes": "Excellent glute medius activation for warmups and prehab. Do 2 sets per side before squatting to wake up the glute med and reduce knee cave. Can be done anywhere with a cheap band."
+      "notes": "Excellent glute medius activation for warmups and prehab. Do 2 sets per side before squatting to wake up the glute med and reduce knee cave. Can be done anywhere with a cheap band.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "pistol_squat",
+      "name": "Pistol Squat (Single-Leg Squat)",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core",
+        "calves"
+      ],
+      "workout_position": "mid",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "5-10 per leg",
+      "rep_range_strength": "3-6 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/pistol-squat.html",
+      "beginner_tips": "Stand on one leg with the other leg extended straight out in front. Squat all the way down on one leg keeping the other off the floor, then stand back up. Use a pole, TRX, or doorframe for assistance while learning. Requires excellent ankle mobility, hip flexibility, and single-leg strength.",
+      "substitutes": [
+        "shrimp_squat",
+        "bulgarian_split_squat",
+        "single_leg_leg_press",
+        "single_leg_box_squat"
+      ],
+      "complements": [
+        "leg_extension",
+        "single_leg_rdl",
+        "hip_thrust",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "nordic_curl",
+        "plank"
+      ],
+      "notes": "The gold standard of single-leg bodyweight strength. Requires full ankle dorsiflexion, hip flexor flexibility (to hold the extended leg), and exceptional quad and glute strength. Progress from single-leg box squat → assisted pistol → full pistol. Not inherently dangerous for knees — research supports deep single-leg squatting as safe for healthy joints.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "shrimp_squat",
+      "name": "Shrimp Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "5-10 per leg",
+      "rep_range_strength": "3-6 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/pistol-squat.html",
+      "beginner_tips": "Stand on one leg and grab the foot of your other leg behind you (like a quad stretch). Squat down on the standing leg while keeping the rear foot held behind you, touching the rear knee to the floor. Stand back up. Use a wall or pole for balance while learning.",
+      "substitutes": [
+        "pistol_squat",
+        "bulgarian_split_squat",
+        "single_leg_box_squat"
+      ],
+      "complements": [
+        "leg_extension",
+        "single_leg_rdl",
+        "hip_thrust"
+      ],
+      "superset_candidates": [
+        "nordic_curl",
+        "plank"
+      ],
+      "notes": "Demands more quad strength at deep flexion than a pistol squat because the rear leg is held behind rather than in front. Less hip flexor demand than pistols. Great progression after mastering single-leg box squats. Emphasizes knee flexion ROM and quad control at long muscle lengths.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "wall_sit",
+      "name": "Wall Sit",
+      "category": "isolation",
+      "movement_pattern": "squat",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-60 seconds",
+      "rep_range_strength": "45-90 seconds",
+      "video_url": "https://www.muscleandstrength.com/exercises/bodyweight-squat.html",
+      "beginner_tips": "Lean back against a wall and slide down until your thighs are parallel to the floor (knees at 90 degrees). Hold this position. Keep your back flat against the wall and don't let your hips drop below your knees. Your quads will burn — that's the point.",
+      "substitutes": [
+        "spanish_squat",
+        "leg_extension",
+        "bodyweight_squat"
+      ],
+      "complements": [
+        "walking_lunge",
+        "leg_press",
+        "leg_curl_lying"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "glute_bridge",
+        "banded_leg_curl",
+        "sliding_leg_curl",
+        "kb_rdl"
+      ],
+      "notes": "Simple isometric quad exercise requiring zero equipment. Isometric training at long muscle lengths has been shown to produce hypertrophy (Oranchuk et al., 2019). Also used in patellar tendon rehab protocols. Great finisher or warmup. Progress by adding time, then by holding a dumbbell or plate on your lap.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "single_leg_box_squat",
+      "name": "Single-Leg Box Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "6-12 per leg",
+      "rep_range_strength": "5-8 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/pistol-squat.html",
+      "beginner_tips": "Stand on one leg in front of a bench or box. Sit back and down onto the box under control, then stand back up without using momentum. Keep arms in front for counterbalance. Lower the box height as you get stronger to increase the range of motion.",
+      "substitutes": [
+        "pistol_squat",
+        "bulgarian_split_squat",
+        "single_leg_leg_press"
+      ],
+      "complements": [
+        "single_leg_rdl",
+        "leg_extension",
+        "hip_thrust"
+      ],
+      "superset_candidates": [
+        "nordic_curl",
+        "plank"
+      ],
+      "notes": "The best regression for the pistol squat. The box provides a safety net and allows partial ROM at first. Progress by lowering the box height over weeks. Excellent for building single-leg strength and balance in a controlled way. No equipment beyond a sturdy box or bench needed.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "kb_front_squat",
+      "name": "Double Kettlebell Front Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core",
+        "upper_back"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-squat.html",
+      "beginner_tips": "Clean two kettlebells to the rack position — bells resting on outside of forearms, elbows tight to body. Squat down keeping the bells in rack and your torso upright. The front load forces an upright posture similar to a barbell front squat but with less wrist mobility needed.",
+      "substitutes": [
+        "goblet_squat",
+        "barbell_front_squat",
+        "dumbbell_squat"
+      ],
+      "complements": [
+        "kettlebell_swing",
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension",
+        "kb_rdl"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank",
+        "banded_leg_curl",
+        "kb_rdl",
+        "sliding_leg_curl"
+      ],
+      "notes": "Excellent intermediate option bridging goblet squats and barbell front squats. The rack position builds thoracic extension and core bracing. Popular in kettlebell sport and functional fitness. Two moderate KBs often provide more load than a single heavy KB in goblet position.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "kb_goblet_lunge",
+      "name": "Kettlebell Goblet Lunge",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "6-10 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-walking-lunge.html",
+      "beginner_tips": "Hold a kettlebell at chest height with both hands (goblet position). Walk forward performing lunges. The front-loaded weight forces an upright torso and engages your core. Focus on controlled steps and keeping your front knee tracking over your toes.",
+      "substitutes": [
+        "walking_lunge",
+        "reverse_lunge",
+        "bulgarian_split_squat"
+      ],
+      "complements": [
+        "kettlebell_swing",
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension",
+        "kb_rdl"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank",
+        "banded_leg_curl",
+        "kb_rdl",
+        "sliding_leg_curl"
+      ],
+      "notes": "The goblet hold naturally limits forward lean and teaches proper upright lunge mechanics. Good alternative when dumbbells at sides cause grip fatigue before legs fatigue. Pairs well with other kettlebell work in circuit-style training.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "moderate",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "banded_squat",
+      "name": "Banded Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "resistance_band",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-25",
+      "rep_range_strength": "n/a",
+      "video_url": "https://www.muscleandstrength.com/exercises/bodyweight-squat.html",
+      "beginner_tips": "Stand on the band with both feet and hold the other end at shoulder height (or loop it behind your neck). Squat down and stand up — the band adds resistance at the top of the movement. Can also place a loop band just above knees to add abductor activation during bodyweight squats.",
+      "substitutes": [
+        "bodyweight_squat",
+        "goblet_squat"
+      ],
+      "complements": [
+        "banded_clamshell",
+        "banded_lateral_walk",
+        "glute_bridge",
+        "leg_curl_lying",
+        "banded_good_morning",
+        "banded_leg_curl"
+      ],
+      "superset_candidates": [
+        "banded_clamshell",
+        "plank",
+        "banded_leg_curl",
+        "kb_rdl",
+        "sliding_leg_curl"
+      ],
+      "notes": "Great for home workouts, warmups, or travel. The band provides accommodating resistance (harder at top, easier at bottom). Adding a loop band above the knees during squats increases glute medius activation and helps cue proper knee tracking. Practical ceiling is low — progress to weighted squats when possible.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "banded_lateral_walk",
+      "name": "Banded Lateral Walk",
+      "category": "isolation",
+      "movement_pattern": "hip_abduction",
+      "force_type": "push",
+      "equipment": [
+        "resistance_band"
+      ],
+      "primary_muscles": [
+        "abductors",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "quadriceps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20 steps per direction",
+      "rep_range_strength": "10-15 steps per direction",
+      "video_url": "https://www.muscleandstrength.com/exercises/machine-hip-abduction.html",
+      "beginner_tips": "Place a loop band around your ankles (or just above your knees for more glute focus). Get into a quarter-squat position with feet hip-width. Take controlled steps sideways, maintaining tension on the band. Don't let your feet come too close together between steps. Keep your hips level — don't sway side to side.",
+      "substitutes": [
+        "hip_abduction_machine",
+        "banded_clamshell"
+      ],
+      "complements": [
+        "barbell_back_squat",
+        "hip_thrust",
+        "banded_clamshell",
+        "glute_bridge"
+      ],
+      "superset_candidates": [
+        "hip_adduction_machine",
+        "glute_bridge"
+      ],
+      "notes": "Excellent warmup and glute medius activation drill. More functional than seated abduction machine because it trains the glute med in a standing, dynamic position. Common in physical therapy and sport performance. Place band above knees for more glute medius, around ankles for more TFL and overall difficulty.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "v_squat",
+      "name": "V-Squat Machine",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "hack_squat_machine"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "adductors"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/hack-squat.html",
+      "beginner_tips": "Face the machine with chest against the pad (opposite of a hack squat). Shoulders under pads, feet on the platform. Squat down and up. The V-path forces a more vertical torso than hack squats, shifting emphasis more to quads and less to glutes.",
+      "substitutes": [
+        "hack_squat_machine",
+        "pendulum_squat",
+        "leg_press",
+        "smith_machine_squat"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "romanian_deadlift",
+        "hip_thrust",
+        "leg_extension"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank"
+      ],
+      "notes": "The V-squat (or reverse hack squat) positions you face-first against the pad, creating a pendulum-like arc that differs from standard hack squats. Provides excellent quad stretch at the bottom. Zero spinal compression. Growing popularity in bodybuilding-focused gyms. Uses the hack squat machine type since most V-squat machines share the same basic design.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "smith_machine_lunge",
+      "name": "Smith Machine Lunge",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "smith_machine"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "6-10 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-lunge.html",
+      "beginner_tips": "Bar on upper back like a Smith squat. Step one foot forward and one back into a lunge stance. Lower until your back knee nearly touches the floor, then drive back up. The fixed bar path handles balance, letting you focus on the lunge pattern. Do all reps on one leg before switching.",
+      "substitutes": [
+        "walking_lunge",
+        "reverse_lunge",
+        "stationary_lunge",
+        "smith_machine_split_squat"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "leg_extension",
+        "hip_thrust",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "leg_extension"
+      ],
+      "notes": "The Smith machine removes the balance component of lunges, making them more accessible for beginners and allowing heavier loading. Excellent for those who struggle with dumbbell lunge balance. The fixed path keeps you locked in, so focus on depth and knee tracking.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "smith_machine_split_squat",
+      "name": "Smith Machine Split Squat",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "smith_machine",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "5-8 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/smith-machine-lunge.html",
+      "beginner_tips": "Set up like a Bulgarian split squat but with your back foot elevated on a bench and the Smith bar across your upper back. The fixed bar path eliminates balance demands, letting you load heavier than a dumbbell BSS. Lower until the back knee nearly touches the floor. Keep your front shin roughly vertical.",
+      "substitutes": [
+        "bulgarian_split_squat",
+        "smith_machine_lunge",
+        "single_leg_leg_press"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "leg_extension",
+        "hip_thrust",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "leg_extension"
+      ],
+      "notes": "Combines the deep stretch and single-leg emphasis of a Bulgarian split squat with the stability of the Smith machine. Allows heavier progressive overload than dumbbell BSS since grip is not the limiting factor. Popular in bodybuilding for targeted quad and glute hypertrophy.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "landmine_squat",
+      "name": "Landmine Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core",
+        "upper_back"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "5-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/squat.html",
+      "beginner_tips": "Wedge one end of a barbell into a corner or landmine attachment. Hold the other end at chest height with both hands. Squat down, keeping the bar close to your chest. The angled path naturally encourages an upright torso and deep squat. Stand up by driving through your whole foot.",
+      "substitutes": [
+        "goblet_squat",
+        "barbell_front_squat",
+        "kb_front_squat"
+      ],
+      "complements": [
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension",
+        "romanian_deadlift"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank"
+      ],
+      "notes": "The landmine creates a natural arc that accommodates different body proportions and encourages deep, upright squatting. Lower spinal stress than barbell back squats because the load is anterior and the bar path moves slightly away from vertical. Good bridge between goblet squats and barbell squats. Only requires a barbell and a corner — no rack needed.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "zercher_squat",
+      "name": "Zercher Squat",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "core",
+        "upper_back",
+        "biceps"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/front-squat.html",
+      "beginner_tips": "Cradle the barbell in the crook of your elbows with arms bent. Clasp hands together in front of your chest. Squat down, keeping the bar close to your body. The bar position forces an extremely upright torso. Use a bar pad or towel in the elbow crease for comfort. Start light — the elbow position is uncomfortable until you adapt.",
+      "substitutes": [
+        "barbell_front_squat",
+        "goblet_squat",
+        "barbell_back_squat"
+      ],
+      "complements": [
+        "romanian_deadlift",
+        "leg_curl_lying",
+        "hip_thrust",
+        "leg_extension"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank"
+      ],
+      "notes": "An old-school lift named after Ed Zercher. Forces the most upright torso of any barbell squat variation, with very high core and upper back demand. The low bar position shifts load away from the spine. Excellent for lifters with shoulder mobility issues preventing front rack or back rack positions. The elbow discomfort is the main barrier — it diminishes with practice and padding.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "high",
+        "grip": "moderate",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "jefferson_squat",
+      "name": "Jefferson Squat (Straddle Deadlift)",
+      "category": "compound",
+      "movement_pattern": "squat",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core",
+        "adductors"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/squat.html",
+      "beginner_tips": "Stand straddling a barbell with one foot in front of and one behind the bar. Grip the bar with one hand in front and one behind. Squat down and stand up, keeping your torso as upright as possible. The asymmetric stance creates a unique anti-rotational demand. Alternate which foot is forward between sets.",
+      "substitutes": [
+        "barbell_back_squat",
+        "trap_bar_deadlift",
+        "zercher_squat"
+      ],
+      "complements": [
+        "leg_extension",
+        "leg_curl_lying",
+        "hip_thrust",
+        "romanian_deadlift"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "plank"
+      ],
+      "notes": "A hybrid squat-deadlift pattern with built-in anti-rotation. Named after 19th-century strongman Charles Jefferson. The straddle stance creates asymmetric loading that challenges the core in rotation and lateral flexion — something bilateral squats don't do. Growing interest in strength sports for its carryover to athleticism and injury resilience. Less spinal shear than conventional deadlifts due to the more vertical torso.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "lateral_lunge",
+      "name": "Lateral Lunge (Side Lunge)",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes",
+        "adductors"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "6-10 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-lunge.html",
+      "beginner_tips": "Stand tall, then take a large step directly to one side. Bend the stepping leg's knee and sit back into that hip while keeping the other leg straight. Push back to the starting position. Keep your chest up and your foot flat on the ground. Start with bodyweight before adding dumbbells at your sides.",
+      "substitutes": [
+        "sumo_squat",
+        "hip_adduction_machine",
+        "reverse_lunge"
+      ],
+      "complements": [
+        "walking_lunge",
+        "hip_adduction_machine",
+        "leg_curl_lying",
+        "hip_thrust"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "hip_abduction_machine"
+      ],
+      "notes": "One of the few exercises that trains legs in the frontal (side-to-side) plane. Most leg training is sagittal (forward/back). Lateral lunges stretch the adductors of the straight leg while strengthening the quads and glutes of the stepping leg. Important for athletes in sports requiring lateral movement (tennis, basketball, soccer). Also excellent for hip mobility.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
     }
   ]
 }
