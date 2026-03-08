@@ -26,18 +26,32 @@ function createTimerStore(startedAt: string | null, completedAt?: string | null)
   // Only tick if started and not yet completed
   const shouldTick = !!startedAt && !completedAt;
 
+  let visibilityHandler: (() => void) | null = null;
+
   function start() {
     if (!shouldTick || intervalId) return;
     intervalId = setInterval(() => {
       snapshot = computeElapsed(startedAt, completedAt);
       listeners.forEach((cb) => cb());
     }, 1000);
+
+    visibilityHandler = () => {
+      if (document.visibilityState === 'visible') {
+        snapshot = computeElapsed(startedAt, completedAt);
+        listeners.forEach((cb) => cb());
+      }
+    };
+    document.addEventListener('visibilitychange', visibilityHandler);
   }
 
   function stop() {
     if (intervalId) {
       clearInterval(intervalId);
       intervalId = null;
+    }
+    if (visibilityHandler) {
+      document.removeEventListener('visibilitychange', visibilityHandler);
+      visibilityHandler = null;
     }
   }
 

@@ -107,8 +107,10 @@ Agent definitions live in `.claude/agents/`.
 
 ## Known Quirks
 - Session state (active workout, recorded sets, rest timer) is persisted to localStorage.
-  `TimerState.timerStartedAt` is a wall-clock anchor — on rehydration, `remainingSeconds`
-  is corrected for elapsed time (handles backgrounded tabs, page reloads, browser crashes).
+  `TimerState.timerStartedAt` is a wall-clock anchor — `remainingSeconds` is corrected
+  for elapsed time on rehydration (page reload) and on `visibilitychange`/`focus` events
+  (tab return, screen unlock). Both timers (rest countdown via `syncTimer()` and elapsed
+  workout via snapshot recomputation) auto-correct when the user returns to the app.
   Zod schemas (`ActiveSessionSchema`, `TimerStateSchema`) validate session data on hydration;
   invalid data resets to defaults rather than crashing.
 - iOS auto-zoom on input focus: all `<input>`/`<textarea>` elements must use `text-base md:text-sm`

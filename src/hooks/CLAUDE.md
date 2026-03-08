@@ -16,6 +16,8 @@ Components never access store.graph directly — always through a hook.
   parameter needed — body state is applied automatically.
 - useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount).
   Exposes `restSeconds` and `adjustRestDuration(delta)` for idle-state rest duration adjustment.
+  Listens for `visibilitychange` and `focus` events to call `syncTimer()` on tab return,
+  correcting timer drift from browser throttling during backgrounding.
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts
 - useAutoWorkoutName generates a default name from the most common muscle group + date
 - useSwipeGesture — horizontal swipe gesture hook built on `@use-gesture/react` `useDrag`. Uses
@@ -27,7 +29,8 @@ Components never access store.graph directly — always through a hook.
 - useDragOffsetChannel — module-level pub/sub channel for drag offset. `setDragOffset(offsetX)`
   called by App.tsx during drag; `registerDragOffsetListener(fn)` called by ActiveWorkout to
   receive offsets. Avoids React re-renders — DOM transforms applied directly for 60fps.
-- useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore
+- useElapsedTimer takes a `startedAt` ISO string, returns formatted elapsed time (MM:SS or H:MM:SS), ticking every second via useSyncExternalStore.
+  Listens for `visibilitychange` to force snapshot recomputation on tab return (corrects drift from browser throttling).
 - useBuilderGroups — wraps `deriveGroups()` for the builder tab, returns `ExerciseGroup<WorkoutExercise>[]` from the current workout draft
 - useSessionGroups — wraps `deriveGroups()` for the active session, returns `ExerciseGroup<ExerciseLog>[]` from the current session
 - useSuggestions — returns complement and gap suggestions (`pairsWellWith`, `stillNeedToHit`). Superset suggestions moved to per-exercise `useSupersetSuggestions` hook.

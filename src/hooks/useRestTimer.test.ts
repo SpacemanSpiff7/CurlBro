@@ -140,4 +140,71 @@ describe('useRestTimer', () => {
     expect(playTimerDone).toHaveBeenCalled();
     expect(vibrateTimerDone).toHaveBeenCalled();
   });
+
+  it('syncs timer on visibilitychange', () => {
+    // Start a timer and manually set a past timerStartedAt
+    const { result } = renderHook(() => useRestTimer());
+
+    act(() => {
+      result.current.start(90);
+    });
+
+    // Simulate 30s passing in the background by setting timerStartedAt to 30s ago
+    const thirtySecondsAgo = new Date(Date.now() - 30_000).toISOString();
+    act(() => {
+      useStore.setState((state) => ({
+        ...state,
+        session: {
+          ...state.session,
+          timer: {
+            ...state.session.timer,
+            timerStartedAt: thirtySecondsAgo,
+            totalSeconds: 90,
+          },
+        },
+      }));
+    });
+
+    // Simulate tab becoming visible
+    Object.defineProperty(document, 'visibilityState', { value: 'visible', writable: true });
+    act(() => {
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+
+    expect(result.current.remainingSeconds).toBe(60);
+    expect(result.current.isRunning).toBe(true);
+  });
+
+  it('detects expired timer on visibilitychange', () => {
+    const { result } = renderHook(() => useRestTimer());
+
+    act(() => {
+      result.current.start(10);
+    });
+
+    // Simulate long background (timer expired)
+    const twoMinutesAgo = new Date(Date.now() - 120_000).toISOString();
+    act(() => {
+      useStore.setState((state) => ({
+        ...state,
+        session: {
+          ...state.session,
+          timer: {
+            ...state.session.timer,
+            timerStartedAt: twoMinutesAgo,
+            totalSeconds: 10,
+          },
+        },
+      }));
+    });
+
+    Object.defineProperty(document, 'visibilityState', { value: 'visible', writable: true });
+    act(() => {
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+
+    expect(result.current.isRunning).toBe(false);
+    expect(result.current.remainingSeconds).toBe(0);
+    expect(result.current.isDone).toBe(true);
+  });
 });

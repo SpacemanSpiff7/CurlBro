@@ -28,9 +28,11 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds), clears `timerStartedAt`
 - `stopTimer()` — fully resets the timer to idle state
 - `startTimer(seconds)` — starts the rest timer and sets `timerStartedAt` wall-clock anchor for rehydration
-- `TimerState.timerStartedAt` — ISO timestamp set on `startTimer`, cleared on pause/stop/expiry. Used on rehydration to correct `remainingSeconds` for elapsed wall-clock time (handles backgrounded tabs, page reloads)
+- `TimerState.timerStartedAt` — ISO timestamp set on `startTimer`, cleared on pause/stop/expiry. Used by `syncTimer` (on tab return) and rehydration (on reload) to correct `remainingSeconds` for elapsed wall-clock time.
 - `adjustRestDuration(delta)` — adjusts `timer.restSeconds` by delta (clamped to min 15s)
+- `adjustTimer(delta)` — adjusts `remainingSeconds` and `totalSeconds` by the same delta to maintain the wall-clock invariant (`totalSeconds - elapsed_since(timerStartedAt) = remainingSeconds`)
 - `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
+- `syncTimer()` — recalculates `remainingSeconds` from wall-clock anchor (`timerStartedAt`). Called on `visibilitychange`/`focus` events to correct timer drift after tab backgrounding. Does NOT reset `timerStartedAt`.
 - `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Filters out `supersetGroupId` from exercise logs before saving.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `deleteLog(id)` — removes a workout log from library.logs

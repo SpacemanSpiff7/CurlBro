@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRightLeft, Check, ChevronLeft, ChevronRight, Info, Play, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { ExerciseRowStack } from '@/components/session/ExerciseRowStack';
 import { GroupSetTracker } from '@/components/session/GroupSetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
@@ -18,7 +19,6 @@ import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useSessionGroups } from '@/hooks/useSessionGroups';
 import { registerDragOffsetListener } from '@/hooks/useDragOffsetChannel';
-import { getGroupLabel } from '@/utils/groupUtils';
 import { computeLogStats } from '@/utils/logUtils';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 
@@ -34,8 +34,9 @@ export function ActiveWorkout() {
   const isCompleted = !!session && !!session.completedAt;
   const isActive = !!session && !!session.startedAt && !session.completedAt;
 
-  const [swapOpen, setSwapOpen] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
+  // null = closed, number = offset within currentGroup.exercises[]
+  const [swapTargetOffset, setSwapTargetOffset] = useState<number | null>(null);
+  const [videoTargetOffset, setVideoTargetOffset] = useState<number | null>(null);
   const [summaryLog, setSummaryLog] = useState<WorkoutLog | null>(null);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -99,13 +100,6 @@ export function ActiveWorkout() {
     return workouts.find((w) => w.id === session.workoutId) ?? null;
   }, [session, workouts]);
 
-  // For single-exercise groups, get the first exercise info for the header
-  const firstExercise = currentGroup?.exercises[0] ?? null;
-  const firstExerciseInfo = useMemo(() => {
-    if (!firstExercise) return null;
-    return graph.exercises.get(firstExercise.exerciseId as ExerciseId) ?? null;
-  }, [firstExercise, graph]);
-
   // Rest seconds: use timer store value (allows +/- adjustment when idle)
   // Initialize store value from the workout's per-group rest seconds
   const groupRestSeconds = useMemo(() => {
@@ -128,6 +122,19 @@ export function ActiveWorkout() {
     if (!currentGroup || !originalWorkout) return [];
     return currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.weight ?? null);
   }, [currentGroup, originalWorkout]);
+
+  // Derive the exercise info for the video target
+  const videoTargetExercise = useMemo(() => {
+    if (videoTargetOffset === null || !currentGroup) return null;
+    const ex = currentGroup.exercises[videoTargetOffset];
+    return ex ? graph.exercises.get(ex.exerciseId as ExerciseId) ?? null : null;
+  }, [videoTargetOffset, currentGroup, graph]);
+
+  // Derive the exercise for the swap target
+  const swapTargetExercise = useMemo(() => {
+    if (swapTargetOffset === null || !currentGroup) return null;
+    return currentGroup.exercises[swapTargetOffset] ?? null;
+  }, [swapTargetOffset, currentGroup]);
 
   const handleCompleteSet = useCallback(
     (exerciseIndex: number, setIndex: number, data: SetLog) => {
@@ -155,12 +162,16 @@ export function ActiveWorkout() {
     if (currentGroupIndex <= 0) return;
     goToGroup(currentGroupIndex - 1);
     timer.stop();
+    setSwapTargetOffset(null);
+    setVideoTargetOffset(null);
   }, [currentGroupIndex, goToGroup, timer]);
 
   const handleNext = useCallback(() => {
     if (currentGroupIndex >= totalGroups - 1) return;
     goToGroup(currentGroupIndex + 1);
     timer.stop();
+    setSwapTargetOffset(null);
+    setVideoTargetOffset(null);
   }, [currentGroupIndex, totalGroups, goToGroup, timer]);
 
   const handleFinish = useCallback(() => {
@@ -169,15 +180,14 @@ export function ActiveWorkout() {
 
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
-      if (!currentGroup) return;
-      // Swap the first exercise in the group (for standalone) or the one the panel was opened for
-      const exerciseIdx = currentGroup.indices[0];
+      if (!currentGroup || swapTargetOffset === null) return;
+      const exerciseIdx = currentGroup.indices[swapTargetOffset];
       const newExercise = graph.exercises.get(newId);
       swapExercise(exerciseIdx, newId);
-      setSwapOpen(false);
+      setSwapTargetOffset(null);
       toast.success(`Swapped to ${newExercise?.name ?? 'new exercise'}`);
     },
-    [currentGroup, graph, swapExercise]
+    [currentGroup, swapTargetOffset, graph, swapExercise]
   );
 
   const handleSwapFromPicker = useCallback(
@@ -205,13 +215,14 @@ export function ActiveWorkout() {
     [addExerciseToSession]
   );
 
-  // Build group header name for multi-exercise groups
-  const groupHeaderNames = useMemo(() => {
-    if (!currentGroup || currentGroup.exercises.length <= 1) return null;
-    return currentGroup.exercises
-      .map((ex) => graph.exercises.get(ex.exerciseId as ExerciseId)?.name ?? 'Unknown')
-      .join(' + ');
-  }, [currentGroup, graph]);
+  // Stable callbacks for ExerciseRowStack (memo'd — inline arrows would defeat memoization)
+  const handleExerciseInfo = useCallback((offset: number) => {
+    setVideoTargetOffset(offset);
+  }, []);
+
+  const handleExerciseSwap = useCallback((offset: number) => {
+    setSwapTargetOffset((prev) => (prev === offset ? null : offset));
+  }, []);
 
   // No active session
   if (!session) {
@@ -238,9 +249,6 @@ export function ActiveWorkout() {
     (sum, ex) => sum + ex.sets.filter((s) => s.completed).length,
     0
   );
-
-  const isMultiExerciseGroup = (currentGroup?.exercises.length ?? 0) > 1;
-  const groupLabel = getGroupLabel(currentGroup?.exercises.length ?? 0);
 
   return (
     <div className="flex flex-col gap-4 pb-20">
@@ -319,6 +327,8 @@ export function ActiveWorkout() {
 
       {/* Group navigation — contentRef for finger-following drag */}
       <div ref={contentRef} className="flex flex-col gap-4">
+
+      {/* Navigation row */}
       <div className="flex items-center justify-between">
         <Button
           variant="ghost"
@@ -330,60 +340,11 @@ export function ActiveWorkout() {
         >
           <ChevronLeft size={18} />
         </Button>
-        <div className="text-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${currentGroupIndex}-${currentGroup?.groupId}`}
-              initial={{ opacity: 0, x: navDirection === 'left' ? 50 : -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-            >
-              {isMultiExerciseGroup ? (
-                <>
-                  <div className="text-[11px] font-medium text-accent-primary uppercase tracking-wide mb-0.5">
-                    {groupLabel}
-                  </div>
-                  <div className="flex items-center justify-center gap-1.5">
-                    <div className="text-sm font-semibold text-text-primary max-w-[220px] truncate">
-                      {groupHeaderNames}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="flex items-center justify-center gap-1.5">
-                  <button
-                    onClick={() => setVideoOpen(true)}
-                    className="text-base font-semibold text-text-primary hover:text-accent-primary transition-colors"
-                  >
-                    {firstExerciseInfo?.name ?? 'Unknown Exercise'}
-                  </button>
-                  <button
-                    onClick={() => setVideoOpen(true)}
-                    aria-label="Exercise info"
-                    className="flex items-center justify-center h-5 w-5 rounded-full border border-accent-primary/40 text-accent-primary hover:bg-accent-primary/10 transition-colors flex-shrink-0"
-                  >
-                    <Info size={10} strokeWidth={2.5} />
-                  </button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setSwapOpen((o) => !o)}
-                    aria-label="Swap exercise"
-                    className="h-7 w-7"
-                  >
-                    <ArrowRightLeft size={14} className={swapOpen ? 'text-accent-primary' : ''} />
-                  </Button>
-                </div>
-              )}
-              <div className="text-xs text-text-tertiary">
-                {isMultiExerciseGroup
-                  ? `Group ${currentGroupIndex + 1} of ${totalGroups}`
-                  : `Exercise ${currentGroupIndex + 1} of ${totalGroups}`}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        <span className="text-xs text-text-tertiary">
+          {currentGroup && currentGroup.exercises.length > 1
+            ? `Group ${currentGroupIndex + 1} of ${totalGroups}`
+            : `Exercise ${currentGroupIndex + 1} of ${totalGroups}`}
+        </span>
         <Button
           variant="ghost"
           size="icon"
@@ -396,11 +357,31 @@ export function ActiveWorkout() {
         </Button>
       </div>
 
-      {/* Substitute panel (standalone only) */}
-      {firstExercise && !isMultiExerciseGroup && (
+      {/* Stacked exercise rows */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${currentGroupIndex}-${currentGroup?.groupId}`}
+          initial={{ opacity: 0, x: navDirection === 'left' ? 50 : -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          {currentGroup && (
+            <ExerciseRowStack
+              group={currentGroup}
+              graph={graph}
+              onInfo={handleExerciseInfo}
+              onSwap={handleExerciseSwap}
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Substitute panel — for whichever exercise was swiped */}
+      {swapTargetExercise && (
         <SubstitutePanel
-          exerciseId={firstExercise.exerciseId as ExerciseId}
-          open={swapOpen}
+          exerciseId={swapTargetExercise.exerciseId as ExerciseId}
+          open={true}
           onSwap={handleSwap}
           onSearchAll={() => setSwapPickerOpen(true)}
         />
@@ -499,6 +480,8 @@ export function ActiveWorkout() {
               onClick={() => {
                 goToGroup(i);
                 timer.stop();
+                setSwapTargetOffset(null);
+                setVideoTargetOffset(null);
               }}
               aria-label={`Go to ${isMulti ? 'group' : 'exercise'} ${i + 1}`}
               className={`h-2.5 rounded-full transition-all ${
@@ -526,9 +509,9 @@ export function ActiveWorkout() {
       </div>
 
       <VideoSheet
-        exercise={firstExerciseInfo}
-        open={videoOpen}
-        onOpenChange={setVideoOpen}
+        exercise={videoTargetExercise}
+        open={videoTargetOffset !== null}
+        onOpenChange={(open) => { if (!open) setVideoTargetOffset(null); }}
       />
 
       {/* Save summary sheet */}

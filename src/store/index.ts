@@ -112,6 +112,7 @@ interface AppState {
     adjustTimer: (delta: number) => void;
     adjustRestDuration: (delta: number) => void;
     setRestDuration: (seconds: number) => void;
+    syncTimer: () => void;
   };
 
   // Settings (persisted)
@@ -769,12 +770,10 @@ export const useStore = create<AppState>()(
         },
         adjustTimer: (delta: number) => {
           set((state) => {
-            const newTime = Math.max(0, state.session.timer.remainingSeconds + delta);
-            state.session.timer.remainingSeconds = newTime;
-            state.session.timer.totalSeconds = Math.max(
-              state.session.timer.totalSeconds,
-              newTime
-            );
+            const timer = state.session.timer;
+            const newRemaining = Math.max(0, timer.remainingSeconds + delta);
+            timer.remainingSeconds = newRemaining;
+            timer.totalSeconds = Math.max(newRemaining, timer.totalSeconds + delta);
           });
         },
         adjustRestDuration: (delta: number) => {
@@ -786,6 +785,23 @@ export const useStore = create<AppState>()(
         setRestDuration: (seconds: number) => {
           set((state) => {
             state.session.timer.restSeconds = Math.max(15, seconds);
+          });
+        },
+        syncTimer: () => {
+          set((state) => {
+            const timer = state.session.timer;
+            if (!timer.isRunning || !timer.timerStartedAt) return;
+            const startMs = new Date(timer.timerStartedAt).getTime();
+            if (isNaN(startMs)) return;
+            const elapsed = Math.floor((Date.now() - startMs) / 1000);
+            const corrected = Math.max(0, timer.totalSeconds - elapsed);
+            if (corrected <= 0) {
+              timer.isRunning = false;
+              timer.remainingSeconds = 0;
+              timer.timerStartedAt = null;
+            } else {
+              timer.remainingSeconds = corrected;
+            }
           });
         },
       },
@@ -886,7 +902,6 @@ export const useStore = create<AppState>()(
                     state.session.timer.timerStartedAt = null;
                   } else {
                     state.session.timer.remainingSeconds = corrected;
-                    state.session.timer.timerStartedAt = new Date().toISOString();
                   }
                 }
               }

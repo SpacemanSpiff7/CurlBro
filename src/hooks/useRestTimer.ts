@@ -5,7 +5,7 @@ import { vibrateTimerDone } from '@/utils/haptics';
 
 export function useRestTimer() {
   const timer = useStore((state) => state.session.timer);
-  const { startTimer, stopTimer, pauseTimer, tickTimer, adjustTimer, adjustRestDuration } = useStore(
+  const { startTimer, stopTimer, pauseTimer, tickTimer, adjustTimer, adjustRestDuration, syncTimer } = useStore(
     (state) => state.sessionActions
   );
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -31,6 +31,24 @@ export function useRestTimer() {
       }
     };
   }, [timer.isRunning, tickTimer]);
+
+  // Sync timer with wall clock when tab becomes visible
+  useEffect(() => {
+    function handleVisibility() {
+      if (document.visibilityState === 'visible') {
+        syncTimer();
+      }
+    }
+    function handleFocus() {
+      syncTimer();
+    }
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [syncTimer]);
 
   // Notify when timer reaches zero
   useEffect(() => {

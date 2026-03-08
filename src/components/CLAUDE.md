@@ -67,6 +67,14 @@
   specific activity creates 'general' entry. Persisted to library.soreness and library.activities.
   Soreness and activity effects are auto-applied by useExerciseSearch (no manual filter needed).
 - SupersetContainer (`workout/`) — visual wrapper for grouped exercises with accent border, group label (Superset/Tri-set/Circuit), ungroup button, and sortable drag handle for the whole group
+- ExerciseRowStack (`session/`) — memo'd stacked exercise name rows for active workout header.
+  Each exercise in the current group gets its own full-width row wrapped in `SwipeToReveal`
+  with Info (opens VideoSheet) and Swap (opens SubstitutePanel) actions. Shows group label
+  (Superset/Tri-set/Circuit) above multi-exercise groups via `getGroupLabel()`. Works
+  uniformly for standalone exercises (single row) and supersets (multiple rows). Parent
+  `ActiveWorkout` tracks swap/video targets via offset-based state (`swapTargetOffset`,
+  `videoTargetOffset`) so Info/Swap work for any exercise in a group — not just the first.
+  `data-swipe-row` from `SwipeToReveal` prevents exercise-navigation swipe on these rows.
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
 - SupersetPanel (`exercise/`) — graph-based superset suggestion list for the current exercise.
   Uses `useSupersetSuggestions` hook. Optional `onSearchAll` callback renders a "Search all
