@@ -106,6 +106,15 @@ Agent definitions live in `.claude/agents/`.
 - Never commit failing tests or type errors
 
 ## Known Quirks
+- Session state (active workout, recorded sets, rest timer) is persisted to localStorage.
+  `TimerState.timerStartedAt` is a wall-clock anchor — on rehydration, `remainingSeconds`
+  is corrected for elapsed time (handles backgrounded tabs, page reloads, browser crashes).
+  Zod schemas (`ActiveSessionSchema`, `TimerStateSchema`) validate session data on hydration;
+  invalid data resets to defaults rather than crashing.
+- iOS auto-zoom on input focus: all `<input>`/`<textarea>` elements must use `text-base md:text-sm`
+  (16px on mobile, 14px on desktop). WebKit auto-zooms when font-size < 16px and never
+  auto-resets. The shadcn `Input` component already has this; avoid passing `text-sm` in
+  className (twMerge overrides the safe base class).
 - `endSession()` only sets `completedAt` and stops the timer — call `saveSession()` separately to create the log
 - WorkoutExercise has an optional `instanceId` field (UUID) used as stable React keys and
   dnd-kit group IDs. Generated via `crypto.randomUUID()` on add/import/template-load.

@@ -184,7 +184,7 @@ export function SettingsPage() {
                 value={settings.defaultSetsCompound}
                 onChange={handleCompoundSetsChange}
                 min={1}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sets</span>
             </div>
@@ -203,7 +203,7 @@ export function SettingsPage() {
                 value={settings.defaultSetsIsolation}
                 onChange={handleIsolationSetsChange}
                 min={1}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sets</span>
             </div>
@@ -229,7 +229,7 @@ export function SettingsPage() {
                 value={settings.restTimerCompoundSeconds}
                 onChange={handleCompoundChange}
                 min={0}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>
@@ -248,7 +248,7 @@ export function SettingsPage() {
                 value={settings.restTimerIsolationSeconds}
                 onChange={handleIsolationChange}
                 min={0}
-                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>

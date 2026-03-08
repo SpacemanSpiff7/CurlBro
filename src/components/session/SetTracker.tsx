@@ -75,7 +75,7 @@ const SetRow = memo(function SetRow({
         onChange={handleWeightChange}
         placeholder={defaultWeight?.toString() ?? '—'}
         aria-label={`Set ${index + 1} weight`}
-        className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+        className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
       />
       <span className="text-xs text-text-tertiary">lb</span>
       <span className="text-xs text-text-tertiary mx-1">&times;</span>
@@ -86,7 +86,7 @@ const SetRow = memo(function SetRow({
         onChange={handleRepsChange}
         placeholder="—"
         aria-label={`Set ${index + 1} reps`}
-        className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+        className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
       />
       <span className="text-xs text-text-tertiary">reps</span>
       <div className="flex-1" />

@@ -9,10 +9,10 @@ describe('Session Flow', () => {
     const graph = buildExerciseGraph(testExercises);
     useStore.setState({
       graph,
-      library: { workouts: [], logs: [] },
+      library: { workouts: [], logs: [], activities: [], soreness: [] },
       session: {
         active: null,
-        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0 },
+        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null },
       },
     });
   });

@@ -223,7 +223,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             type="number"
             value={workoutExercise.sets}
             onChange={(e) => handleSetsChange(e.target.value)}
-            className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
             min={1}
             aria-label="Sets"
           />
@@ -235,7 +235,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             type="number"
             value={workoutExercise.reps}
             onChange={(e) => handleRepsChange(e.target.value)}
-            className="w-14 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
             min={1}
             aria-label="Reps"
           />
@@ -246,7 +246,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             value={workoutExercise.weight ?? ''}
             onChange={(e) => handleWeightChange(e.target.value)}
             placeholder="—"
-            className="w-16 h-8 text-center text-sm bg-bg-elevated border-border-subtle"
+            className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
             min={0}
             aria-label="Weight"
           />

@@ -32,6 +32,8 @@ import {
   AppSettingsSchema,
   SorenessEntrySchema,
   ActivityEntrySchema,
+  ActiveSessionSchema,
+  TimerStateSchema,
 } from '@/types';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { getAllExercises } from '@/data/exercises';
@@ -164,6 +166,7 @@ const emptyTimer: TimerState = {
   remainingSeconds: 0,
   totalSeconds: 0,
   restSeconds: 90,
+  timerStartedAt: null,
 };
 
 /** Pick the default rep count for an exercise based on training goal */
@@ -628,6 +631,7 @@ export const useStore = create<AppState>()(
               remainingSeconds: seconds,
               totalSeconds: seconds,
               restSeconds: state.session.timer.restSeconds,
+              timerStartedAt: new Date().toISOString(),
             };
           });
         },
@@ -639,6 +643,7 @@ export const useStore = create<AppState>()(
         pauseTimer: () => {
           set((state) => {
             state.session.timer.isRunning = false;
+            state.session.timer.timerStartedAt = null;
           });
         },
         tickTimer: () => {
@@ -648,6 +653,7 @@ export const useStore = create<AppState>()(
             }
             if (state.session.timer.remainingSeconds <= 0) {
               state.session.timer.isRunning = false;
+              state.session.timer.timerStartedAt = null;
             }
           });
         },
@@ -702,6 +708,7 @@ export const useStore = create<AppState>()(
       partialize: (state) => ({
         library: state.library,
         settings: state.settings,
+        session: state.session,
       }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
@@ -744,9 +751,43 @@ export const useStore = create<AppState>()(
           state.library.activities = activities;
           state.library.soreness = soreness;
           state.settings = settings;
+
+          // Validate and restore session
+          if (state.session?.active) {
+            const sessionParsed = ActiveSessionSchema.safeParse(state.session.active);
+            if (!sessionParsed.success) {
+              state.session.active = null;
+            }
+          }
+
+          // Correct timer for elapsed wall-clock time
+          if (state.session?.timer) {
+            const timerParsed = TimerStateSchema.safeParse(state.session.timer);
+            if (timerParsed.success) {
+              const timer = state.session.timer;
+              if (timer.isRunning && timer.timerStartedAt) {
+                const startMs = new Date(timer.timerStartedAt).getTime();
+                if (!isNaN(startMs)) {
+                  const elapsed = Math.floor((Date.now() - startMs) / 1000);
+                  const corrected = Math.max(0, timer.totalSeconds - elapsed);
+                  if (corrected <= 0) {
+                    state.session.timer.isRunning = false;
+                    state.session.timer.remainingSeconds = 0;
+                    state.session.timer.timerStartedAt = null;
+                  } else {
+                    state.session.timer.remainingSeconds = corrected;
+                    state.session.timer.timerStartedAt = new Date().toISOString();
+                  }
+                }
+              }
+            } else {
+              state.session.timer = { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null };
+            }
+          }
         } catch {
           state.library = { workouts: [], logs: [], activities: [], soreness: [] };
           state.settings = DEFAULT_SETTINGS;
+          state.session = { active: null, timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null } };
         }
       },
     }

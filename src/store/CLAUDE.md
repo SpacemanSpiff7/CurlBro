@@ -5,7 +5,7 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - graphSlice — exercise graph (read-only after init, never persisted)
 - builder — workout draft state, workoutSplit, suggestions, validation
 - library — saved workouts, logs, soreness entries, and activity entries (persisted to localStorage)
-- session — active workout session (NOT persisted)
+- session — active workout session + rest timer (persisted to localStorage, Zod-validated on hydration)
 - settings — user settings (persisted)
 
 ## Rules
@@ -25,8 +25,10 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `setWorkoutSplit(split)` — sets the workout split type (push/pull/legs/upper/lower/full_body)
 - `resetWorkout()` — clears builder and resets workoutSplit to null
 - `removeSet(exerciseIndex, setIndex)` — deletes a set during active session (guards: won't remove last set)
-- `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds)
+- `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds), clears `timerStartedAt`
 - `stopTimer()` — fully resets the timer to idle state
+- `startTimer(seconds)` — starts the rest timer and sets `timerStartedAt` wall-clock anchor for rehydration
+- `TimerState.timerStartedAt` — ISO timestamp set on `startTimer`, cleared on pause/stop/expiry. Used on rehydration to correct `remainingSeconds` for elapsed wall-clock time (handles backgrounded tabs, page reloads)
 - `adjustRestDuration(delta)` — adjusts `timer.restSeconds` by delta (clamped to min 15s)
 - `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
 - `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Filters out `supersetGroupId` from exercise logs before saving.

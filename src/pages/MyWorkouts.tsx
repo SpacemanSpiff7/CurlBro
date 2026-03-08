@@ -90,7 +90,7 @@ function ImportSheet({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste workout text here..."
-            className="w-full h-40 rounded-lg bg-bg-elevated border border-border-subtle p-3 text-sm text-text-primary placeholder:text-text-tertiary resize-none focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            className="w-full h-40 rounded-lg bg-bg-elevated border border-border-subtle p-3 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none focus:outline-none focus:ring-1 focus:ring-accent-primary"
             aria-label="Import text"
           />
           {result && (

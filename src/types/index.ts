@@ -216,6 +216,7 @@ export interface TimerState {
   remainingSeconds: number;
   totalSeconds: number;
   restSeconds: number;
+  timerStartedAt: string | null;
 }
 
 // ─── Workout Log ─────────────────────────────────────────
@@ -245,6 +246,36 @@ export const WorkoutLogSchema = z.object({
   startedAt: z.string(),
   completedAt: z.string(),
   durationMinutes: z.number(),
+});
+
+// ─── Session Validation Schemas ──────────────────────────
+export const SetLogSchema = z.object({
+  weight: z.number().nullable(),
+  reps: z.number().nullable(),
+  completed: z.boolean(),
+});
+
+export const ExerciseLogSchema = z.object({
+  exerciseId: z.string(),
+  sets: z.array(SetLogSchema),
+  supersetGroupId: z.string().optional(),
+});
+
+export const ActiveSessionSchema = z.object({
+  workoutId: z.string(),
+  workoutName: z.string(),
+  exercises: z.array(ExerciseLogSchema),
+  currentGroupIndex: z.number(),
+  startedAt: z.string().nullable(),
+  completedAt: z.string().nullable(),
+});
+
+export const TimerStateSchema = z.object({
+  isRunning: z.boolean(),
+  remainingSeconds: z.number(),
+  totalSeconds: z.number(),
+  restSeconds: z.number(),
+  timerStartedAt: z.string().nullable(),
 });
 
 // ─── Training Goals ──────────────────────────────────────

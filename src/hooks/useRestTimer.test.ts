@@ -19,7 +19,7 @@ describe('useRestTimer', () => {
       ...state,
       session: {
         ...state.session,
-        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0 },
+        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null },
       },
     }));
   });
