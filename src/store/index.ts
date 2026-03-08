@@ -97,6 +97,7 @@ interface AppState {
   sessionActions: {
     startSession: (workout: SavedWorkout) => void;
     beginSession: () => void;
+    abandonSession: () => void;
     endSession: () => void;
     saveSession: () => WorkoutLog | null;
     addExerciseToSession: (exerciseId: ExerciseId) => void;
@@ -638,6 +639,12 @@ export const useStore = create<AppState>()(
             if (state.session.active && !state.session.active.startedAt) {
               state.session.active.startedAt = new Date().toISOString();
             }
+          });
+        },
+        abandonSession: () => {
+          set((state) => {
+            state.session.active = null;
+            state.session.timer = emptyTimer;
           });
         },
         endSession: () => {

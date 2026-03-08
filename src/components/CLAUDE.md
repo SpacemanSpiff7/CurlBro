@@ -76,6 +76,7 @@
   `videoTargetOffset`) so Info/Swap work for any exercise in a group — not just the first.
   `data-swipe-row` from `SwipeToReveal` prevents exercise-navigation swipe on these rows.
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
+- StartOverlay (`session/`) — Full-screen frosted glass overlay shown when session is in preview state (startedAt: null). Self-contained heading, exercise/group stats chips, "Let's Go" start button (56px, accent-primary), "Cancel" ghost button. z-40 so BottomNav (z-50) remains accessible. Spring slide-up animation (stiffness: 400, damping: 30). Props: workoutName, exerciseCount, groupCount, onStart, onCancel.
 - SupersetPanel (`exercise/`) — graph-based superset suggestion list for the current exercise.
   Uses `useSupersetSuggestions` hook. Optional `onSearchAll` callback renders a "Search all
   exercises" button. Mirrors SubstitutePanel structure. Panel shows when

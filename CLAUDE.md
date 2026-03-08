@@ -161,3 +161,4 @@ Agent definitions live in `.claude/agents/`.
   use jest-dom matchers (`toBeInTheDocument`, `toHaveAttribute`). Use vitest-native assertions
   (`toBeTruthy`, `toBeNull`, `getAttribute()`) instead. Jest-dom types are only available at
   vitest runtime via `vitest.setup.ts`, not during `tsc -b`.
+- StartOverlay (session preview): full-screen overlay at z-40 covers TopBar and exercise content when startedAt is null. BottomNav (z-50) remains accessible. Cancel calls abandonSession() then setActiveTab('library'). The old inline TopBar "Start" button was removed.

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Check, ChevronLeft, ChevronRight, Play, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ExerciseRowStack } from '@/components/session/ExerciseRowStack';
+import { StartOverlay } from '@/components/session/StartOverlay';
 import { GroupSetTracker } from '@/components/session/GroupSetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
@@ -25,7 +26,7 @@ import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, removeSet, goToGroup, beginSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
+  const { completeSet, addSet, removeSet, goToGroup, beginSession, abandonSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
@@ -92,6 +93,8 @@ export function ActiveWorkout() {
     if (!session?.startedAt) return false;
     return logs.some((l) => l.workoutId === session.workoutId && l.startedAt === session.startedAt);
   }, [session, logs]);
+
+  const previewExerciseCount = session ? session.exercises.length : 0;
 
   // Find the original workout to get restSeconds/weight per exercise
   const workouts = useStore((state) => state.library.workouts);
@@ -206,6 +209,11 @@ export function ActiveWorkout() {
     }
   }, [saveSession]);
 
+  const handleCancel = useCallback(() => {
+    abandonSession();
+    setActiveTab('library');
+  }, [abandonSession, setActiveTab]);
+
   const handleAddExercise = useCallback(
     (exerciseId: ExerciseId) => {
       addExerciseToSession(exerciseId);
@@ -264,17 +272,6 @@ export function ActiveWorkout() {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
-            {isPreview && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={beginSession}
-                className="text-success border-success/30 hover:bg-success/10"
-              >
-                <Play size={14} className="mr-1" />
-                Start
-              </Button>
-            )}
             {isActive && (
               <Button
                 variant="outline"
@@ -574,6 +571,18 @@ export function ActiveWorkout() {
         title="Swap Exercise"
       />
       </div>
+
+      <AnimatePresence>
+        {isPreview && (
+          <StartOverlay
+            workoutName={session.workoutName || 'Workout'}
+            exerciseCount={previewExerciseCount}
+            groupCount={totalGroups}
+            onStart={beginSession}
+            onCancel={handleCancel}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
