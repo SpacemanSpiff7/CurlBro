@@ -161,4 +161,12 @@ Agent definitions live in `.claude/agents/`.
   use jest-dom matchers (`toBeInTheDocument`, `toHaveAttribute`). Use vitest-native assertions
   (`toBeTruthy`, `toBeNull`, `getAttribute()`) instead. Jest-dom types are only available at
   vitest runtime via `vitest.setup.ts`, not during `tsc -b`.
-- StartOverlay (session preview): full-screen overlay at z-40 covers TopBar and exercise content when startedAt is null. BottomNav (z-50) remains accessible. Cancel calls abandonSession() then setActiveTab('library'). The old inline TopBar "Start" button was removed.
+- StartOverlay (session preview): full-screen overlay at z-40 covers TopBar and exercise
+  content when startedAt is null. Rendered via createPortal to document.body to prevent
+  black screen during tab transition animations. BottomNav (z-50) remains accessible.
+  Cancel calls abandonSession() then setActiveTab('library'). The old inline TopBar "Start"
+  button was removed.
+- swipeInterceptor in App.tsx checks `!session.startedAt` — during preview state, swipe
+  gestures navigate tabs normally instead of being consumed by exercise-group navigation.
+- Starting a new workout while one is active shows a confirmation dialog (MyWorkouts.tsx).
+  Uses abandonSession() to cleanly discard the previous session before calling startSession().

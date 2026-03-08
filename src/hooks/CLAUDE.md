@@ -16,6 +16,7 @@ Components never access store.graph directly — always through a hook.
   parameter needed — body state is applied automatically.
 - useRestTimer manages its own AudioContext lifecycle (create on first use, close on unmount).
   Exposes `restSeconds` and `adjustRestDuration(delta)` for idle-state rest duration adjustment.
+  Calls `syncTimer()` on mount to correct for elapsed time during tab switch unmount.
   Listens for `visibilitychange` and `focus` events to call `syncTimer()` on tab return,
   correcting timer drift from browser throttling during backgrounding.
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts

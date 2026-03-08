@@ -14,6 +14,7 @@ export function useRestTimer() {
   // Manage the interval
   useEffect(() => {
     if (timer.isRunning) {
+      syncTimer(); // correct for time elapsed while unmounted (tab switch)
       hasNotifiedRef.current = false;
       intervalRef.current = setInterval(() => {
         tickTimer();
@@ -30,7 +31,7 @@ export function useRestTimer() {
         intervalRef.current = null;
       }
     };
-  }, [timer.isRunning, tickTimer]);
+  }, [timer.isRunning, tickTimer, syncTimer]);
 
   // Sync timer with wall clock when tab becomes visible
   useEffect(() => {

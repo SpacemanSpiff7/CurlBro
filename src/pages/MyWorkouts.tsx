@@ -9,6 +9,14 @@ import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
   Sheet,
   SheetContent,
   SheetHeader,
@@ -223,11 +231,13 @@ function TemplateSection({
 
 export function MyWorkouts() {
   const [importOpen, setImportOpen] = useState(false);
+  const [pendingWorkout, setPendingWorkout] = useState<SavedWorkout | null>(null);
   const workouts = useStore((state) => state.library.workouts);
   const graph = useStore((state) => state.graph);
+  const activeSession = useStore((state) => state.session.active);
   const { deleteWorkout, saveWorkout } = useStore((state) => state.libraryActions);
   const { loadWorkout } = useStore((state) => state.builderActions);
-  const { startSession } = useStore((state) => state.sessionActions);
+  const { startSession, abandonSession } = useStore((state) => state.sessionActions);
   const setActiveTab = useStore((state) => state.setActiveTab);
 
   const handleEdit = useCallback(
@@ -240,9 +250,13 @@ export function MyWorkouts() {
 
   const handleStart = useCallback(
     (workout: SavedWorkout) => {
-      startSession(workout);
+      if (activeSession) {
+        setPendingWorkout(workout);
+      } else {
+        startSession(workout);
+      }
     },
-    [startSession]
+    [startSession, activeSession]
   );
 
   const exportIncludeTips = useStore((state) => state.settings.exportIncludeTips);
@@ -284,10 +298,25 @@ export function MyWorkouts() {
     (seeded: SeededWorkout) => {
       const saved = seededToSaved(seeded);
       saveWorkout(saved);
-      startSession(saved);
+      if (activeSession) {
+        setPendingWorkout(saved);
+      } else {
+        startSession(saved);
+      }
     },
-    [saveWorkout, startSession]
+    [saveWorkout, startSession, activeSession]
   );
+
+  const handleConfirmOverride = useCallback(() => {
+    if (!pendingWorkout) return;
+    abandonSession();
+    startSession(pendingWorkout);
+    setPendingWorkout(null);
+  }, [pendingWorkout, abandonSession, startSession]);
+
+  const handleCancelOverride = useCallback(() => {
+    setPendingWorkout(null);
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 pb-20">
@@ -412,6 +441,25 @@ export function MyWorkouts() {
 
       </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
+
+      <Dialog open={!!pendingWorkout} onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}>
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>Replace Active Workout?</DialogTitle>
+            <DialogDescription>
+              You have a workout in progress. Starting a new one will discard your current session and any recorded sets.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" className="min-h-[44px]" onClick={handleCancelOverride}>
+              Keep Current
+            </Button>
+            <Button variant="destructive" className="min-h-[44px]" onClick={handleConfirmOverride}>
+              Start New
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

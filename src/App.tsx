@@ -75,7 +75,7 @@ export default function App() {
   const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
     const state = useStore.getState();
     const session = state.session.active;
-    if (state.activeTab !== 'active' || !session) return false;
+    if (state.activeTab !== 'active' || !session || !session.startedAt) return false;
 
     const groups = deriveGroups(session.exercises);
     const { currentGroupIndex } = session;
@@ -95,7 +95,7 @@ export default function App() {
   const handleDragOffset = useCallback((offsetX: number) => {
     const state = useStore.getState();
     const session = state.session.active;
-    if (state.activeTab !== 'active' || !session) return;
+    if (state.activeTab !== 'active' || !session || !session.startedAt) return;
 
     const groups = deriveGroups(session.exercises);
     const { currentGroupIndex } = session;

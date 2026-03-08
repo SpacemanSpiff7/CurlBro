@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { Play, X } from 'lucide-react';
 
@@ -19,7 +20,7 @@ export const StartOverlay = memo(function StartOverlay({
 }: StartOverlayProps) {
   const showGroups = groupCount < exerciseCount;
 
-  return (
+  return createPortal(
     <motion.div
       initial={{ y: '100%', opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -76,6 +77,7 @@ export const StartOverlay = memo(function StartOverlay({
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 });
