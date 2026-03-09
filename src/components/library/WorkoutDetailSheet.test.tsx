@@ -460,7 +460,7 @@ describe('WorkoutDetailSheet', () => {
     );
     expect(screen.getByLabelText('Start workout')).toBeTruthy();
     expect(screen.getByLabelText('Edit workout')).toBeTruthy();
-    expect(screen.getByLabelText('Copy workout to clipboard')).toBeTruthy();
+    expect(screen.getByLabelText('Share workout')).toBeTruthy();
     expect(screen.getByLabelText('Delete workout')).toBeTruthy();
   });
 

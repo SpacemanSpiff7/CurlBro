@@ -1,4 +1,4 @@
-import { Play, Pencil, Copy, Trash2 } from 'lucide-react';
+import { Play, Pencil, Share2, Trash2 } from 'lucide-react';
 import { useStore } from '@/store';
 import {
   Sheet,
@@ -22,17 +22,6 @@ function formatDate(iso: string): string {
   });
 }
 
-function estimateDuration(workout: SavedWorkout): string {
-  const totalSets = workout.exercises.reduce((sum, e) => sum + e.sets, 0);
-  const totalRestSeconds = workout.exercises.reduce(
-    (sum, e) => sum + e.restSeconds * (e.sets - 1),
-    0,
-  );
-  const minutes = Math.round((totalSets * 45 + totalRestSeconds) / 60);
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  return h > 0 ? `${h}h ${m}m` : `${m}m`;
-}
 
 export function WorkoutDetailSheet({
   workout,
@@ -68,7 +57,7 @@ export function WorkoutDetailSheet({
         </SheetHeader>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-2 mt-4">
+        <div className="grid grid-cols-2 gap-2 mt-4 px-4">
           <div className="rounded-lg bg-bg-elevated p-2.5">
             <div className="text-[10px] text-text-tertiary uppercase tracking-wide">Exercises</div>
             <div className="text-sm font-medium text-text-primary">{workout.exercises.length}</div>
@@ -83,14 +72,10 @@ export function WorkoutDetailSheet({
               <div className="text-sm font-medium text-text-primary">{supersetGroupCount}</div>
             </div>
           )}
-          <div className="rounded-lg bg-bg-elevated p-2.5">
-            <div className="text-[10px] text-text-tertiary uppercase tracking-wide">Est. Duration</div>
-            <div className="text-sm font-medium text-text-primary">{estimateDuration(workout)}</div>
-          </div>
         </div>
 
         {/* Exercise breakdown */}
-        <div className="mt-4 space-y-3">
+        <div className="mt-4 px-4 space-y-3">
           {groups.map((group) => {
             const label = getGroupLabel(group.exercises.length);
 
@@ -118,7 +103,7 @@ export function WorkoutDetailSheet({
         </div>
 
         {/* Action footer */}
-        <div className="grid grid-cols-2 gap-2 mt-4 pb-4">
+        <div className="grid grid-cols-2 gap-2 mt-4 px-4 pb-4">
           <Button
             onClick={() => { onStart(workout); onOpenChange(false); }}
             className="bg-accent-primary text-bg-root hover:bg-accent-hover min-h-[44px]"
@@ -140,10 +125,10 @@ export function WorkoutDetailSheet({
             variant="outline"
             onClick={() => onExport(workout)}
             className="min-h-[44px]"
-            aria-label="Copy workout to clipboard"
+            aria-label="Share workout"
           >
-            <Copy size={14} className="mr-1.5" />
-            Copy
+            <Share2 size={14} className="mr-1.5" />
+            Share
           </Button>
           <Button
             variant="outline"

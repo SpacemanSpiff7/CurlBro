@@ -104,10 +104,10 @@
   optional CTA link. Uses `role="complementary"` + accent color left border.
 - WorkoutDetailSheet (`library/`) — Bottom sheet (80dvh) showing prescribed workout contents.
   Receives `SavedWorkout | null`, `open`, `onOpenChange`, and action callbacks (`onStart`,
-  `onEdit`, `onExport`, `onDelete`). Displays header (name + "Updated {date}"), 2×2 stats
-  grid (exercises, total sets, groups if >0, est. duration), grouped exercise breakdown via
+  `onEdit`, `onExport`, `onDelete`). Displays header (name + "Updated {date}"), stats
+  grid (exercises, total sets, groups if >0), grouped exercise breakdown via
   `deriveGroups()` + `getGroupLabel()` with accent left-border containers for supersets/
-  tri-sets/circuits, and 2×2 action footer (Start, Edit, Copy, Delete). Each exercise card
+  tri-sets/circuits, and 2×2 action footer (Start, Edit, Share, Delete). Each exercise card
   shows name, category badge, sets × reps, weight (if set), rest time, muscle tags, and
   notes (if non-empty). Falls back to `exerciseId` string when graph lookup fails.
   Opened from Library tab by tapping the workout card text area (name + metadata).

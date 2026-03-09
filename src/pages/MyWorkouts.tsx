@@ -365,10 +365,17 @@ export function MyWorkouts() {
             {workouts.map((workout, index) => {
               const cardActions: SwipeAction[] = [
                 {
+                  key: 'edit',
+                  label: 'Edit',
+                  icon: <Pencil size={16} />,
+                  color: 'bg-accent-primary',
+                  onAction: () => handleEdit(workout),
+                },
+                {
                   key: 'copy',
                   label: 'Copy',
                   icon: <Copy size={16} />,
-                  color: 'bg-accent-primary',
+                  color: 'bg-blue-600',
                   onAction: () => handleExport(workout),
                 },
                 {
@@ -377,6 +384,7 @@ export function MyWorkouts() {
                   icon: <Trash2 size={16} />,
                   color: 'bg-destructive',
                   onAction: () => handleDelete(workout.id),
+                  requiresConfirm: true,
                 },
               ];
 
@@ -388,66 +396,26 @@ export function MyWorkouts() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: 100, height: 0 }}
-                      className="rounded-xl border border-border-subtle bg-bg-surface p-3"
                     >
-                      <div className="flex items-center gap-2">
-                        <div
-                          role="button"
-                          tabIndex={0}
-                          className="flex-1 min-w-0 cursor-pointer active:bg-bg-elevated transition-colors rounded-lg"
-                          onClick={() => handleViewDetails(workout)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              handleViewDetails(workout);
-                            }
-                          }}
-                          aria-label={`View ${workout.name || 'Untitled'} details`}
-                        >
-                          <div className="text-sm font-medium text-text-primary truncate">
-                            {workout.name || 'Untitled'}
-                          </div>
-                          <div className="text-xs text-text-tertiary">
-                            {workout.exercises.length} exercises | {workout.updatedAt.slice(0, 10)}
-                          </div>
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => handleViewDetails(workout)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleViewDetails(workout);
+                          }
+                        }}
+                        aria-label={`View ${workout.name || 'Untitled'} details`}
+                        className="rounded-xl border border-border-subtle bg-bg-surface p-3 cursor-pointer active:bg-bg-elevated transition-colors"
+                        style={{ minHeight: '56px' }}
+                      >
+                        <div className="text-sm font-medium text-text-primary truncate">
+                          {workout.name || 'Untitled'}
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleStart(workout)}
-                            aria-label="Start workout"
-                            className="h-9 w-9"
-                          >
-                            <Play size={14} />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleEdit(workout)}
-                            aria-label="Edit workout"
-                            className="h-9 w-9"
-                          >
-                            <Pencil size={14} />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleExport(workout)}
-                            aria-label="Copy to clipboard"
-                            className="h-9 w-9"
-                          >
-                            <Copy size={14} />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => handleDelete(workout.id)}
-                            aria-label="Delete workout"
-                            className="h-9 w-9 text-destructive hover:text-destructive"
-                          >
-                            <Trash2 size={14} />
-                          </Button>
+                        <div className="text-xs text-text-tertiary mt-0.5">
+                          {workout.exercises.length} exercises · {workout.updatedAt.slice(0, 10)}
                         </div>
                       </div>
                     </motion.div>
