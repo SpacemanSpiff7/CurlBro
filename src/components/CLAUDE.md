@@ -114,6 +114,19 @@
   Opened from Library tab by tapping the workout card text area (name + metadata).
 - PrivacyPolicyPage — Bottom sheet (85dvh) with privacy policy content. Opened from Settings.
 - AboutPage — Bottom sheet (60dvh) with app info, credits, contact links. Opened from Settings.
+- BuildGuide (`pages/`) — Bottom sheet (95dvh) "Build a Workout" quick start guide with 7
+  scroll-reveal sections. Uses GuideSection, ScrollProgressBar, GuideTip shared components
+  and mock illustrations. Opened from Settings > Help > Quick Start.
+- RecordGuide (`pages/`) — Bottom sheet (95dvh) "Record a Workout" quick start guide with 8
+  scroll-reveal sections. Same shared components pattern. Opened from Settings > Help > Quick Start.
+- GuideSection (`guide/`) — Scroll-reveal section wrapper with numbered step badge (spring
+  scale animation), icon, title. Uses Framer Motion `whileInView` with `once: true`.
+- ScrollProgressBar (`guide/`) — 2px accent progress bar using `useScroll({ container })` +
+  `useTransform`. Accepts `RefObject<HTMLDivElement | null>`.
+- GuideTip (`guide/`) — Pro tip callout with Lightbulb icon in `text-warning`.
+- Mock illustrations (`guide/illustrations/`) — 8 self-contained visual demos (MockExerciseCard,
+  MockSwipeReveal, MockSetRows, MockRestTimerRing, MockDotIndicators, MockDropZones,
+  MockFilterChips, MockStatusBar). Use design tokens + Framer Motion but no real app imports.
 - CookieConsent (`shared/`) — EU cookie consent banner for Consent Mode v2. Fixed bottom bar
   above BottomNav. Accept/Reject with equal visual weight (EU compliance). Stores choice in
   `localStorage` key `curlbro_cookie_consent`. Exports `resetCookieConsent()` for Settings

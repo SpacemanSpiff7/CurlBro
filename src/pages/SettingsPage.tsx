@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/components/shared/CookieConsent';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,8 @@ import { TopBar } from '@/components/shared/TopBar';
 import { AboutPage } from './AboutPage';
 import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { TermsOfUsePage } from './TermsOfUsePage';
+import { BuildGuide } from './BuildGuide';
+import { RecordGuide } from './RecordGuide';
 import { useStore } from '@/store';
 
 function NumberSetting({ value, min, fallback, onChange }: {
@@ -48,6 +51,9 @@ export function SettingsPage() {
   const [termsOpen, setTermsOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [showRepHint, setShowRepHint] = useState(false);
+  const [quickStartOpen, setQuickStartOpen] = useState(false);
+  const [buildGuideOpen, setBuildGuideOpen] = useState(false);
+  const [recordGuideOpen, setRecordGuideOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const settings = useStore((state) => state.settings);
   const { updateSettings, resetSettings } = useStore((state) => state.settingsActions);
@@ -67,6 +73,50 @@ export function SettingsPage() {
           Help
         </h2>
         <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+          <button
+            onClick={() => setQuickStartOpen((v) => !v)}
+            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+            style={{ minHeight: '44px' }}
+            aria-expanded={quickStartOpen}
+            aria-label="Toggle quick start guides"
+          >
+            <Zap size={14} className="text-accent-primary" />
+            Quick Start
+            <ChevronDown
+              size={14}
+              className={`ml-auto text-text-tertiary transition-transform ${quickStartOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          <AnimatePresence initial={false}>
+            {quickStartOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                className="overflow-hidden"
+              >
+                <div className="space-y-0.5 pl-4">
+                  <button
+                    onClick={() => setBuildGuideOpen(true)}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+                    style={{ minHeight: '44px' }}
+                  >
+                    <Hammer size={14} className="text-accent-primary" />
+                    Build a Workout
+                  </button>
+                  <button
+                    onClick={() => setRecordGuideOpen(true)}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+                    style={{ minHeight: '44px' }}
+                  >
+                    <Timer size={14} className="text-accent-primary" />
+                    Record a Workout
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <a
             href={`${import.meta.env.BASE_URL}guide/`}
             target="_blank"
@@ -436,6 +486,8 @@ export function SettingsPage() {
       <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
       <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
       <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />
+      <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} />
+      <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} />
     </div>
   );
 }
