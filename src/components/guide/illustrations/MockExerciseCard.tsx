@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export function MockExerciseCard() {
   const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const id = setInterval(() => setExpanded((v) => !v), 3000);
-    return () => clearInterval(id);
-  }, []);
 
   return (
     <div className="rounded-xl border border-border-subtle bg-bg-surface p-4 overflow-hidden">

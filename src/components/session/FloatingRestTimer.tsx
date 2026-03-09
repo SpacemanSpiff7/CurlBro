@@ -65,6 +65,7 @@ function FloatingRestTimerInner() {
   const activeTab = useStore((state) => state.activeTab);
   const setActiveTab = useStore((state) => state.setActiveTab);
   const session = useStore((state) => state.session.active);
+  const stopTimer = useStore((state) => state.sessionActions.stopTimer);
   const timer = useFloatingTimerState();
 
   // Subscribe to inline timer visibility via useSyncExternalStore
@@ -84,6 +85,13 @@ function FloatingRestTimerInner() {
     setSuppressed(false);
   }, [activeTab]);
 
+  // Auto-dismiss expired timer when user navigates to active tab
+  useEffect(() => {
+    if (activeTab === 'active' && timer.isDone) {
+      stopTimer();
+    }
+  }, [activeTab, timer.isDone, stopTimer]);
+
   // Determine visibility
   const hasActiveSession = !!session?.startedAt && !session?.completedAt;
   const onActiveTab = activeTab === 'active';
@@ -91,6 +99,14 @@ function FloatingRestTimerInner() {
   const shouldShow = hasActiveSession && !timer.isIdle && inlineHidden && !suppressed;
 
   const handleTap = useCallback(() => {
+    // Dismiss expired timer immediately on tap
+    if (timer.isDone) {
+      stopTimer();
+      if (activeTab !== 'active') {
+        setActiveTab('active');
+      }
+      return;
+    }
     if (activeTab !== 'active') {
       setActiveTab('active');
       // Wait for tab transition + scroll restore + IO evaluation
@@ -98,7 +114,7 @@ function FloatingRestTimerInner() {
     } else {
       triggerScrollToTimer();
     }
-  }, [activeTab, setActiveTab]);
+  }, [activeTab, setActiveTab, timer.isDone, stopTimer]);
 
   return (
     <AnimatePresence>

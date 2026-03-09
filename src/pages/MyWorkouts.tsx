@@ -1,5 +1,5 @@
 import { useState, useCallback, Fragment } from 'react';
-import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
+import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -72,7 +72,20 @@ function ImportSheet({
   const settings = useStore((state) => state.settings);
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
 
-  const handlePreview = useCallback(() => {
+  const handlePaste = useCallback(async () => {
+    try {
+      const clipText = await navigator.clipboard.readText();
+      if (clipText.trim()) {
+        setText(clipText);
+      } else {
+        toast.error('Clipboard is empty');
+      }
+    } catch {
+      toast.error('Unable to access clipboard');
+    }
+  }, []);
+
+  const handleImport = useCallback(() => {
     const parsed = parseImport(text, graph, settings);
     setResult({
       warnings: parsed.warnings,
@@ -85,23 +98,59 @@ function ImportSheet({
       setText('');
       setResult(null);
       onOpenChange(false);
+      toast.success(`Imported "${parsed.workout.name}"`);
     }
   }, [text, graph, settings, saveWorkout, onOpenChange]);
 
+  const handleOpenChange = useCallback(
+    (isOpen: boolean) => {
+      if (!isOpen) {
+        setText('');
+        setResult(null);
+      }
+      onOpenChange(isOpen);
+    },
+    [onOpenChange]
+  );
+
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[70dvh] bg-bg-surface">
+    <Sheet open={open} onOpenChange={handleOpenChange}>
+      <SheetContent
+        side="bottom"
+        className="h-[60dvh] bg-bg-surface"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <SheetHeader>
           <SheetTitle className="text-text-primary">Import Workout</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col gap-3 mt-4">
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Paste workout text here..."
-            className="w-full h-40 rounded-lg bg-bg-elevated border border-border-subtle p-3 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none focus:outline-none focus:ring-1 focus:ring-accent-primary"
-            aria-label="Import text"
-          />
+          {!text ? (
+            <button
+              onClick={handlePaste}
+              className="w-full h-40 rounded-lg bg-bg-elevated border-2 border-dashed border-border-subtle flex flex-col items-center justify-center gap-3 active:bg-bg-surface transition-colors"
+              aria-label="Paste from clipboard"
+            >
+              <ClipboardPaste size={32} className="text-text-tertiary" />
+              <span className="text-sm text-text-secondary font-medium">Paste from Clipboard</span>
+              <span className="text-xs text-text-tertiary">or tap below to type manually</span>
+            </button>
+          ) : (
+            <div className="relative">
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="w-full h-40 rounded-lg bg-bg-elevated border border-border-subtle p-3 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                aria-label="Import text"
+              />
+              <button
+                onClick={() => { setText(''); setResult(null); }}
+                className="absolute top-2 right-2 text-xs text-text-tertiary hover:text-text-secondary px-2 py-1 rounded bg-bg-surface"
+                aria-label="Clear text"
+              >
+                Clear
+              </button>
+            </div>
+          )}
           {result && (
             <div className="space-y-1">
               {result.errors.map((e, i) => (
@@ -117,14 +166,25 @@ function ImportSheet({
               )}
             </div>
           )}
-          <Button
-            onClick={handlePreview}
-            disabled={!text.trim()}
-            className="bg-accent-primary text-bg-root hover:bg-accent-hover"
-          >
-            <Upload size={14} className="mr-1" />
-            Import
-          </Button>
+          <div className="flex gap-2">
+            {!text && (
+              <Button
+                variant="outline"
+                onClick={() => setText(' ')}
+                className="flex-1 min-h-[44px]"
+              >
+                Type Manually
+              </Button>
+            )}
+            <Button
+              onClick={handleImport}
+              disabled={!text.trim()}
+              className="flex-1 min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover"
+            >
+              <Upload size={14} className="mr-1" />
+              Import
+            </Button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
@@ -269,7 +329,7 @@ export function MyWorkouts() {
 
   const handleStart = useCallback(
     (workout: SavedWorkout) => {
-      if (activeSession) {
+      if (activeSession && !activeSession.completedAt) {
         setPendingWorkout(workout);
       } else {
         startSession(workout);
@@ -485,12 +545,17 @@ export function MyWorkouts() {
                         className="rounded-xl border border-border-subtle bg-bg-surface p-3 cursor-pointer active:bg-bg-elevated transition-colors"
                         style={{ minHeight: '56px' }}
                       >
-                        <div className="text-sm font-medium text-text-primary truncate">
-                          {workout.name || 'Untitled'}
+                        <div className="flex items-center gap-2">
+                        <ClipboardList size={16} className="flex-shrink-0 text-accent-primary" />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-text-primary truncate">
+                            {workout.name || 'Untitled'}
+                          </div>
+                          <div className="text-xs text-text-tertiary mt-0.5">
+                            {workout.exercises.length} exercises · {workout.updatedAt.slice(0, 10)}
+                          </div>
                         </div>
-                        <div className="text-xs text-text-tertiary mt-0.5">
-                          {workout.exercises.length} exercises · {workout.updatedAt.slice(0, 10)}
-                        </div>
+                      </div>
                       </div>
                     </motion.div>
                   </SwipeToReveal>

@@ -122,7 +122,7 @@ function LogDetailSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[80dvh] bg-bg-surface overflow-y-auto">
+      <SheetContent side="bottom" className="h-[80dvh] bg-bg-surface overflow-y-auto" onOpenAutoFocus={(e) => e.preventDefault()}>
         <SheetHeader>
           <SheetTitle className="text-text-primary">{log.workoutName || 'Untitled'}</SheetTitle>
           <div className="text-xs text-text-tertiary">{formatDate(log.completedAt)}</div>
@@ -157,8 +157,8 @@ function LogDetailSheet({
             value={log.notes ?? ''}
             onChange={(e) => updateLogNotes(log.id as LogId, e.target.value)}
             placeholder="Add session notes..."
-            className="w-full mt-1 rounded-md border border-border-subtle bg-bg-elevated px-3 py-2 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none"
-            rows={2}
+            className="w-full mt-1 rounded-md border border-border-subtle bg-bg-elevated px-3 py-2 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-y"
+            rows={4}
             aria-label="Session notes"
           />
         </div>
