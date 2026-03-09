@@ -306,4 +306,87 @@ describe('Session Flow', () => {
 
     expect(useStore.getState().activeTab).toBe('active');
   });
+
+  it('startSession copies builder notes to planNotes', () => {
+    const workout = createTestWorkout();
+    workout.exercises[0].notes = 'Pause at bottom';
+    workout.exercises[1].notes = 'Squeeze at peak';
+
+    useStore.getState().sessionActions.startSession(workout);
+
+    const session = useStore.getState().session.active!;
+    expect(session.exercises[0].planNotes).toBe('Pause at bottom');
+    expect(session.exercises[1].planNotes).toBe('Squeeze at peak');
+  });
+
+  it('startSession initializes session notes as empty string', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+
+    const session = useStore.getState().session.active!;
+    expect(session.notes).toBe('');
+  });
+
+  it('updateSessionNotes sets notes on active session', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+
+    useStore.getState().sessionActions.updateSessionNotes('Felt strong today');
+
+    const session = useStore.getState().session.active!;
+    expect(session.notes).toBe('Felt strong today');
+  });
+
+  it('updateSessionNotes is no-op without active session', () => {
+    useStore.getState().sessionActions.updateSessionNotes('test');
+    expect(useStore.getState().session.active).toBeNull();
+  });
+
+  it('saveSession copies session notes to log', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.updateSessionNotes('Great workout');
+    useStore.getState().sessionActions.completeSet(0, 0, {
+      weight: 155, reps: 8, completed: true,
+    });
+    useStore.getState().sessionActions.endSession();
+
+    const log = useStore.getState().sessionActions.saveSession();
+    expect(log).not.toBeNull();
+    expect(log!.notes).toBe('Great workout');
+  });
+
+  it('saveSession copies planNotes to log exercises', () => {
+    const workout = createTestWorkout();
+    workout.exercises[0].notes = 'Slow eccentric';
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.completeSet(0, 0, {
+      weight: 155, reps: 8, completed: true,
+    });
+    useStore.getState().sessionActions.endSession();
+
+    const log = useStore.getState().sessionActions.saveSession();
+    expect(log).not.toBeNull();
+    expect(log!.exercises[0].planNotes).toBe('Slow eccentric');
+  });
+
+  it('updateLogNotes updates notes on a specific log', () => {
+    const workout = createTestWorkout();
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.beginSession();
+    useStore.getState().sessionActions.completeSet(0, 0, {
+      weight: 155, reps: 8, completed: true,
+    });
+    useStore.getState().sessionActions.endSession();
+
+    const log = useStore.getState().sessionActions.saveSession()!;
+    expect(log.notes).toBe('');
+
+    useStore.getState().libraryActions.updateLogNotes(log.id as LogId, 'Added later');
+
+    const updatedLog = useStore.getState().library.logs.find((l) => l.id === log.id);
+    expect(updatedLog!.notes).toBe('Added later');
+  });
 });

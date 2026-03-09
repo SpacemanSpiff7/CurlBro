@@ -1,5 +1,5 @@
 import { useState, useCallback, Fragment } from 'react';
-import { Play, Pencil, Trash2, Upload, Download, Copy, Share2, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
+import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -432,17 +432,24 @@ export function MyWorkouts() {
             {workouts.map((workout, index) => {
               const cardActions: SwipeAction[] = [
                 {
+                  key: 'start',
+                  label: 'Start',
+                  icon: <Play size={16} />,
+                  color: 'bg-accent-primary',
+                  onAction: () => handleStart(workout),
+                },
+                {
                   key: 'edit',
                   label: 'Edit',
                   icon: <Pencil size={16} />,
-                  color: 'bg-accent-primary',
+                  color: 'bg-blue-600',
                   onAction: () => handleEdit(workout),
                 },
                 {
-                  key: 'copy',
-                  label: 'Copy',
-                  icon: <Copy size={16} />,
-                  color: 'bg-blue-600',
+                  key: 'share',
+                  label: 'Share',
+                  icon: <Share2 size={16} />,
+                  color: 'bg-emerald-600',
                   onAction: () => handleExport(workout),
                 },
                 {

@@ -92,8 +92,9 @@
   `initial`/`animate`/`exit` (NOT `layout` — conflicts with dnd-kit transforms). Shows ghost
   placeholder when `isDragging`. Supports edit mode: checkbox replaces drag handle, selection
   styling, disabled drag/swipe. `isDropTarget` prop shows highlight ring for superset merge.
-  Includes superset/ungroup actions in its expand menu AND swipe-to-reveal actions
-  (Swap/Super/Delete). Swipe "Super" opens inline SupersetPanel (not ExercisePicker sheet).
+  **Expanded section** shows Rest time input + Notes textarea + Ungroup button (if grouped).
+  Swap/Superset/Delete are swipe-only actions (removed from expanded view).
+  Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap
   Exercise" (from substitute "Search all"). Drag handle has `data-dnd-handle` attribute
   to prevent swipe gesture conflicts.

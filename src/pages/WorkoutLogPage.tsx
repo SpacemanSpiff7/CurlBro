@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, Fragment } from 'react';
-import { ClipboardList, Trash2, Copy, Save } from 'lucide-react';
+import { ClipboardList, Trash2, Share2, Save } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
 import { AdSlot } from '@/components/ads/AdSlot';
@@ -98,6 +98,7 @@ function LogDetailSheet({
 }) {
   const graph = useStore((state) => state.graph);
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
+  const updateLogNotes = useStore((state) => state.libraryActions.updateLogNotes);
 
   if (!log) return null;
 
@@ -149,6 +150,19 @@ function LogDetailSheet({
           </div>
         </div>
 
+        {/* Session Notes */}
+        <div className="mt-3">
+          <label className="text-[10px] text-text-tertiary uppercase tracking-wide font-medium">Session Notes</label>
+          <textarea
+            value={log.notes ?? ''}
+            onChange={(e) => updateLogNotes(log.id as LogId, e.target.value)}
+            placeholder="Add session notes..."
+            className="w-full mt-1 rounded-md border border-border-subtle bg-bg-elevated px-3 py-2 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none"
+            rows={2}
+            aria-label="Session notes"
+          />
+        </div>
+
         {/* Exercise breakdown */}
         <div className="mt-4 space-y-3">
           {deriveGroups(log.exercises).map((group) => {
@@ -159,7 +173,10 @@ function LogDetailSheet({
               const name = exercise?.name ?? exerciseLog.exerciseId;
               return (
                 <div key={idx} className="rounded-lg border border-border-subtle bg-bg-elevated p-3">
-                  <div className="text-sm font-medium text-text-primary mb-2">{name}</div>
+                  <div className="text-sm font-medium text-text-primary mb-1">{name}</div>
+                  {exerciseLog.planNotes && (
+                    <p className="text-xs text-text-tertiary italic mb-2">{exerciseLog.planNotes}</p>
+                  )}
                   <div className="space-y-1">
                     {exerciseLog.sets.map((set, setIdx) => (
                       <div key={setIdx} className="flex items-center gap-2 text-xs">
@@ -211,10 +228,10 @@ function LogDetailSheet({
             variant="outline"
             onClick={handleCopy}
             className="flex-1"
-            aria-label="Copy log to clipboard"
+            aria-label="Share log to clipboard"
           >
-            <Copy size={14} className="mr-1.5" />
-            Copy
+            <Share2 size={14} className="mr-1.5" />
+            Share
           </Button>
         </div>
       </SheetContent>

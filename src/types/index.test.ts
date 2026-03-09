@@ -4,6 +4,8 @@ import {
   SavedWorkoutSchema,
   WorkoutLogSchema,
   AppSettingsSchema,
+  ExerciseLogSchema,
+  ActiveSessionSchema,
 } from './index';
 
 describe('Zod schemas', () => {
@@ -136,6 +138,118 @@ describe('Zod schemas', () => {
 
       const result = WorkoutLogSchema.safeParse(log);
       expect(result.success).toBe(true);
+    });
+  });
+
+  describe('ExerciseLogSchema', () => {
+    it('accepts data without planNotes (backward compat)', () => {
+      const result = ExerciseLogSchema.safeParse({
+        exerciseId: 'bench_press',
+        sets: [{ weight: 100, reps: 8, completed: true }],
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.planNotes).toBe('');
+      }
+    });
+
+    it('accepts data with planNotes', () => {
+      const result = ExerciseLogSchema.safeParse({
+        exerciseId: 'bench_press',
+        sets: [{ weight: 100, reps: 8, completed: true }],
+        planNotes: 'Pause at bottom',
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.planNotes).toBe('Pause at bottom');
+      }
+    });
+  });
+
+  describe('ActiveSessionSchema', () => {
+    it('accepts data without notes (backward compat)', () => {
+      const result = ActiveSessionSchema.safeParse({
+        workoutId: 'w-1',
+        workoutName: 'Push Day',
+        exercises: [],
+        currentGroupIndex: 0,
+        startedAt: null,
+        completedAt: null,
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.notes).toBe('');
+      }
+    });
+
+    it('accepts data with notes', () => {
+      const result = ActiveSessionSchema.safeParse({
+        workoutId: 'w-1',
+        workoutName: 'Push Day',
+        exercises: [],
+        currentGroupIndex: 0,
+        startedAt: null,
+        completedAt: null,
+        notes: 'Felt strong today',
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.notes).toBe('Felt strong today');
+      }
+    });
+  });
+
+  describe('WorkoutLogSchema — notes backward compat', () => {
+    it('accepts log data without notes (backward compat)', () => {
+      const result = WorkoutLogSchema.safeParse({
+        id: 'log-1',
+        workoutId: 'w-1',
+        workoutName: 'Push Day',
+        exercises: [],
+        startedAt: '2026-03-04T10:00:00.000Z',
+        completedAt: '2026-03-04T11:00:00.000Z',
+        durationMinutes: 60,
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.notes).toBe('');
+      }
+    });
+
+    it('accepts log data with notes', () => {
+      const result = WorkoutLogSchema.safeParse({
+        id: 'log-1',
+        workoutId: 'w-1',
+        workoutName: 'Push Day',
+        exercises: [],
+        startedAt: '2026-03-04T10:00:00.000Z',
+        completedAt: '2026-03-04T11:00:00.000Z',
+        durationMinutes: 60,
+        notes: 'Great session',
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.notes).toBe('Great session');
+      }
+    });
+
+    it('defaults exercise planNotes when missing from log exercises', () => {
+      const result = WorkoutLogSchema.safeParse({
+        id: 'log-1',
+        workoutId: 'w-1',
+        workoutName: 'Push Day',
+        exercises: [{
+          exerciseId: 'bench',
+          sets: [{ weight: 100, reps: 8, completed: true }],
+        }],
+        startedAt: '2026-03-04T10:00:00.000Z',
+        completedAt: '2026-03-04T11:00:00.000Z',
+        durationMinutes: 60,
+      });
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.exercises[0].planNotes).toBe('');
+      }
     });
   });
 

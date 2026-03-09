@@ -102,6 +102,21 @@ export const ExerciseCard = memo(function ExerciseCard({
     [index, onUpdate]
   );
 
+  const handleRestChange = useCallback(
+    (value: string) => {
+      const rest = parseInt(value);
+      if (!isNaN(rest) && rest >= 0) onUpdate(index, { restSeconds: rest });
+    },
+    [index, onUpdate]
+  );
+
+  const handleNotesChange = useCallback(
+    (value: string) => {
+      onUpdate(index, { notes: value });
+    },
+    [index, onUpdate]
+  );
+
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
       onSwap(index, newId);
@@ -308,54 +323,44 @@ export const ExerciseCard = memo(function ExerciseCard({
             transition={{ duration: 0.15 }}
             className="overflow-hidden"
           >
-            <div className="flex flex-wrap items-center gap-2 px-3 pb-3 border-t border-border-subtle pt-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActivePanel(currentPanel === 'substitutes' ? 'none' : 'substitutes')}
-                className={`text-text-secondary hover:text-accent-primary ${
-                  currentPanel === 'substitutes' ? 'text-accent-primary' : ''
-                }`}
-                aria-label="Swap exercise"
-              >
-                <Repeat size={14} className="mr-1" />
-                Swap
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActivePanel(currentPanel === 'supersets' ? 'none' : 'supersets')}
-                className={`text-text-secondary hover:text-accent-primary ${
-                  currentPanel === 'supersets' ? 'text-accent-primary' : ''
-                }`}
-                aria-label="Add superset partner"
-              >
-                <Link size={14} className="mr-1" />
-                Superset
-              </Button>
-              {isInGroup && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleUngroupSelf}
-                  className="text-text-secondary hover:text-accent-primary"
-                  aria-label="Remove from group"
-                >
-                  <Unlink size={14} className="mr-1" />
-                  Ungroup
-                </Button>
-              )}
-              <div className="flex-1" />
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onRemove(index)}
-                className="text-destructive hover:text-destructive"
-                aria-label="Remove exercise"
-              >
-                <Trash2 size={14} className="mr-1" />
-                Remove
-              </Button>
+            <div className="px-3 pb-3 border-t border-border-subtle pt-2 space-y-2">
+              <div className="flex items-center gap-2">
+                <label className="text-xs text-text-tertiary w-8">Rest</label>
+                <Input
+                  type="number"
+                  value={workoutExercise.restSeconds}
+                  onChange={(e) => handleRestChange(e.target.value)}
+                  className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
+                  min={0}
+                  aria-label="Rest seconds"
+                  disabled={editMode}
+                />
+                <span className="text-xs text-text-tertiary">sec</span>
+                {isInGroup && (
+                  <>
+                    <div className="flex-1" />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleUngroupSelf}
+                      className="text-text-secondary hover:text-accent-primary"
+                      aria-label="Remove from group"
+                    >
+                      <Unlink size={14} className="mr-1" />
+                      Ungroup
+                    </Button>
+                  </>
+                )}
+              </div>
+              <textarea
+                value={workoutExercise.notes}
+                onChange={(e) => handleNotesChange(e.target.value)}
+                placeholder="Add notes (form cues, tempo, etc.)"
+                className="w-full rounded-md border border-border-subtle bg-bg-elevated px-3 py-2 text-base md:text-sm text-text-primary placeholder:text-text-tertiary resize-none"
+                rows={2}
+                disabled={editMode}
+                aria-label="Exercise notes"
+              />
             </div>
           </motion.div>
         )}

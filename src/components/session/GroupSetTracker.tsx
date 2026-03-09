@@ -12,6 +12,7 @@ interface GroupSetTrackerProps {
   onCompleteSet: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
   onAddSet: (exerciseIndex: number) => void;
   onRemoveSet?: (exerciseIndex: number, setIndex: number) => void;
+  planNotes?: string[];
 }
 
 const SetRow = memo(function SetRow({
@@ -125,6 +126,7 @@ export const GroupSetTracker = memo(function GroupSetTracker({
   onCompleteSet,
   onAddSet,
   onRemoveSet,
+  planNotes,
 }: GroupSetTrackerProps) {
   const graph = useStore((state) => state.graph);
   const isSuperset = group.exercises.length > 1;
@@ -145,6 +147,9 @@ export const GroupSetTracker = memo(function GroupSetTracker({
             {exercise.sets.filter((s) => s.completed).length}/{exercise.sets.length} done
           </span>
         </div>
+        {planNotes?.[0] && (
+          <p className="text-xs text-text-tertiary italic px-1 pb-1">{planNotes[0]}</p>
+        )}
         {exercise.sets.map((set, i) => (
           <SetRow
             key={i}
@@ -206,6 +211,9 @@ export const GroupSetTracker = memo(function GroupSetTracker({
                 <span className="text-[10px] text-accent-primary ml-1">
                   {info?.name ?? 'Unknown'}
                 </span>
+                {roundIdx === 0 && planNotes?.[exOffset] && (
+                  <p className="text-[10px] text-text-tertiary italic ml-1">{planNotes[exOffset]}</p>
+                )}
                 <SetRow
                   set={set}
                   setIndex={roundIdx}

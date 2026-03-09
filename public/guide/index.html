@@ -665,6 +665,88 @@
     @media (max-width: 767px) {
       .toc-mobile { display: block; }
     }
+    /* ── Swipe Demo ─────────────────────────────────────── */
+    .swipe-demo {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+    .swipe-demo-label {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      text-align: right;
+      margin-bottom: 0.375rem;
+      padding-right: 0.25rem;
+    }
+    .swipe-track {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      height: 72px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .swipe-actions-layer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: stretch;
+    }
+    .swipe-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .swipe-action-start { background: #0891b2; }
+    .swipe-action-edit { background: #3b82f6; }
+    .swipe-action-share { background: #10b981; }
+    .swipe-action-delete { background: #ef4444; }
+    .swipe-action-swap { background: #0891b2; }
+    .swipe-action-super { background: #f59e0b; color: #1c1917; }
+    .swipe-card {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 1.25rem;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      will-change: transform;
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .swipe-card.dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+    .swipe-card-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .swipe-card-sub {
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      margin-top: 0.125rem;
+    }
   </style>
 </head>
 <body>
@@ -709,6 +791,7 @@
       <a href="#getting-started">Getting Started</a>
       <a href="#exercise-database">Exercise Database</a>
       <a href="#building-a-workout">Building a Workout</a>
+      <a href="#swipe-actions">Swipe Actions</a>
       <a href="#exercise-picker">Exercise Picker &amp; Smart Filters</a>
       <a href="#templates">Pre-built Templates</a>
       <a href="#conflict-detection">Conflict Detection</a>
@@ -734,6 +817,7 @@
       <a href="#getting-started">Getting Started</a>
       <a href="#exercise-database">Exercise Database</a>
       <a href="#building-a-workout">Building a Workout</a>
+      <a href="#swipe-actions">Swipe Actions</a>
       <a href="#exercise-picker">Exercise Picker &amp; Filters</a>
       <a href="#templates">Pre-built Templates</a>
       <a href="#conflict-detection">Conflict Detection</a>
@@ -961,14 +1045,20 @@
 
           <h3>Adding and Configuring Exercises</h3>
           <p>
-            Tap <strong>Add Exercise</strong> to open the Exercise Picker (covered in detail in the next section). Once you add an exercise, it appears as a card in your workout. Tap any exercise card to expand it and reveal the full configuration panel:
+            Tap <strong>Add Exercise</strong> to open the Exercise Picker (covered in detail in the next section). Once you add an exercise, it appears as a collapsed card in your workout showing the exercise name, primary muscle, and sets/reps summary. Each card has two levels of detail:
+          </p>
+          <p>
+            <strong>Collapsed view</strong> shows the exercise name, target muscle, and a quick sets &times; reps summary. Tap the chevron on the right side of any card to expand it.
+          </p>
+          <p>
+            <strong>Expanded view</strong> (tap the chevron to open) reveals the full configuration panel:
           </p>
           <ul>
             <li><strong>Sets</strong> &mdash; Number of working sets. CurlBro defaults to your configured default (typically 4 for compounds, 3 for isolations), but you can adjust from 1 to 10.</li>
             <li><strong>Reps</strong> &mdash; Rep target per set. Pre-filled based on your default reps settings (separate defaults for compound and isolation exercises). Tap the info icon in Settings for rep range guidance: strength 1&ndash;5, hypertrophy 6&ndash;12, endurance 12&ndash;20+.</li>
             <li><strong>Weight</strong> &mdash; Optional weight in pounds or kilograms. Leave blank for bodyweight exercises or if you prefer not to pre-plan weights.</li>
-            <li><strong>Rest</strong> &mdash; Rest period between sets in seconds. Defaults are based on your settings: compounds typically get 90&ndash;180 seconds, isolations get 45&ndash;90 seconds. These follow NSCA rest period guidelines.</li>
-            <li><strong>Notes</strong> &mdash; Free-text field for form cues, tempo prescriptions, or any personal reminders. Notes appear during active sessions alongside the exercise.</li>
+            <li><strong>Rest</strong> &mdash; Rest period between sets in seconds, found in the expanded section. Defaults are based on your settings: compounds typically get 90&ndash;180 seconds, isolations get 45&ndash;90 seconds. These follow NSCA rest period guidelines.</li>
+            <li><strong>Notes</strong> &mdash; Free-text field in the expanded section for form cues, tempo prescriptions, or any personal reminders (e.g., "3-1-2 tempo", "squeeze at top"). Notes appear during active sessions as read-only text above the set inputs, giving you form cues right when you need them.</li>
           </ul>
 
           <h3>Reordering Exercises</h3>
@@ -978,13 +1068,107 @@
 
           <h3>Removing Exercises</h3>
           <p>
-            Swipe left on any exercise card to reveal the delete action, or tap the remove button when the card is expanded. Removing an exercise updates the gap analysis and conflict checks immediately.
+            Swipe left on any exercise card to reveal action buttons including <strong>Delete</strong>. This is the primary way to remove exercises from your workout. Removing an exercise updates the gap analysis and conflict checks immediately. See the <a href="#swipe-actions">Swipe Actions</a> section below for all available swipe actions on exercise cards.
           </p>
 
           <h3>Saving to Library</h3>
           <p>
             When your workout is ready, tap <strong>Save</strong> to store it in your library. Saved workouts persist across browser sessions. You can load, edit, duplicate, and delete saved workouts at any time. Each saved workout tracks its creation and last-modified timestamps.
           </p>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- SECTION 3b: SWIPE ACTIONS                         -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <section id="swipe-actions">
+          <h2>
+            <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+            Swipe Actions
+          </h2>
+          <p>
+            CurlBro uses <strong>swipe-to-reveal</strong> gestures throughout the app for quick, contextual actions. Swipe any card to the left to reveal a row of action buttons behind it. Release your finger to snap the card back, or tap an action to execute it. Only one card can be open at a time &mdash; opening a new card automatically closes the previous one.
+          </p>
+
+          <h3>Actions by Context</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Card Type</th>
+                  <th>Actions (left to right)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Exercise cards</strong> (Builder)</td>
+                  <td><span class="badge badge-accent">Swap</span> <span class="badge badge-caution">Super</span> <span class="badge badge-warning">Delete</span></td>
+                </tr>
+                <tr>
+                  <td><strong>My Workouts</strong> (Library)</td>
+                  <td><span class="badge badge-accent">Start</span> <span class="badge badge-accent">Edit</span> <span class="badge badge-success">Share</span> <span class="badge badge-warning">Delete</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Quick Start Templates</strong></td>
+                  <td><span class="badge badge-accent">Start</span> <span class="badge badge-accent">Edit</span> <span class="badge badge-success">Share</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Workout Logs</strong></td>
+                  <td><span class="badge badge-warning">Delete</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <dl>
+            <dt>Swap</dt>
+            <dd>Opens the exercise picker pre-filtered to substitutes for the current exercise. Pick a replacement and it takes the same position, sets, and reps.</dd>
+            <dt>Super</dt>
+            <dd>Opens the exercise picker pre-filtered to superset candidates. The selected exercise is grouped with the swiped exercise into a superset.</dd>
+            <dt>Delete</dt>
+            <dd>Removes the card. For exercises, gap analysis and conflict checks update immediately. For logs, the entry is permanently deleted.</dd>
+            <dt>Start</dt>
+            <dd>Launches an active workout session with the swiped workout. If a session is already active, you are prompted to confirm.</dd>
+            <dt>Edit</dt>
+            <dd>Loads the workout into the Builder tab for editing. For templates, this creates an editable copy in your library.</dd>
+            <dt>Share</dt>
+            <dd>Copies the workout in CurlBro's text export format to your clipboard, ready to paste and send.</dd>
+          </dl>
+
+          <h3>Try It Out</h3>
+          <p>Swipe left on the demo cards below to see how it feels. These are fully interactive &mdash; try them on both touch and mouse.</p>
+
+          <!-- Demo 1: Workout card -->
+          <div class="swipe-demo" id="demo-workout">
+            <div class="swipe-demo-label">&larr; Swipe left to try</div>
+            <div class="swipe-track">
+              <div class="swipe-actions-layer">
+                <button class="swipe-action swipe-action-start" aria-label="Start">Start</button>
+                <button class="swipe-action swipe-action-edit" aria-label="Edit">Edit</button>
+                <button class="swipe-action swipe-action-share" aria-label="Share">Share</button>
+                <button class="swipe-action swipe-action-delete" aria-label="Delete">Delete</button>
+              </div>
+              <div class="swipe-card" data-swipe-demo>
+                <div class="swipe-card-title">Push Day</div>
+                <div class="swipe-card-sub">6 exercises &middot; ~55 min</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demo 2: Exercise card -->
+          <div class="swipe-demo" id="demo-exercise">
+            <div class="swipe-demo-label">&larr; Swipe left to try</div>
+            <div class="swipe-track">
+              <div class="swipe-actions-layer">
+                <button class="swipe-action swipe-action-swap" aria-label="Swap">Swap</button>
+                <button class="swipe-action swipe-action-super" aria-label="Super">Super</button>
+                <button class="swipe-action swipe-action-delete" aria-label="Delete">Delete</button>
+              </div>
+              <div class="swipe-card" data-swipe-demo>
+                <div class="swipe-card-title">Barbell Bench Press</div>
+                <div class="swipe-card-sub">Chest &middot; 4 &times; 7</div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- ══════════════════════════════════════════════════ -->
@@ -1364,6 +1548,16 @@
             For grouped exercises (supersets, tri-sets, circuits), all exercises in the group are displayed together. You cycle through sets within the group before moving to the next group or standalone exercise.
           </p>
 
+          <h3>Session Notes</h3>
+          <p>
+            Below the dot indicators (exercise progress dots) you will find a collapsible <strong>session notes</strong> area. Tap the notes bar to expand it and type any free-form text &mdash; how you are feeling, adjustments you want to remember, or anything relevant to the session. Notes auto-save as you type and are stored with the workout log when you finish.
+          </p>
+
+          <h3>Builder Notes (Read-Only)</h3>
+          <p>
+            If you added notes to an exercise in the Builder (form cues, tempo, warm-up reminders, etc.), those notes appear as <strong>read-only text above the set inputs</strong> during the active session. This keeps your coaching cues visible exactly when you need them, without cluttering the set-tracking interface. Builder notes cannot be edited during a session &mdash; to change them, edit the workout in the Builder.
+          </p>
+
           <h3>Two-Step Save Process</h3>
           <p>
             Finishing a session is a deliberate two-step process:
@@ -1420,6 +1614,15 @@
             <li><strong>Total volume</strong> &mdash; Calculated as the sum of (weight &times; reps) across all completed sets. This is the standard volume metric used in training research for tracking progressive overload (Schoenfeld 2017).</li>
             <li><strong>Completion percentage</strong> &mdash; The percentage of planned sets that were completed. A session with 23 of 24 sets completed shows 96%. This metric helps you identify when you are overreaching (consistently low completion) or ready to increase volume.</li>
             <li><strong>Exercise breakdown</strong> &mdash; Tap any log entry to see the full exercise-by-exercise breakdown with individual set data.</li>
+          </ul>
+
+          <h3>Notes in Log Detail</h3>
+          <p>
+            When you tap a log entry to view its detail, you will find two types of notes:
+          </p>
+          <ul>
+            <li><strong>Session notes</strong> &mdash; The free-form notes you wrote during the active session. These are <strong>editable</strong> in the log detail view, so you can add reflections or corrections after the fact (e.g., "Left shoulder felt off on set 3", "Next time add a warm-up set").</li>
+            <li><strong>Builder notes</strong> &mdash; Per-exercise notes that were set in the Builder (form cues, tempo, etc.). These appear <strong>read-only</strong> under each exercise in the log detail, providing context for how the exercise was intended to be performed.</li>
           </ul>
 
           <h3>Converting Logs to Workouts</h3>
@@ -1717,6 +1920,94 @@ Face Pull  3x15  @45s rest</code></pre>
       }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+    })();
+
+    // ── Swipe Demo Interaction ──────────────────────────────
+    (function () {
+      var cards = document.querySelectorAll('[data-swipe-demo]');
+      cards.forEach(function (card) {
+        var actionsLayer = card.parentElement.querySelector('.swipe-actions-layer');
+        var maxSwipe = actionsLayer ? actionsLayer.scrollWidth : 200;
+        var startX = 0;
+        var currentX = 0;
+        var isDragging = false;
+        var translateX = 0;
+
+        function setTranslate(x) {
+          translateX = x;
+          card.style.transform = 'translateX(' + x + 'px)';
+        }
+
+        function onStart(clientX) {
+          isDragging = true;
+          startX = clientX - translateX;
+          card.classList.add('dragging');
+        }
+
+        function onMove(clientX) {
+          if (!isDragging) return;
+          var diff = clientX - startX;
+          // Clamp: no right-swipe past origin, no left-swipe past max
+          diff = Math.max(-maxSwipe, Math.min(0, diff));
+          setTranslate(diff);
+        }
+
+        function onEnd() {
+          if (!isDragging) return;
+          isDragging = false;
+          card.classList.remove('dragging');
+          // Snap: if dragged past 30% of max, stay open; else snap back
+          var threshold = maxSwipe * 0.3;
+          if (Math.abs(translateX) > threshold) {
+            card.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            setTranslate(-maxSwipe);
+          } else {
+            card.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            setTranslate(0);
+          }
+        }
+
+        // Touch events
+        card.addEventListener('touchstart', function (e) {
+          card.style.transition = 'none';
+          onStart(e.touches[0].clientX);
+        }, { passive: true });
+        card.addEventListener('touchmove', function (e) {
+          onMove(e.touches[0].clientX);
+        }, { passive: true });
+        card.addEventListener('touchend', onEnd);
+        card.addEventListener('touchcancel', onEnd);
+
+        // Pointer events (mouse)
+        card.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'touch') return; // avoid double-handling
+          card.style.transition = 'none';
+          onStart(e.clientX);
+          card.setPointerCapture(e.pointerId);
+        });
+        card.addEventListener('pointermove', function (e) {
+          if (e.pointerType === 'touch') return;
+          onMove(e.clientX);
+        });
+        card.addEventListener('pointerup', function (e) {
+          if (e.pointerType === 'touch') return;
+          onEnd();
+        });
+        card.addEventListener('pointercancel', function (e) {
+          if (e.pointerType === 'touch') return;
+          onEnd();
+        });
+
+        // Clicking an action button snaps the card back
+        if (actionsLayer) {
+          actionsLayer.querySelectorAll('.swipe-action').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              card.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+              setTranslate(0);
+            });
+          });
+        }
+      });
     })();
   </script>
 </body>

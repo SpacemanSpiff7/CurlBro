@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Check, ChevronLeft, ChevronRight, Plus, Save, Smartphone, Square, Timer } from 'lucide-react';
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -26,7 +26,7 @@ import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 export function ActiveWorkout() {
   const session = useStore((state) => state.session.active);
   const graph = useStore((state) => state.graph);
-  const { completeSet, addSet, removeSet, goToGroup, beginSession, abandonSession, endSession, swapExercise, saveSession, addExerciseToSession } = useStore(
+  const { completeSet, addSet, removeSet, goToGroup, beginSession, abandonSession, endSession, swapExercise, saveSession, addExerciseToSession, updateSessionNotes } = useStore(
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
@@ -222,6 +222,25 @@ export function ActiveWorkout() {
     },
     [addExerciseToSession]
   );
+
+  // Session notes — collapsible section with debounced auto-save
+  const [notesExpanded, setNotesExpanded] = useState(false);
+  const [localNotes, setLocalNotes] = useState(session?.notes ?? '');
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const handleNotesChange = useCallback((value: string) => {
+    setLocalNotes(value);
+    clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      updateSessionNotes(value);
+    }, 300);
+  }, [updateSessionNotes]);
+  useEffect(() => () => clearTimeout(saveTimerRef.current), []);
+
+  // Derive planNotes for the current group
+  const currentPlanNotes = useMemo(() => {
+    if (!currentGroup || !session) return [];
+    return currentGroup.exercises.map((ex) => ex.planNotes ?? '');
+  }, [currentGroup, session]);
 
   // Stable callbacks for ExerciseRowStack (memo'd — inline arrows would defeat memoization)
   const handleExerciseInfo = useCallback((offset: number) => {
@@ -456,6 +475,7 @@ export function ActiveWorkout() {
               onCompleteSet={handleCompleteSet}
               onAddSet={handleAddSet}
               onRemoveSet={handleRemoveSet}
+              planNotes={currentPlanNotes}
             />
           </motion.div>
         </AnimatePresence>
@@ -503,6 +523,42 @@ export function ActiveWorkout() {
           </button>
         )}
       </div>
+      {/* Session Notes */}
+      {isActive && (
+        <>
+          <button
+            onClick={() => setNotesExpanded(!notesExpanded)}
+            className="w-full flex items-center gap-2 px-4 py-2 text-xs text-text-tertiary"
+            aria-label={notesExpanded ? 'Collapse session notes' : 'Expand session notes'}
+          >
+            <StickyNote size={14} />
+            <span className="flex-1 text-left truncate">
+              {localNotes ? localNotes.slice(0, 40) + (localNotes.length > 40 ? '...' : '') : 'Tap to add notes'}
+            </span>
+            {notesExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+          </button>
+          <AnimatePresence>
+            {notesExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden"
+              >
+                <textarea
+                  value={localNotes}
+                  onChange={(e) => handleNotesChange(e.target.value)}
+                  placeholder="Workout notes..."
+                  className="w-full px-4 pb-3 text-base md:text-sm bg-transparent text-text-primary placeholder:text-text-tertiary resize-none outline-none"
+                  rows={3}
+                  autoFocus
+                  aria-label="Session notes"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
       </div>
 
       <VideoSheet

@@ -49,6 +49,11 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `mergeExerciseIntoGroup(fromIndex, targetIndex)` — moves a single exercise into the target's superset group. Creates a new group if target is solo. Inserts after last group member. Cleans up old group if source was last member.
 - `groupSelectedExercises(indices)` — creates a new superset from exercises at given indices. Moves them consecutively at the position of the first selected. Cleans up orphaned old groups. Requires ≥2 indices.
 - `removeSelectedExercises(indices)` — removes exercises at given indices. Cleans up groups left with ≤1 member. Removes from end first to preserve indices.
+- `updateSessionNotes(notes)` — sets the `notes` field on the active session (workout-level session notes)
+- `updateLogNotes(logId, notes)` — updates `notes` on a specific workout log in `library.logs`
+- `startSession(workout)` copies `WorkoutExercise.notes` → `ExerciseLog.planNotes` and initializes `session.notes` to `''`
+- `saveSession()` copies `session.notes` → `WorkoutLog.notes` and preserves `planNotes` on exercise logs
+- Hydration backfills `notes` on logs/sessions and `planNotes` on exercise logs (pre-notes-feature data)
 - `addActivity(activity)` — adds an ActivityEntry to `library.activities` (type + timing)
 - `removeActivity(id)` — removes an activity entry by id
 - `setSoreness(entries)` — replaces all soreness entries in `library.soreness` (none/mild/moderate/severe)

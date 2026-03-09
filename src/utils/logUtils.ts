@@ -59,7 +59,7 @@ export function logToSavedWorkout(log: WorkoutLog): SavedWorkout {
         reps: firstWithReps?.reps ?? 8,
         weight: lastCompleted?.weight ?? null,
         restSeconds: 60,
-        notes: '',
+        notes: ex.planNotes ?? '',
         ...(ex.supersetGroupId && { supersetGroupId: ex.supersetGroupId }),
       };
     }),

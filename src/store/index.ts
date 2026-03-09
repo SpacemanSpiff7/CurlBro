@@ -82,6 +82,7 @@ interface AppState {
     deleteWorkout: (id: WorkoutId) => void;
     addLog: (log: WorkoutLog) => void;
     deleteLog: (id: LogId) => void;
+    updateLogNotes: (logId: LogId, notes: string) => void;
     addActivity: (entry: ActivityEntry) => void;
     removeActivity: (id: string) => void;
     setSoreness: (entries: SorenessEntry[]) => void;
@@ -114,6 +115,7 @@ interface AppState {
     adjustRestDuration: (delta: number) => void;
     setRestDuration: (seconds: number) => void;
     syncTimer: () => void;
+    updateSessionNotes: (notes: string) => void;
   };
 
   // Settings (persisted)
@@ -576,6 +578,12 @@ export const useStore = create<AppState>()(
             state.library.logs = state.library.logs.filter((l) => l.id !== id);
           });
         },
+        updateLogNotes: (logId: LogId, notes: string) => {
+          set((state) => {
+            const log = state.library.logs.find((l) => l.id === logId);
+            if (log) log.notes = notes;
+          });
+        },
         addActivity: (entry: ActivityEntry) => {
           set((state) => {
             state.library.activities.push(entry);
@@ -625,10 +633,12 @@ export const useStore = create<AppState>()(
                   completed: false,
                 })),
                 ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
+                planNotes: ex.notes,
               })),
               currentGroupIndex: 0,
               startedAt: null,
               completedAt: null,
+              notes: '',
             };
             state.session.timer = emptyTimer;
             state.activeTab = 'active';
@@ -682,6 +692,7 @@ export const useStore = create<AppState>()(
             startedAt: session.startedAt,
             completedAt: session.completedAt,
             durationMinutes,
+            notes: session.notes ?? '',
           };
 
           set((state) => {
@@ -811,6 +822,13 @@ export const useStore = create<AppState>()(
             }
           });
         },
+        updateSessionNotes: (notes: string) => {
+          set((state) => {
+            if (state.session.active) {
+              state.session.active.notes = notes;
+            }
+          });
+        },
       },
 
       // Settings
@@ -879,6 +897,22 @@ export const useStore = create<AppState>()(
             }
           }
 
+          // Backfill notes on logs (pre-notes-feature data)
+          for (const log of logs) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (typeof (log as any).notes !== 'string') {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (log as any).notes = '';
+            }
+            for (const ex of log.exercises) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              if (typeof (ex as any).planNotes !== 'string') {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (ex as any).planNotes = '';
+              }
+            }
+          }
+
           state.library.workouts = workouts;
           state.library.logs = logs;
           state.library.activities = activities;
@@ -887,6 +921,19 @@ export const useStore = create<AppState>()(
 
           // Validate and restore session
           if (state.session?.active) {
+            // Backfill notes on active session (pre-notes-feature data)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (typeof (state.session.active as any).notes !== 'string') {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (state.session.active as any).notes = '';
+            }
+            for (const ex of state.session.active.exercises) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              if (typeof (ex as any).planNotes !== 'string') {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (ex as any).planNotes = '';
+              }
+            }
             const sessionParsed = ActiveSessionSchema.safeParse(state.session.active);
             if (!sessionParsed.success) {
               state.session.active = null;

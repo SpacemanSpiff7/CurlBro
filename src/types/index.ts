@@ -217,6 +217,7 @@ export interface ExerciseLog {
   exerciseId: ExerciseId;
   sets: SetLog[];
   supersetGroupId?: string;
+  planNotes?: string;
 }
 
 export interface ActiveSession {
@@ -226,6 +227,7 @@ export interface ActiveSession {
   currentGroupIndex: number;
   startedAt: string | null;
   completedAt: string | null;
+  notes: string;
 }
 
 export interface TimerState {
@@ -245,6 +247,7 @@ export interface WorkoutLog {
   startedAt: string;
   completedAt: string;
   durationMinutes: number;
+  notes: string;
 }
 
 export const WorkoutLogSchema = z.object({
@@ -259,10 +262,12 @@ export const WorkoutLogSchema = z.object({
       completed: z.boolean(),
     })),
     supersetGroupId: z.string().optional(),
+    planNotes: z.string().default(''),
   })),
   startedAt: z.string(),
   completedAt: z.string(),
   durationMinutes: z.number(),
+  notes: z.string().default(''),
 });
 
 // ─── Session Validation Schemas ──────────────────────────
@@ -276,6 +281,7 @@ export const ExerciseLogSchema = z.object({
   exerciseId: z.string(),
   sets: z.array(SetLogSchema),
   supersetGroupId: z.string().optional(),
+  planNotes: z.string().default(''),
 });
 
 export const ActiveSessionSchema = z.object({
@@ -285,6 +291,7 @@ export const ActiveSessionSchema = z.object({
   currentGroupIndex: z.number(),
   startedAt: z.string().nullable(),
   completedAt: z.string().nullable(),
+  notes: z.string().default(''),
 });
 
 export const TimerStateSchema = z.object({

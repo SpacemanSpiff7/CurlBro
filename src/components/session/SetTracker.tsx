@@ -10,6 +10,7 @@ interface SetTrackerProps {
   onCompleteSet: (setIndex: number, data: SetLog) => void;
   onAddSet: () => void;
   onRemoveSet?: (setIndex: number) => void;
+  planNotes?: string;
 }
 
 const SetRow = memo(function SetRow({
@@ -121,6 +122,7 @@ export const SetTracker = memo(function SetTracker({
   onCompleteSet,
   onAddSet,
   onRemoveSet,
+  planNotes,
 }: SetTrackerProps) {
   const canDelete = sets.length > 1;
 
@@ -134,6 +136,9 @@ export const SetTracker = memo(function SetTracker({
           {sets.filter((s) => s.completed).length}/{sets.length} done
         </span>
       </div>
+      {planNotes && (
+        <p className="text-xs text-text-tertiary italic px-1 pb-1">{planNotes}</p>
+      )}
       {sets.map((set, i) => (
         <SetRow
           key={i}

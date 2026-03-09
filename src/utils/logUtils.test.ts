@@ -29,6 +29,7 @@ function createTestLog(): WorkoutLog {
     startedAt: '2026-03-04T10:00:00.000Z',
     completedAt: '2026-03-04T10:45:00.000Z',
     durationMinutes: 45,
+    notes: '',
   };
 }
 
@@ -123,7 +124,7 @@ describe('logToSavedWorkout', () => {
     expect(workout.exercises[0].weight).toBeNull();
   });
 
-  it('sets restSeconds to 60 and notes to empty string', () => {
+  it('sets restSeconds to 60 and notes from planNotes', () => {
     const log = createTestLog();
     const workout = logToSavedWorkout(log);
 
@@ -131,6 +132,15 @@ describe('logToSavedWorkout', () => {
       expect(ex.restSeconds).toBe(60);
       expect(ex.notes).toBe('');
     }
+  });
+
+  it('carries planNotes to workout notes', () => {
+    const log = createTestLog();
+    log.exercises[0].planNotes = 'Pause at bottom';
+    const workout = logToSavedWorkout(log);
+
+    expect(workout.exercises[0].notes).toBe('Pause at bottom');
+    expect(workout.exercises[1].notes).toBe('');
   });
 });
 
