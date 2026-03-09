@@ -114,10 +114,7 @@ function FloatingRestTimerInner() {
               ? 'Rest timer done — tap to view'
               : `Rest timer ${formatTime(timer.displaySeconds)} remaining — tap to view`
           }
-          className="fixed right-4 z-40 flex min-h-[44px] items-center gap-2 rounded-full border border-border-subtle bg-bg-surface/95 px-3 py-2 shadow-lg backdrop-blur-sm"
-          style={{
-            bottom: 'calc(56px + env(safe-area-inset-bottom, 0px) + 8px)',
-          }}
+          className="fixed left-4 top-[calc(env(safe-area-inset-top,0px)+8px)] z-40 flex min-h-[44px] items-center gap-2 rounded-full border border-border-subtle bg-bg-surface/95 px-3 py-2 shadow-lg backdrop-blur-sm"
         >
           {/* Ring with pulse animation */}
           {timer.isRunning ? (
