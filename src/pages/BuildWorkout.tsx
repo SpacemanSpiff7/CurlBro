@@ -99,22 +99,46 @@ export function BuildWorkout() {
     setSelectedIndices(new Set());
   }
 
-  const editButton = hasExercises ? (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={editMode ? handleExitEditMode : handleEnterEditMode}
-      className="text-accent-primary whitespace-nowrap"
-      aria-label={editMode ? 'Exit edit mode' : 'Enter edit mode'}
-    >
-      {editMode ? 'Done' : 'Edit'}
-    </Button>
+  const topBarRight = hasExercises ? (
+    <div className="flex items-center gap-1">
+      {!editMode && (
+        <>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={resetWorkout}
+            className="text-text-tertiary"
+            aria-label="Clear workout"
+          >
+            <RotateCcw size={14} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleSave}
+            className="text-accent-primary"
+            aria-label="Save workout"
+          >
+            <Save size={14} />
+          </Button>
+        </>
+      )}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={editMode ? handleExitEditMode : handleEnterEditMode}
+        className="text-accent-primary whitespace-nowrap"
+        aria-label={editMode ? 'Exit edit mode' : 'Enter edit mode'}
+      >
+        {editMode ? 'Done' : 'Edit'}
+      </Button>
+    </div>
   ) : null;
 
   return (
     <div className="flex flex-col gap-4 pb-20">
       {/* Top bar with logo + workout name */}
-      <TopBar rightSlot={editButton}>
+      <TopBar rightSlot={topBarRight}>
         <Input
           value={workout.name}
           onChange={(e) => setWorkoutName(e.target.value)}
