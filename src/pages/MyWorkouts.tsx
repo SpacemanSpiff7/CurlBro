@@ -1,5 +1,5 @@
 import { useState, useCallback, Fragment } from 'react';
-import { Play, Pencil, Trash2, Upload, Download, Copy, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
+import { Play, Pencil, Trash2, Upload, Download, Copy, Share2, Dumbbell, ChevronDown, ChevronUp } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -133,15 +133,25 @@ function ImportSheet({
 
 function SeededWorkoutCard({
   workout,
-  onStart,
-  onEdit,
+  onTap,
 }: {
   workout: SeededWorkout;
-  onStart: (w: SeededWorkout) => void;
-  onEdit: (w: SeededWorkout) => void;
+  onTap: (w: SeededWorkout) => void;
 }) {
   return (
-    <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => onTap(workout)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onTap(workout);
+        }
+      }}
+      aria-label={`View ${workout.name} details`}
+      className="rounded-xl border border-border-subtle bg-bg-surface p-3 cursor-pointer active:bg-bg-elevated transition-colors"
+    >
       <div className="flex items-center gap-2">
         <Dumbbell size={16} className="flex-shrink-0 text-accent-primary" />
         <div className="flex-1 min-w-0">
@@ -162,37 +172,21 @@ function SeededWorkoutCard({
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onStart(workout)}
-            aria-label={`Start ${workout.name}`}
-            className="h-9 w-9"
-          >
-            <Play size={14} />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onEdit(workout)}
-            aria-label={`Customize ${workout.name}`}
-            className="h-9 w-9"
-          >
-            <Pencil size={14} />
-          </Button>
-        </div>
       </div>
     </div>
   );
 }
 
 function TemplateSection({
+  onTap,
   onStart,
   onEdit,
+  onShare,
 }: {
+  onTap: (w: SeededWorkout) => void;
   onStart: (w: SeededWorkout) => void;
   onEdit: (w: SeededWorkout) => void;
+  onShare: (w: SeededWorkout) => void;
 }) {
   const [open, setOpen] = useState(true);
 
@@ -212,18 +206,40 @@ function TemplateSection({
         )}
       </button>
       <p className="text-[11px] text-text-tertiary mb-2">
-        Pre-built templates. Tap edit to customize a copy.
+        Pre-built templates. Tap to preview, swipe for actions.
       </p>
       {open && (
         <div className="space-y-2">
-          {SEEDED_WORKOUTS.map((workout) => (
-            <SeededWorkoutCard
-              key={workout.name}
-              workout={workout}
-              onStart={onStart}
-              onEdit={onEdit}
-            />
-          ))}
+          {SEEDED_WORKOUTS.map((workout) => {
+            const actions: SwipeAction[] = [
+              {
+                key: 'start',
+                label: 'Start',
+                icon: <Play size={16} />,
+                color: 'bg-accent-primary',
+                onAction: () => onStart(workout),
+              },
+              {
+                key: 'edit',
+                label: 'Edit',
+                icon: <Pencil size={16} />,
+                color: 'bg-blue-600',
+                onAction: () => onEdit(workout),
+              },
+              {
+                key: 'share',
+                label: 'Share',
+                icon: <Share2 size={16} />,
+                color: 'bg-emerald-600',
+                onAction: () => onShare(workout),
+              },
+            ];
+            return (
+              <SwipeToReveal key={workout.name} actions={actions}>
+                <SeededWorkoutCard workout={workout} onTap={onTap} />
+              </SwipeToReveal>
+            );
+          })}
         </div>
       )}
     </div>
@@ -314,15 +330,66 @@ export function MyWorkouts() {
     [saveWorkout, startSession, activeSession]
   );
 
+  // Seeded workout preview — tap opens detail sheet without saving to library
+  const [isSeededPreview, setIsSeededPreview] = useState(false);
+
+  const handleSeededPreview = useCallback((seeded: SeededWorkout) => {
+    const saved = seededToSaved(seeded);
+    setDetailWorkout(saved);
+    setIsSeededPreview(true);
+    setDetailOpen(true);
+  }, []);
+
+  const handleSeededShare = useCallback(
+    async (seeded: SeededWorkout) => {
+      const saved = seededToSaved(seeded);
+      const text = formatExport(saved, graph, { includeTips: exportIncludeTips });
+      try {
+        await navigator.clipboard.writeText(text);
+        toast.success('Copied to clipboard', { duration: 1500 });
+      } catch {
+        toast.error('Could not copy to clipboard');
+      }
+    },
+    [graph, exportIncludeTips]
+  );
+
   const handleViewDetails = useCallback((workout: SavedWorkout) => {
     setDetailWorkout(workout);
+    setIsSeededPreview(false);
     setDetailOpen(true);
   }, []);
 
   const handleDetailChange = useCallback((open: boolean) => {
     setDetailOpen(open);
-    if (!open) setDetailWorkout(null);
+    if (!open) {
+      setDetailWorkout(null);
+      setIsSeededPreview(false);
+    }
   }, []);
+
+  // Detail sheet action wrappers — save to library first for seeded previews
+  const handleDetailStart = useCallback(
+    (w: SavedWorkout) => {
+      if (isSeededPreview) {
+        saveWorkout(w);
+        toast.success(`Added "${w.name}" to your library`);
+      }
+      handleStart(w);
+    },
+    [isSeededPreview, saveWorkout, handleStart]
+  );
+
+  const handleDetailEdit = useCallback(
+    (w: SavedWorkout) => {
+      if (isSeededPreview) {
+        saveWorkout(w);
+        toast.success(`Created editable copy of "${w.name}"`);
+      }
+      handleEdit(w);
+    },
+    [isSeededPreview, saveWorkout, handleEdit]
+  );
 
   const handleConfirmOverride = useCallback(() => {
     if (!pendingWorkout) return;
@@ -432,8 +499,10 @@ export function MyWorkouts() {
 
       {/* Seeded workout templates */}
       <TemplateSection
+        onTap={handleSeededPreview}
         onStart={handleSeededStart}
         onEdit={handleSeededEdit}
+        onShare={handleSeededShare}
       />
 
       </div>
@@ -443,10 +512,10 @@ export function MyWorkouts() {
         workout={detailWorkout}
         open={detailOpen}
         onOpenChange={handleDetailChange}
-        onStart={handleStart}
-        onEdit={handleEdit}
+        onStart={handleDetailStart}
+        onEdit={handleDetailEdit}
         onExport={handleExport}
-        onDelete={(w) => handleDelete(w.id)}
+        onDelete={isSeededPreview ? undefined : (w) => handleDelete(w.id)}
       />
 
       <Dialog open={!!pendingWorkout} onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}>

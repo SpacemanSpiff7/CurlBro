@@ -1,4 +1,5 @@
 import { Play, Pencil, Share2, Trash2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { useStore } from '@/store';
 import {
   Sheet,
@@ -38,7 +39,7 @@ export function WorkoutDetailSheet({
   onStart: (w: SavedWorkout) => void;
   onEdit: (w: SavedWorkout) => void;
   onExport: (w: SavedWorkout) => void;
-  onDelete: (w: SavedWorkout) => void;
+  onDelete?: (w: SavedWorkout) => void;
 }) {
   const graph = useStore((state) => state.graph);
 
@@ -106,7 +107,10 @@ export function WorkoutDetailSheet({
         <div className="grid grid-cols-2 gap-2 mt-4 px-4 pb-4">
           <Button
             onClick={() => { onStart(workout); onOpenChange(false); }}
-            className="bg-accent-primary text-bg-root hover:bg-accent-hover min-h-[44px]"
+            className={cn(
+              'bg-accent-primary text-bg-root hover:bg-accent-hover min-h-[44px]',
+              !onDelete && 'col-span-2',
+            )}
             aria-label="Start workout"
           >
             <Play size={14} className="mr-1.5" />
@@ -130,15 +134,17 @@ export function WorkoutDetailSheet({
             <Share2 size={14} className="mr-1.5" />
             Share
           </Button>
-          <Button
-            variant="outline"
-            onClick={() => { onDelete(workout); onOpenChange(false); }}
-            className="min-h-[44px] text-destructive hover:text-destructive"
-            aria-label="Delete workout"
-          >
-            <Trash2 size={14} className="mr-1.5" />
-            Delete
-          </Button>
+          {onDelete && (
+            <Button
+              variant="outline"
+              onClick={() => { onDelete(workout); onOpenChange(false); }}
+              className="min-h-[44px] text-destructive hover:text-destructive"
+              aria-label="Delete workout"
+            >
+              <Trash2 size={14} className="mr-1.5" />
+              Delete
+            </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>
