@@ -1,7 +1,7 @@
 {
   "file": "04_back.json",
   "description": "Rows, pull-ups, pulldowns, pullovers, back isolation",
-  "exercise_count": 38,
+  "exercise_count": 43,
   "exercises": [
     {
       "id": "barbell_row",
@@ -302,7 +302,10 @@
         "dumbbell_row",
         "single_arm_cable_row",
         "chest_supported_cable_row",
-        "band_row"
+        "band_row",
+        "wide_grip_cable_row",
+        "v_bar_cable_row",
+        "close_grip_cable_row"
       ],
       "complements": [
         "lat_pulldown",
@@ -409,7 +412,10 @@
         "dumbbell_row",
         "chest_supported_row",
         "smith_machine_row",
-        "low_row_machine"
+        "low_row_machine",
+        "wide_grip_cable_row",
+        "v_bar_cable_row",
+        "close_grip_cable_row"
       ],
       "complements": [
         "lat_pulldown",
@@ -946,7 +952,9 @@
         "pull_up",
         "chin_up",
         "close_grip_pulldown",
-        "reverse_grip_pulldown"
+        "reverse_grip_pulldown",
+        "v_bar_lat_pulldown",
+        "rope_lat_pulldown"
       ],
       "complements": [
         "barbell_row",
@@ -999,7 +1007,9 @@
         "lat_pulldown",
         "chin_up",
         "neutral_grip_pull_up",
-        "reverse_grip_pulldown"
+        "reverse_grip_pulldown",
+        "v_bar_lat_pulldown",
+        "rope_lat_pulldown"
       ],
       "complements": [
         "barbell_row",
@@ -1995,6 +2005,264 @@
         "grip": "low",
         "lumbar_stabilizer": "low",
         "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "v_bar_lat_pulldown",
+      "name": "V-Bar Lat Pulldown",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "upper_back"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/v-bar-pulldown.html",
+      "beginner_tips": "Attach V-bar to lat pulldown cable. Sit with thighs secured under pads. Pull the V-bar down to upper chest, squeezing shoulder blades together. The neutral grip (palms facing each other) is easier on the wrists and shoulders than a wide pronated grip.",
+      "substitutes": [
+        "lat_pulldown",
+        "close_grip_pulldown",
+        "rope_lat_pulldown",
+        "chin_up"
+      ],
+      "complements": [
+        "cable_row",
+        "v_bar_cable_row",
+        "face_pull",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "barbell_bench_press"
+      ],
+      "notes": "Similar lat activation to front pulldown with neutral grip being more joint-friendly (Sperandei 2009). Lower posterior deltoid activation than wide-grip variants. Excellent option for those with shoulder mobility limitations or wrist discomfort.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "rope_lat_pulldown",
+      "name": "Rope Lat Pulldown",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "upper_back"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/rope-pulldown.html",
+      "beginner_tips": "Attach a rope to the lat pulldown cable. Pull down while allowing your wrists to rotate naturally. At the bottom, split the rope apart and squeeze your shoulder blades together for a peak contraction. Use lighter weight than bar attachments — the rope requires more grip and stabilization.",
+      "substitutes": [
+        "lat_pulldown",
+        "close_grip_pulldown",
+        "v_bar_lat_pulldown",
+        "straight_arm_pulldown"
+      ],
+      "complements": [
+        "cable_row",
+        "face_pull",
+        "dumbbell_row",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "overhead_press",
+        "dumbbell_shoulder_press",
+        "incline_dumbbell_press"
+      ],
+      "notes": "Rope attachment allows natural wrist rotation throughout the ROM and enables a wider split at the bottom for greater lat contraction. Lower loading potential than bar attachments but excellent for mind-muscle connection and as a finisher. Grip tends to be the limiting factor.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "wide_grip_cable_row",
+      "name": "Wide-Grip Cable Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/wide-grip-seated-cable-row.html",
+      "beginner_tips": "Attach a wide bar to a seated cable row. Pull to upper abdomen/lower chest with elbows flared wide. Squeeze shoulder blades together at peak contraction. Keep your torso upright — don't lean back excessively. This targets more traps and rear delts than a close-grip row.",
+      "substitutes": [
+        "cable_row",
+        "machine_row",
+        "v_bar_cable_row",
+        "close_grip_cable_row",
+        "barbell_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "face_pull",
+        "rear_delt_flye",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "dumbbell_bench_press",
+        "incline_barbell_press"
+      ],
+      "notes": "Wide grip shifts emphasis from lats to mid-traps and rear deltoids. Elbows-out position mimics a face pull pattern but with heavier loading potential. Useful for those who want more upper back thickness without the spinal load of bent-over rows.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "v_bar_cable_row",
+      "name": "V-Bar Cable Row",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "upper_back",
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/v-bar-cable-row.html",
+      "beginner_tips": "Attach a V-bar to the seated cable row. Pull to your belly button with elbows tucked close to your sides. The neutral grip puts your biceps in a strong position so you can use heavier weight. Keep your chest up and avoid rounding your lower back.",
+      "substitutes": [
+        "cable_row",
+        "machine_row",
+        "wide_grip_cable_row",
+        "close_grip_cable_row",
+        "dumbbell_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "v_bar_lat_pulldown",
+        "face_pull",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "dumbbell_bench_press",
+        "incline_dumbbell_press"
+      ],
+      "notes": "Neutral close grip emphasizes lats over mid-traps. The V-bar is the most common cable row attachment and is very wrist-friendly. Most people can handle slightly more weight with the V-bar than with a straight bar due to the mechanically advantageous grip position.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "close_grip_cable_row",
+      "name": "Close-Grip Cable Row (Supinated)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "upper_back"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/close-grip-cable-row.html",
+      "beginner_tips": "Use a short straight bar with an underhand (supinated) grip, hands shoulder-width or narrower. Pull to your lower abdomen, squeezing your lats at the end. The supinated grip naturally increases bicep involvement — think of it as a seated reverse-grip row.",
+      "substitutes": [
+        "cable_row",
+        "v_bar_cable_row",
+        "wide_grip_cable_row",
+        "machine_row",
+        "yates_row"
+      ],
+      "complements": [
+        "lat_pulldown",
+        "close_grip_pulldown",
+        "face_pull",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "barbell_bench_press",
+        "dumbbell_bench_press",
+        "incline_barbell_press"
+      ],
+      "notes": "Close supinated grip maximizes lower lat and bicep involvement. The underhand grip is similar to a Yates row but in a seated position, removing spinal load. Excellent for those who want lat emphasis without taxing the lower back. Biceps will fatigue before lats for most people.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
       }
     }
   ]

@@ -1,7 +1,7 @@
 {
   "file": "07_core_and_functional.json",
   "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics, kettlebell complexes",
-  "exercise_count": 39,
+  "exercise_count": 41,
   "exercises": [
     {
       "id": "cable_crunch",
@@ -473,7 +473,9 @@
         "russian_twist",
         "pallof_press",
         "cable_crunch",
-        "bicycle_crunch"
+        "bicycle_crunch",
+        "low_to_high_woodchop",
+        "horizontal_woodchop"
       ],
       "complements": [
         "plank",
@@ -1940,6 +1942,106 @@
         "grip": "low",
         "lumbar_stabilizer": "low",
         "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "low_to_high_woodchop",
+      "name": "Low-to-High Cable Woodchop",
+      "category": "compound",
+      "movement_pattern": "rotation",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/low-to-high-cable-woodchop.html",
+      "beginner_tips": "Set cable at the lowest position. Stand sideways, grab the handle with both hands near your hip. Rotate your torso upward and across your body in a diagonal pattern, finishing above the opposite shoulder. Drive the movement with your core rotation, not your arms. Pivot your back foot.",
+      "substitutes": [
+        "woodchop",
+        "horizontal_woodchop",
+        "pallof_press",
+        "russian_twist"
+      ],
+      "complements": [
+        "pallof_press",
+        "plank",
+        "hanging_leg_raise",
+        "cable_crunch"
+      ],
+      "superset_candidates": [
+        "cable_crunch",
+        "plank",
+        "hanging_leg_raise"
+      ],
+      "notes": "Ascending rotation pattern — low to high cable angle emphasizes the obliques and serratus anterior in a functional diagonal pattern. Mimics many athletic movements (throwing, serving, swinging). The ascending angle shifts emphasis compared to the standard high-to-low woodchop, targeting different fibers of the obliques.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "horizontal_woodchop",
+      "name": "Horizontal Cable Woodchop",
+      "category": "compound",
+      "movement_pattern": "rotation",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-cable-woodchop.html",
+      "beginner_tips": "Set cable at chest height. Stand sideways, grab the handle with both hands at chest level. Rotate your torso horizontally, keeping your arms fairly straight and at the same height throughout. The movement should come from your core rotating, not your arms pulling. Pivot your back foot to allow full rotation.",
+      "substitutes": [
+        "woodchop",
+        "low_to_high_woodchop",
+        "pallof_press",
+        "russian_twist"
+      ],
+      "complements": [
+        "pallof_press",
+        "plank",
+        "hanging_leg_raise",
+        "cable_crunch"
+      ],
+      "superset_candidates": [
+        "cable_crunch",
+        "plank",
+        "hanging_leg_raise"
+      ],
+      "notes": "Pure transverse plane rotation — the horizontal cable angle isolates rotational core strength without the vertical component of high-to-low or low-to-high variants. Excellent for building rotational power and training the obliques through their primary movement pattern. Useful for sport-specific core training.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "low"
       }
     }
   ]

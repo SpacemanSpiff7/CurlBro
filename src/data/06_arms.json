@@ -1,7 +1,7 @@
 {
   "file": "06_arms.json",
   "description": "Bicep curls, tricep extensions, forearm and grip work",
-  "exercise_count": 39,
+  "exercise_count": 46,
   "exercises": [
     {
       "id": "barbell_curl",
@@ -187,7 +187,8 @@
         "barbell_curl",
         "tricep_pushdown",
         "incline_dumbbell_curl",
-        "lat_pulldown"
+        "lat_pulldown",
+        "incline_hammer_curl"
       ],
       "superset_candidates": [
         "tricep_pushdown",
@@ -231,7 +232,8 @@
         "concentration_curl",
         "cable_curl",
         "spider_curl",
-        "machine_preacher_curl"
+        "machine_preacher_curl",
+        "ez_bar_preacher_curl"
       ],
       "complements": [
         "hammer_curl",
@@ -517,7 +519,8 @@
       "substitutes": [
         "preacher_curl",
         "cable_curl",
-        "spider_curl"
+        "spider_curl",
+        "cable_concentration_curl"
       ],
       "complements": [
         "hammer_curl",
@@ -565,7 +568,8 @@
       "substitutes": [
         "hammer_curl",
         "rope_cable_curl",
-        "reverse_wrist_curl"
+        "reverse_wrist_curl",
+        "ez_bar_reverse_curl"
       ],
       "complements": [
         "barbell_curl",
@@ -615,7 +619,9 @@
         "dip_tricep",
         "diamond_push_up",
         "cable_overhead_extension",
-        "band_tricep_extension"
+        "band_tricep_extension",
+        "reverse_grip_pushdown",
+        "v_bar_pushdown"
       ],
       "complements": [
         "barbell_curl",
@@ -766,7 +772,8 @@
         "overhead_tricep_extension",
         "tricep_pushdown",
         "cable_overhead_extension",
-        "jm_press"
+        "jm_press",
+        "dumbbell_skull_crusher"
       ],
       "complements": [
         "close_grip_bench_press",
@@ -1894,6 +1901,360 @@
         "tricep_pushdown"
       ],
       "notes": "Similar to the spider curl but with a lower bench angle (30-45 vs 45-60 degrees), which shifts the peak resistance point slightly compared to a standard spider curl. The prone (face-down) position with arms hanging creates a moderate stretch at the bottom and peak contraction at the top, covering the mid-range to shortened spectrum. Eliminates all cheating \u2014 excellent for lifters who tend to use momentum on standing curls. The strict position also reduces spinal load to zero, making it back-friendly.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "reverse_grip_pushdown",
+      "name": "Reverse-Grip Cable Pushdown",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-grip-tricep-pushdown.html",
+      "beginner_tips": "Use an underhand (supinated) grip on a straight bar. Keep elbows pinned to your sides and extend your forearms downward. The reverse grip feels unusual at first — start light. Your forearms will work harder to maintain the grip compared to overhand pushdowns.",
+      "substitutes": [
+        "tricep_pushdown",
+        "v_bar_pushdown",
+        "overhead_tricep_extension",
+        "rope_pushdown"
+      ],
+      "complements": [
+        "skull_crusher",
+        "close_grip_bench_press",
+        "dip_tricep",
+        "barbell_curl"
+      ],
+      "superset_candidates": [
+        "barbell_curl",
+        "cable_curl",
+        "hammer_curl",
+        "ez_bar_curl"
+      ],
+      "notes": "Reverse (supinated) grip significantly increases triceps long head activation (Villalba et al. 2024, p<0.001). Excellent for targeting the long head specifically, which is the largest of the three tricep heads and the most important for overall arm size. Forearm fatigue may be the limiting factor initially.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "v_bar_pushdown",
+      "name": "V-Bar Tricep Pushdown",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/v-bar-pushdown.html",
+      "beginner_tips": "Attach a V-bar to a high cable. Grab the handles with a neutral (palms facing each other) grip. Keep elbows locked at your sides and push down until arms are fully extended. The neutral grip is the most wrist-friendly pushdown variation — great if straight bars cause wrist pain.",
+      "substitutes": [
+        "tricep_pushdown",
+        "reverse_grip_pushdown",
+        "rope_pushdown",
+        "overhead_tricep_extension"
+      ],
+      "complements": [
+        "skull_crusher",
+        "close_grip_bench_press",
+        "dip_tricep",
+        "barbell_curl"
+      ],
+      "superset_candidates": [
+        "barbell_curl",
+        "cable_curl",
+        "hammer_curl",
+        "ez_bar_curl"
+      ],
+      "notes": "The most wrist-friendly pushdown variation due to the neutral grip angle. Allows heavier loading than rope pushdowns since grip is less of a limiting factor. Similar overall tricep activation to standard pushdowns. Excellent default choice for anyone with wrist discomfort on straight bar pushdowns.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "dumbbell_skull_crusher",
+      "name": "Dumbbell Skull Crusher",
+      "category": "isolation",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-skull-crusher.html",
+      "beginner_tips": "Lie on a flat bench with a dumbbell in each hand, arms extended above your chest. Bend at the elbows to lower the dumbbells toward your temples, keeping upper arms stationary. Each arm works independently, helping fix strength imbalances. Use lighter weight than EZ-bar skull crushers.",
+      "substitutes": [
+        "skull_crusher",
+        "overhead_tricep_extension",
+        "close_grip_bench_press",
+        "dip_tricep"
+      ],
+      "complements": [
+        "tricep_pushdown",
+        "rope_pushdown",
+        "cable_curl",
+        "barbell_curl"
+      ],
+      "superset_candidates": [
+        "barbell_curl",
+        "dumbbell_curl",
+        "hammer_curl",
+        "incline_dumbbell_curl"
+      ],
+      "notes": "Dumbbell variation allows each arm to work independently, addressing bilateral strength imbalances. Greater ROM than barbell/EZ-bar versions since the dumbbells can travel lower past the head. The neutral grip option (palms facing) is easier on the wrists and elbows than pronated grip.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "ez_bar_preacher_curl",
+      "name": "EZ-Bar Preacher Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "ez_bar",
+        "preacher_curl_bench"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/ez-bar-preacher-curl.html",
+      "beginner_tips": "Sit at a preacher bench with your armpits at the top of the pad. Grip the EZ bar on the inner angles. Curl up to shoulder level and lower with control — don't fully straighten your arms at the bottom (keep a slight bend to protect the elbow). The pad eliminates all cheating — your biceps do 100% of the work.",
+      "substitutes": [
+        "preacher_curl",
+        "concentration_curl",
+        "cable_concentration_curl",
+        "spider_curl"
+      ],
+      "complements": [
+        "hammer_curl",
+        "incline_dumbbell_curl",
+        "reverse_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "skull_crusher",
+        "overhead_tricep_extension",
+        "rope_pushdown"
+      ],
+      "notes": "Combines the strict isolation of the preacher bench with the wrist-friendly angle of the EZ bar. The preacher pad eliminates all momentum and shoulder involvement. The EZ bar reduces wrist extension stress compared to a straight bar. Don't fully extend at the bottom — the extreme stretched position under load can strain the distal bicep tendon.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "ez_bar_reverse_curl",
+      "name": "EZ-Bar Reverse Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "ez_bar"
+      ],
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/ez-bar-reverse-curl.html",
+      "beginner_tips": "Grip the EZ bar with an overhand (pronated) grip on the outer angles. Curl up while keeping your elbows pinned at your sides. Use significantly less weight than regular curls — your forearms are much weaker than your biceps. The EZ bar is much more comfortable than a straight bar for this movement.",
+      "substitutes": [
+        "reverse_curl",
+        "hammer_curl",
+        "wrist_curl",
+        "cable_curl"
+      ],
+      "complements": [
+        "barbell_curl",
+        "dumbbell_curl",
+        "wrist_curl",
+        "farmer_carry"
+      ],
+      "superset_candidates": [
+        "barbell_curl",
+        "dumbbell_curl",
+        "ez_bar_curl"
+      ],
+      "notes": "EZ bar provides significantly higher brachioradialis activation than dumbbell reverse curls (p<0.001, Marcolin 2018). The angled grip of the EZ bar reduces wrist strain compared to a straight bar in the pronated position. Essential exercise for complete forearm development and grip strength.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "incline_hammer_curl",
+      "name": "Incline Hammer Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-hammer-curl.html",
+      "beginner_tips": "Set an incline bench to about 45 degrees. Sit back with dumbbells hanging at your sides, palms facing each other (neutral grip). Curl up without letting your elbows drift forward. The incline position stretches the biceps at the bottom, creating more tension in the lengthened position. Use less weight than standing hammer curls.",
+      "substitutes": [
+        "hammer_curl",
+        "incline_dumbbell_curl",
+        "cable_curl",
+        "dumbbell_curl"
+      ],
+      "complements": [
+        "barbell_curl",
+        "concentration_curl",
+        "reverse_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "skull_crusher",
+        "overhead_tricep_extension",
+        "rope_pushdown"
+      ],
+      "notes": "Combines the brachialis emphasis of the hammer grip with the stretched-position loading of the incline angle. The incline prevents cheating by eliminating momentum and keeping the upper arm behind the body. Excellent for targeting the brachialis (which pushes the biceps up, creating a wider look) in its lengthened position.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "cable_concentration_curl",
+      "name": "Cable Concentration Curl",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/cable-concentration-curl.html",
+      "beginner_tips": "Set a cable at the lowest position. Stand or kneel near the cable, brace your elbow against your inner thigh, and curl the handle up. The cable provides tension even at the top of the movement where dumbbell concentration curls lose resistance. Focus on a slow, controlled squeeze at the top.",
+      "substitutes": [
+        "concentration_curl",
+        "preacher_curl",
+        "ez_bar_preacher_curl",
+        "spider_curl"
+      ],
+      "complements": [
+        "hammer_curl",
+        "reverse_curl",
+        "barbell_curl",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "tricep_pushdown",
+        "rope_pushdown",
+        "overhead_tricep_extension"
+      ],
+      "notes": "Cable provides constant tension throughout the full ROM, unlike the dumbbell version which loses tension at the top. The concentration position (elbow braced against thigh) eliminates all momentum. Excellent finisher for biceps — the constant cable tension creates an intense peak contraction.",
       "load_profile": {
         "spinal": "none",
         "shoulder": "none",

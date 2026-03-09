@@ -777,6 +777,60 @@ export const EXERCISE_CONFLICTS: ExerciseConflict[] = [
       'isolation exercise instead.',
   },
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ADDITIONAL CONFLICTS — newly added exercises
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    // Reverse-grip bench press places the shoulders in a vulnerable externally
+    // rotated position under heavy load. Combining with overhead pressing
+    // increases cumulative shoulder stress and impingement risk.
+    // Noteboom et al. (2024) Frontiers in Physiology — grip-dependent shoulder joint forces
+    exercises: ['reverse_grip_bench_press', 'overhead_press'],
+    matchBy: 'id',
+    severity: 'caution',
+    reason:
+      'Reverse-grip bench press places shoulders in a vulnerable position; combining with ' +
+      'overhead pressing increases cumulative shoulder stress and impingement risk.',
+  },
+
+  {
+    // Dumbbell skull crushers + close-grip bench press: Both are heavy compound
+    // elbow extension exercises with high eccentric load on the elbow extensors.
+    // Clinical consensus — cumulative elbow extensor loading
+    exercises: ['dumbbell_skull_crusher', 'close_grip_bench_press'],
+    matchBy: 'id',
+    severity: 'warning',
+    reason:
+      'Both exercises place high eccentric load on the elbow extensors. Combining them ' +
+      'increases risk of elbow tendinopathy, especially at higher volumes.',
+  },
+
+  {
+    // Dumbbell skull crushers + tricep dips: Both are heavy elbow extension
+    // exercises. Skull crushers followed by dips create cumulative stress on
+    // the elbow joint and triceps tendons.
+    // Clinical consensus — cumulative elbow extensor loading
+    exercises: ['dumbbell_skull_crusher', 'dip_tricep'],
+    matchBy: 'id',
+    severity: 'warning',
+    reason:
+      'Both are heavy elbow extension exercises. Skull crushers followed by dips create ' +
+      'cumulative stress on the elbow joint and triceps tendons.',
+  },
+
+  {
+    // EZ-bar preacher curl + EZ-bar curl: Both are bilateral EZ-bar elbow
+    // flexion exercises with similar loading patterns. Redundant pairing.
+    // Marcolin et al. (2018) PeerJ — EZ bar vs straight bar curl equivalence
+    exercises: ['ez_bar_preacher_curl', 'ez_bar_curl'],
+    matchBy: 'id',
+    severity: 'warning',
+    reason:
+      'Both are bilateral EZ-bar elbow flexion exercises with similar loading patterns. ' +
+      'Redundant pairing — choose one for the workout to avoid excessive elbow flexor volume.',
+  },
+
 ];
 
 /**

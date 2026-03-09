@@ -1,18 +1,18 @@
 {
   "metadata": {
     "version": "4.0",
-    "description": "Comprehensive exercise graph dataset for gym workout builder app. 323 exercises across 9 files with full graph connectivity (substitutes, complements, superset candidates). Covers barbell, dumbbell, cable, machine, kettlebell, band, bodyweight, and cardio exercises. Beginner-friendly with video references. Generic equipment names — works at any well-equipped commercial gym.",
+    "description": "Comprehensive exercise graph dataset for gym workout builder app. 345 exercises across 9 files with full graph connectivity (substitutes, complements, superset candidates). Covers barbell, dumbbell, cable, machine, kettlebell, band, bodyweight, and cardio exercises. Beginner-friendly with video references. Generic equipment names — works at any well-equipped commercial gym.",
     "created": "2026-03-04",
-    "last_updated": "2026-03-08",
+    "last_updated": "2026-03-09",
     "file_structure": [
       "00_schema_and_metadata.json — This file. Schema, equipment, muscle groups, templates, graph edge semantics.",
       "01_legs_quads_glutes.json — 45 exercises. Squat variations (barbell, smith, hack, pendulum, belt, KB, band, landmine, zercher, jefferson, pistol, shrimp), lunges (walking, reverse, lateral, smith, KB), split squats, leg press, leg extensions, hip thrusts, glute bridges, adduction/abduction, wall sit.",
       "02_legs_hamstrings_calves.json — 33 exercises. Deadlift variations (conventional, sumo, trap bar, RDL, snatch-grip, deficit, pause, landmine), leg curls (machine, sliding, band), nordic curls, GHR, reverse hyper, calf raises, kettlebell swings, back extensions, glute bridges.",
-      "03_chest.json — 35 exercises. Bench press variations (flat, incline, decline, close-grip, floor, squeeze, plate-loaded), flyes (dumbbell, cable high/mid/low, machine, band), dips, push-up variations (standard, wide, decline, incline, archer, banded), svend press, pullovers.",
-      "04_back.json — 38 exercises. Rows (barbell, dumbbell, cable, machine, Pendlay, seal, T-bar, landmine, KB, band, Yates, Meadows, snatch-grip), pull-ups/chin-ups, pulldowns, inverted row, superman, cable pullover, shrugs.",
-      "05_shoulders.json — 34 exercises. Overhead presses (barbell, dumbbell, Arnold, machine, smith, KB, band, pike, handstand), lateral raises (dumbbell, cable, machine, band, prone incline, Lu), face pulls (cable, band), rear delt work, rotator cuff (cable external/internal rotation, Y-raise), shrugs.",
-      "06_arms.json — 39 exercises. Bicep curls (barbell, EZ, dumbbell, hammer, preacher, incline, bayesian, spider, cable, concentration, reverse, KB, band, drag, cross-body, Zottman, prone incline), tricep extensions (pushdown, overhead, skull crusher, kickback, JM press, Tate press, dip, band, machine), forearm/grip work.",
-      "07_core_and_functional.json — 38 exercises. Abs (cable crunch, hanging raises, V-up, bicycle crunch), anti-extension (plank, ab wheel, dead bug, bird dog, hollow body, L-sit), anti-rotation (Pallof press), rotation (Russian twist, woodchop, KB windmill), carries (farmer, suitcase, overhead, rack, waiter, cross-body), plyometrics (box jump, squat jump, broad jump, depth jump, skater, tuck, lateral bound, plyo push-up), conditioning (mountain climbers, battle ropes, bear crawl, KB Turkish get-up, KB snatch, MB slam).",
+      "03_chest.json — 38 exercises. Bench press variations (flat, incline, decline, close-grip, floor, squeeze, plate-loaded, reverse-grip, neutral-grip, single-arm), flyes (dumbbell, cable high/mid/low, machine, band), dips, push-up variations (standard, wide, decline, incline, archer, banded), svend press, pullovers.",
+      "04_back.json — 43 exercises. Rows (barbell, dumbbell, cable, machine, Pendlay, seal, T-bar, landmine, KB, band, Yates, Meadows, snatch-grip, wide-grip cable, V-bar cable, close-grip supinated cable), pull-ups/chin-ups, pulldowns (wide, close, V-bar, rope), inverted row, superman, cable pullover, shrugs.",
+      "05_shoulders.json — 39 exercises. Overhead presses (barbell, dumbbell, Arnold, machine, smith, KB, band, pike, handstand), lateral raises (dumbbell, cable, machine, band, prone incline, Lu, seated, incline lying, behind-body cable), face pulls (cable, band), rear delt work, upright rows (barbell, dumbbell, wide-grip cable), rotator cuff (cable external/internal rotation, Y-raise), shrugs.",
+      "06_arms.json — 46 exercises. Bicep curls (barbell, EZ, dumbbell, hammer, preacher, EZ preacher, incline, incline hammer, bayesian, spider, cable, concentration, cable concentration, reverse, EZ reverse, KB, band, drag, cross-body, Zottman, prone incline), tricep extensions (pushdown, reverse-grip pushdown, V-bar pushdown, overhead, skull crusher, DB skull crusher, kickback, JM press, Tate press, dip, band, machine), forearm/grip work.",
+      "07_core_and_functional.json — 41 exercises. Abs (cable crunch, hanging raises, V-up, bicycle crunch), anti-extension (plank, ab wheel, dead bug, bird dog, hollow body, L-sit), anti-rotation (Pallof press), rotation (Russian twist, woodchop, low-to-high woodchop, horizontal woodchop, KB windmill), carries (farmer, suitcase, overhead, rack, waiter, cross-body), plyometrics (box jump, squat jump, broad jump, depth jump, skater, tuck, lateral bound, plyo push-up), conditioning (mountain climbers, battle ropes, bear crawl, KB Turkish get-up, KB snatch, MB slam).",
       "08_stretching_mobility.json — 44 exercises. Dynamic stretches, static stretches, mobility drills, foam rolling (quads, IT band, thoracic, lats, calves, glutes), banded mobilizations.",
       "09_cardio_warmup.json — 14 exercises. Treadmill, elliptical, bike, rower, stair climber, jump rope, assault bike, ski erg, burpee, jumping jacks, sled push, high knees, seal jacks."
     ],
@@ -20,6 +20,17 @@
     "cross_file_edges": 1015,
     "video_source": "muscleandstrength.com — each link has a short video demo plus written form cues. All free, no login needed.",
     "changelog": {
+      "v3_to_v4": [
+        "Added 22 exercises: grip/attachment/position variants backed by peer-reviewed EMG research",
+        "New chest exercises (3): reverse-grip bench, neutral-grip DB press, single-arm DB press",
+        "New back exercises (5): V-bar pulldown, rope pulldown, wide-grip/V-bar/close-grip cable rows",
+        "New shoulder exercises (5): behind-body/seated/incline lateral raises, dumbbell/wide-grip upright rows",
+        "New arm exercises (7): reverse-grip/V-bar pushdowns, DB skull crusher, EZ preacher curl, EZ reverse curl, incline hammer curl, cable concentration curl",
+        "New core exercises (2): low-to-high and horizontal cable woodchops",
+        "Updated cross-references on ~30 existing exercises for bidirectional graph connectivity",
+        "Added 4 new exercise conflicts with scientific citations",
+        "Total exercises: 323 → 345"
+      ],
       "v2_to_v3": [
         "Added 12 exercises across files 01, 03, 04, 05 to fill equipment and movement pattern gaps",
         "Added 4 exercises to file 06 (bayesian curl, spider curl, reverse curl, single-arm overhead extension) for complete bicep length-tension spectrum and forearm coverage",
@@ -557,7 +568,7 @@
   },
   "app_build_notes": {
     "graph_structure": {
-      "overview": "Each exercise is a node. Substitutes, complements, and superset_candidates are edges. The graph has 323 nodes and 3000+ edges.",
+      "overview": "Each exercise is a node. Substitutes, complements, and superset_candidates are edges. The graph has 345 nodes and 3000+ edges.",
       "edge_weighting": "Weight edges by similarity: same movement_pattern + same primary_muscles = strongest substitute. Same force_type + same workout_position = strongest complement. Opposite force_type + non-competing muscles = strongest superset.",
       "cross_file_edges": "1015 edges cross file boundaries. These are critical for generating multi-muscle-group workouts. Most cross-file edges are in superset_candidates (antagonist pairs) and complements (synergist links from arms to their compound partners)."
     },

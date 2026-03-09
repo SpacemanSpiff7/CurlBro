@@ -1,7 +1,7 @@
 {
   "file": "05_shoulders.json",
   "description": "Overhead presses, lateral raises, face pulls, rear delt work, shrugs, prehab, kettlebell presses, bodyweight presses, band work, cable rotations",
-  "exercise_count": 34,
+  "exercise_count": 39,
   "exercises": [
     {
       "id": "overhead_press",
@@ -670,7 +670,10 @@
         "cable_lateral_raise",
         "machine_lateral_raise",
         "upright_row",
-        "band_lateral_raise"
+        "band_lateral_raise",
+        "seated_lateral_raise",
+        "incline_lying_lateral_raise",
+        "behind_body_cable_lateral_raise"
       ],
       "complements": [
         "overhead_press",
@@ -723,7 +726,8 @@
       "substitutes": [
         "lateral_raise",
         "machine_lateral_raise",
-        "band_lateral_raise"
+        "band_lateral_raise",
+        "behind_body_cable_lateral_raise"
       ],
       "complements": [
         "overhead_press",
@@ -1619,7 +1623,9 @@
       "substitutes": [
         "lateral_raise",
         "cable_lateral_raise",
-        "barbell_shrug"
+        "barbell_shrug",
+        "dumbbell_upright_row",
+        "wide_grip_upright_row"
       ],
       "complements": [
         "overhead_press",
@@ -1797,6 +1803,260 @@
         "grip": "high",
         "lumbar_stabilizer": "low",
         "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "behind_body_cable_lateral_raise",
+      "name": "Behind-Body Cable Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/behind-body-cable-lateral-raise.html",
+      "beginner_tips": "Stand sideways to a low cable, handle behind your body. Raise your arm out to the side until parallel with the floor. The cable pulling from behind loads the medial deltoid in its stretched position, where dumbbells provide almost no tension. Keep a slight bend in your elbow.",
+      "substitutes": [
+        "cable_lateral_raise",
+        "lateral_raise",
+        "seated_lateral_raise",
+        "incline_lying_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye",
+        "front_raise"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "Loads the medial deltoid in the lengthened (stretched) position where dumbbells provide zero resistance. The behind-body cable angle shifts the resistance curve to maximize tension at the bottom of the ROM. One of the best lateral raise variations for complete medial delt development.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "seated_lateral_raise",
+      "name": "Seated Dumbbell Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/seated-dumbbell-lateral-raise.html",
+      "beginner_tips": "Sit on the edge of a bench with dumbbells at your sides. Raise both arms out to the sides until parallel with the floor. Being seated removes the ability to use leg drive or body sway, making this stricter than standing lateral raises. Use lighter weight than standing.",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "behind_body_cable_lateral_raise",
+        "incline_lying_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye",
+        "front_raise"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "Eliminates momentum and leg drive, forcing the medial deltoid to do all the work. Typically requires 20-30% less weight than standing lateral raises. Excellent for those who tend to swing the weight or struggle with strict form on standing raises.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "incline_lying_lateral_raise",
+      "name": "Incline Lying Lateral Raise",
+      "category": "isolation",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "https://www.muscleandstrength.com/exercises/incline-bench-lateral-raise.html",
+      "beginner_tips": "Lie on your side on an incline bench (30-45 degrees). Hold a light dumbbell in your top hand and raise it out to the side. The incline position provides constant tension throughout the ROM — even at the bottom where regular lateral raises have no tension. Use very light weight.",
+      "substitutes": [
+        "lateral_raise",
+        "cable_lateral_raise",
+        "behind_body_cable_lateral_raise",
+        "seated_lateral_raise"
+      ],
+      "complements": [
+        "overhead_press",
+        "face_pull",
+        "rear_delt_flye",
+        "front_raise"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "The incline angle creates constant tension through the entire range of motion, similar to the behind-body cable lateral raise but with dumbbells. Eliminates all momentum. Particularly effective for the stretched position of the medial deltoid. Use 40-50% of your normal lateral raise weight.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "none",
+        "grip": "low",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "dumbbell_upright_row",
+      "name": "Dumbbell Upright Row",
+      "category": "compound",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "pull",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/dumbbell-upright-row.html",
+      "beginner_tips": "Hold dumbbells in front of your thighs. Pull upward by driving elbows out and up — stop when upper arms are parallel to the floor. Dumbbells allow a freer path than a barbell, letting your wrists rotate naturally. This significantly reduces shoulder impingement risk compared to barbell upright rows.",
+      "substitutes": [
+        "upright_row",
+        "wide_grip_upright_row",
+        "lateral_raise",
+        "cable_lateral_raise"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "Dumbbells allow each arm to find its natural path, reducing the shoulder impingement risk inherent in barbell upright rows. The freer movement path means the supraspinatus is less likely to get pinched in the subacromial space. Stop at or below parallel to further reduce risk.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "wide_grip_upright_row",
+      "name": "Wide-Grip Cable Upright Row",
+      "category": "compound",
+      "movement_pattern": "shoulder_abduction",
+      "force_type": "pull",
+      "equipment": [
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "biceps"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/wide-grip-cable-upright-row.html",
+      "beginner_tips": "Use a wide grip (1.5-2x shoulder width) on a straight bar attached to a low cable. Pull upward, leading with elbows. The wide grip reduces internal rotation of the shoulder compared to narrow grip, making this much safer. Stop when upper arms are parallel to the floor.",
+      "substitutes": [
+        "upright_row",
+        "dumbbell_upright_row",
+        "lateral_raise",
+        "cable_lateral_raise"
+      ],
+      "complements": [
+        "lateral_raise",
+        "face_pull",
+        "rear_delt_flye",
+        "overhead_press"
+      ],
+      "superset_candidates": [
+        "face_pull",
+        "rear_delt_flye",
+        "band_pull_apart"
+      ],
+      "notes": "Wide grip maximizes deltoid and trap activation while significantly reducing shoulder impingement risk vs narrow grip (McAllister et al. 2013). The cable provides constant tension through the ROM. Excellent middle ground between the impingement risk of barbell upright rows and the lower loading of lateral raises.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
       }
     }
   ]

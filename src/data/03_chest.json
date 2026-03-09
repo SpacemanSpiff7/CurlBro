@@ -1,7 +1,7 @@
 {
   "file": "03_chest.json",
   "description": "Bench press variations, flyes, dips, push-ups, machine presses, floor press, pullovers, cable presses, banded movements",
-  "exercise_count": 35,
+  "exercise_count": 38,
   "exercises": [
     {
       "id": "barbell_bench_press",
@@ -31,7 +31,8 @@
         "dumbbell_bench_press",
         "machine_chest_press",
         "smith_machine_bench_press",
-        "floor_press"
+        "floor_press",
+        "reverse_grip_bench_press"
       ],
       "complements": [
         "incline_dumbbell_press",
@@ -89,7 +90,9 @@
         "barbell_bench_press",
         "machine_chest_press",
         "smith_machine_bench_press",
-        "floor_press"
+        "floor_press",
+        "neutral_grip_dumbbell_press",
+        "single_arm_dumbbell_bench_press"
       ],
       "complements": [
         "incline_barbell_press",
@@ -145,7 +148,8 @@
         "low_to_high_cable_flye",
         "landmine_press",
         "smith_machine_incline_press",
-        "incline_machine_press"
+        "incline_machine_press",
+        "reverse_grip_bench_press"
       ],
       "complements": [
         "barbell_bench_press",
@@ -201,7 +205,8 @@
         "low_to_high_cable_flye",
         "smith_machine_incline_press",
         "incline_machine_press",
-        "landmine_press"
+        "landmine_press",
+        "reverse_grip_bench_press"
       ],
       "complements": [
         "barbell_bench_press",
@@ -364,7 +369,8 @@
         "barbell_bench_press",
         "dumbbell_bench_press",
         "smith_machine_bench_press",
-        "plate_loaded_chest_press"
+        "plate_loaded_chest_press",
+        "neutral_grip_dumbbell_press"
       ],
       "complements": [
         "cable_flye",
@@ -581,7 +587,8 @@
         "barbell_bench_press",
         "dumbbell_bench_press",
         "machine_chest_press",
-        "close_grip_bench_press"
+        "close_grip_bench_press",
+        "neutral_grip_dumbbell_press"
       ],
       "complements": [
         "dumbbell_flye",
@@ -1869,6 +1876,165 @@
         "knee": "none",
         "grip": "moderate",
         "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "reverse_grip_bench_press",
+      "name": "Reverse-Grip Bench Press",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "barbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "4-8",
+      "video_url": "https://www.muscleandstrength.com/exercises/reverse-grip-bench-press.html",
+      "beginner_tips": "Use a spotter — the underhand grip makes unracking harder. Grip slightly wider than shoulders, lower to lower chest. Wrists must stay stacked over elbows. Start with much lighter weight than your regular bench press until the groove feels natural.",
+      "substitutes": [
+        "barbell_bench_press",
+        "incline_barbell_press",
+        "incline_dumbbell_press",
+        "low_to_high_cable_flye"
+      ],
+      "complements": [
+        "cable_flye",
+        "dumbbell_flye",
+        "face_pull",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "barbell_row",
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "~30% greater upper pec (clavicular head) activation vs standard grip (Lehman 2005). One of the strongest evidence-supported bench press variations for upper chest targeting. Requires careful unracking due to supinated grip — always use a spotter or Smith machine when learning.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "neutral_grip_dumbbell_press",
+      "name": "Neutral-Grip Dumbbell Bench Press",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/neutral-grip-dumbbell-bench-press.html",
+      "beginner_tips": "Palms face each other throughout the movement. Press dumbbells up from chest level to lockout. Keep elbows at about 45 degrees from torso. Great option if regular bench press bothers your shoulders.",
+      "substitutes": [
+        "dumbbell_bench_press",
+        "machine_chest_press",
+        "floor_press",
+        "smith_machine_bench_press"
+      ],
+      "complements": [
+        "incline_dumbbell_press",
+        "cable_flye",
+        "dumbbell_flye",
+        "tricep_pushdown"
+      ],
+      "superset_candidates": [
+        "dumbbell_row",
+        "cable_row",
+        "face_pull",
+        "band_pull_apart"
+      ],
+      "notes": "Neutral (palms-in) grip significantly decreases acromioclavicular compression and glenohumeral shear forces (Noteboom et al. 2024). Excellent shoulder-friendly pressing option. Slightly more tricep emphasis than pronated grip due to arm path.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "low",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "single_arm_dumbbell_bench_press",
+      "name": "Single-Arm Dumbbell Bench Press",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12",
+      "rep_range_strength": "6-10",
+      "video_url": "https://www.muscleandstrength.com/exercises/one-arm-dumbbell-bench-press.html",
+      "beginner_tips": "Lie on a flat bench with one dumbbell. Press up while resisting the rotation your body wants to do. Keep your hips level — don't let the loaded side dip. The anti-rotation demand is the main benefit. Use significantly less weight than bilateral pressing.",
+      "substitutes": [
+        "dumbbell_bench_press",
+        "neutral_grip_dumbbell_press",
+        "floor_press"
+      ],
+      "complements": [
+        "cable_flye",
+        "pallof_press",
+        "plank",
+        "dumbbell_row"
+      ],
+      "superset_candidates": [
+        "dumbbell_row",
+        "cable_row",
+        "face_pull",
+        "pallof_press"
+      ],
+      "notes": "37-41% greater external oblique activation vs bilateral pressing (Anderson & Behm 2005). Excellent for core anti-rotation training while still building chest. Also useful for addressing bilateral strength imbalances. Keep the non-working hand on your hip or extended for balance.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "moderate",
+        "lumbar_stabilizer": "moderate",
         "rotator_cuff": "moderate"
       }
     }
