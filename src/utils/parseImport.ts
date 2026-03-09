@@ -12,15 +12,14 @@ export interface ParseResult {
 const HEADER_WITH_DATE_RE = /^##\s+(.+?)\s*\|\s*(\d{4}-\d{2}-\d{2})\s*$/;
 const HEADER_NO_DATE_RE = /^##\s+(.+?)\s*$/;
 
-// Full exercise line: Name [id] | 3x10 | 100lb | Rest: 60s
-const EXERCISE_FULL_RE = /^(.+?)\s*\[(\w+)\]\s*\|\s*(\d+)x(\d+)\s*\|\s*([\d.]*)\s*(?:lb)?\s*\|\s*Rest:\s*(\d+)s\s*$/;
+// Exercise with [id]: Name [id] | ...fields...  or just  Name [id]
+const EXERCISE_WITH_ID_RE = /^(.+?)\s*\[(\w+)\]\s*(?:\|(.*))?$/;
 
-// Partial: has [id] but missing/malformed fields after it
-const EXERCISE_ID_PARTIAL_RE = /^(.+?)\s*\[(\w+)\]\s*(?:\|.*)?$/;
-
-// Name only (no [id]): "Barbell Bench Press | 4x8 | 155lb | Rest: 120s" or just "Barbell Bench Press"
-const EXERCISE_NAME_FIELDS_RE = /^(.+?)\s*\|\s*(\d+)x(\d+)\s*\|\s*([\d.]*)\s*(?:lb)?\s*\|\s*Rest:\s*(\d+)s\s*$/;
+// Name only (no [id]): "Barbell Bench Press" (starts with uppercase, 3+ chars)
 const EXERCISE_NAME_ONLY_RE = /^([A-Z].{2,})$/;
+
+// Name with pipe-separated fields (no [id]): "Barbell Bench Press | 4x8 | 155lb | Rest: 120s"
+const EXERCISE_NAME_WITH_FIELDS_RE = /^([A-Z].+?)\s*\|(.+)$/;
 
 // Superset tag at end of line: [superset:abc123]
 const SUPERSET_TAG_RE = /\s*\[superset:(\S+)\]\s*$/;
@@ -52,44 +51,132 @@ function resolveByName(name: string, nameIndex: Map<string, ExerciseId>): Exerci
   return null;
 }
 
-/** Pick a simple default rep count from settings (compound is the safer default for imports) */
+/** Pick a simple default rep count from settings */
 function goalDefaultReps(settings: AppSettings): number {
   return settings.defaultRepsCompound;
 }
 
-/** Try to parse optional fields from pipe-separated remainder */
-function parseFields(parts: string[], settings: AppSettings): { sets: number; reps: number; weight: number | null; restSeconds: number } {
-  const defaults = {
-    sets: settings.defaultSetsCompound,
-    reps: goalDefaultReps(settings),
-    weight: null as number | null,
-    restSeconds: settings.restTimerCompoundSeconds,
-  };
+/** Parse duration string: "30s" → 30, "1:30" → 90, "5:00" → 300 */
+function parseDuration(str: string): number | null {
+  // "30s"
+  const secMatch = str.match(/^(\d+)s$/);
+  if (secMatch) return parseInt(secMatch[1]);
+
+  // "1:30" or "5:00"
+  const mmssMatch = str.match(/^(\d+):(\d{2})$/);
+  if (mmssMatch) return parseInt(mmssMatch[1]) * 60 + parseInt(mmssMatch[2]);
+
+  return null;
+}
+
+interface ParsedFields {
+  sets: number;
+  reps: number;
+  weight: number | null;
+  restSeconds: number;
+  durationSeconds: number | undefined;
+  trackWeight: boolean;
+  trackReps: boolean;
+  trackDuration: boolean;
+  trackDistance: boolean;
+}
+
+/** Parse pipe-separated fields to determine exercise configuration and tracking flags. */
+function parseFields(parts: string[], settings: AppSettings): ParsedFields {
+  let sets = settings.defaultSetsCompound;
+  let reps = goalDefaultReps(settings);
+  let weight: number | null = null;
+  let restSeconds = settings.restTimerCompoundSeconds;
+  let durationSeconds: number | undefined;
+  let hasSetsReps = false;
+  let hasDuration = false;
+  let hasWeight = false;
+  let hasDistance = false;
 
   for (const part of parts) {
     const trimmed = part.trim();
-    // "3x10"
+    if (!trimmed) continue;
+
+    // "3x30s" or "3x1:30" → sets × duration
+    const durSets = trimmed.match(/^(\d+)x(.+)$/);
+    if (durSets) {
+      const dur = parseDuration(durSets[2]);
+      if (dur != null) {
+        sets = parseInt(durSets[1]);
+        durationSeconds = dur;
+        hasDuration = true;
+        continue;
+      }
+    }
+
+    // "3x10" → sets × reps (must come after duration check)
     const setsReps = trimmed.match(/^(\d+)x(\d+)$/);
     if (setsReps) {
-      defaults.sets = parseInt(setsReps[1]);
-      defaults.reps = parseInt(setsReps[2]);
+      sets = parseInt(setsReps[1]);
+      reps = parseInt(setsReps[2]);
+      hasSetsReps = true;
       continue;
     }
-    // "155lb" or "155"
-    const weight = trimmed.match(/^([\d.]+)\s*(?:lb|kg)?$/);
-    if (weight) {
-      defaults.weight = parseFloat(weight[1]);
+
+    // Standalone duration: "5:00" or "30s"
+    const dur = parseDuration(trimmed);
+    if (dur != null) {
+      durationSeconds = dur;
+      hasDuration = true;
       continue;
     }
+
+    // "0.5mi" or "0.8km" → distance
+    const dist = trimmed.match(/^([\d.]+)\s*(mi|km)$/);
+    if (dist) {
+      hasDistance = true;
+      continue;
+    }
+
+    // "155lb" or "61.2kg" → weight
+    const weightMatch = trimmed.match(/^([\d.]+)\s*(lb|kg)$/);
+    if (weightMatch) {
+      weight = parseFloat(weightMatch[1]);
+      hasWeight = true;
+      continue;
+    }
+
+    // Bare number → weight (backward compat: "155" without unit)
+    const bareNum = trimmed.match(/^[\d.]+$/);
+    if (bareNum) {
+      weight = parseFloat(trimmed);
+      hasWeight = true;
+      continue;
+    }
+
     // "Rest: 60s"
     const rest = trimmed.match(/^Rest:\s*(\d+)s$/i);
     if (rest) {
-      defaults.restSeconds = parseInt(rest[1]);
+      restSeconds = parseInt(rest[1]);
       continue;
     }
   }
 
-  return defaults;
+  // Infer tracking flags from parsed data
+  const trackDuration = hasDuration;
+  const trackDistance = hasDistance;
+
+  // Duration-based exercises: don't default to reps/weight tracking
+  // Reps-based exercises (or no explicit data): default to trackReps + trackWeight (backward compat)
+  const trackReps = !hasDuration || hasSetsReps;
+  const trackWeight = hasDuration ? hasWeight : true;
+
+  return {
+    sets,
+    reps,
+    weight,
+    restSeconds,
+    durationSeconds,
+    trackWeight,
+    trackReps,
+    trackDuration,
+    trackDistance,
+  };
 }
 
 export function parseImport(text: string, graph: ExerciseGraph, settings: AppSettings = DEFAULT_SETTINGS): ParseResult {
@@ -148,16 +235,11 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
       line = line.replace(SUPERSET_TAG_RE, '');
     }
 
-    // 1. Full match: Name [id] | 3x10 | 100lb | Rest: 60s
-    const fullMatch = line.match(EXERCISE_FULL_RE);
-    if (fullMatch) {
-      let exerciseId = fullMatch[2] as ExerciseId;
-      const exerciseName = fullMatch[1].trim();
-      const sets = parseInt(fullMatch[3]);
-      const reps = parseInt(fullMatch[4]);
-      const weightStr = fullMatch[5];
-      const weight = weightStr ? parseFloat(weightStr) : null;
-      const restSeconds = parseInt(fullMatch[6]);
+    // 1. Has [id] — most reliable: Name [id] | ...fields...
+    const idMatch = line.match(EXERCISE_WITH_ID_RE);
+    if (idMatch) {
+      let exerciseId = idMatch[2] as ExerciseId;
+      const exerciseName = idMatch[1].trim();
 
       // If ID is unknown, try to resolve by name
       if (!graph.exercises.has(exerciseId)) {
@@ -170,50 +252,53 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         }
       }
 
-      exercises.push({ exerciseId, instanceId: crypto.randomUUID(), sets, reps, weight, restSeconds, notes: '', trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false, ...(supersetGroupId && { supersetGroupId }) });
-      continue;
-    }
-
-    // 2. Has [id] but fields are missing/malformed
-    const idPartialMatch = line.match(EXERCISE_ID_PARTIAL_RE);
-    if (idPartialMatch) {
-      let exerciseId = idPartialMatch[2] as ExerciseId;
-      const exerciseName = idPartialMatch[1].trim();
-
-      // If ID is unknown, try name lookup
-      if (!graph.exercises.has(exerciseId)) {
-        const resolved = resolveByName(exerciseName, nameIndex);
-        if (resolved) {
-          exerciseId = resolved;
-          warnings.push(`Resolved "${exerciseName}" by name (line ${i + 1})`);
-        } else {
-          warnings.push(`Unknown exercise: ${exerciseName} [${exerciseId}] (line ${i + 1})`);
-        }
-      }
-
-      // Parse whatever fields exist after the [id]
-      const afterBracket = line.slice(line.indexOf(']') + 1);
-      const parts = afterBracket.split('|').map((p) => p.trim()).filter(Boolean);
+      // Parse fields after the [id]
+      const fieldsStr = idMatch[3] ?? '';
+      const parts = fieldsStr.split('|').map((p) => p.trim()).filter(Boolean);
       const fields = parseFields(parts, settings);
 
-      exercises.push({ exerciseId, instanceId: crypto.randomUUID(), ...fields, notes: '', trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false, ...(supersetGroupId && { supersetGroupId }) });
-      warnings.push(`Used defaults for missing fields (line ${i + 1})`);
+      exercises.push({
+        exerciseId,
+        instanceId: crypto.randomUUID(),
+        sets: fields.sets,
+        reps: fields.reps,
+        weight: fields.weight,
+        restSeconds: fields.restSeconds,
+        notes: '',
+        trackWeight: fields.trackWeight,
+        trackReps: fields.trackReps,
+        trackDuration: fields.trackDuration,
+        trackDistance: fields.trackDistance,
+        ...(fields.durationSeconds != null ? { durationSeconds: fields.durationSeconds } : {}),
+        ...(supersetGroupId && { supersetGroupId }),
+      });
       continue;
     }
 
-    // 3. Name with fields but no [id]: "Barbell Bench Press | 4x8 | 155lb | Rest: 120s"
-    const nameFieldsMatch = line.match(EXERCISE_NAME_FIELDS_RE);
+    // 2. Name with pipe-separated fields but no [id]
+    const nameFieldsMatch = line.match(EXERCISE_NAME_WITH_FIELDS_RE);
     if (nameFieldsMatch) {
       const exerciseName = nameFieldsMatch[1].trim();
-      const sets = parseInt(nameFieldsMatch[2]);
-      const reps = parseInt(nameFieldsMatch[3]);
-      const weightStr = nameFieldsMatch[4];
-      const weight = weightStr ? parseFloat(weightStr) : null;
-      const restSeconds = parseInt(nameFieldsMatch[5]);
+      const parts = nameFieldsMatch[2].split('|').map((p) => p.trim()).filter(Boolean);
+      const fields = parseFields(parts, settings);
 
       const resolved = resolveByName(exerciseName, nameIndex);
       if (resolved) {
-        exercises.push({ exerciseId: resolved, instanceId: crypto.randomUUID(), sets, reps, weight, restSeconds, notes: '', trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false, ...(supersetGroupId && { supersetGroupId }) });
+        exercises.push({
+          exerciseId: resolved,
+          instanceId: crypto.randomUUID(),
+          sets: fields.sets,
+          reps: fields.reps,
+          weight: fields.weight,
+          restSeconds: fields.restSeconds,
+          notes: '',
+          trackWeight: fields.trackWeight,
+          trackReps: fields.trackReps,
+          trackDuration: fields.trackDuration,
+          trackDistance: fields.trackDistance,
+          ...(fields.durationSeconds != null ? { durationSeconds: fields.durationSeconds } : {}),
+          ...(supersetGroupId && { supersetGroupId }),
+        });
         warnings.push(`Resolved "${exerciseName}" by name (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);
@@ -221,7 +306,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
       continue;
     }
 
-    // 4. Name only: "Barbell Bench Press"
+    // 3. Name only: "Barbell Bench Press"
     const nameOnlyMatch = line.match(EXERCISE_NAME_ONLY_RE);
     if (nameOnlyMatch) {
       const exerciseName = nameOnlyMatch[1].trim();
@@ -230,7 +315,20 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
         const ex = graph.exercises.get(resolved);
         const defaultSets = ex?.category === 'isolation' ? settings.defaultSetsIsolation : settings.defaultSetsCompound;
         const defaultRest = ex?.category === 'isolation' ? settings.restTimerIsolationSeconds : settings.restTimerCompoundSeconds;
-        exercises.push({ exerciseId: resolved, instanceId: crypto.randomUUID(), sets: defaultSets, reps: goalDefaultReps(settings), weight: null, restSeconds: defaultRest, notes: '', trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false, ...(supersetGroupId && { supersetGroupId }) });
+        exercises.push({
+          exerciseId: resolved,
+          instanceId: crypto.randomUUID(),
+          sets: defaultSets,
+          reps: goalDefaultReps(settings),
+          weight: null,
+          restSeconds: defaultRest,
+          notes: '',
+          trackWeight: true,
+          trackReps: true,
+          trackDuration: false,
+          trackDistance: false,
+          ...(supersetGroupId && { supersetGroupId }),
+        });
         warnings.push(`Resolved "${exerciseName}" by name, using default sets/reps (line ${i + 1})`);
       } else {
         warnings.push(`Could not find exercise: "${exerciseName}" (line ${i + 1}), skipped`);

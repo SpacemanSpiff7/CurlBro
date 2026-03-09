@@ -1,5 +1,6 @@
 import type { WorkoutLog, SavedWorkout, ExerciseGraph, ExerciseId, WorkoutId } from '@/types';
 import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
+import { formatWeight, formatDistance } from '@/utils/unitConversion';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface LogStats {
@@ -9,6 +10,7 @@ export interface LogStats {
   totalSets: number;
   completedSets: number;
   totalWeight: number;
+  totalDurationSeconds: number;
 }
 
 export function computeLogStats(log: WorkoutLog): LogStats {
@@ -22,13 +24,19 @@ export function computeLogStats(log: WorkoutLog): LogStats {
   let totalSets = 0;
   let completedSets = 0;
   let totalWeight = 0;
+  let totalDurationSeconds = 0;
 
   for (const ex of log.exercises) {
     for (const s of ex.sets) {
       totalSets++;
       if (s.completed) {
         completedSets++;
-        totalWeight += (s.weight ?? 0) * (s.reps ?? 0);
+        if (s.weight != null && s.reps != null) {
+          totalWeight += s.weight * s.reps;
+        }
+        if (s.durationSeconds != null) {
+          totalDurationSeconds += s.durationSeconds;
+        }
       }
     }
   }
@@ -40,6 +48,7 @@ export function computeLogStats(log: WorkoutLog): LogStats {
     totalSets,
     completedSets,
     totalWeight,
+    totalDurationSeconds,
   };
 }
 
@@ -79,11 +88,22 @@ export function formatLogForClipboard(
 ): string {
   const dateStr = log.startedAt.slice(0, 10);
   const stats = computeLogStats(log);
-  const totalWeightStr = stats.totalWeight.toLocaleString('en-US');
+  const wUnit = log.weightUnit ?? 'lb';
+  const dUnit = log.distanceUnit ?? 'mi';
 
   const lines: string[] = [];
   lines.push(`## ${log.workoutName} | ${dateStr}`);
-  lines.push(`Duration: ${stats.durationMinutes} min | Total: ${totalWeightStr} lb`);
+
+  const headerParts = [`Duration: ${stats.durationMinutes} min`];
+  if (stats.totalWeight > 0) {
+    const totalStr = Math.round(stats.totalWeight).toLocaleString('en-US');
+    headerParts.push(`Total: ${totalStr} ${wUnit}`);
+  }
+  if (stats.totalDurationSeconds > 0) {
+    const mins = Math.round(stats.totalDurationSeconds / 60);
+    headerParts.push(`Active: ${mins} min`);
+  }
+  lines.push(headerParts.join(' | '));
   lines.push('---');
 
   const groups = deriveGroups(log.exercises);
@@ -102,10 +122,25 @@ export function formatLogForClipboard(
       lines.push(`${name} [${ex.exerciseId}]`);
 
       const setParts = ex.sets.map((s) => {
-        const w = s.weight != null ? `${s.weight}lb` : 'BW';
-        const r = s.reps ?? 0;
+        const parts: string[] = [];
+
+        if (s.weight != null) {
+          parts.push(formatWeight(s.weight, wUnit));
+        }
+        if (s.reps != null) {
+          parts.push(`${s.reps} reps`);
+        }
+        if (s.durationSeconds != null) {
+          parts.push(`${s.durationSeconds}s`);
+        }
+        if (s.distanceMeters != null) {
+          parts.push(formatDistance(s.distanceMeters, dUnit));
+        }
+
+        if (parts.length === 0) parts.push('BW');
+
         const mark = s.completed ? '\u2713' : '\u2717';
-        return `${w} \u00d7 ${r} ${mark}`;
+        return `${parts.join(' \u00d7 ')} ${mark}`;
       });
       lines.push(`  ${setParts.join(' | ')}`);
     }

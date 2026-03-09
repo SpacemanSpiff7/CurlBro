@@ -16,7 +16,8 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { computeLogStats, logToSavedWorkout, formatLogForClipboard } from '@/utils/logUtils';
-import type { WorkoutLog, LogId } from '@/types';
+import { convertWeight, formatWeight } from '@/utils/unitConversion';
+import type { WorkoutLog, LogId, WeightUnit } from '@/types';
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -36,11 +37,18 @@ function formatDuration(minutes: number): string {
 function LogRow({
   log,
   onSelect,
+  displayUnit,
 }: {
   log: WorkoutLog;
   onSelect: (log: WorkoutLog) => void;
+  displayUnit: WeightUnit;
 }) {
   const stats = useMemo(() => computeLogStats(log), [log]);
+  const displayWeight = useMemo(() => {
+    if (stats.totalWeight <= 0) return null;
+    const converted = convertWeight(stats.totalWeight, log.weightUnit ?? 'lb', displayUnit);
+    return formatWeight(converted, displayUnit);
+  }, [stats.totalWeight, log.weightUnit, displayUnit]);
 
   return (
     <div
@@ -65,11 +73,11 @@ function LogRow({
           <span className="text-xs text-text-tertiary">{formatDate(log.completedAt)}</span>
           <span className="text-xs text-text-tertiary">·</span>
           <span className="text-xs text-text-tertiary">{formatDuration(log.durationMinutes)}</span>
-          {stats.totalWeight > 0 && (
+          {displayWeight && (
             <>
               <span className="text-xs text-text-tertiary">·</span>
               <span className="text-xs text-text-tertiary">
-                {stats.totalWeight.toLocaleString()} lbs
+                {displayWeight}
               </span>
             </>
           )}
@@ -99,6 +107,7 @@ function LogDetailSheet({
   const graph = useStore((state) => state.graph);
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
   const updateLogNotes = useStore((state) => state.libraryActions.updateLogNotes);
+  const currentWeightUnit = useStore((state) => state.settings.weightUnit);
 
   if (!log) return null;
 
@@ -137,7 +146,12 @@ function LogDetailSheet({
           <div className="rounded-lg bg-bg-elevated p-2.5">
             <div className="text-[10px] text-text-tertiary uppercase tracking-wide">Total Weight</div>
             <div className="text-sm font-medium text-text-primary">
-              {stats.totalWeight > 0 ? `${stats.totalWeight.toLocaleString()} lbs` : '--'}
+              {stats.totalWeight > 0
+                ? formatWeight(
+                    convertWeight(stats.totalWeight, log.weightUnit ?? 'lb', currentWeightUnit),
+                    currentWeightUnit,
+                  )
+                : '--'}
             </div>
           </div>
           <div className="rounded-lg bg-bg-elevated p-2.5">
@@ -182,9 +196,21 @@ function LogDetailSheet({
                       <div key={setIdx} className="flex items-center gap-2 text-xs">
                         <span className="text-text-tertiary w-4 text-right">{setIdx + 1}.</span>
                         <span className="text-text-secondary">
-                          {set.weight != null ? `${set.weight} lbs` : '--'}
-                          {' x '}
-                          {set.reps != null ? set.reps : '--'}
+                          {set.weight != null
+                            ? formatWeight(
+                                convertWeight(set.weight, log.weightUnit ?? 'lb', currentWeightUnit),
+                                currentWeightUnit,
+                              )
+                            : '--'}
+                          {exerciseLog.trackReps !== false && (
+                            <> x {set.reps != null ? set.reps : '--'}</>
+                          )}
+                          {set.durationSeconds != null && (
+                            <> · {set.durationSeconds}s</>
+                          )}
+                          {set.distanceMeters != null && (
+                            <> · {set.distanceMeters} {log.distanceUnit ?? 'mi'}</>
+                          )}
                         </span>
                         <span className={set.completed ? 'text-green-600 dark:text-green-400' : 'text-text-tertiary'}>
                           {set.completed ? '\u2713' : '\u2717'}
@@ -244,6 +270,7 @@ export function WorkoutLogPage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const logs = useStore((state) => state.library.logs);
   const deleteLog = useStore((state) => state.libraryActions.deleteLog);
+  const weightUnit = useStore((state) => state.settings.weightUnit);
 
   const sortedLogs = useMemo(
     () => [...logs].sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()),
@@ -305,6 +332,7 @@ export function WorkoutLogPage() {
                   <LogRow
                     log={log}
                     onSelect={handleSelect}
+                    displayUnit={weightUnit}
                   />
                 </SwipeToReveal>
                 {sortedLogs.length >= 5 && (index + 1) % 4 === 0 && index < sortedLogs.length - 1 && (

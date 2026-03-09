@@ -157,7 +157,7 @@ describe('formatLogForClipboard', () => {
     expect(output).toContain('Duration: 45 min | Total: 3,915 lb');
     expect(output).toContain('Barbell Bench Press (Flat) [barbell_bench_press]');
     expect(output).toContain('Cable Flye (Mid-Height) [cable_flye]');
-    expect(output).toContain('155lb');
+    expect(output).toContain('155 lb');
     expect(output).toContain('\u2713');
   });
 
@@ -167,7 +167,7 @@ describe('formatLogForClipboard', () => {
     log.exercises[0].sets = [s(null, 10, true)];
     const output = formatLogForClipboard(log, graph);
 
-    expect(output).toContain('BW \u00d7 10 \u2713');
+    expect(output).toContain('10 reps \u2713');
   });
 
   it('shows checkmark for incomplete sets', () => {
@@ -176,7 +176,7 @@ describe('formatLogForClipboard', () => {
     log.exercises[0].sets[0] = s(155, 8, false);
     const output = formatLogForClipboard(log, graph);
 
-    expect(output).toContain('155lb \u00d7 8 \u2717');
+    expect(output).toContain('155 lb \u00d7 8 reps \u2717');
   });
 
   it('falls back to exerciseId when exercise not in graph', () => {

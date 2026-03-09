@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-
-const CONSENT_KEY = 'curlbro_cookie_consent';
+import { CONSENT_KEY } from '@/utils/cookieConsent';
 
 declare global {
   interface Window {
@@ -20,24 +19,20 @@ function updateGtagConsent(granted: boolean) {
   });
 }
 
-/** Call from Settings to let user re-choose */
-export function resetCookieConsent() {
-  localStorage.removeItem(CONSENT_KEY);
-  window.dispatchEvent(new Event('curlbro_consent_reset'));
-}
-
 export function CookieConsent() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
+  // Derive initial visibility from localStorage (avoids setState in effect)
+  const [visible, setVisible] = useState(() => {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === 'granted') {
       updateGtagConsent(true);
-    } else if (!stored) {
-      setVisible(true);
+      return false;
     }
-    // 'denied' — do nothing, consent stays denied from index.html defaults
+    if (stored === 'denied') return false;
+    return true;
+  });
 
+  // Listen for reset events from Settings
+  useEffect(() => {
     const handleReset = () => setVisible(true);
     window.addEventListener('curlbro_consent_reset', handleReset);
     return () => window.removeEventListener('curlbro_consent_reset', handleReset);

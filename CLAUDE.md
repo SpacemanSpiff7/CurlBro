@@ -7,6 +7,8 @@ Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGrou
 grouped visually and navigated as a unit during active sessions.
 Includes a body state system (soreness tracking + recent activities) with auto-applied
 exercise filtering (excludes sore/fatigued muscles, boosts recovery exercises).
+Flexible exercise tracking: per-exercise tracking flags (weight/reps/duration/distance)
+auto-inferred from category+equipment. Unit preferences (lb/kg, mi/km) with conversion.
 
 ## Tech Stack
 - React 19 / TypeScript (strict) / Vite 7
@@ -75,6 +77,9 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/config/ads.ts` — ad slot definitions, AdSense kill switch (`import.meta.env.PROD && false`), publisher ID
 - `src/data/houseAds.ts` — 24 house ads across 5 categories (tips)
 - `src/components/shared/CookieConsent.tsx` — EU cookie consent banner + Consent Mode v2 integration
+- `src/utils/fieldDefaults.ts` — `inferTrackingFlags(exercise)` — auto-infers tracking flags from category+equipment
+- `src/utils/unitConversion.ts` — weight/distance conversion (lb↔kg, mi↔km) and formatting
+- `src/utils/cookieConsent.ts` — cookie consent utilities (CONSENT_KEY, resetCookieConsent)
 
 ## Custom Agents
 - `@exercise-validator` — Validates all exercise JSON files: schema completeness, ID uniqueness, cross-reference integrity, scientific plausibility (movement patterns, muscle targeting, workout position). Run after adding/modifying exercise data.
@@ -106,6 +111,14 @@ Agent definitions live in `.claude/agents/`.
 - Never commit failing tests or type errors
 
 ## Known Quirks
+- Flexible tracking flags: `TrackingFlags` (`trackWeight`, `trackReps`, `trackDuration`,
+  `trackDistance`) on `WorkoutExercise` and `ExerciseLog`. Auto-inferred by
+  `inferTrackingFlags()` from exercise category+equipment. SetTracker/GroupSetTracker
+  render fields conditionally. Hydration backfills old data with safe defaults
+  (`trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false`).
+- Unit preferences: `WeightUnit` ('lb'|'kg') and `DistanceUnit` ('mi'|'km') in settings.
+  Logs stamp `weightUnit`/`distanceUnit` at save time. Display converts when log unit
+  differs from current setting. Export uses configured unit.
 - Session state (active workout, recorded sets, rest timer) is persisted to localStorage.
   `TimerState.timerStartedAt` is a wall-clock anchor — `remainingSeconds` is corrected
   for elapsed time on rehydration (page reload) and on `visibilitychange`/`focus` events

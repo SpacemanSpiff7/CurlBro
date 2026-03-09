@@ -82,7 +82,12 @@
   `useFloatingTimerState` (wall-clock computation, read-only) and `useTimerVisibility` (pub/sub
   for IntersectionObserver data). 300ms suppression on tab switch to active to prevent flash.
   Positioned `fixed right-4 z-40` above BottomNav with safe-area inset.
-- GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
+- SetTracker (`session/`) — adaptive set tracking component for standalone exercises. Renders
+  input fields conditionally based on `TrackingFlags` prop: weight input (trackWeight), reps
+  input (trackReps), duration input (trackDuration), distance input (trackDistance). Reads
+  `weightUnit`/`distanceUnit` from store for unit labels. Uses `SwipeToDelete` for multi-set
+  rows. Includes plan notes display when provided.
+- GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises. Same adaptive field rendering pattern as SetTracker.
 - StartOverlay (`session/`) — Full-screen frosted glass overlay shown when session is in preview
   state (startedAt: null). Rendered via createPortal to document.body to avoid z-index conflicts
   with tab AnimatePresence transitions. Self-contained heading, exercise/group stats chips,
@@ -99,7 +104,11 @@
   `initial`/`animate`/`exit` (NOT `layout` — conflicts with dnd-kit transforms). Shows ghost
   placeholder when `isDragging`. Supports edit mode: checkbox replaces drag handle, selection
   styling, disabled drag/swipe. `isDropTarget` prop shows highlight ring for superset merge.
-  **Expanded section** shows Rest time input + Notes textarea + Ungroup button (if grouped).
+  **Expand strip** at the bottom of the card (below plan inputs, above expandable content) —
+  full-width tappable strip with chevron icon. Lights up with `bg-accent-primary/10` +
+  `text-accent-primary` when expanded; subtle `text-text-tertiary` when collapsed.
+  **Expanded section** shows Rest time input + Notes textarea + tracking flag toggles
+  (Weight/Reps/Duration chips, no "Track" label) + Ungroup button (if grouped).
   Swap/Superset/Delete are swipe-only actions (removed from expanded view).
   Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap

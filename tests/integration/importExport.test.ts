@@ -25,6 +25,10 @@ describe('Import/Export', () => {
           weight: 155,
           restSeconds: 120,
           notes: '',
+          trackWeight: true,
+          trackReps: true,
+          trackDuration: false,
+          trackDistance: false,
         },
         {
           exerciseId: 'cable_flye' as ExerciseId,
@@ -33,6 +37,10 @@ describe('Import/Export', () => {
           weight: null,
           restSeconds: 60,
           notes: '',
+          trackWeight: true,
+          trackReps: true,
+          trackDuration: false,
+          trackDistance: false,
         },
       ],
       createdAt: '2026-03-04T00:00:00.000Z',
@@ -48,7 +56,7 @@ describe('Import/Export', () => {
       expect(text).toContain('## Push Day | 2026-03-04');
       expect(text).toContain('---');
       expect(text).toContain('Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 155lb | Rest: 120s');
-      expect(text).toContain('Cable Flye (Mid-Height) [cable_flye] | 3x12 |  | Rest: 60s');
+      expect(text).toContain('Cable Flye (Mid-Height) [cable_flye] | 3x12 | Rest: 60s');
     });
 
     it('includes tips by default', () => {
@@ -74,12 +82,13 @@ describe('Import/Export', () => {
       expect(flyeIdx).toBeGreaterThan(benchIdx);
     });
 
-    it('handles empty weight', () => {
+    it('handles null weight (omits weight field)', () => {
       const workout = createTestWorkout();
       const text = formatExport(workout, graph);
-      // Cable flye has null weight — should be empty between pipes
+      // Cable flye has null weight — weight field is omitted entirely
       const cableFlye = text.split('\n').find((l) => l.includes('cable_flye'));
-      expect(cableFlye).toContain('|  | Rest:');
+      expect(cableFlye).toContain('| 3x12 | Rest: 60s');
+      expect(cableFlye).not.toContain('| |');
     });
   });
 
@@ -288,7 +297,7 @@ describe('Import/Export', () => {
       const text = formatExport(workout, graph, { includeTips: false });
 
       expect(text).toContain('[barbell_bench_press] | 4x8 | 155lb | Rest: 120s [superset:ss1]');
-      expect(text).toContain('[cable_flye] | 3x12 |  | Rest: 60s [superset:ss1]');
+      expect(text).toContain('[cable_flye] | 3x12 | Rest: 60s [superset:ss1]');
     });
 
     it('does not append tag for standalone exercises', () => {

@@ -15,7 +15,7 @@ import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { cn } from '@/lib/utils';
 import { vibrateSelect } from '@/utils/haptics';
 import { useStore } from '@/store';
-import type { Exercise, ExerciseId, WorkoutExercise } from '@/types';
+import type { Exercise, ExerciseId, TrackingFlags, WorkoutExercise } from '@/types';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -104,7 +104,8 @@ export const ExerciseCard = memo(function ExerciseCard({
 
   const handleRestChange = useCallback(
     (value: string) => {
-      const rest = parseInt(value);
+      const raw = value.replace(/[^0-9]/g, '');
+      const rest = raw === '' ? 0 : parseInt(raw);
       if (!isNaN(rest) && rest >= 0) onUpdate(index, { restSeconds: rest });
     },
     [index, onUpdate]
@@ -115,6 +116,31 @@ export const ExerciseCard = memo(function ExerciseCard({
       onUpdate(index, { notes: value });
     },
     [index, onUpdate]
+  );
+
+  const handleDurationChange = useCallback(
+    (value: string) => {
+      const raw = value.replace(/[^0-9]/g, '');
+      const dur = raw === '' ? 0 : parseInt(raw);
+      if (!isNaN(dur) && dur >= 0) onUpdate(index, { durationSeconds: dur });
+    },
+    [index, onUpdate]
+  );
+
+  const handleToggleFlag = useCallback(
+    (flag: keyof TrackingFlags) => {
+      const flags: TrackingFlags = {
+        trackWeight: workoutExercise.trackWeight,
+        trackReps: workoutExercise.trackReps,
+        trackDuration: workoutExercise.trackDuration,
+        trackDistance: workoutExercise.trackDistance,
+      };
+      // Count active flags — prevent toggling off the last one
+      const activeCount = Object.values(flags).filter(Boolean).length;
+      if (flags[flag] && activeCount <= 1) return;
+      onUpdate(index, { [flag]: !flags[flag] });
+    },
+    [index, onUpdate, workoutExercise.trackWeight, workoutExercise.trackReps, workoutExercise.trackDuration, workoutExercise.trackDistance]
   );
 
   const handleSwap = useCallback(
@@ -255,24 +281,10 @@ export const ExerciseCard = memo(function ExerciseCard({
           </button>
         )}
 
-        {!editMode && (
-          <button
-            onClick={() => {
-              const next = !expanded;
-              setExpanded(next);
-              if (!next) setActivePanel('none');
-            }}
-            className="text-text-tertiary hover:text-text-secondary p-1"
-            aria-label={isExpanded ? 'Collapse' : 'Expand'}
-            style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
-          >
-            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </button>
-        )}
       </div>
 
-      {/* Set/Rep/Weight inputs */}
-      <div className="flex items-center gap-2 px-3 pb-3">
+      {/* Plan inputs — conditional on tracking flags */}
+      <div className="flex items-center gap-2 px-3 pb-3 flex-wrap">
         <div className="flex items-center gap-1">
           <label className="text-xs text-text-tertiary w-8">Sets</label>
           <Input
@@ -285,33 +297,75 @@ export const ExerciseCard = memo(function ExerciseCard({
             disabled={editMode}
           />
         </div>
-        <span className="text-text-tertiary text-xs">x</span>
-        <div className="flex items-center gap-1">
-          <label className="text-xs text-text-tertiary w-8">Reps</label>
-          <Input
-            type="number"
-            value={workoutExercise.reps}
-            onChange={(e) => handleRepsChange(e.target.value)}
-            className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
-            min={1}
-            aria-label="Reps"
-            disabled={editMode}
-          />
-        </div>
-        <div className="flex items-center gap-1 ml-auto">
-          <Input
-            type="number"
-            value={workoutExercise.weight ?? ''}
-            onChange={(e) => handleWeightChange(e.target.value)}
-            placeholder="—"
-            className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
-            min={0}
-            aria-label="Weight"
-            disabled={editMode}
-          />
-          <span className="text-xs text-text-tertiary">lb</span>
-        </div>
+        {workoutExercise.trackReps && (
+          <>
+            <span className="text-text-tertiary text-xs">x</span>
+            <div className="flex items-center gap-1">
+              <label className="text-xs text-text-tertiary w-8">Reps</label>
+              <Input
+                type="number"
+                value={workoutExercise.reps}
+                onChange={(e) => handleRepsChange(e.target.value)}
+                className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
+                min={1}
+                aria-label="Reps"
+                disabled={editMode}
+              />
+            </div>
+          </>
+        )}
+        {workoutExercise.trackWeight && (
+          <div className="flex items-center gap-1 ml-auto">
+            <Input
+              type="number"
+              value={workoutExercise.weight ?? ''}
+              onChange={(e) => handleWeightChange(e.target.value)}
+              placeholder="—"
+              className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
+              min={0}
+              aria-label="Weight"
+              disabled={editMode}
+            />
+            <span className="text-xs text-text-tertiary">lb</span>
+          </div>
+        )}
+        {workoutExercise.trackDuration && (
+          <div className="flex items-center gap-1 ml-auto">
+            <Input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={workoutExercise.durationSeconds ?? ''}
+              onChange={(e) => handleDurationChange(e.target.value)}
+              placeholder="0"
+              className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
+              aria-label="Duration seconds"
+              disabled={editMode}
+            />
+            <span className="text-xs text-text-tertiary">sec</span>
+          </div>
+        )}
       </div>
+
+      {/* Expand strip */}
+      {!editMode && (
+        <button
+          onClick={() => {
+            const next = !expanded;
+            setExpanded(next);
+            if (!next) setActivePanel('none');
+          }}
+          className={cn(
+            'w-full flex items-center justify-center py-1.5 transition-colors',
+            isExpanded
+              ? 'bg-accent-primary/10 text-accent-primary'
+              : 'text-text-tertiary hover:text-text-secondary hover:bg-bg-elevated',
+          )}
+          aria-label={isExpanded ? 'Collapse' : 'Expand'}
+        >
+          {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+      )}
 
       {/* Expandable actions */}
       <AnimatePresence>
@@ -327,11 +381,12 @@ export const ExerciseCard = memo(function ExerciseCard({
               <div className="flex items-center gap-2">
                 <label className="text-xs text-text-tertiary w-8">Rest</label>
                 <Input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={workoutExercise.restSeconds}
                   onChange={(e) => handleRestChange(e.target.value)}
-                  className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
-                  min={0}
+                  className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
                   aria-label="Rest seconds"
                   disabled={editMode}
                 />
@@ -361,6 +416,33 @@ export const ExerciseCard = memo(function ExerciseCard({
                 disabled={editMode}
                 aria-label="Exercise notes"
               />
+              {/* Tracking field toggles */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {(['trackWeight', 'trackReps', 'trackDuration'] as const).map((flag) => {
+                  const active = workoutExercise[flag];
+                  const label = { trackWeight: 'Weight', trackReps: 'Reps', trackDuration: 'Duration' }[flag];
+                  const activeCount = [workoutExercise.trackWeight, workoutExercise.trackReps, workoutExercise.trackDuration].filter(Boolean).length;
+                  const isLastActive = active && activeCount <= 1;
+                  return (
+                    <button
+                      key={flag}
+                      onClick={() => handleToggleFlag(flag)}
+                      disabled={editMode || isLastActive}
+                      className={cn(
+                        'px-2 py-0.5 rounded-full text-[11px] font-medium transition-colors',
+                        active
+                          ? 'bg-accent-primary/15 text-accent-primary border border-accent-primary/30'
+                          : 'bg-bg-elevated text-text-tertiary border border-border-subtle hover:border-text-tertiary',
+                        isLastActive && 'opacity-50 cursor-not-allowed',
+                      )}
+                      aria-label={`${active ? 'Disable' : 'Enable'} ${label.toLowerCase()} tracking`}
+                      aria-pressed={active}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
         )}

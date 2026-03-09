@@ -30,6 +30,7 @@ import { useSessionGroups } from '@/hooks/useSessionGroups';
 import { registerDragOffsetListener } from '@/hooks/useDragOffsetChannel';
 import { setInlineTimerVisible, registerScrollToTimer } from '@/hooks/useTimerVisibility';
 import { computeLogStats } from '@/utils/logUtils';
+import { formatWeight } from '@/utils/unitConversion';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 
 export function ActiveWorkout() {
@@ -300,6 +301,12 @@ export function ActiveWorkout() {
   }, [updateSessionNotes]);
   useEffect(() => () => clearTimeout(saveTimerRef.current), []);
 
+  // Prescribed durations for each exercise in the group (from the plan)
+  const prescribedDurations = useMemo(() => {
+    if (!currentGroup || !originalWorkout) return [];
+    return currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.durationSeconds);
+  }, [currentGroup, originalWorkout]);
+
   // Derive planNotes for the current group
   const currentPlanNotes = useMemo(() => {
     if (!currentGroup || !session) return [];
@@ -541,6 +548,7 @@ export function ActiveWorkout() {
               onAddSet={handleAddSet}
               onRemoveSet={handleRemoveSet}
               planNotes={currentPlanNotes}
+              prescribedDurations={prescribedDurations}
             />
           </motion.div>
         </AnimatePresence>
@@ -657,7 +665,11 @@ export function ActiveWorkout() {
                   </div>
                   <div className="rounded-lg bg-bg-elevated p-3">
                     <div className="text-xs text-text-tertiary">Total Weight</div>
-                    <div className="text-sm font-medium text-text-primary">{stats.totalWeight.toLocaleString()} lb</div>
+                    <div className="text-sm font-medium text-text-primary">
+                      {stats.totalWeight > 0
+                        ? formatWeight(stats.totalWeight, summaryLog.weightUnit ?? 'lb')
+                        : '--'}
+                    </div>
                   </div>
                 </div>
                 <AdSlot slotKey="post_workout" />

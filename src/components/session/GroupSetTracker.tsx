@@ -2,9 +2,12 @@ import { memo, useCallback } from 'react';
 import { Check, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
+import { SetTimerButton } from './SetTimerButton';
+import { SetTimerFill } from './SetTimerFill';
+import { useSetTimer, startSetTimer, pauseSetTimer, resumeSetTimer, restartSetTimer } from '@/hooks/useSetTimer';
 import { useStore } from '@/store';
 import type { ExerciseGroup } from '@/utils/groupUtils';
-import type { SetLog, ExerciseLog, ExerciseId } from '@/types';
+import type { SetLog, ExerciseLog, ExerciseId, TrackingFlags, WeightUnit, DistanceUnit } from '@/types';
 
 interface GroupSetTrackerProps {
   group: ExerciseGroup<ExerciseLog>;
@@ -13,6 +16,8 @@ interface GroupSetTrackerProps {
   onAddSet: (exerciseIndex: number) => void;
   onRemoveSet?: (exerciseIndex: number, setIndex: number) => void;
   planNotes?: string[];
+  /** Prescribed duration per exercise (from WorkoutExercise.durationSeconds) */
+  prescribedDurations?: (number | undefined)[];
 }
 
 const SetRow = memo(function SetRow({
@@ -21,6 +26,10 @@ const SetRow = memo(function SetRow({
   exerciseIndex,
   defaultWeight,
   canDelete,
+  trackingFlags,
+  prescribedDuration,
+  weightUnit,
+  distanceUnit,
   onComplete,
   onRemove,
 }: {
@@ -29,9 +38,22 @@ const SetRow = memo(function SetRow({
   exerciseIndex: number;
   defaultWeight: number | null;
   canDelete: boolean;
+  trackingFlags: TrackingFlags;
+  prescribedDuration?: number;
+  weightUnit: WeightUnit;
+  distanceUnit: DistanceUnit;
   onComplete: (exerciseIndex: number, setIndex: number, data: SetLog) => void;
   onRemove?: (exerciseIndex: number, setIndex: number) => void;
 }) {
+  const timerState = useSetTimer();
+  const timerId = `${exerciseIndex}-${setIndex}`;
+  const isMyTimer = timerState.activeId === timerId;
+  const isTimerRunning = isMyTimer && timerState.isRunning;
+  const isTimerPaused = isMyTimer && timerState.isPaused;
+  const isTimerCompleted = isMyTimer && timerState.completed;
+  const showTimer = trackingFlags.trackDuration && !set.completed;
+  const timerDuration = prescribedDuration ?? (set.durationSeconds ?? 30);
+
   const handleWeightChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
@@ -54,6 +76,28 @@ const SetRow = memo(function SetRow({
     [exerciseIndex, setIndex, set, onComplete]
   );
 
+  const handleDurationChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value.replace(/[^0-9]/g, '');
+      onComplete(exerciseIndex, setIndex, {
+        ...set,
+        durationSeconds: raw === '' ? null : parseInt(raw),
+      });
+    },
+    [exerciseIndex, setIndex, set, onComplete]
+  );
+
+  const handleDistanceChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value.replace(/[^0-9.]/g, '');
+      onComplete(exerciseIndex, setIndex, {
+        ...set,
+        distanceMeters: raw === '' ? null : parseFloat(raw),
+      });
+    },
+    [exerciseIndex, setIndex, set, onComplete]
+  );
+
   const handleToggleComplete = useCallback(() => {
     onComplete(exerciseIndex, setIndex, {
       ...set,
@@ -62,50 +106,130 @@ const SetRow = memo(function SetRow({
     });
   }, [exerciseIndex, setIndex, set, defaultWeight, onComplete]);
 
+  const handleTimerStart = useCallback(() => {
+    startSetTimer(timerId, timerDuration, () => {
+      onComplete(exerciseIndex, setIndex, {
+        ...set,
+        durationSeconds: timerDuration,
+        completed: true,
+      });
+    });
+  }, [timerId, timerDuration, exerciseIndex, setIndex, set, onComplete]);
+
+  const handleTimerPause = useCallback(() => pauseSetTimer(), []);
+  const handleTimerResume = useCallback(() => resumeSetTimer(), []);
+  const handleTimerRestart = useCallback(() => restartSetTimer(), []);
+
   const rowContent = (
     <div
-      className={`flex items-center gap-2 rounded-lg px-3 py-2 ${
+      className={`relative flex items-center gap-2 rounded-lg px-3 py-2 overflow-hidden ${
         set.completed
           ? 'bg-success/10 border border-success/20'
-          : 'bg-bg-elevated border border-border-subtle'
+          : isTimerRunning
+            ? 'bg-bg-elevated border border-warning/40'
+            : 'bg-bg-elevated border border-border-subtle'
       }`}
     >
-      <span className="text-xs font-medium text-text-tertiary w-6">
-        {setIndex + 1}
-      </span>
-      <input
-        type="number"
-        inputMode="decimal"
-        value={set.weight ?? ''}
-        onChange={handleWeightChange}
-        placeholder={defaultWeight?.toString() ?? '—'}
-        aria-label={`Set ${setIndex + 1} weight`}
-        className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-      />
-      <span className="text-xs text-text-tertiary">lb</span>
-      <span className="text-xs text-text-tertiary mx-1">&times;</span>
-      <input
-        type="number"
-        inputMode="numeric"
-        value={set.reps ?? ''}
-        onChange={handleRepsChange}
-        placeholder="—"
-        aria-label={`Set ${setIndex + 1} reps`}
-        className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-      />
-      <span className="text-xs text-text-tertiary">reps</span>
-      <div className="flex-1" />
-      <button
-        onClick={handleToggleComplete}
-        aria-label={set.completed ? `Undo set ${setIndex + 1}` : `Complete set ${setIndex + 1}`}
-        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
-          set.completed
-            ? 'bg-success text-bg-root'
-            : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
-        }`}
-      >
-        <Check size={14} />
-      </button>
+      {/* Timer fill background */}
+      {(isMyTimer || isTimerCompleted) && (
+        <SetTimerFill
+          progress={timerState.progress}
+          completed={isTimerCompleted}
+          isRunning={isTimerRunning}
+        />
+      )}
+
+      {/* Row content — above the fill */}
+      <div className="relative z-10 flex items-center gap-2 w-full">
+        <span className="text-xs font-medium text-text-tertiary w-6">
+          {setIndex + 1}
+        </span>
+        {trackingFlags.trackWeight && (
+          <>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={set.weight ?? ''}
+              onChange={handleWeightChange}
+              placeholder={defaultWeight?.toString() ?? '—'}
+              aria-label={`Set ${setIndex + 1} weight`}
+              className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">{weightUnit}</span>
+          </>
+        )}
+        {trackingFlags.trackWeight && trackingFlags.trackReps && (
+          <span className="text-xs text-text-tertiary mx-1">&times;</span>
+        )}
+        {trackingFlags.trackReps && (
+          <>
+            <input
+              type="number"
+              inputMode="numeric"
+              value={set.reps ?? ''}
+              onChange={handleRepsChange}
+              placeholder="—"
+              aria-label={`Set ${setIndex + 1} reps`}
+              className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">reps</span>
+          </>
+        )}
+        {trackingFlags.trackDuration && (
+          <>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={isTimerRunning || isTimerPaused ? timerState.remainingSeconds : (set.durationSeconds != null ? set.durationSeconds : '')}
+              onChange={handleDurationChange}
+              placeholder={prescribedDuration?.toString() ?? '0'}
+              aria-label={`Set ${setIndex + 1} duration`}
+              readOnly={isTimerRunning || isTimerPaused}
+              className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">sec</span>
+          </>
+        )}
+        {trackingFlags.trackDistance && (
+          <>
+            <input
+              type="text"
+              inputMode="decimal"
+              pattern="[0-9.]*"
+              value={set.distanceMeters != null ? set.distanceMeters : ''}
+              onChange={handleDistanceChange}
+              placeholder="0"
+              aria-label={`Set ${setIndex + 1} distance`}
+              className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">{distanceUnit}</span>
+          </>
+        )}
+        <div className="flex-1" />
+        {showTimer && (
+          <SetTimerButton
+            isRunning={isTimerRunning}
+            isPaused={isTimerPaused}
+            isIdle={!isMyTimer || (!isTimerRunning && !isTimerPaused)}
+            onStart={handleTimerStart}
+            onPause={handleTimerPause}
+            onResume={handleTimerResume}
+            onRestart={handleTimerRestart}
+          />
+        )}
+        <button
+          onClick={handleToggleComplete}
+          aria-label={set.completed ? `Undo set ${setIndex + 1}` : `Complete set ${setIndex + 1}`}
+          className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
+            set.completed
+              ? 'bg-success text-bg-root'
+              : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
+          }`}
+        >
+          <Check size={14} />
+        </button>
+      </div>
     </div>
   );
 
@@ -127,15 +251,28 @@ export const GroupSetTracker = memo(function GroupSetTracker({
   onAddSet,
   onRemoveSet,
   planNotes,
+  prescribedDurations,
 }: GroupSetTrackerProps) {
   const graph = useStore((state) => state.graph);
+  const weightUnit = useStore((state) => state.settings.weightUnit);
+  const distanceUnit = useStore((state) => state.settings.distanceUnit);
   const isSuperset = group.exercises.length > 1;
+
+  /** Extract tracking flags from an ExerciseLog */
+  const getFlags = useCallback((ex: ExerciseLog): TrackingFlags => ({
+    trackWeight: ex.trackWeight,
+    trackReps: ex.trackReps,
+    trackDuration: ex.trackDuration,
+    trackDistance: ex.trackDistance,
+  }), []);
 
   if (!isSuperset) {
     // Standalone exercise — render like the original SetTracker
     const exercise = group.exercises[0];
     const exerciseIdx = group.indices[0];
     const canDelete = exercise.sets.length > 1;
+    const flags = getFlags(exercise);
+    const prescribed = prescribedDurations?.[0];
 
     return (
       <div className="flex flex-col gap-2">
@@ -158,6 +295,10 @@ export const GroupSetTracker = memo(function GroupSetTracker({
             exerciseIndex={exerciseIdx}
             defaultWeight={defaultWeights[0]}
             canDelete={canDelete}
+            trackingFlags={flags}
+            prescribedDuration={prescribed}
+            weightUnit={weightUnit}
+            distanceUnit={distanceUnit}
             onComplete={onCompleteSet}
             onRemove={onRemoveSet}
           />
@@ -205,6 +346,8 @@ export const GroupSetTracker = memo(function GroupSetTracker({
             const exerciseIdx = group.indices[exOffset];
             const info = graph.exercises.get(exercise.exerciseId as ExerciseId);
             const canDelete = exercise.sets.length > 1;
+            const flags = getFlags(exercise);
+            const prescribed = prescribedDurations?.[exOffset];
 
             return (
               <div key={exOffset} className="flex flex-col gap-0.5">
@@ -220,6 +363,10 @@ export const GroupSetTracker = memo(function GroupSetTracker({
                   exerciseIndex={exerciseIdx}
                   defaultWeight={defaultWeights[exOffset]}
                   canDelete={canDelete}
+                  trackingFlags={flags}
+                  prescribedDuration={prescribed}
+                  weightUnit={weightUnit}
+                  distanceUnit={distanceUnit}
                   onComplete={onCompleteSet}
                   onRemove={onRemoveSet}
                 />

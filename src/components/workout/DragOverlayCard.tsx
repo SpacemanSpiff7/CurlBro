@@ -42,7 +42,11 @@ export const DragOverlayCard = memo(function DragOverlayCard({ group }: DragOver
                 <MuscleTags muscles={exercise.primary_muscles} />
               </div>
               <div className="text-xs text-text-tertiary whitespace-nowrap">
-                {workoutExercise.sets} × {workoutExercise.reps}
+                {workoutExercise.sets}
+                {workoutExercise.trackReps && <> × {workoutExercise.reps}</>}
+                {workoutExercise.trackDuration && workoutExercise.durationSeconds != null && (
+                  <> × {workoutExercise.durationSeconds}s</>
+                )}
               </div>
             </div>
           </div>

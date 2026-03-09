@@ -130,7 +130,7 @@ export function BuildWorkout() {
         className="text-accent-primary whitespace-nowrap"
         aria-label={editMode ? 'Exit edit mode' : 'Enter edit mode'}
       >
-        {editMode ? 'Done' : 'Edit'}
+        {editMode ? 'Done' : 'Select'}
       </Button>
     </div>
   ) : null;

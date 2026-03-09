@@ -158,6 +158,7 @@ function ExerciseCard({
   exercise: WorkoutExercise;
   graph: ExerciseGraph;
 }) {
+  const weightUnit = useStore((state) => state.settings.weightUnit);
   const info = graph.exercises.get(exercise.exerciseId);
   const name = info?.name ?? exercise.exerciseId;
 
@@ -172,9 +173,13 @@ function ExerciseCard({
         )}
       </div>
       <div className="text-xs text-text-secondary">
-        {exercise.sets} &times; {exercise.reps}
-        {exercise.weight != null && (
-          <span> @ {exercise.weight} lbs</span>
+        {exercise.sets}
+        {exercise.trackReps && <> &times; {exercise.reps}</>}
+        {exercise.trackWeight && exercise.weight != null && (
+          <span> @ {exercise.weight} {weightUnit}</span>
+        )}
+        {exercise.trackDuration && exercise.durationSeconds != null && (
+          <span> &times; {exercise.durationSeconds}s</span>
         )}
         {exercise.restSeconds > 0 && (
           <span className="text-text-tertiary"> · {exercise.restSeconds}s rest</span>

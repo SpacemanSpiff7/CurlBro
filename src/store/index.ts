@@ -37,6 +37,7 @@ import {
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { getAllExercises } from '@/data/exercises';
 import { deriveGroups } from '@/utils/groupUtils';
+import { inferTrackingFlags } from '@/utils/fieldDefaults';
 
 // ─── State Shape ─────────────────────────────────────────
 interface AppState {
@@ -232,6 +233,8 @@ export const useStore = create<AppState>()(
             : settings.defaultSetsIsolation;
           const reps = getDefaultReps(exercise, settings);
 
+          const flags = inferTrackingFlags(exercise);
+
           set((state) => {
             state.builder.workout.exercises.push({
               exerciseId,
@@ -241,10 +244,7 @@ export const useStore = create<AppState>()(
               weight: null,
               restSeconds,
               notes: '',
-              trackWeight: true,
-              trackReps: true,
-              trackDuration: false,
-              trackDistance: false,
+              ...flags,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
           });
@@ -284,6 +284,7 @@ export const useStore = create<AppState>()(
               }
             }
 
+            const flags = inferTrackingFlags(exercise);
             exercises.splice(lastGroupIndex + 1, 0, {
               exerciseId,
               instanceId: crypto.randomUUID(),
@@ -292,10 +293,7 @@ export const useStore = create<AppState>()(
               weight: null,
               restSeconds,
               notes: '',
-              trackWeight: true,
-              trackReps: true,
-              trackDuration: false,
-              trackDistance: false,
+              ...flags,
               supersetGroupId: groupId,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
@@ -380,10 +378,19 @@ export const useStore = create<AppState>()(
           });
         },
         swapExercise: (index: number, newExerciseId: ExerciseId) => {
+          const graph = get().graph;
+          const newExercise = graph.exercises.get(newExerciseId);
           set((state) => {
             const ex = state.builder.workout.exercises[index];
             if (ex) {
               ex.exerciseId = newExerciseId;
+              if (newExercise) {
+                const flags = inferTrackingFlags(newExercise);
+                ex.trackWeight = flags.trackWeight;
+                ex.trackReps = flags.trackReps;
+                ex.trackDuration = flags.trackDuration;
+                ex.trackDistance = flags.trackDistance;
+              }
               state.builder.workout.updatedAt = new Date().toISOString();
             }
           });
@@ -528,19 +535,20 @@ export const useStore = create<AppState>()(
               name,
               exercises: exercises
                 .filter((e) => graph.exercises.has(e.exerciseId))
-                .map((e) => ({
-                  exerciseId: e.exerciseId,
-                  instanceId: crypto.randomUUID(),
-                  sets: e.sets,
-                  reps: e.reps,
-                  weight: null,
-                  restSeconds: e.restSeconds,
-                  notes: '',
-                  trackWeight: true,
-                  trackReps: true,
-                  trackDuration: false,
-                  trackDistance: false,
-                })),
+                .map((e) => {
+                  const ex = graph.exercises.get(e.exerciseId)!;
+                  const flags = inferTrackingFlags(ex);
+                  return {
+                    exerciseId: e.exerciseId,
+                    instanceId: crypto.randomUUID(),
+                    sets: e.sets,
+                    reps: e.reps,
+                    weight: null,
+                    restSeconds: e.restSeconds,
+                    notes: '',
+                    ...flags,
+                  };
+                }),
               createdAt: now,
               updatedAt: now,
             };
@@ -724,16 +732,18 @@ export const useStore = create<AppState>()(
           return log;
         },
         addExerciseToSession: (exerciseId: ExerciseId) => {
+          const graph = get().graph;
+          const exercise = graph.exercises.get(exerciseId);
+          const flags = exercise
+            ? inferTrackingFlags(exercise)
+            : { trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false };
           set((state) => {
             const session = state.session.active;
             if (!session || session.completedAt) return;
             session.exercises.push({
               exerciseId,
               sets: [{ weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null }],
-              trackWeight: true,
-              trackReps: true,
-              trackDuration: false,
-              trackDistance: false,
+              ...flags,
             });
             // New exercise is a solo group at the end
             const groups = deriveGroups(session.exercises);

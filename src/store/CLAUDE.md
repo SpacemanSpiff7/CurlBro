@@ -58,5 +58,9 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `removeActivity(id)` — removes an activity entry by id
 - `setSoreness(entries)` — replaces all soreness entries in `library.soreness` (none/mild/moderate/severe)
 - `clearSoreness()` — resets all soreness entries
+- `setTrackingFlags(exerciseIndex, flags)` — updates tracking flags on a builder exercise
+- `setExerciseDuration(exerciseIndex, seconds)` — sets `durationSeconds` on a builder exercise
+- `updateSettings(partial)` — merges partial settings including `weightUnit` and `distanceUnit`
+- `addExercise()` / `addExerciseToGroup()` / `swapExercise()` / `loadTemplate()` / `addExerciseToSession()` all call `inferTrackingFlags()` to auto-set tracking flags from exercise category+equipment
 - `library.soreness: SorenessEntry[]` — persisted array of {muscle, level} pairs, Zod-validated on hydration
 - `library.activities: ActivityEntry[]` — persisted array of {type, timing} pairs (run/bike/swim/hike/sport/yoga + yesterday/today/tomorrow), Zod-validated on hydration

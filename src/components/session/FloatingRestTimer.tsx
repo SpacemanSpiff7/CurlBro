@@ -75,15 +75,19 @@ function FloatingRestTimerInner() {
   );
 
   // 300ms suppression when switching TO the active tab
+  // Uses "setState during render" pattern (React 19 safe — no setState in effects)
   const [suppressed, setSuppressed] = useState(false);
+  const [prevTab, setPrevTab] = useState(activeTab);
+  if (activeTab !== prevTab) {
+    setPrevTab(activeTab);
+    setSuppressed(activeTab === 'active');
+  }
+  // Clear suppression after 300ms (setTimeout callback is async — lint-safe)
   useEffect(() => {
-    if (activeTab === 'active') {
-      setSuppressed(true);
-      const id = setTimeout(() => setSuppressed(false), 300);
-      return () => clearTimeout(id);
-    }
-    setSuppressed(false);
-  }, [activeTab]);
+    if (!suppressed) return;
+    const id = setTimeout(() => setSuppressed(false), 300);
+    return () => clearTimeout(id);
+  }, [suppressed]);
 
   // Auto-dismiss expired timer when user navigates to active tab
   useEffect(() => {

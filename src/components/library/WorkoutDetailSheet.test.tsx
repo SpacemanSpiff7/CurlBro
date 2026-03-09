@@ -85,8 +85,8 @@ function createTestGraph(): ExerciseGraph {
 const mockGraph = createTestGraph();
 
 vi.mock('@/store', () => ({
-  useStore: (selector: (state: { graph: ExerciseGraph }) => unknown) =>
-    selector({ graph: mockGraph }),
+  useStore: (selector: (state: { graph: ExerciseGraph; settings: { weightUnit: string } }) => unknown) =>
+    selector({ graph: mockGraph, settings: { weightUnit: 'lb' } }),
 }));
 
 import type { WorkoutExercise } from '@/types';
@@ -200,9 +200,9 @@ describe('WorkoutDetailSheet', () => {
         onDelete={noop}
       />,
     );
-    // Check for "@ 155 lbs" and "@ 30 lbs"
-    expect(screen.getByText(/155 lbs/)).toBeTruthy();
-    expect(screen.getByText(/30 lbs/)).toBeTruthy();
+    // Check for "@ 155 lb" and "@ 30 lb"
+    expect(screen.getByText(/155 lb/)).toBeTruthy();
+    expect(screen.getByText(/30 lb/)).toBeTruthy();
   });
 
   it('does not show weight for bodyweight exercises', () => {
@@ -229,7 +229,7 @@ describe('WorkoutDetailSheet', () => {
         onDelete={noop}
       />,
     );
-    expect(screen.queryByText(/lbs/)).toBeNull();
+    expect(screen.queryByText(/\d+ lb/)).toBeNull();
   });
 
   it('shows notes when present', () => {

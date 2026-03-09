@@ -343,10 +343,11 @@ export function MyWorkouts() {
   );
 
   const exportIncludeTips = useStore((state) => state.settings.exportIncludeTips);
+  const weightUnit = useStore((state) => state.settings.weightUnit);
 
   const handleExport = useCallback(
     async (workout: SavedWorkout) => {
-      const text = formatExport(workout, graph, { includeTips: exportIncludeTips });
+      const text = formatExport(workout, graph, { includeTips: exportIncludeTips, weightUnit });
 
       try {
         await navigator.clipboard.writeText(text);
@@ -355,7 +356,7 @@ export function MyWorkouts() {
         toast.error('Could not copy to clipboard');
       }
     },
-    [graph, exportIncludeTips]
+    [graph, exportIncludeTips, weightUnit]
   );
 
   const handleDelete = useCallback(
@@ -407,7 +408,7 @@ export function MyWorkouts() {
   const handleSeededShare = useCallback(
     async (seeded: SeededWorkout) => {
       const saved = seededToSaved(seeded);
-      const text = formatExport(saved, graph, { includeTips: exportIncludeTips });
+      const text = formatExport(saved, graph, { includeTips: exportIncludeTips, weightUnit });
       try {
         await navigator.clipboard.writeText(text);
         toast.success('Copied to clipboard', { duration: 1500 });
@@ -415,7 +416,7 @@ export function MyWorkouts() {
         toast.error('Could not copy to clipboard');
       }
     },
-    [graph, exportIncludeTips]
+    [graph, exportIncludeTips, weightUnit]
   );
 
   const handleViewDetails = useCallback((workout: SavedWorkout) => {

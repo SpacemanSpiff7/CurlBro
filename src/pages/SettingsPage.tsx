@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { resetCookieConsent } from '@/components/shared/CookieConsent';
+import { resetCookieConsent } from '@/utils/cookieConsent';
 import { Button } from '@/components/ui/button';
 import { TopBar } from '@/components/shared/TopBar';
 import { AboutPage } from './AboutPage';
@@ -169,6 +169,62 @@ export function SettingsPage() {
                 }`}
               />
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Units */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Units
+        </h2>
+        <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Weight size={14} className="text-text-secondary" />
+              <div className="text-sm text-text-primary">Weight</div>
+            </div>
+            <div className="flex rounded-lg border border-border-subtle overflow-hidden">
+              {(['lb', 'kg'] as const).map((unit) => (
+                <button
+                  key={unit}
+                  onClick={() => updateSettings({ weightUnit: unit })}
+                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+                    settings.weightUnit === unit
+                      ? 'bg-accent-primary text-bg-root'
+                      : 'bg-bg-elevated text-text-secondary hover:text-text-primary'
+                  }`}
+                  style={{ minHeight: '36px' }}
+                >
+                  {unit}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-t border-border-subtle" />
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Ruler size={14} className="text-text-secondary" />
+              <div className="text-sm text-text-primary">Distance</div>
+            </div>
+            <div className="flex rounded-lg border border-border-subtle overflow-hidden">
+              {(['mi', 'km'] as const).map((unit) => (
+                <button
+                  key={unit}
+                  onClick={() => updateSettings({ distanceUnit: unit })}
+                  className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+                    settings.distanceUnit === unit
+                      ? 'bg-accent-primary text-bg-root'
+                      : 'bg-bg-elevated text-text-secondary hover:text-text-primary'
+                  }`}
+                  style={{ minHeight: '36px' }}
+                >
+                  {unit}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>

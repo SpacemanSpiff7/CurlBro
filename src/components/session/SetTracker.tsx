@@ -2,11 +2,13 @@ import { memo, useCallback } from 'react';
 import { Check, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
-import type { SetLog } from '@/types';
+import { useStore } from '@/store';
+import type { SetLog, TrackingFlags } from '@/types';
 
 interface SetTrackerProps {
   sets: SetLog[];
   defaultWeight: number | null;
+  trackingFlags: TrackingFlags;
   onCompleteSet: (setIndex: number, data: SetLog) => void;
   onAddSet: () => void;
   onRemoveSet?: (setIndex: number) => void;
@@ -18,6 +20,9 @@ const SetRow = memo(function SetRow({
   index,
   defaultWeight,
   canDelete,
+  trackingFlags,
+  weightLabel,
+  distanceLabel,
   onComplete,
   onRemove,
 }: {
@@ -25,6 +30,9 @@ const SetRow = memo(function SetRow({
   index: number;
   defaultWeight: number | null;
   canDelete: boolean;
+  trackingFlags: TrackingFlags;
+  weightLabel: string;
+  distanceLabel: string;
   onComplete: (setIndex: number, data: SetLog) => void;
   onRemove?: (setIndex: number) => void;
 }) {
@@ -50,6 +58,28 @@ const SetRow = memo(function SetRow({
     [index, set, onComplete]
   );
 
+  const handleDurationChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value.replace(/[^0-9]/g, '');
+      onComplete(index, {
+        ...set,
+        durationSeconds: raw === '' ? null : parseInt(raw),
+      });
+    },
+    [index, set, onComplete]
+  );
+
+  const handleDistanceChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value.replace(/[^0-9.]/g, '');
+      onComplete(index, {
+        ...set,
+        distanceMeters: raw === '' ? null : parseFloat(raw),
+      });
+    },
+    [index, set, onComplete]
+  );
+
   const handleToggleComplete = useCallback(() => {
     onComplete(index, {
       ...set,
@@ -69,27 +99,67 @@ const SetRow = memo(function SetRow({
       <span className="text-xs font-medium text-text-tertiary w-6">
         {index + 1}
       </span>
-      <input
-        type="number"
-        inputMode="decimal"
-        value={set.weight ?? ''}
-        onChange={handleWeightChange}
-        placeholder={defaultWeight?.toString() ?? '—'}
-        aria-label={`Set ${index + 1} weight`}
-        className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-      />
-      <span className="text-xs text-text-tertiary">lb</span>
-      <span className="text-xs text-text-tertiary mx-1">&times;</span>
-      <input
-        type="number"
-        inputMode="numeric"
-        value={set.reps ?? ''}
-        onChange={handleRepsChange}
-        placeholder="—"
-        aria-label={`Set ${index + 1} reps`}
-        className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-      />
-      <span className="text-xs text-text-tertiary">reps</span>
+      {trackingFlags.trackWeight && (
+        <>
+          <input
+            type="number"
+            inputMode="decimal"
+            value={set.weight ?? ''}
+            onChange={handleWeightChange}
+            placeholder={defaultWeight?.toString() ?? '—'}
+            aria-label={`Set ${index + 1} weight`}
+            className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+          />
+          <span className="text-xs text-text-tertiary">{weightLabel}</span>
+        </>
+      )}
+      {trackingFlags.trackWeight && trackingFlags.trackReps && (
+        <span className="text-xs text-text-tertiary mx-1">&times;</span>
+      )}
+      {trackingFlags.trackReps && (
+        <>
+          <input
+            type="number"
+            inputMode="numeric"
+            value={set.reps ?? ''}
+            onChange={handleRepsChange}
+            placeholder="—"
+            aria-label={`Set ${index + 1} reps`}
+            className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+          />
+          <span className="text-xs text-text-tertiary">reps</span>
+        </>
+      )}
+      {trackingFlags.trackDuration && (
+        <>
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={set.durationSeconds != null ? set.durationSeconds : ''}
+            onChange={handleDurationChange}
+            placeholder="0"
+            aria-label={`Set ${index + 1} duration`}
+            className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+          />
+          <span className="text-xs text-text-tertiary">sec</span>
+        </>
+      )}
+      {trackingFlags.trackDistance && (
+        <>
+          <input
+            type="text"
+            inputMode="decimal"
+            pattern="[0-9.]*"
+            value={set.distanceMeters != null ? set.distanceMeters : ''}
+            onChange={handleDistanceChange}
+            placeholder="0"
+            aria-label={`Set ${index + 1} distance`}
+            className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+          />
+          <span className="text-xs text-text-tertiary">{distanceLabel}</span>
+        </>
+      )}
       <div className="flex-1" />
       <button
         onClick={handleToggleComplete}
@@ -119,11 +189,14 @@ const SetRow = memo(function SetRow({
 export const SetTracker = memo(function SetTracker({
   sets,
   defaultWeight,
+  trackingFlags,
   onCompleteSet,
   onAddSet,
   onRemoveSet,
   planNotes,
 }: SetTrackerProps) {
+  const weightUnit = useStore((state) => state.settings.weightUnit);
+  const distanceUnit = useStore((state) => state.settings.distanceUnit);
   const canDelete = sets.length > 1;
 
   return (
@@ -146,6 +219,9 @@ export const SetTracker = memo(function SetTracker({
           index={i}
           defaultWeight={defaultWeight}
           canDelete={canDelete}
+          trackingFlags={trackingFlags}
+          weightLabel={weightUnit}
+          distanceLabel={distanceUnit}
           onComplete={onCompleteSet}
           onRemove={onRemoveSet}
         />

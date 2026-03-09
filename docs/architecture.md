@@ -120,6 +120,44 @@ Body state (soreness + activities)
 - `ungroupExercise(exerciseIndex)` removes an exercise from its group
 - Drag-and-drop reordering is group-aware (reorders entire groups)
 
+## Flexible Exercise Tracking
+
+### Tracking Flags
+Each exercise has 4 boolean tracking flags (`TrackingFlags` interface):
+- `trackWeight` — show weight input (lb/kg)
+- `trackReps` — show reps input
+- `trackDuration` — show duration input (seconds)
+- `trackDistance` — show distance input (mi/km)
+
+### Flag Inference
+`inferTrackingFlags(exercise)` in `src/utils/fieldDefaults.ts` auto-sets flags:
+- Compound/isolation + equipment → weight + reps
+- Compound/isolation + bodyweight only → reps only
+- Stretch/mobility → duration only
+- Cardio → duration + distance
+
+### Data Flow
+```
+Exercise graph (category + equipment)
+  → inferTrackingFlags() (pure function)
+  → WorkoutExercise.trackWeight/trackReps/trackDuration/trackDistance
+  → SetTracker / GroupSetTracker (conditional field rendering)
+  → SetLog (null for untracked fields)
+  → ExerciseLog (preserves flags)
+  → WorkoutLog (final record)
+```
+
+### Unit System
+- `WeightUnit` ('lb' | 'kg') and `DistanceUnit` ('mi' | 'km') in settings
+- `unitConversion.ts`: `convertWeight()`, `convertDistance()`, `formatWeight()`, `formatDistance()`
+- Logs stamp `weightUnit`/`distanceUnit` at save time
+- Display converts when log unit differs from current setting
+
+### Export/Import
+- `formatExport.ts`: formats per tracking flags (weight+reps, duration, etc.)
+- `parseImport.ts`: infers tracking flags from parsed data (backward compatible)
+- See `docs/import-export-spec.md` for full format specification
+
 ## Error Boundaries
 - One per tab/page
 - Graph/store corruption isolated per section

@@ -58,4 +58,9 @@ Components never access store.graph directly — always through a hook.
   tab return. Also subscribes to Zustand store changes for instant response to start/stop/
   pause/adjust actions (no 1-second delay).
   Returns `{ displaySeconds, totalSeconds, isRunning, isDone, isPaused, isIdle, progress }`.
+- useSetTimer — module-level singleton timer for per-set duration countdown. Built on
+  `useSyncExternalStore` with `visibilitychange` wall-clock correction (same pattern as
+  `useFloatingTimerState`). API: `start(seconds)`, `pause()`, `resume()`, `stop()`,
+  `restart()`. Auto-completes set on zero (beep + haptics). Completely independent from
+  the rest timer system — both can run simultaneously.
 - Custom hooks go in src/hooks/, not colocated with components
