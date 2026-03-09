@@ -102,6 +102,15 @@
   See `ads/CLAUDE.md` for full details.
 - HouseAdComponent (`ads/`) — Memo'd presenter for house ads. Renders label, headline, body,
   optional CTA link. Uses `role="complementary"` + accent color left border.
+- WorkoutDetailSheet (`library/`) — Bottom sheet (80dvh) showing prescribed workout contents.
+  Receives `SavedWorkout | null`, `open`, `onOpenChange`, and action callbacks (`onStart`,
+  `onEdit`, `onExport`, `onDelete`). Displays header (name + "Updated {date}"), 2×2 stats
+  grid (exercises, total sets, groups if >0, est. duration), grouped exercise breakdown via
+  `deriveGroups()` + `getGroupLabel()` with accent left-border containers for supersets/
+  tri-sets/circuits, and 2×2 action footer (Start, Edit, Copy, Delete). Each exercise card
+  shows name, category badge, sets × reps, weight (if set), rest time, muscle tags, and
+  notes (if non-empty). Falls back to `exerciseId` string when graph lookup fails.
+  Opened from Library tab by tapping the workout card text area (name + metadata).
 - PrivacyPolicyPage — Bottom sheet (85dvh) with privacy policy content. Opened from Settings.
 - AboutPage — Bottom sheet (60dvh) with app info, credits, contact links. Opened from Settings.
 - CookieConsent (`shared/`) — EU cookie consent banner for Consent Mode v2. Fixed bottom bar

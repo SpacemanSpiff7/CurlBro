@@ -19,6 +19,7 @@ testid is last resort.
 - Exercise filters: test exerciseType, equipmentGroups, auto-apply soreness, auto-apply post-activity, auto-apply pre-activity with fixture exercises (tests/exerciseFilters.test.ts)
 - Session flow: endSession/saveSession split, addExerciseToSession, deleteLog
 - Log utilities: computeLogStats, logToSavedWorkout, formatLogForClipboard (edge cases: null weights, incomplete sets)
+- Detail sheets: WorkoutDetailSheet renders exercise names, superset labels, conditional weight/notes, stats grid, action buttons. Mocks Zustand store with inline `vi.mock('@/store', ...)`
 
 ## Patterns
 - Use `renderHook` from @testing-library/react for hook tests

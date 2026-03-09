@@ -27,6 +27,7 @@ import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
 import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
 import { SPLIT_LABELS } from '@/types';
+import { WorkoutDetailSheet } from '@/components/library/WorkoutDetailSheet';
 import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
 
 const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
@@ -232,6 +233,8 @@ function TemplateSection({
 export function MyWorkouts() {
   const [importOpen, setImportOpen] = useState(false);
   const [pendingWorkout, setPendingWorkout] = useState<SavedWorkout | null>(null);
+  const [detailWorkout, setDetailWorkout] = useState<SavedWorkout | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
   const workouts = useStore((state) => state.library.workouts);
   const graph = useStore((state) => state.graph);
   const activeSession = useStore((state) => state.session.active);
@@ -278,8 +281,12 @@ export function MyWorkouts() {
   const handleDelete = useCallback(
     (id: WorkoutId) => {
       deleteWorkout(id);
+      if (detailWorkout?.id === id) {
+        setDetailOpen(false);
+        setDetailWorkout(null);
+      }
     },
-    [deleteWorkout]
+    [deleteWorkout, detailWorkout]
   );
 
   // Seeded workout handlers — duplicate into user library
@@ -306,6 +313,16 @@ export function MyWorkouts() {
     },
     [saveWorkout, startSession, activeSession]
   );
+
+  const handleViewDetails = useCallback((workout: SavedWorkout) => {
+    setDetailWorkout(workout);
+    setDetailOpen(true);
+  }, []);
+
+  const handleDetailChange = useCallback((open: boolean) => {
+    setDetailOpen(open);
+    if (!open) setDetailWorkout(null);
+  }, []);
 
   const handleConfirmOverride = useCallback(() => {
     if (!pendingWorkout) return;
@@ -374,7 +391,19 @@ export function MyWorkouts() {
                       className="rounded-xl border border-border-subtle bg-bg-surface p-3"
                     >
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 min-w-0">
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          className="flex-1 min-w-0 cursor-pointer active:bg-bg-elevated transition-colors rounded-lg"
+                          onClick={() => handleViewDetails(workout)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleViewDetails(workout);
+                            }
+                          }}
+                          aria-label={`View ${workout.name || 'Untitled'} details`}
+                        >
                           <div className="text-sm font-medium text-text-primary truncate">
                             {workout.name || 'Untitled'}
                           </div>
@@ -441,6 +470,16 @@ export function MyWorkouts() {
 
       </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
+
+      <WorkoutDetailSheet
+        workout={detailWorkout}
+        open={detailOpen}
+        onOpenChange={handleDetailChange}
+        onStart={handleStart}
+        onEdit={handleEdit}
+        onExport={handleExport}
+        onDelete={(w) => handleDelete(w.id)}
+      />
 
       <Dialog open={!!pendingWorkout} onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}>
         <DialogContent showCloseButton={false}>

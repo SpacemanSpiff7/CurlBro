@@ -1,5 +1,7 @@
 import { useState, useCallback, useMemo, Fragment } from 'react';
 import { ClipboardList, Trash2, Copy, Save } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -149,29 +151,49 @@ function LogDetailSheet({
 
         {/* Exercise breakdown */}
         <div className="mt-4 space-y-3">
-          {log.exercises.map((exerciseLog, exIdx) => {
-            const exercise = graph.exercises.get(exerciseLog.exerciseId);
-            const name = exercise?.name ?? exerciseLog.exerciseId;
-            return (
-              <div key={exIdx} className="rounded-lg border border-border-subtle bg-bg-elevated p-3">
-                <div className="text-sm font-medium text-text-primary mb-2">{name}</div>
-                <div className="space-y-1">
-                  {exerciseLog.sets.map((set, setIdx) => (
-                    <div key={setIdx} className="flex items-center gap-2 text-xs">
-                      <span className="text-text-tertiary w-4 text-right">{setIdx + 1}.</span>
-                      <span className="text-text-secondary">
-                        {set.weight != null ? `${set.weight} lbs` : '--'}
-                        {' x '}
-                        {set.reps != null ? set.reps : '--'}
-                      </span>
-                      <span className={set.completed ? 'text-green-600 dark:text-green-400' : 'text-text-tertiary'}>
-                        {set.completed ? '\u2713' : '\u2717'}
-                      </span>
-                    </div>
-                  ))}
+          {deriveGroups(log.exercises).map((group) => {
+            const label = getGroupLabel(group.exercises.length);
+
+            const renderExerciseLog = (exerciseLog: typeof log.exercises[number], idx: number) => {
+              const exercise = graph.exercises.get(exerciseLog.exerciseId);
+              const name = exercise?.name ?? exerciseLog.exerciseId;
+              return (
+                <div key={idx} className="rounded-lg border border-border-subtle bg-bg-elevated p-3">
+                  <div className="text-sm font-medium text-text-primary mb-2">{name}</div>
+                  <div className="space-y-1">
+                    {exerciseLog.sets.map((set, setIdx) => (
+                      <div key={setIdx} className="flex items-center gap-2 text-xs">
+                        <span className="text-text-tertiary w-4 text-right">{setIdx + 1}.</span>
+                        <span className="text-text-secondary">
+                          {set.weight != null ? `${set.weight} lbs` : '--'}
+                          {' x '}
+                          {set.reps != null ? set.reps : '--'}
+                        </span>
+                        <span className={set.completed ? 'text-green-600 dark:text-green-400' : 'text-text-tertiary'}>
+                          {set.completed ? '\u2713' : '\u2717'}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            };
+
+            if (label) {
+              return (
+                <div
+                  key={group.groupId}
+                  className="rounded-lg border-l-2 border-accent-primary pl-3 space-y-2"
+                >
+                  <Badge variant="outline" className="text-[10px]">
+                    {label}
+                  </Badge>
+                  {group.exercises.map((ex, i) => renderExerciseLog(ex, group.indices[i]))}
+                </div>
+              );
+            }
+
+            return renderExerciseLog(group.exercises[0], group.indices[0]);
           })}
         </div>
 
