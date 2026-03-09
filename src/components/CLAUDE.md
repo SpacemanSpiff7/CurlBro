@@ -75,6 +75,13 @@
   `ActiveWorkout` tracks swap/video targets via offset-based state (`swapTargetOffset`,
   `videoTargetOffset`) so Info/Swap work for any exercise in a group — not just the first.
   `data-swipe-row` from `SwipeToReveal` prevents exercise-navigation swipe on these rows.
+- FloatingRestTimer (`session/`) — floating pill indicator showing rest timer status when the
+  inline timer is scrolled out of view or user is on another tab. Rendered in App.tsx (always
+  mounted, self-manages visibility via AnimatePresence). Compact pill: 24px SVG progress ring +
+  M:SS text. Tap navigates to active tab + scrolls inline timer into view. Uses
+  `useFloatingTimerState` (wall-clock computation, read-only) and `useTimerVisibility` (pub/sub
+  for IntersectionObserver data). 300ms suppression on tab switch to active to prevent flash.
+  Positioned `fixed right-4 z-40` above BottomNav with safe-area inset.
 - GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises.
 - StartOverlay (`session/`) — Full-screen frosted glass overlay shown when session is in preview
   state (startedAt: null). Rendered via createPortal to document.body to avoid z-index conflicts

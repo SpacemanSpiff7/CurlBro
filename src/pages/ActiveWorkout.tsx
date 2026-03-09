@@ -1,9 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Check, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer } from 'lucide-react';
+import { Check, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer, X } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ExerciseRowStack } from '@/components/session/ExerciseRowStack';
 import { StartOverlay } from '@/components/session/StartOverlay';
@@ -20,6 +28,7 @@ import { useElapsedTimer } from '@/hooks/useElapsedTimer';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useSessionGroups } from '@/hooks/useSessionGroups';
 import { registerDragOffsetListener } from '@/hooks/useDragOffsetChannel';
+import { setInlineTimerVisible, registerScrollToTimer } from '@/hooks/useTimerVisibility';
 import { computeLogStats } from '@/utils/logUtils';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 
@@ -46,6 +55,32 @@ export function ActiveWorkout() {
   const wakeLock = useWakeLock();
   const elapsed = useElapsedTimer(session?.startedAt ?? null, session?.completedAt);
   const { groups, currentGroup, currentGroupIndex, totalGroups } = useSessionGroups();
+
+  // IntersectionObserver for inline timer visibility + scroll-to-timer action
+  const timerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = timerRef.current;
+    if (!el) {
+      setInlineTimerVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInlineTimerVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+
+    registerScrollToTimer(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    return () => {
+      observer.disconnect();
+      setInlineTimerVisible(false);
+      registerScrollToTimer(null);
+    };
+  }, []);
 
   // Derive nav direction from currentGroupIndex changes (React 19 safe — setState during render)
   const [navDirection, setNavDirection] = useState<'left' | 'right'>('left');
@@ -214,6 +249,35 @@ export function ActiveWorkout() {
     setActiveTab('library');
   }, [abandonSession, setActiveTab]);
 
+  // Clear session (post-completion)
+  const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
+
+  const handleClear = useCallback(() => {
+    if (isCompleted && !isSaved) {
+      setClearConfirmOpen(true);
+    } else {
+      abandonSession();
+      setActiveTab('library');
+    }
+  }, [isCompleted, isSaved, abandonSession, setActiveTab]);
+
+  const handleClearDiscard = useCallback(() => {
+    setClearConfirmOpen(false);
+    abandonSession();
+    setActiveTab('library');
+  }, [abandonSession, setActiveTab]);
+
+  const handleClearSaveFirst = useCallback(() => {
+    setClearConfirmOpen(false);
+    const log = saveSession();
+    if (log) {
+      setSummaryLog(log);
+      setSummaryOpen(true);
+    }
+    abandonSession();
+    setActiveTab('library');
+  }, [saveSession, abandonSession, setActiveTab]);
+
   const handleAddExercise = useCallback(
     (exerciseId: ExerciseId) => {
       addExerciseToSession(exerciseId);
@@ -313,15 +377,16 @@ export function ActiveWorkout() {
                 Save
               </Button>
             )}
-            {isCompleted && isSaved && (
+            {isCompleted && (
               <Button
                 variant="outline"
                 size="sm"
-                disabled
-                className="text-text-tertiary border-border/30 opacity-60"
+                onClick={handleClear}
+                className="text-text-tertiary border-border-subtle hover:text-text-secondary"
+                aria-label="Clear completed workout"
               >
-                <Check size={14} className="mr-1" />
-                Saved
+                <X size={14} className="mr-1" />
+                Clear
               </Button>
             )}
             <span className="text-[10px] tabular-nums text-text-tertiary">
@@ -404,7 +469,7 @@ export function ActiveWorkout() {
       )}
 
       {/* Rest timer */}
-      <div className="flex flex-col items-center gap-2">
+      <div ref={timerRef} className="flex flex-col items-center gap-2">
         <RestTimer
           remainingSeconds={timer.remainingSeconds}
           totalSeconds={timer.totalSeconds}
@@ -627,6 +692,30 @@ export function ActiveWorkout() {
         title="Swap Exercise"
       />
       </div>
+
+      {/* Clear unsaved workout confirmation */}
+      <Dialog open={clearConfirmOpen} onOpenChange={setClearConfirmOpen}>
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>Unsaved Workout</DialogTitle>
+            <DialogDescription>
+              This workout hasn't been saved yet. Would you like to save it before clearing?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col gap-2 sm:flex-col">
+            <Button onClick={handleClearSaveFirst} className="min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover">
+              <Save size={14} className="mr-1" />
+              Save & Clear
+            </Button>
+            <Button variant="outline" onClick={handleClearDiscard} className="min-h-[44px] text-destructive border-destructive/30 hover:bg-destructive/10">
+              Discard
+            </Button>
+            <Button variant="ghost" onClick={() => setClearConfirmOpen(false)} className="min-h-[44px]">
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <AnimatePresence>
         {isPreview && (

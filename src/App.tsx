@@ -13,6 +13,7 @@ import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { setDragOffset } from '@/hooks/useDragOffsetChannel';
+import { FloatingRestTimer } from '@/components/session/FloatingRestTimer';
 import { deriveGroups } from '@/utils/groupUtils';
 import type { TabId } from '@/types';
 
@@ -175,6 +176,7 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
+      <FloatingRestTimer />
       <BottomNav />
       <CookieConsent />
       <Toaster position="top-center" />

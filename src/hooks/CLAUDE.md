@@ -46,4 +46,16 @@ Components never access store.graph directly — always through a hook.
   (current default), immediately returns `showHouseAd: true`. When enabled: detects ad
   blockers, pushes ad once per mount, falls back on no-fill after 2s. Uses `requestAnimationFrame`
   to defer setState (React 19 strict mode compliance).
+- useTimerVisibility — module-level pub/sub channel (follows `useDragOffsetChannel` pattern) for
+  inline timer visibility and scroll-to-timer action. `setInlineTimerVisible(bool)` called by
+  ActiveWorkout's IntersectionObserver; `subscribeInlineTimerVisible(fn)` / `getInlineTimerVisible()`
+  consumed by FloatingRestTimer. `registerScrollToTimer(fn)` / `triggerScrollToTimer()` action
+  channel for tap-to-scroll-back behavior.
+- useFloatingTimerState — read-only timer projection hook for the floating rest timer indicator.
+  Uses `useSyncExternalStore` with a module-level singleton store that ticks once/second.
+  Computes remaining time from `timerStartedAt` wall-clock anchor (never calls `tickTimer()`).
+  Works even when ActiveWorkout is unmounted. Listens for `visibilitychange` to correct on
+  tab return. Also subscribes to Zustand store changes for instant response to start/stop/
+  pause/adjust actions (no 1-second delay).
+  Returns `{ displaySeconds, totalSeconds, isRunning, isDone, isPaused, isIdle, progress }`.
 - Custom hooks go in src/hooks/, not colocated with components
