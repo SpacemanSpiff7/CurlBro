@@ -52,8 +52,8 @@ const SetRow = memo(function SetRow({
 
   const handleToggleComplete = useCallback(() => {
     onComplete(index, {
+      ...set,
       weight: set.weight ?? defaultWeight,
-      reps: set.reps,
       completed: !set.completed,
     });
   }, [index, set, defaultWeight, onComplete]);

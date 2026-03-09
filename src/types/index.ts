@@ -83,6 +83,12 @@ export type DifficultyLevel = typeof DIFFICULTY_LEVELS[number];
 export const CATEGORIES = ['compound', 'isolation', 'stretch_dynamic', 'stretch_static', 'mobility', 'cardio'] as const;
 export type Category = typeof CATEGORIES[number];
 
+// ─── Units ───────────────────────────────────────────────
+export const WEIGHT_UNITS = ['lb', 'kg'] as const;
+export type WeightUnit = typeof WEIGHT_UNITS[number];
+export const DISTANCE_UNITS = ['mi', 'km'] as const;
+export type DistanceUnit = typeof DISTANCE_UNITS[number];
+
 // ─── Load Profile ────────────────────────────────────────
 export const LOAD_LEVELS = ['none', 'low', 'moderate', 'high'] as const;
 export type LoadLevel = typeof LOAD_LEVELS[number];
@@ -146,6 +152,14 @@ export interface ExerciseGraph {
   byForceType: Map<ForceType, Set<ExerciseId>>;
 }
 
+// ─── Tracking Flags ──────────────────────────────────────
+export interface TrackingFlags {
+  trackWeight: boolean;
+  trackReps: boolean;
+  trackDuration: boolean;
+  trackDistance: boolean;
+}
+
 // ─── Workout Draft ────────────────────────────────────────
 export interface WorkoutExercise {
   exerciseId: ExerciseId;
@@ -156,6 +170,11 @@ export interface WorkoutExercise {
   restSeconds: number;
   notes: string;
   supersetGroupId?: string;
+  trackWeight: boolean;
+  trackReps: boolean;
+  trackDuration: boolean;
+  trackDistance: boolean;
+  durationSeconds?: number;
 }
 
 export interface WorkoutDraft {
@@ -175,6 +194,11 @@ export const WorkoutExerciseSchema = z.object({
   restSeconds: z.number().int().min(0),
   notes: z.string(),
   supersetGroupId: z.string().optional(),
+  trackWeight: z.boolean().default(true),
+  trackReps: z.boolean().default(true),
+  trackDuration: z.boolean().default(false),
+  trackDistance: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
 });
 
 export const SavedWorkoutSchema = z.object({
@@ -211,6 +235,8 @@ export interface SetLog {
   weight: number | null;
   reps: number | null;
   completed: boolean;
+  durationSeconds: number | null;
+  distanceMeters: number | null;
 }
 
 export interface ExerciseLog {
@@ -218,6 +244,11 @@ export interface ExerciseLog {
   sets: SetLog[];
   supersetGroupId?: string;
   planNotes?: string;
+  trackWeight: boolean;
+  trackReps: boolean;
+  trackDuration: boolean;
+  trackDistance: boolean;
+  durationSeconds?: number;
 }
 
 export interface ActiveSession {
@@ -248,6 +279,8 @@ export interface WorkoutLog {
   completedAt: string;
   durationMinutes: number;
   notes: string;
+  weightUnit: WeightUnit;
+  distanceUnit: DistanceUnit;
 }
 
 export const WorkoutLogSchema = z.object({
@@ -260,14 +293,23 @@ export const WorkoutLogSchema = z.object({
       weight: z.number().nullable(),
       reps: z.number().nullable(),
       completed: z.boolean(),
+      durationSeconds: z.number().nullable().default(null),
+      distanceMeters: z.number().nullable().default(null),
     })),
     supersetGroupId: z.string().optional(),
     planNotes: z.string().default(''),
+    trackWeight: z.boolean().default(true),
+    trackReps: z.boolean().default(true),
+    trackDuration: z.boolean().default(false),
+    trackDistance: z.boolean().default(false),
+    durationSeconds: z.number().optional(),
   })),
   startedAt: z.string(),
   completedAt: z.string(),
   durationMinutes: z.number(),
   notes: z.string().default(''),
+  weightUnit: z.enum(WEIGHT_UNITS).default('lb'),
+  distanceUnit: z.enum(DISTANCE_UNITS).default('mi'),
 });
 
 // ─── Session Validation Schemas ──────────────────────────
@@ -275,6 +317,8 @@ export const SetLogSchema = z.object({
   weight: z.number().nullable(),
   reps: z.number().nullable(),
   completed: z.boolean(),
+  durationSeconds: z.number().nullable().default(null),
+  distanceMeters: z.number().nullable().default(null),
 });
 
 export const ExerciseLogSchema = z.object({
@@ -282,6 +326,11 @@ export const ExerciseLogSchema = z.object({
   sets: z.array(SetLogSchema),
   supersetGroupId: z.string().optional(),
   planNotes: z.string().default(''),
+  trackWeight: z.boolean().default(true),
+  trackReps: z.boolean().default(true),
+  trackDuration: z.boolean().default(false),
+  trackDistance: z.boolean().default(false),
+  durationSeconds: z.number().optional(),
 });
 
 export const ActiveSessionSchema = z.object({
@@ -311,6 +360,8 @@ export interface AppSettings {
   defaultRepsCompound: number;
   defaultRepsIsolation: number;
   exportIncludeTips: boolean;
+  weightUnit: WeightUnit;
+  distanceUnit: DistanceUnit;
 }
 
 export const AppSettingsSchema = z.object({
@@ -321,6 +372,8 @@ export const AppSettingsSchema = z.object({
   defaultRepsCompound: z.number().int().min(1).default(8),
   defaultRepsIsolation: z.number().int().min(1).default(12),
   exportIncludeTips: z.boolean().default(false),
+  weightUnit: z.enum(WEIGHT_UNITS).default('lb'),
+  distanceUnit: z.enum(DISTANCE_UNITS).default('mi'),
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -331,6 +384,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   defaultRepsCompound: 8,
   defaultRepsIsolation: 12,
   exportIncludeTips: false,
+  weightUnit: 'lb',
+  distanceUnit: 'mi',
 };
 
 // ─── Navigation ──────────────────────────────────────────

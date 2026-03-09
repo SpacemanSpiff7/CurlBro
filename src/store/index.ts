@@ -241,6 +241,10 @@ export const useStore = create<AppState>()(
               weight: null,
               restSeconds,
               notes: '',
+              trackWeight: true,
+              trackReps: true,
+              trackDuration: false,
+              trackDistance: false,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
           });
@@ -288,6 +292,10 @@ export const useStore = create<AppState>()(
               weight: null,
               restSeconds,
               notes: '',
+              trackWeight: true,
+              trackReps: true,
+              trackDuration: false,
+              trackDistance: false,
               supersetGroupId: groupId,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
@@ -528,6 +536,10 @@ export const useStore = create<AppState>()(
                   weight: null,
                   restSeconds: e.restSeconds,
                   notes: '',
+                  trackWeight: true,
+                  trackReps: true,
+                  trackDuration: false,
+                  trackDistance: false,
                 })),
               createdAt: now,
               updatedAt: now,
@@ -631,9 +643,16 @@ export const useStore = create<AppState>()(
                   weight: ex.weight,
                   reps: null,
                   completed: false,
+                  durationSeconds: null,
+                  distanceMeters: null,
                 })),
                 ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
                 planNotes: ex.notes,
+                trackWeight: ex.trackWeight,
+                trackReps: ex.trackReps,
+                trackDuration: ex.trackDuration,
+                trackDistance: ex.trackDistance,
+                ...(ex.durationSeconds != null ? { durationSeconds: ex.durationSeconds } : {}),
               })),
               currentGroupIndex: 0,
               startedAt: null,
@@ -684,6 +703,7 @@ export const useStore = create<AppState>()(
             (ex) => ex.sets.some((s) => s.completed),
           );
 
+          const settings = get().settings;
           const log: WorkoutLog = {
             id: uuidv4() as LogId,
             workoutId: session.workoutId,
@@ -693,6 +713,8 @@ export const useStore = create<AppState>()(
             completedAt: session.completedAt,
             durationMinutes,
             notes: session.notes ?? '',
+            weightUnit: settings.weightUnit,
+            distanceUnit: settings.distanceUnit,
           };
 
           set((state) => {
@@ -707,7 +729,11 @@ export const useStore = create<AppState>()(
             if (!session || session.completedAt) return;
             session.exercises.push({
               exerciseId,
-              sets: [{ weight: null, reps: null, completed: false }],
+              sets: [{ weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null }],
+              trackWeight: true,
+              trackReps: true,
+              trackDuration: false,
+              trackDistance: false,
             });
             // New exercise is a solo group at the end
             const groups = deriveGroups(session.exercises);
@@ -726,7 +752,7 @@ export const useStore = create<AppState>()(
           set((state) => {
             const exercise = state.session.active?.exercises[exerciseIndex];
             if (exercise) {
-              exercise.sets.push({ weight: null, reps: null, completed: false });
+              exercise.sets.push({ weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null });
             }
           });
         },
@@ -894,21 +920,45 @@ export const useStore = create<AppState>()(
               if (!ex.instanceId) {
                 ex.instanceId = crypto.randomUUID();
               }
+              // Backfill tracking flags (pre-flexible-tracking data)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const exAny = ex as any;
+              if (typeof exAny.trackWeight !== 'boolean') exAny.trackWeight = true;
+              if (typeof exAny.trackReps !== 'boolean') exAny.trackReps = true;
+              if (typeof exAny.trackDuration !== 'boolean') exAny.trackDuration = false;
+              if (typeof exAny.trackDistance !== 'boolean') exAny.trackDistance = false;
             }
           }
 
           // Backfill notes on logs (pre-notes-feature data)
           for (const log of logs) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if (typeof (log as any).notes !== 'string') {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (log as any).notes = '';
+            const logAny = log as any;
+            if (typeof logAny.notes !== 'string') {
+              logAny.notes = '';
             }
+            // Backfill unit stamps (pre-flexible-tracking data)
+            if (!logAny.weightUnit) logAny.weightUnit = 'lb';
+            if (!logAny.distanceUnit) logAny.distanceUnit = 'mi';
+
             for (const ex of log.exercises) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              if (typeof (ex as any).planNotes !== 'string') {
+              const exAny = ex as any;
+              if (typeof exAny.planNotes !== 'string') {
+                exAny.planNotes = '';
+              }
+              // Backfill tracking flags on ExerciseLog
+              if (typeof exAny.trackWeight !== 'boolean') exAny.trackWeight = true;
+              if (typeof exAny.trackReps !== 'boolean') exAny.trackReps = true;
+              if (typeof exAny.trackDuration !== 'boolean') exAny.trackDuration = false;
+              if (typeof exAny.trackDistance !== 'boolean') exAny.trackDistance = false;
+
+              // Backfill new SetLog fields
+              for (const s of ex.sets) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (ex as any).planNotes = '';
+                const sAny = s as any;
+                if (sAny.durationSeconds === undefined) sAny.durationSeconds = null;
+                if (sAny.distanceMeters === undefined) sAny.distanceMeters = null;
               }
             }
           }
@@ -918,6 +968,12 @@ export const useStore = create<AppState>()(
           state.library.activities = activities;
           state.library.soreness = soreness;
           state.settings = settings;
+
+          // Backfill unit preferences on settings (pre-flexible-tracking data)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const settingsAny = state.settings as any;
+          if (!settingsAny.weightUnit) settingsAny.weightUnit = 'lb';
+          if (!settingsAny.distanceUnit) settingsAny.distanceUnit = 'mi';
 
           // Validate and restore session
           if (state.session?.active) {
@@ -929,9 +985,22 @@ export const useStore = create<AppState>()(
             }
             for (const ex of state.session.active.exercises) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              if (typeof (ex as any).planNotes !== 'string') {
+              const exAny = ex as any;
+              if (typeof exAny.planNotes !== 'string') {
+                exAny.planNotes = '';
+              }
+              // Backfill tracking flags on session ExerciseLog
+              if (typeof exAny.trackWeight !== 'boolean') exAny.trackWeight = true;
+              if (typeof exAny.trackReps !== 'boolean') exAny.trackReps = true;
+              if (typeof exAny.trackDuration !== 'boolean') exAny.trackDuration = false;
+              if (typeof exAny.trackDistance !== 'boolean') exAny.trackDistance = false;
+
+              // Backfill new SetLog fields on session sets
+              for (const s of ex.sets) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (ex as any).planNotes = '';
+                const sAny = s as any;
+                if (sAny.durationSeconds === undefined) sAny.durationSeconds = null;
+                if (sAny.distanceMeters === undefined) sAny.distanceMeters = null;
               }
             }
             const sessionParsed = ActiveSessionSchema.safeParse(state.session.active);

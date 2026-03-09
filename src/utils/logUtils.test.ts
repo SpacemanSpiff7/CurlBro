@@ -4,6 +4,10 @@ import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../../tests/fixtures/testGraph';
 import type { WorkoutLog, ExerciseId, WorkoutId, LogId } from '@/types';
 
+function s(weight: number | null, reps: number | null, completed: boolean): WorkoutLog['exercises'][0]['sets'][0] {
+  return { weight, reps, completed, durationSeconds: null, distanceMeters: null };
+}
+
 function createTestLog(): WorkoutLog {
   return {
     id: 'log-1' as LogId,
@@ -12,24 +16,27 @@ function createTestLog(): WorkoutLog {
     exercises: [
       {
         exerciseId: 'barbell_bench_press' as ExerciseId,
-        sets: [
-          { weight: 155, reps: 8, completed: true },
-          { weight: 155, reps: 7, completed: true },
-          { weight: 155, reps: 6, completed: true },
-        ],
+        sets: [s(155, 8, true), s(155, 7, true), s(155, 6, true)],
+        trackWeight: true,
+        trackReps: true,
+        trackDuration: false,
+        trackDistance: false,
       },
       {
         exerciseId: 'cable_flye' as ExerciseId,
-        sets: [
-          { weight: 30, reps: 12, completed: true },
-          { weight: 30, reps: 10, completed: true },
-        ],
+        sets: [s(30, 12, true), s(30, 10, true)],
+        trackWeight: true,
+        trackReps: true,
+        trackDuration: false,
+        trackDistance: false,
       },
     ],
     startedAt: '2026-03-04T10:00:00.000Z',
     completedAt: '2026-03-04T10:45:00.000Z',
     durationMinutes: 45,
     notes: '',
+    weightUnit: 'lb',
+    distanceUnit: 'mi',
   };
 }
 
@@ -49,7 +56,7 @@ describe('computeLogStats', () => {
 
   it('handles incomplete sets', () => {
     const log = createTestLog();
-    log.exercises[0].sets[2] = { weight: 155, reps: null, completed: false };
+    log.exercises[0].sets[2] = s(155, null, false);
     const stats = computeLogStats(log);
 
     expect(stats.completedSets).toBe(4);
@@ -59,7 +66,7 @@ describe('computeLogStats', () => {
 
   it('handles null weight as zero', () => {
     const log = createTestLog();
-    log.exercises[0].sets[0] = { weight: null, reps: 10, completed: true };
+    log.exercises[0].sets[0] = s(null, 10, true);
     const stats = computeLogStats(log);
 
     // 0*10 + 155*7 + 155*6 + 30*12 + 30*10 = 0+1085+930+360+300 = 2675
@@ -106,9 +113,7 @@ describe('logToSavedWorkout', () => {
 
   it('defaults reps to 8 when no set has reps', () => {
     const log = createTestLog();
-    log.exercises[0].sets = [
-      { weight: 100, reps: null, completed: false },
-    ];
+    log.exercises[0].sets = [s(100, null, false)];
     const workout = logToSavedWorkout(log);
 
     expect(workout.exercises[0].reps).toBe(8);
@@ -116,9 +121,7 @@ describe('logToSavedWorkout', () => {
 
   it('uses null weight when no set was completed', () => {
     const log = createTestLog();
-    log.exercises[0].sets = [
-      { weight: 100, reps: 8, completed: false },
-    ];
+    log.exercises[0].sets = [s(100, 8, false)];
     const workout = logToSavedWorkout(log);
 
     expect(workout.exercises[0].weight).toBeNull();
@@ -161,9 +164,7 @@ describe('formatLogForClipboard', () => {
   it('shows BW for null weight sets', () => {
     const graph = buildExerciseGraph(testExercises);
     const log = createTestLog();
-    log.exercises[0].sets = [
-      { weight: null, reps: 10, completed: true },
-    ];
+    log.exercises[0].sets = [s(null, 10, true)];
     const output = formatLogForClipboard(log, graph);
 
     expect(output).toContain('BW \u00d7 10 \u2713');
@@ -172,7 +173,7 @@ describe('formatLogForClipboard', () => {
   it('shows checkmark for incomplete sets', () => {
     const graph = buildExerciseGraph(testExercises);
     const log = createTestLog();
-    log.exercises[0].sets[0] = { weight: 155, reps: 8, completed: false };
+    log.exercises[0].sets[0] = s(155, 8, false);
     const output = formatLogForClipboard(log, graph);
 
     expect(output).toContain('155lb \u00d7 8 \u2717');

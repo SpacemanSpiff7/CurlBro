@@ -60,6 +60,11 @@ export function logToSavedWorkout(log: WorkoutLog): SavedWorkout {
         weight: lastCompleted?.weight ?? null,
         restSeconds: 60,
         notes: ex.planNotes ?? '',
+        trackWeight: ex.trackWeight,
+        trackReps: ex.trackReps,
+        trackDuration: ex.trackDuration,
+        trackDistance: ex.trackDistance,
+        ...(ex.durationSeconds != null ? { durationSeconds: ex.durationSeconds } : {}),
         ...(ex.supersetGroupId && { supersetGroupId: ex.supersetGroupId }),
       };
     }),

@@ -89,27 +89,40 @@ vi.mock('@/store', () => ({
     selector({ graph: mockGraph }),
 }));
 
+import type { WorkoutExercise } from '@/types';
+
+/** Create a WorkoutExercise with tracking flag defaults */
+function ex(overrides: Omit<WorkoutExercise, 'trackWeight' | 'trackReps' | 'trackDuration' | 'trackDistance'> & Partial<Pick<WorkoutExercise, 'trackWeight' | 'trackReps' | 'trackDuration' | 'trackDistance'>>): WorkoutExercise {
+  return {
+    trackWeight: true,
+    trackReps: true,
+    trackDuration: false,
+    trackDistance: false,
+    ...overrides,
+  };
+}
+
 function createTestWorkout(overrides?: Partial<SavedWorkout>): SavedWorkout {
   return {
     id: 'w-1' as WorkoutId,
     name: 'Test Workout',
     exercises: [
-      {
+      ex({
         exerciseId: 'barbell_bench_press' as ExerciseId,
         sets: 3,
         reps: 8,
         weight: 155,
         restSeconds: 90,
         notes: '',
-      },
-      {
+      }),
+      ex({
         exerciseId: 'cable_flye' as ExerciseId,
         sets: 3,
         reps: 12,
         weight: 30,
         restSeconds: 60,
         notes: 'Squeeze at top',
-      },
+      }),
     ],
     createdAt: '2026-03-01T10:00:00.000Z',
     updatedAt: '2026-03-05T14:00:00.000Z',
@@ -195,14 +208,14 @@ describe('WorkoutDetailSheet', () => {
   it('does not show weight for bodyweight exercises', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 10,
           weight: null,
           restSeconds: 60,
           notes: '',
-        },
+        }),
       ],
     });
     render(
@@ -238,14 +251,14 @@ describe('WorkoutDetailSheet', () => {
   it('does not show notes row when notes are empty', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 8,
           weight: 155,
           restSeconds: 90,
           notes: '',
-        },
+        }),
       ],
     });
     const { container } = render(
@@ -266,7 +279,7 @@ describe('WorkoutDetailSheet', () => {
   it('shows superset label for grouped exercises', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -274,8 +287,8 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
-        {
+        }),
+        ex({
           exerciseId: 'barbell_row' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -283,7 +296,7 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
+        }),
       ],
     });
     render(
@@ -305,7 +318,7 @@ describe('WorkoutDetailSheet', () => {
   it('shows tri-set label for 3 grouped exercises', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -313,8 +326,8 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
-        {
+        }),
+        ex({
           exerciseId: 'cable_flye' as ExerciseId,
           sets: 3,
           reps: 12,
@@ -322,8 +335,8 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 60,
           notes: '',
           supersetGroupId: 'ss1',
-        },
-        {
+        }),
+        ex({
           exerciseId: 'barbell_row' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -331,7 +344,7 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
+        }),
       ],
     });
     render(
@@ -351,14 +364,14 @@ describe('WorkoutDetailSheet', () => {
   it('falls back to exerciseId when exercise not in graph', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'deleted_exercise' as ExerciseId,
           sets: 3,
           reps: 10,
           weight: null,
           restSeconds: 60,
           notes: '',
-        },
+        }),
       ],
     });
     render(
@@ -411,7 +424,7 @@ describe('WorkoutDetailSheet', () => {
 
     const groupedWorkout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -419,8 +432,8 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
-        {
+        }),
+        ex({
           exerciseId: 'barbell_row' as ExerciseId,
           sets: 3,
           reps: 8,
@@ -428,7 +441,7 @@ describe('WorkoutDetailSheet', () => {
           restSeconds: 90,
           notes: '',
           supersetGroupId: 'ss1',
-        },
+        }),
       ],
     });
     render(
@@ -467,14 +480,14 @@ describe('WorkoutDetailSheet', () => {
   it('shows category badge', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'cable_flye' as ExerciseId,
           sets: 3,
           reps: 12,
           weight: 30,
           restSeconds: 60,
           notes: '',
-        },
+        }),
       ],
     });
     render(
@@ -494,14 +507,14 @@ describe('WorkoutDetailSheet', () => {
   it('shows muscle tags', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_row' as ExerciseId,
           sets: 3,
           reps: 8,
           weight: 135,
           restSeconds: 90,
           notes: '',
-        },
+        }),
       ],
     });
     render(
@@ -521,14 +534,14 @@ describe('WorkoutDetailSheet', () => {
   it('shows rest time', () => {
     const workout = createTestWorkout({
       exercises: [
-        {
+        ex({
           exerciseId: 'barbell_bench_press' as ExerciseId,
           sets: 3,
           reps: 8,
           weight: 155,
           restSeconds: 90,
           notes: '',
-        },
+        }),
       ],
     });
     render(

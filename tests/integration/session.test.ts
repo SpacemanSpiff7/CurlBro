@@ -234,7 +234,7 @@ describe('Session Flow', () => {
     expect(session.exercises[2].exerciseId).toBe('tricep_pushdown');
     expect(session.exercises[2].sets.length).toBe(1);
     expect(session.exercises[2].sets[0]).toEqual({
-      weight: null, reps: null, completed: false,
+      weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null,
     });
     expect(session.currentGroupIndex).toBe(2);
   });
