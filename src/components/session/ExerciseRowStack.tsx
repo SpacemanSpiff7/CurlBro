@@ -35,13 +35,6 @@ export const ExerciseRowStack = memo(function ExerciseRowStack({
         const name = graph.exercises.get(exercise.exerciseId as ExerciseId)?.name ?? 'Unknown Exercise';
         const actions: SwipeAction[] = [
           {
-            key: 'info',
-            label: 'Info',
-            icon: <Info size={16} />,
-            color: 'bg-accent-primary',
-            onAction: () => onInfo(offset),
-          },
-          {
             key: 'swap',
             label: 'Swap',
             icon: <ArrowRightLeft size={16} />,
@@ -52,10 +45,17 @@ export const ExerciseRowStack = memo(function ExerciseRowStack({
 
         return (
           <SwipeToReveal key={`${exercise.exerciseId}-${offset}`} actions={actions}>
-            <div className="flex items-center px-3 min-h-[44px]">
+            <div className="flex items-center justify-between px-3 min-h-[44px]">
               <span className="text-sm font-semibold text-text-primary">
                 {name}
               </span>
+              <button
+                onClick={() => onInfo(offset)}
+                aria-label={`Info for ${name}`}
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent-primary/40 text-accent-primary"
+              >
+                <Info size={14} />
+              </button>
             </div>
           </SwipeToReveal>
         );
