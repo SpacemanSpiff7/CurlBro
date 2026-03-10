@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
 import { SetTimerButton } from './SetTimerButton';
 import { SetTimerFill } from './SetTimerFill';
-import { useSetTimer, startSetTimer, pauseSetTimer, resumeSetTimer, restartSetTimer } from '@/hooks/useSetTimer';
+import { useSetTimer, startSetTimer, pauseSetTimer, resumeSetTimer, restartSetTimer, stopSetTimer } from '@/hooks/useSetTimer';
 import { useStore } from '@/store';
 import type { ExerciseGroup } from '@/utils/groupUtils';
 import type { SetLog, ExerciseLog, ExerciseId, TrackingFlags, WeightUnit, DistanceUnit } from '@/types';
@@ -103,12 +103,16 @@ const SetRow = memo(function SetRow({
   );
 
   const handleToggleComplete = useCallback(() => {
+    // Stop set timer on manual completion (no flash/beep — just reset to idle)
+    if (!set.completed && isMyTimer && (isTimerRunning || isTimerPaused)) {
+      stopSetTimer();
+    }
     onComplete(exerciseIndex, setIndex, {
       ...set,
       weight: set.weight ?? defaultWeight,
       completed: !set.completed,
     });
-  }, [exerciseIndex, setIndex, set, defaultWeight, onComplete]);
+  }, [exerciseIndex, setIndex, set, defaultWeight, onComplete, isMyTimer, isTimerRunning, isTimerPaused]);
 
   const handleTimerStart = useCallback(() => {
     startSetTimer(timerId, timerDuration, () => {
