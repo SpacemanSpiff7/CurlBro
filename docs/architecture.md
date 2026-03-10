@@ -41,7 +41,7 @@ App
 ## Data Flow
 
 ```
-JSON files (8, including stretching/mobility)
+Exercise catalog JSON files (9, plus 1 metadata/schema file)
   → exercises.ts (merge all)
   → graphBuilder.ts (pure function)
   → Zustand graph slice (immutable after init)
@@ -51,8 +51,7 @@ JSON files (8, including stretching/mobility)
 Body state (soreness + activities)
   → library.soreness / library.activities (persisted)
   → BodyStateInput (user input)
-  → ContextFilters (derived filter chips)
-  → useExerciseSearch (contextFilter parameter)
+  → useExerciseSearch (automatic filtering + recovery boosting)
   → ExercisePicker (filtered + badged results)
 ```
 
@@ -63,18 +62,19 @@ Body state (soreness + activities)
 | graph    | No        | immer           | Exercise graph (read-only)|
 | builder  | No        | immer           | Workout draft in progress |
 | library  | Yes       | immer + persist | Saved workouts & logs     |
-| session  | No        | immer           | Active workout tracking   |
+| session  | Yes       | immer + persist | Active workout tracking + timer recovery |
 | settings | Yes       | immer + persist | User preferences          |
 
 ### Hydration Strategy
-- `persist` middleware stores `library` and `settings` to localStorage
+- `persist` middleware stores `library`, `settings`, and `session` to localStorage
 - On hydration, each stored object is validated with its Zod schema
 - Invalid data is silently dropped (reset to defaults)
+- Timer rehydration corrects running rest timers from the wall-clock anchor (`timerStartedAt`)
 - App never crashes on corrupt localStorage
 
 ## Navigation
 - Tab-based navigation via BottomNav (Build, Library, Active, Log, Settings)
-- Horizontal swipe on main content area also navigates between tabs (useSwipeTabs hook).
+- Horizontal swipe on main content area also navigates between tabs (`useSwipeGesture`).
   Active tab intercepts swipes to navigate between exercise groups first; tab navigation
   only occurs at the first/last exercise edge.
 - No URL routing — state-driven tab switching via `activeTab` in store
@@ -116,9 +116,11 @@ Body state (soreness + activities)
 ### Builder Integration
 - `SupersetContainer` wraps grouped exercises with an accent border and group label
 - Users group exercises via ExerciseCard actions or by accepting superset suggestions
-- `addExerciseToGroup(exerciseIndex, exerciseId)` creates/extends a group
-- `ungroupExercise(exerciseIndex)` removes an exercise from its group
+- `addExerciseToGroup(exerciseId, targetIndex)` creates/extends a group
+- `ungroupExercise(index)` removes an exercise from its group
 - Drag-and-drop reordering is group-aware (reorders entire groups)
+- Builder drag UI exposes explicit drop zones while dragging on a visually stable list:
+  top rail = reorder before, center highlight = merge into superset, bottom rail = reorder after
 
 ## Flexible Exercise Tracking
 
@@ -152,6 +154,7 @@ Exercise graph (category + equipment)
 - `unitConversion.ts`: `convertWeight()`, `convertDistance()`, `formatWeight()`, `formatDistance()`
 - Logs stamp `weightUnit`/`distanceUnit` at save time
 - Display converts when log unit differs from current setting
+- Workout export uses the configured weight unit when formatting planned weight values
 
 ### Export/Import
 - `formatExport.ts`: formats per tracking flags (weight+reps, duration, etc.)

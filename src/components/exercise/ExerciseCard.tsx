@@ -1,8 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react';
-import { GripVertical, Repeat, Trash2, ChevronDown, ChevronUp, Video, Link, Unlink, Check } from 'lucide-react';
+import { Repeat, Trash2, ChevronDown, ChevronUp, Video, Link, Unlink, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MuscleTags } from './MuscleTags';
@@ -24,17 +22,18 @@ interface ExerciseCardProps {
   onUpdate: (index: number, updates: Partial<WorkoutExercise>) => void;
   onRemove: (index: number) => void;
   onSwap: (index: number, newId: ExerciseId) => void;
-  /** When provided, the card registers itself as a sortable item with this ID.
-   *  Omit when the card is inside a SupersetContainer (group handles sorting). */
-  sortableId?: string;
   /** When true, card is in edit mode — shows checkbox, disables drag/swipe */
   editMode?: boolean;
   /** Whether this card is selected in edit mode */
   selected?: boolean;
+  /** Whether to show SwipeToReveal actions around this card */
+  swipeActionsEnabled?: boolean;
+  /** Whether swipe-to-reveal should be enabled for this card */
+  swipeEnabled?: boolean;
   /** Toggle selection callback for edit mode */
   onToggleSelect?: () => void;
-  /** Whether this card is a drop target for superset merge */
-  isDropTarget?: boolean;
+  /** Optional drag handle element rendered by parent (BuilderGroupRow) */
+  dragHandle?: React.ReactNode;
 }
 
 export const ExerciseCard = memo(function ExerciseCard({
@@ -44,11 +43,12 @@ export const ExerciseCard = memo(function ExerciseCard({
   onUpdate,
   onRemove,
   onSwap,
-  sortableId,
   editMode = false,
   selected = false,
+  swipeActionsEnabled = false,
+  swipeEnabled = true,
   onToggleSelect,
-  isDropTarget = false,
+  dragHandle,
 }: ExerciseCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [activePanel, setActivePanel] = useState<'none' | 'substitutes' | 'supersets'>('none');
@@ -58,23 +58,6 @@ export const ExerciseCard = memo(function ExerciseCard({
 
   const addExerciseToGroup = useStore((state) => state.builderActions.addExerciseToGroup);
   const ungroupExercise = useStore((state) => state.builderActions.ungroupExercise);
-
-  const isSortable = sortableId !== undefined;
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: sortableId ?? index, disabled: !isSortable || editMode });
-
-  const dndStyle = isSortable
-    ? {
-        transform: CSS.Transform.toString(transform),
-        transition,
-      }
-    : undefined;
 
   const handleSetsChange = useCallback(
     (value: string) => {
@@ -135,7 +118,6 @@ export const ExerciseCard = memo(function ExerciseCard({
         trackDuration: workoutExercise.trackDuration,
         trackDistance: workoutExercise.trackDistance,
       };
-      // Count active flags — prevent toggling off the last one
       const activeCount = Object.values(flags).filter(Boolean).length;
       if (flags[flag] && activeCount <= 1) return;
       onUpdate(index, { [flag]: !flags[flag] });
@@ -208,7 +190,6 @@ export const ExerciseCard = memo(function ExerciseCard({
     [index, onRemove]
   );
 
-  // Force collapsed state in edit mode (derived, no setState needed)
   const isExpanded = expanded && !editMode;
   const currentPanel = editMode ? 'none' as const : activePanel;
 
@@ -222,12 +203,10 @@ export const ExerciseCard = memo(function ExerciseCard({
   const cardInner = (
     <div
       className={cn(
-        'rounded-xl border border-border-subtle bg-bg-surface overflow-hidden transition-shadow',
-        isDropTarget && 'ring-2 ring-accent-primary ring-offset-2 ring-offset-bg-root scale-[1.02]',
+        'relative rounded-xl border border-border-subtle bg-bg-surface overflow-hidden transition-all duration-150',
         editMode && selected && 'ring-2 ring-accent-primary bg-accent-primary/5',
       )}
     >
-      {/* Header */}
       <div className="flex items-center gap-2 px-3 py-3">
         {editMode ? (
           <motion.div
@@ -240,9 +219,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             <div
               className={cn(
                 'h-5 w-5 rounded-full border-2 flex items-center justify-center transition-colors',
-                selected
-                  ? 'border-accent-primary bg-accent-primary'
-                  : 'border-text-tertiary',
+                selected ? 'border-accent-primary bg-accent-primary' : 'border-text-tertiary',
               )}
             >
               {selected && (
@@ -250,17 +227,8 @@ export const ExerciseCard = memo(function ExerciseCard({
               )}
             </div>
           </motion.div>
-        ) : isSortable ? (
-          <button
-            {...attributes}
-            {...listeners}
-            data-dnd-handle
-            className="touch-none text-text-tertiary hover:text-text-secondary cursor-grab active:cursor-grabbing"
-            aria-label="Drag to reorder"
-            style={{ minHeight: '44px', display: 'flex', alignItems: 'center' }}
-          >
-            <GripVertical size={16} />
-          </button>
+        ) : dragHandle ? (
+          dragHandle
         ) : null}
 
         <div className="flex-1 min-w-0">
@@ -280,10 +248,8 @@ export const ExerciseCard = memo(function ExerciseCard({
             <Video size={16} />
           </button>
         )}
-
       </div>
 
-      {/* Plan inputs — conditional on tracking flags */}
       <div className="flex items-center gap-2 px-3 pb-3 flex-wrap">
         <div className="flex items-center gap-1">
           <label className="text-xs text-text-tertiary w-8">Sets</label>
@@ -347,7 +313,6 @@ export const ExerciseCard = memo(function ExerciseCard({
         )}
       </div>
 
-      {/* Expand strip */}
       {!editMode && (
         <button
           onClick={() => {
@@ -367,7 +332,6 @@ export const ExerciseCard = memo(function ExerciseCard({
         </button>
       )}
 
-      {/* Expandable actions */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -416,7 +380,6 @@ export const ExerciseCard = memo(function ExerciseCard({
                 disabled={editMode}
                 aria-label="Exercise notes"
               />
-              {/* Tracking field toggles */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 {(['trackWeight', 'trackReps', 'trackDuration'] as const).map((flag) => {
                   const active = workoutExercise[flag];
@@ -448,14 +411,12 @@ export const ExerciseCard = memo(function ExerciseCard({
         )}
       </AnimatePresence>
 
-      {/* Inline substitute panel */}
       <SubstitutePanel
         exerciseId={workoutExercise.exerciseId}
         open={currentPanel === 'substitutes'}
         onSwap={handleSwap}
         onSearchAll={() => setSwapPickerOpen(true)}
       />
-      {/* Inline superset panel */}
       <SupersetPanel
         exerciseId={workoutExercise.exerciseId}
         open={currentPanel === 'supersets'}
@@ -465,47 +426,34 @@ export const ExerciseCard = memo(function ExerciseCard({
     </div>
   );
 
-  // Sortable wrapper: plain div for dnd-kit, separate from animated content
-  const sortableWrapper = (
-    <div ref={isSortable ? setNodeRef : undefined} style={dndStyle}>
-      {isDragging ? (
-        <div className="rounded-xl border-2 border-dashed border-border-subtle bg-bg-surface/30 h-20" />
-      ) : (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, x: 100, height: 0, marginBottom: 0 }}
-          transition={{ duration: 0.2 }}
-          onClick={handleCardClick}
-          role={editMode ? 'button' : undefined}
-          aria-pressed={editMode ? selected : undefined}
-        >
-          {cardInner}
-        </motion.div>
-      )}
-    </div>
+  const cardContent = (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: 100, height: 0, marginBottom: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={handleCardClick}
+      role={editMode ? 'button' as const : undefined}
+      aria-pressed={editMode ? selected : undefined}
+    >
+      {cardInner}
+    </motion.div>
   );
 
   return (
     <>
-      {isSortable ? (
-        <SwipeToReveal actions={swipeActions} enabled={!editMode}>{sortableWrapper}</SwipeToReveal>
-      ) : editMode ? (
-        <div onClick={handleCardClick} role="button" aria-pressed={selected}>
-          {cardInner}
-        </div>
+      {swipeActionsEnabled ? (
+        <SwipeToReveal actions={swipeActions} enabled={!editMode && swipeEnabled}>{cardContent}</SwipeToReveal>
       ) : (
-        cardInner
+        cardContent
       )}
 
-      {/* Video sheet */}
       <VideoSheet
         exercise={exercise}
         open={videoOpen}
         onOpenChange={setVideoOpen}
       />
 
-      {/* Exercise picker for superset partner */}
       <ExercisePicker
         open={pickerOpen}
         onOpenChange={setPickerOpen}
@@ -513,7 +461,6 @@ export const ExerciseCard = memo(function ExerciseCard({
         title="Add to Superset"
       />
 
-      {/* Exercise picker for swap */}
       <ExercisePicker
         open={swapPickerOpen}
         onOpenChange={setSwapPickerOpen}

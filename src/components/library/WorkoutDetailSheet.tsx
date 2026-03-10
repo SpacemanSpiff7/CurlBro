@@ -10,7 +10,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MuscleTags } from '@/components/exercise/MuscleTags';
-import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
+import { GroupBadge } from '@/components/shared/GroupBadge';
+import { deriveGroups } from '@/utils/groupUtils';
 import { CATEGORY_LABELS } from '@/types';
 import type { SavedWorkout, WorkoutExercise, ExerciseGraph, Category } from '@/types';
 
@@ -78,18 +79,14 @@ export function WorkoutDetailSheet({
         {/* Exercise breakdown */}
         <div className="mt-4 px-4 space-y-3">
           {groups.map((group) => {
-            const label = getGroupLabel(group.exercises.length);
-
-            if (label) {
+            if (group.exercises.length > 1) {
               // Grouped exercises (superset/tri-set/circuit)
               return (
                 <div
                   key={group.groupId}
                   className="rounded-lg border-l-2 border-accent-primary pl-3 space-y-2"
                 >
-                  <Badge variant="outline" className="text-[10px]">
-                    {label}
-                  </Badge>
+                  <GroupBadge size={group.exercises.length} variant="outline" />
                   {group.exercises.map((ex, i) => (
                     <ExerciseCard key={group.indices[i]} exercise={ex} graph={graph} />
                   ))}

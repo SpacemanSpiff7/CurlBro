@@ -3,7 +3,7 @@
 ## Test Pyramid
 - Many unit tests: hooks, utils, graph builder
 - Some integration tests: component flows
-- Few E2E tests: critical user journeys
+- E2E tests are planned, but not currently configured in-repo
 
 ## Graph Testing
 - Use fixture with 8 exercises spanning 3 muscle groups

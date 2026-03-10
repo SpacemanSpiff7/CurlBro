@@ -34,6 +34,9 @@
 7. Timer complete: shake + glow burst
 8. Tab switch: shared layoutId indicator
 9. Drag reorder: lift scale 1.03 + shadow
+10. Builder drag targets: source keeps its exact height with an in-place dashed ghost, the
+    workout list stays visually stable during drag, reorder uses a thin accent rail, and
+    superset merge uses an inset amber highlight + slight scale on the target
 
 ## Touch Targets
 - Minimum 44px height for all interactive elements

@@ -3,7 +3,7 @@
 ## Slice Pattern
 All state lives in a single Zustand store (src/store/index.ts) using Immer middleware.
 - graphSlice — exercise graph (read-only after init, never persisted)
-- builder — workout draft state, workoutSplit, suggestions, validation
+- builder — workout draft state, workoutSplit, suggestions, validation. `builder.workout` (the draft) is persisted to localStorage so in-progress workouts survive page refresh. Derived state (suggestions, validation, workoutSplit) is NOT persisted — recomputed from graph + exercises on render.
 - library — saved workouts, logs, soreness entries, and activity entries (persisted to localStorage)
 - session — active workout session + rest timer (persisted to localStorage, Zod-validated on hydration)
 - settings — user settings (persisted)
@@ -33,16 +33,16 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `adjustTimer(delta)` — adjusts `remainingSeconds` and `totalSeconds` by the same delta to maintain the wall-clock invariant (`totalSeconds - elapsed_since(timerStartedAt) = remainingSeconds`)
 - `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
 - `syncTimer()` — recalculates `remainingSeconds` from wall-clock anchor (`timerStartedAt`). Called on `visibilitychange`/`focus` events to correct timer drift after tab backgrounding. Does NOT reset `timerStartedAt`.
-- `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Filters out `supersetGroupId` from exercise logs before saving.
+- `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Stamps `weightUnit` / `distanceUnit` from current settings.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `abandonSession()` — discards current session entirely, sets session.active to null and resets timer to emptyTimer. Does NOT navigate — caller handles tab switch.
 - `startSession(workout)` — creates a new preview session (startedAt: null), resets timer, navigates to Active tab. Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active.
 - `deleteLog(id)` — removes a workout log from library.logs
 - `addExercise(exerciseId)` — appends exercise with `instanceId: crypto.randomUUID()` and settings-based defaults
-- `addExerciseToGroup(exerciseIndex, exerciseId)` — adds an exercise adjacent to `exerciseIndex` with `instanceId`, assigns both the same `supersetGroupId` (creates a new group or extends an existing one)
+- `addExerciseToGroup(exerciseId, targetIndex)` — adds an exercise adjacent to `targetIndex` with `instanceId`, assigns both the same `supersetGroupId` (creates a new group or extends an existing one)
 - `loadTemplate(name, split, exercises)` — loads a seeded workout; each exercise gets a fresh `instanceId`
 - Hydration backfills `instanceId` on persisted workouts that predate the field
-- `ungroupExercise(exerciseIndex)` — removes `supersetGroupId` from the exercise at `exerciseIndex`
+- `ungroupExercise(index)` — removes `supersetGroupId` from the exercise at `index`
 - `goToGroup(index)` — navigates to a group by index during active session (replaces per-exercise navigation)
 - `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
 - Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group
@@ -58,9 +58,8 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `removeActivity(id)` — removes an activity entry by id
 - `setSoreness(entries)` — replaces all soreness entries in `library.soreness` (none/mild/moderate/severe)
 - `clearSoreness()` — resets all soreness entries
-- `setTrackingFlags(exerciseIndex, flags)` — updates tracking flags on a builder exercise
-- `setExerciseDuration(exerciseIndex, seconds)` — sets `durationSeconds` on a builder exercise
-- `updateSettings(partial)` — merges partial settings including `weightUnit` and `distanceUnit`
 - `addExercise()` / `addExerciseToGroup()` / `swapExercise()` / `loadTemplate()` / `addExerciseToSession()` all call `inferTrackingFlags()` to auto-set tracking flags from exercise category+equipment
+- `updateExercise(index, updates)` — builder-side generic mutation used for sets, reps, rest, notes, tracking flags, prescribed duration, and other `WorkoutExercise` fields
+- `settingsActions.updateSettings(partial)` — merges partial settings including `weightUnit`, `distanceUnit`, export settings, and default sets/reps/timers
 - `library.soreness: SorenessEntry[]` — persisted array of {muscle, level} pairs, Zod-validated on hydration
 - `library.activities: ActivityEntry[]` — persisted array of {type, timing} pairs (run/bike/swim/hike/sport/yoga + yesterday/today/tomorrow), Zod-validated on hydration

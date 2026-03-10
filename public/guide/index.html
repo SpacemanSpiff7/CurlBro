@@ -1220,7 +1220,7 @@
 
           <h4>Recovery Badges</h4>
           <p>
-            When smart filters are active, exercise cards in the search results display colored recovery badges indicating how appropriate each exercise is given your current body state. Green badges indicate fully appropriate exercises, amber badges flag exercises that target muscles with mild soreness (proceed with caution), and exercises targeting severely sore muscles are excluded entirely from the results.
+            When smart filters are active, recovery-category exercises that directly support sore or recently stressed muscles can be highlighted with a recovery badge in the search results. Non-recovery exercises that hit sore or fatigued muscles are filtered out instead of shown with graduated warning colors.
           </p>
 
           <div class="callout">
@@ -1510,7 +1510,7 @@
             </div>
             <div class="flow-step">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <div><strong>Rest timer</strong> &mdash; After completing a set, the rest timer automatically counts down. The duration is based on the exercise's rest setting.</div>
+              <div><strong>Rest timer</strong> &mdash; Start the countdown from the timer ring when you want rest tracking. The duration is based on the current exercise or group rest setting.</div>
             </div>
             <div class="flow-step">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -1520,17 +1520,19 @@
 
           <h3>Set Tracking</h3>
           <p>
-            For each exercise, CurlBro displays a row of set indicators based on the planned number of sets. Tap a set to expand it and log:
+            For each exercise, CurlBro displays set rows based on the planned number of sets. Depending on the exercise type, you can log:
           </p>
           <ul>
-            <li><strong>Weight</strong> &mdash; The weight used for this set. CurlBro remembers the last weight you entered and pre-fills subsequent sets, since most lifters use the same weight across working sets.</li>
-            <li><strong>Reps</strong> &mdash; The number of reps completed. Pre-filled with the planned rep target but adjustable if you hit more or fewer reps than planned.</li>
+            <li><strong>Weight</strong> &mdash; The load used for the set when the exercise tracks weight.</li>
+            <li><strong>Reps</strong> &mdash; The number of reps completed for rep-based exercises.</li>
+            <li><strong>Duration</strong> &mdash; Seconds for timed stretches, mobility work, or timed intervals.</li>
+            <li><strong>Distance</strong> &mdash; Distance for cardio movements that track it.</li>
             <li><strong>Completed</strong> &mdash; Mark the set as completed. Incomplete sets are tracked separately in your log for accurate volume analysis.</li>
           </ul>
 
           <h3>Rest Timer</h3>
           <p>
-            After you complete a set, the rest timer starts automatically. The countdown is based on the rest period configured for that exercise (typically 120&ndash;180 seconds for compounds and 45&ndash;90 seconds for isolations). You can:
+            The rest timer is based on the rest period configured for the current exercise or group (typically 120&ndash;180 seconds for compounds and 45&ndash;90 seconds for isolations). You can:
           </p>
           <ul>
             <li><strong>Skip</strong> &mdash; Dismiss the timer and proceed immediately to your next set if you feel ready.</li>
@@ -1756,7 +1758,8 @@ Face Pull  3x15  @45s rest</code></pre>
           <ul>
             <li>Your saved workouts and their exercise configurations</li>
             <li>Workout log entries (completed sessions with set data)</li>
-            <li>App settings (default reps, default sets, rest timer preferences)</li>
+            <li>Active session state and rest timer state</li>
+            <li>App settings (default reps, default sets, rest timer preferences, export options, unit preferences)</li>
             <li>Body state data (muscle soreness levels and recent activities)</li>
             <li>Cookie consent preference</li>
           </ul>

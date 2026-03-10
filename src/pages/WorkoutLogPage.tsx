@@ -1,13 +1,14 @@
 import { useState, useCallback, useMemo, Fragment } from 'react';
 import { ClipboardList, Trash2, Share2, Save } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { GroupBadge } from '@/components/shared/GroupBadge';
+import { deriveGroups } from '@/utils/groupUtils';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { toast } from 'sonner';
 import { useStore } from '@/store';
-import { TopBar } from '@/components/shared/TopBar';
+import { PageLayout } from '@/components/shared/PageLayout';
 import {
   Sheet,
   SheetContent,
@@ -180,8 +181,6 @@ function LogDetailSheet({
         {/* Exercise breakdown */}
         <div className="mt-4 space-y-3">
           {deriveGroups(log.exercises).map((group) => {
-            const label = getGroupLabel(group.exercises.length);
-
             const renderExerciseLog = (exerciseLog: typeof log.exercises[number], idx: number) => {
               const exercise = graph.exercises.get(exerciseLog.exerciseId);
               const name = exercise?.name ?? exerciseLog.exerciseId;
@@ -222,15 +221,13 @@ function LogDetailSheet({
               );
             };
 
-            if (label) {
+            if (group.exercises.length > 1) {
               return (
                 <div
                   key={group.groupId}
                   className="rounded-lg border-l-2 border-accent-primary pl-3 space-y-2"
                 >
-                  <Badge variant="outline" className="text-[10px]">
-                    {label}
-                  </Badge>
+                  <GroupBadge size={group.exercises.length} variant="outline" />
                   {group.exercises.map((ex, i) => renderExerciseLog(ex, group.indices[i]))}
                 </div>
               );
@@ -299,20 +296,16 @@ export function WorkoutLogPage() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 pb-20">
-      <TopBar>
-        <h1 className="text-xl font-bold text-text-primary">Workout Log</h1>
-      </TopBar>
-
-      <div className="flex flex-col gap-2 px-4">
+    <PageLayout
+      header={<h1 className="text-xl font-bold text-text-primary">Workout Log</h1>}
+      contentClassName="flex flex-col gap-2 px-4"
+    >
         {sortedLogs.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <ClipboardList size={48} className="text-text-tertiary mb-3" />
-            <div className="text-sm text-text-secondary">No workouts logged yet</div>
-            <div className="text-xs text-text-tertiary mt-1">
-              Complete a workout to see it here
-            </div>
-          </div>
+          <EmptyState
+            icon={ClipboardList}
+            title="No workouts logged yet"
+            subtitle="Complete a workout to see it here"
+          />
         ) : (
           sortedLogs.map((log, index) => {
             const logActions: SwipeAction[] = [
@@ -344,13 +337,11 @@ export function WorkoutLogPage() {
         )}
         {/* Bottom ad — always visible */}
         <AdSlot slotKey="log_feed" className="mt-2" />
-      </div>
-
       <LogDetailSheet
         log={selectedLog}
         open={sheetOpen}
         onOpenChange={handleSheetChange}
       />
-    </div>
+    </PageLayout>
   );
 }

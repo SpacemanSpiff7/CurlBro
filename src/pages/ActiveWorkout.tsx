@@ -20,7 +20,8 @@ import { RestTimer } from '@/components/session/RestTimer';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
 import { VideoSheet } from '@/components/exercise/VideoSheet';
-import { TopBar } from '@/components/shared/TopBar';
+import { PageLayout } from '@/components/shared/PageLayout';
+import { EmptyState } from '@/components/shared/EmptyState';
 import { MarqueeText } from '@/components/shared/MarqueeText';
 import { useStore } from '@/store';
 import { useRestTimer } from '@/hooks/useRestTimer';
@@ -325,20 +326,16 @@ export function ActiveWorkout() {
   // No active session
   if (!session) {
     return (
-      <div className="flex flex-col pb-20">
-        <TopBar>
-          <h1 className="text-xl font-bold text-text-primary">Active</h1>
-        </TopBar>
-        <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <Timer size={40} className="text-text-tertiary mb-3" />
-          <h2 className="text-lg font-semibold text-text-primary mb-1">
-            No Active Workout
-          </h2>
-          <p className="text-sm text-text-tertiary">
-            Go to Library and tap play to start a session.
-          </p>
-        </div>
-      </div>
+      <PageLayout
+        header={<h1 className="text-xl font-bold text-text-primary">Active</h1>}
+        contentClassName="px-4"
+      >
+        <EmptyState
+          icon={Timer}
+          title="No Active Workout"
+          subtitle="Go to Library and tap play to start a session."
+        />
+      </PageLayout>
     );
   }
 
@@ -348,62 +345,64 @@ export function ActiveWorkout() {
     0
   );
 
+  const headerRight = (
+    <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
+      {isActive && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleFinish}
+          className="text-destructive border-destructive/30 hover:bg-destructive/10"
+        >
+          <Square size={14} className="mr-1" />
+          Finish
+        </Button>
+      )}
+      {isCompleted && !isSaved && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleSave}
+          className="text-success border-success/30 hover:bg-success/10"
+        >
+          <Save size={14} className="mr-1" />
+          Save
+        </Button>
+      )}
+      {isCompleted && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleClear}
+          className="text-text-tertiary border-border-subtle hover:text-text-secondary"
+          aria-label="Clear completed workout"
+        >
+          <X size={14} className="mr-1" />
+          Clear
+        </Button>
+      )}
+      <span className="text-[10px] tabular-nums text-text-tertiary">
+        {elapsed}
+      </span>
+    </div>
+  );
+
   return (
-    <div className="flex flex-col gap-4 pb-20">
-      <TopBar>
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            <MarqueeText
-              text={session.workoutName || 'Workout'}
-              className="text-lg font-bold text-text-primary"
-            />
-            <div className="text-xs text-text-tertiary">
-              {completedSets}/{totalSets} sets completed
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
-            {isActive && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleFinish}
-                className="text-destructive border-destructive/30 hover:bg-destructive/10"
-              >
-                <Square size={14} className="mr-1" />
-                Finish
-              </Button>
-            )}
-            {isCompleted && !isSaved && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleSave}
-                className="text-success border-success/30 hover:bg-success/10"
-              >
-                <Save size={14} className="mr-1" />
-                Save
-              </Button>
-            )}
-            {isCompleted && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleClear}
-                className="text-text-tertiary border-border-subtle hover:text-text-secondary"
-                aria-label="Clear completed workout"
-              >
-                <X size={14} className="mr-1" />
-                Clear
-              </Button>
-            )}
-            <span className="text-[10px] tabular-nums text-text-tertiary">
-              {elapsed}
-            </span>
+    <PageLayout
+      header={
+        <div className="min-w-0 flex-1">
+          <MarqueeText
+            text={session.workoutName || 'Workout'}
+            className="text-lg font-bold text-text-primary"
+          />
+          <div className="text-xs text-text-tertiary">
+            {completedSets}/{totalSets} sets completed
           </div>
         </div>
-      </TopBar>
-
-      <div className="flex flex-col gap-4 px-4">
+      }
+      headerRight={headerRight}
+      contentClassName="flex flex-col gap-4 px-4"
+    >
 
       {/* Progress bar */}
       <div className="h-1 w-full rounded-full bg-bg-elevated overflow-hidden">
@@ -703,7 +702,6 @@ export function ActiveWorkout() {
         onAdd={handleSwapFromPicker}
         title="Swap Exercise"
       />
-      </div>
 
       {/* Clear unsaved workout confirmation */}
       <Dialog open={clearConfirmOpen} onOpenChange={setClearConfirmOpen}>
@@ -740,6 +738,6 @@ export function ActiveWorkout() {
           />
         )}
       </AnimatePresence>
-    </div>
+    </PageLayout>
   );
 }

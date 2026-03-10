@@ -3,19 +3,12 @@ import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
-import { TopBar } from '@/components/shared/TopBar';
+import { PageLayout } from '@/components/shared/PageLayout';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import {
   Sheet,
   SheetContent,
@@ -463,27 +456,21 @@ export function MyWorkouts() {
     setPendingWorkout(null);
   }, [pendingWorkout, abandonSession, startSession]);
 
-  const handleCancelOverride = useCallback(() => {
-    setPendingWorkout(null);
-  }, []);
-
   return (
-    <div className="flex flex-col gap-4 pb-20">
-      <TopBar>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-text-primary">Library</h1>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setImportOpen(true)}
-          >
-            <Download size={14} className="mr-1" />
-            Import
-          </Button>
-        </div>
-      </TopBar>
-
-      <div className="flex flex-col gap-4 px-4">
+    <PageLayout
+      header={<h1 className="text-xl font-bold text-text-primary">Library</h1>}
+      headerRight={
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setImportOpen(true)}
+        >
+          <Download size={14} className="mr-1" />
+          Import
+        </Button>
+      }
+      contentClassName="flex flex-col gap-4 px-4"
+    >
       {/* Top ad */}
       <AdSlot slotKey="library_feed" />
 
@@ -582,7 +569,6 @@ export function MyWorkouts() {
         onShare={handleSeededShare}
       />
 
-      </div>
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
 
       <WorkoutDetailSheet
@@ -595,24 +581,15 @@ export function MyWorkouts() {
         onDelete={isSeededPreview ? undefined : (w) => handleDelete(w.id)}
       />
 
-      <Dialog open={!!pendingWorkout} onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}>
-        <DialogContent showCloseButton={false}>
-          <DialogHeader>
-            <DialogTitle>Replace Active Workout?</DialogTitle>
-            <DialogDescription>
-              You have a workout in progress. Starting a new one will discard your current session and any recorded sets.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" className="min-h-[44px]" onClick={handleCancelOverride}>
-              Keep Current
-            </Button>
-            <Button variant="destructive" className="min-h-[44px]" onClick={handleConfirmOverride}>
-              Start New
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      <ConfirmDialog
+        open={!!pendingWorkout}
+        onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}
+        title="Replace Active Workout?"
+        description="You have a workout in progress. Starting a new one will discard your current session and any recorded sets."
+        confirmLabel="Start New"
+        destructive
+        onConfirm={handleConfirmOverride}
+      />
+    </PageLayout>
   );
 }

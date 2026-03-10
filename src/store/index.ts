@@ -896,6 +896,7 @@ export const useStore = create<AppState>()(
         library: state.library,
         settings: state.settings,
         session: state.session,
+        builder: { workout: state.builder.workout },
       }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
@@ -984,6 +985,23 @@ export const useStore = create<AppState>()(
           const settingsAny = state.settings as any;
           if (!settingsAny.weightUnit) settingsAny.weightUnit = 'lb';
           if (!settingsAny.distanceUnit) settingsAny.distanceUnit = 'mi';
+
+          // Restore builder draft (if persisted)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const builderAny = state as any;
+          if (builderAny.builder?.workout?.exercises?.length > 0) {
+            const draft = builderAny.builder.workout;
+            for (const ex of draft.exercises) {
+              if (!ex.instanceId) {
+                ex.instanceId = crypto.randomUUID();
+              }
+              if (typeof ex.trackWeight !== 'boolean') ex.trackWeight = true;
+              if (typeof ex.trackReps !== 'boolean') ex.trackReps = true;
+              if (typeof ex.trackDuration !== 'boolean') ex.trackDuration = false;
+              if (typeof ex.trackDistance !== 'boolean') ex.trackDistance = false;
+            }
+            state.builder.workout = draft;
+          }
 
           // Validate and restore session
           if (state.session?.active) {

@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
 import { MuscleTags } from '@/components/exercise/MuscleTags';
-import { getGroupLabel } from '@/utils/groupUtils';
+import { GroupBadge } from '@/components/shared/GroupBadge';
 import { useStore } from '@/store';
 import type { ExerciseGroup } from '@/utils/groupUtils';
 import type { WorkoutExercise } from '@/types';
@@ -13,15 +13,17 @@ interface DragOverlayCardProps {
 export const DragOverlayCard = memo(function DragOverlayCard({ group }: DragOverlayCardProps) {
   const graph = useStore((state) => state.graph);
   const isGrouped = group.exercises.length > 1;
-  const label = getGroupLabel(group.exercises.length);
 
   return (
-    <div className="scale-[1.03] shadow-[0_10px_40px_rgba(0,0,0,0.3)] rounded-xl pointer-events-none">
-      {isGrouped && label && (
+    <motion.div
+      initial={{ scale: 1, opacity: 0.8 }}
+      animate={{ scale: 1.03, opacity: 1, rotate: -1 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+      className="shadow-[0_18px_50px_rgba(0,0,0,0.38)] rounded-xl pointer-events-none"
+    >
+      {isGrouped && (
         <div className="flex items-center gap-2 px-3 py-1 border-l-2 border-accent-primary rounded-t-xl bg-bg-surface">
-          <Badge variant="secondary" className="text-[10px]">
-            {label}
-          </Badge>
+          <GroupBadge size={group.exercises.length} />
         </div>
       )}
       {group.exercises.map((workoutExercise, i) => {
@@ -52,6 +54,6 @@ export const DragOverlayCard = memo(function DragOverlayCard({ group }: DragOver
           </div>
         );
       })}
-    </div>
+    </motion.div>
   );
 });

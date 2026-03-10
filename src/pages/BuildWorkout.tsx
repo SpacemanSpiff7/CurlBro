@@ -11,7 +11,7 @@ import { SuggestionPanel } from '@/components/workout/SuggestionPanel';
 import { WorkoutStatusBar } from '@/components/workout/WorkoutStatusBar';
 import { ConflictWarnings } from '@/components/workout/ConflictWarnings';
 import { TemplateSelector } from '@/components/workout/TemplateSelector';
-import { TopBar } from '@/components/shared/TopBar';
+import { PageLayout } from '@/components/shared/PageLayout';
 import { closeAllSwipeRows } from '@/components/shared/SwipeToReveal';
 import { useAutoWorkoutName } from '@/hooks/useAutoWorkoutName';
 import { useStore } from '@/store';
@@ -136,9 +136,8 @@ export function BuildWorkout() {
   ) : null;
 
   return (
-    <div className="flex flex-col gap-4 pb-20">
-      {/* Top bar with logo + workout name */}
-      <TopBar rightSlot={topBarRight}>
+    <PageLayout
+      header={
         <Input
           value={workout.name}
           onChange={(e) => setWorkoutName(e.target.value)}
@@ -147,9 +146,10 @@ export function BuildWorkout() {
           aria-label="Workout name"
           disabled={editMode}
         />
-      </TopBar>
-
-      <div className="flex flex-col gap-4 px-4">
+      }
+      headerRight={topBarRight}
+      contentClassName="flex flex-col gap-4 px-4"
+    >
         {/* Ad slot */}
         <AdSlot slotKey="build" />
 
@@ -206,7 +206,6 @@ export function BuildWorkout() {
             </Button>
           </div>
         )}
-      </div>
 
       {/* Edit mode floating bar */}
       <EditModeBar
@@ -220,6 +219,6 @@ export function BuildWorkout() {
 
       {/* Exercise Picker Sheet */}
       <ExercisePicker open={pickerOpen} onOpenChange={setPickerOpen} />
-    </div>
+    </PageLayout>
   );
 }

@@ -1,7 +1,7 @@
 # Exercise Graph Specification
 
 ## Overview
-- 323 exercises across 9 JSON files (strength, stretching/mobility, cardio)
+- 345 exercises across 9 catalog JSON files (plus one metadata/schema file)
 - 3000+ total edges (substitutes, complements, superset candidates)
 - Extensive cross-file edges
 - 37+ unique movement patterns (including stretch, mobility, and conditioning patterns)

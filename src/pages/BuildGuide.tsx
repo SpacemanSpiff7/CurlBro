@@ -75,7 +75,7 @@ export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
           {/* 2. Find the Right Exercises */}
           <GuideSection step={2} icon={Search} title="Find the Right Exercises">
             <p className="text-sm text-text-secondary leading-relaxed">
-              Tap &ldquo;+ Add Exercise&rdquo; to search 300+ exercises by name. Filter by
+              Tap &ldquo;+ Add Exercise&rdquo; to search 345 exercises by name. Filter by
               muscle group, equipment, and type. Mark sore muscles and CurlBro hides risky
               exercises and boosts recovery options.
             </p>
@@ -94,9 +94,10 @@ export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
           {/* 4. Drag to Reorder & Create Supersets */}
           <GuideSection step={4} icon={GripVertical} title="Drag to Reorder & Create Supersets">
             <p className="text-sm text-text-secondary leading-relaxed">
-              Hold the grip handle to drag. Drop near edges to reorder. Drop in the center of
-              another exercise to create a superset &mdash; works for tri-sets and circuits too
-              (up to 5).
+              Hold the grip handle to drag. The list stays stable while you drag so targets do
+              not slide underneath your finger: top rail moves before, center highlight adds to
+              a superset, and bottom rail moves after. Grouping works for tri-sets and circuits
+              too (up to 5 total exercises).
             </p>
             <MockDropZones />
           </GuideSection>

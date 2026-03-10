@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/utils/cookieConsent';
 import { Button } from '@/components/ui/button';
-import { TopBar } from '@/components/shared/TopBar';
+import { PageLayout } from '@/components/shared/PageLayout';
+import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { AboutPage } from './AboutPage';
 import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { TermsOfUsePage } from './TermsOfUsePage';
@@ -60,12 +61,10 @@ export function SettingsPage() {
   const { clearAll } = useStore((state) => state.libraryActions);
 
   return (
-    <div className="flex flex-col gap-4 pb-20">
-      <TopBar>
-        <h1 className="text-xl font-bold text-text-primary">Settings</h1>
-      </TopBar>
-
-      <div className="flex flex-col gap-4 px-4">
+    <PageLayout
+      header={<h1 className="text-xl font-bold text-text-primary">Settings</h1>}
+      contentClassName="flex flex-col gap-4 px-4"
+    >
 
       {/* Help */}
       <div className="space-y-3">
@@ -410,41 +409,24 @@ export function SettingsPage() {
             <RotateCcw size={14} className="mr-2" />
             Reset settings to defaults
           </Button>
-          {!confirmDelete ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setConfirmDelete(true)}
-              className="w-full justify-start text-destructive hover:text-destructive"
-            >
-              <Trash2 size={14} className="mr-2" />
-              Delete all data
-            </Button>
-          ) : (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 space-y-2">
-              <p className="text-xs text-destructive">
-                This will delete all your workouts and history. Are you sure?
-              </p>
-              <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setConfirmDelete(false)}
-                  className="flex-1 text-text-secondary"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => { clearAll(); setConfirmDelete(false); }}
-                  className="flex-1 text-destructive hover:text-destructive"
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setConfirmDelete(true)}
+            className="w-full justify-start text-destructive hover:text-destructive"
+          >
+            <Trash2 size={14} className="mr-2" />
+            Delete all data
+          </Button>
+          <ConfirmDialog
+            open={confirmDelete}
+            onOpenChange={setConfirmDelete}
+            title="Delete All Data?"
+            description="This will delete all your workouts and history. This action cannot be undone."
+            confirmLabel="Delete"
+            destructive
+            onConfirm={clearAll}
+          />
         </div>
       </div>
       {/* About */}
@@ -537,13 +519,11 @@ export function SettingsPage() {
           </Button>
         </div>
       </div>
-      </div>
-
       <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
       <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
       <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />
       <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} />
       <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} />
-    </div>
+    </PageLayout>
   );
 }

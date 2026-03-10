@@ -6,7 +6,7 @@
 
 ## Exercise Catalog
 
-The full catalog of 300+ exercises is available as JSON:
+The full catalog of 345 exercises is available as JSON:
   /exercises.json
 
 Each exercise includes: id, name, category, movement_pattern, force_type,
@@ -23,8 +23,10 @@ The import format is line-based plain text.
 ```
 Header:    ## {workout_name} | {YYYY-MM-DD}
 Separator: ---
-Exercise:  {name} [{exercise_id}] | {sets}x{reps} | {weight}{unit} | Rest: {seconds}s
-Superset:  {name} [{exercise_id}] | {sets}x{reps} | {weight}{unit} | Rest: {seconds}s [superset:{group_id}]
+Reps+weight: {name} [{exercise_id}] | {sets}x{reps} | {weight}{unit} | Rest: {seconds}s
+Reps only:   {name} [{exercise_id}] | {sets}x{reps} | Rest: {seconds}s
+Duration:    {name} [{exercise_id}] | {sets}x{duration} | Rest: {seconds}s
+Superset:    ...exercise line... [superset:{group_id}]
 Tip:         tip: {text}
 ```
 
@@ -32,12 +34,21 @@ Tip:         tip: {text}
 
 - The header line starts with `## ` followed by the workout name, a pipe, and a date (YYYY-MM-DD).
 - A `---` separator follows the header.
-- Each exercise line has the exercise name, its ID in square brackets, then pipe-separated fields for sets×reps, weight (optional), and rest period.
+- Each exercise line has the exercise name, its ID in square brackets, then pipe-separated fields describing reps or duration, optional weight, and rest period.
 - `[exercise_id]` ensures the exercise is matched exactly on import. Use IDs from exercises.json.
-- Weight is optional — leave the field empty between pipes if not specified.
+- Weight is optional and should usually be omitted entirely when not specified.
 - Tips are optional indented lines starting with `  tip: `.
 - Unrecognized exercise IDs generate warnings, not errors.
-- Malformed lines generate errors.
+- Unparseable lines generate warnings and are skipped.
+
+### Duration format
+- `30s` — seconds (< 60)
+- `1:30` — M:SS (≥ 60 seconds)
+- Examples: `3x30s`, `1x5:00`
+
+### Weight units
+- Export uses the app's configured weight unit
+- Import accepts `lb`, `kg`, or a bare number for backward compatibility
 
 ### Supersets and Grouping
 
@@ -75,7 +86,9 @@ band pull-aparts.
 - 12-20 reps: endurance + hypertrophy
 
 Use the exercise's `rep_range_hypertrophy` and `rep_range_strength` fields
-as guides. Default to hypertrophy ranges for most users.
+as guides. Default to hypertrophy ranges for most users. For mobility, stretching,
+and some cardio entries, duration-based prescriptions are often more appropriate
+than rep targets.
 
 ### Session Structure
 - 60-70% compound exercises, 30-40% isolation

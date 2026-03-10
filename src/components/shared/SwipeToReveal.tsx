@@ -136,6 +136,14 @@ export function SwipeToReveal({
     },
   );
 
+  if (!enabled) {
+    return (
+      <div className={cn('overflow-hidden', className)} data-swipe-row>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}

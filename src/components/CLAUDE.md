@@ -5,6 +5,13 @@
 - ExerciseCard is a single memoized component with expandable sections (video, substitutes, set editing)
 - All modals/drawers use shadcn Sheet or Dialog
 - All animations use Framer Motion (never raw CSS transitions for interactive elements)
+- All pages use `PageLayout` wrapper for consistent sticky header + content padding
+- Reusable confirm dialogs use `ConfirmDialog` (not inline state)
+- Empty states use `EmptyState` component
+- Group labels (Superset/Tri-set/Circuit) use `GroupBadge` component
+- Builder drag concerns (ghost, drop cues) are handled by `BuilderGroupRow` using
+  `DragGhostOverlay` and `DropIntentCue` — ExerciseCard and SupersetContainer have
+  no drag/drop knowledge. ExerciseCard accepts an optional `dragHandle` slot instead.
 
 ## Rules
 - React.memo on all list-item components (ExerciseCard, TemplateCard, SuggestionItem, etc.)
@@ -46,12 +53,43 @@
   Swiping reveals a Delete button requiring tap to confirm (no auto-delete on release).
   API preserved: `onDelete`, `children`, `enabled`. Used by SetTracker, GroupSetTracker,
   WorkoutList (for grouped exercises).
+- SwipeToReveal (`shared/`) — Swipe shell for reveal actions. When `enabled={false}`, it renders
+  a plain passthrough container with `overflow-hidden` so builder drag rows are not wrapped in
+  swipe/motion/overflow behavior during active drag.
+- PageLayout (`shared/`) — Consistent page frame wrapper. Renders sticky TopBar with backdrop
+  blur + content container. All pages use this. Props: `header`, `headerRight`, `children`,
+  `contentClassName`. One place to change page padding, header behavior, safe-area handling.
+- EmptyState (`shared/`) — Centered icon + title + optional subtitle + optional action slot.
+  Used in ActiveWorkout (no session) and WorkoutLogPage (no logs).
+- ConfirmDialog (`shared/`) — Reusable confirmation modal wrapping shadcn Dialog. Props:
+  `open`, `onOpenChange`, `title`, `description`, `confirmLabel`, `destructive`, `onConfirm`.
+  Used in MyWorkouts (replace active workout) and SettingsPage (delete all data).
+- GroupBadge (`shared/`) — Renders Superset/Tri-set/Circuit badge via `getGroupLabel()`.
+  Returns null for size <= 1. Used in SupersetContainer, ExerciseRowStack, WorkoutDetailSheet,
+  LogDetailSheet, DragOverlayCard. Accepts `variant` prop ('secondary' | 'outline').
+- DropIntentCue (`shared/`) — Absolutely-positioned drop intent indicators rendered at row level.
+  Must be inside a `relative` parent (BuilderGroupRow's `motion.div`). Three visual states:
+  reorder-before/after = cyan line in the gap between cards (`-top-[5px]`/`-bottom-[5px]`),
+  merge = full-card amber overlay with "SUPERSET" label at top. Props: `dropState`, `active`.
+- DragGhostOverlay (`shared/`) — Wraps children with dashed-border ghost overlay when element
+  is the source of an active drag. Props: `active`, `borderRadius`, `children`.
+  Used by BuilderGroupRow for both solo cards and superset containers.
 - WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder and drag-to-superset.
-  Uses DragOverlay for smooth drag visuals. Drop intent (reorder vs superset) detected via
-  pointer Y position relative to target card (top/bottom 30% = reorder, center 40% = superset).
+  Uses DragOverlay for smooth drag visuals. WorkoutList owns the builder drag state and renders
+  rows as stable draggable/droppable targets rather than live-sortable neighbors. Tracks real
+  pointer Y via `pointermove`/`touchmove` listeners (not dnd-kit's `activatorEvent + delta`,
+  which is unreliable due to sensor activation offset). Drop intent re-evaluates continuously
+  as the finger moves within a card. Dragged sources keep their original height and show an
+  in-place dashed ghost to avoid list jumps.
   Standalone exercises get SwipeToReveal from ExerciseCard internally (Swap/Super/Delete).
   Grouped exercises (SupersetContainer) are wrapped in SwipeToReveal with Ungroup/Delete actions.
   Accepts `editMode`, `selectedIndices`, `onToggleSelect` props for multi-select editing.
+- BuilderGroupRow (`workout/`) — builder row adapter that combines `useDraggable` and
+  `useDroppable`, owns all drag concerns (ghost via `DragGhostOverlay`, drop cues via
+  `DropIntentCue`, merge/reorder styling). Passes a `dragHandle` slot to ExerciseCard/
+  SupersetContainer. Wrapped in `motion.div` with `layout` + `layoutId` for smooth Framer
+  FLIP animations on reorder. Safe with raw useDraggable/useDroppable since dnd-kit doesn't
+  transform source elements (no conflict with Framer layout).
 - DragOverlayCard (`workout/`) — Simplified read-only card shown during drag. Displays exercise
   name, muscle tags, sets × reps. For groups: shows group label + stacked card preview.
   Styled with `scale-[1.03]` + elevated shadow per design system.
@@ -66,7 +104,9 @@
   expandable sub-row for activity types (Run/Bike/Swim/Hike/Sport/Yoga). Timing without
   specific activity creates 'general' entry. Persisted to library.soreness and library.activities.
   Soreness and activity effects are auto-applied by useExerciseSearch (no manual filter needed).
-- SupersetContainer (`workout/`) — visual wrapper for grouped exercises with accent border, group label (Superset/Tri-set/Circuit), ungroup button, and sortable drag handle for the whole group
+- SupersetContainer (`workout/`) — pure visual wrapper for grouped exercises with accent border,
+  `GroupBadge` label, ungroup button, and optional `dragHandle` slot. No drag/drop knowledge —
+  all drag concerns (ghost, drop cues) are handled externally by BuilderGroupRow.
 - ExerciseRowStack (`session/`) — memo'd stacked exercise name rows for active workout header.
   Each exercise in the current group gets its own full-width row wrapped in `SwipeToReveal`
   with Info (opens VideoSheet) and Swap (opens SubstitutePanel) actions. Shows group label
@@ -98,12 +138,13 @@
   Uses `useSupersetSuggestions` hook. Optional `onSearchAll` callback renders a "Search all
   exercises" button. Mirrors SubstitutePanel structure. Panel shows when
   `open && (suggestions.length > 0 || onSearchAll)`.
-- ExerciseCard — uses `activePanel` enum state (`'none' | 'substitutes' | 'supersets'`) for
-  mutually exclusive inline panels. Collapsing the card resets `activePanel` to `'none'`.
-  Sortable wrapper is a plain `<div>` (dnd-kit only); animated content uses Framer Motion
-  `initial`/`animate`/`exit` (NOT `layout` — conflicts with dnd-kit transforms). Shows ghost
-  placeholder when `isDragging`. Supports edit mode: checkbox replaces drag handle, selection
-  styling, disabled drag/swipe. `isDropTarget` prop shows highlight ring for superset merge.
+- ExerciseCard — pure exercise presenter with no drag/drop knowledge. Uses `activePanel` enum
+  state (`'none' | 'substitutes' | 'supersets'`) for mutually exclusive inline panels.
+  Collapsing the card resets `activePanel` to `'none'`. Animated content uses Framer Motion
+  `initial`/`animate`/`exit`. Supports edit mode: checkbox replaces drag handle, selection
+  styling, disabled drag/swipe. Accepts optional `dragHandle` slot (React.ReactNode) from
+  BuilderGroupRow — rendered in the header area. Drop cues and ghost rendering are handled
+  externally by BuilderGroupRow using `DropIntentCue` and `DragGhostOverlay`.
   **Expand strip** at the bottom of the card (below plan inputs, above expandable content) —
   full-width tappable strip with chevron icon. Lights up with `bg-accent-primary/10` +
   `text-accent-primary` when expanded; subtle `text-text-tertiary` when collapsed.
@@ -112,8 +153,7 @@
   Swap/Superset/Delete are swipe-only actions (removed from expanded view).
   Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap
-  Exercise" (from substitute "Search all"). Drag handle has `data-dnd-handle` attribute
-  to prevent swipe gesture conflicts.
+  Exercise" (from substitute "Search all").
 - AdSlot (`ads/`) — Reusable ad component accepting `slotKey: AdSlotKey`. Renders AdSense
   `<ins>` when enabled or HouseAdComponent fallback. 6 placements across all pages.
   See `ads/CLAUDE.md` for full details.

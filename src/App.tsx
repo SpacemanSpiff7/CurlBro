@@ -164,13 +164,14 @@ export default function App() {
   return (
     <div className="flex min-h-dvh flex-col pb-16">
       <main {...bind()} className="flex-1" style={{ touchAction: 'pan-y' }}>
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, x: direction === 'left' ? 50 : -50 }}
+            initial={{ opacity: 0, x: direction === 'left' ? 80 : -80 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction === 'left' ? -50 : 50 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            exit={{ opacity: 0, x: direction === 'left' ? -80 : 80 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 35, mass: 0.8 }}
+            layout
           >
             <AppContent />
           </motion.div>

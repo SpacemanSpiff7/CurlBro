@@ -8,14 +8,14 @@ testid is last resort.
 - Unit tests colocated: `src/hooks/useRestTimer.test.ts` next to `useRestTimer.ts`
 - Component tests colocated: `src/components/exercise/ExerciseCard.test.tsx`
 - Integration tests: `tests/integration/` (multi-component flows)
-- E2E tests: `tests/e2e/` (Playwright, full user journeys)
+- E2E tests: not currently configured in-repo
 
 ## What to Test
 - Hooks: input/output behavior, edge cases, error states
 - Pure functions (graphBuilder, formatExport, parseImport, logUtils): comprehensive unit tests
 - Presenters: renders correct content, responds to interactions
 - Containers: integration tests verifying hook + component work together
-- Graph queries: test with small fixture graph (8 exercises), not the full 194
+- Graph queries: test with small fixture graph (8 exercises), not the full production dataset
 - Exercise filters: test exerciseType, equipmentGroups, auto-apply soreness, auto-apply post-activity, auto-apply pre-activity with fixture exercises (tests/exerciseFilters.test.ts)
 - Session flow: endSession/saveSession split, addExerciseToSession, deleteLog
 - Log utilities: computeLogStats, logToSavedWorkout, formatLogForClipboard (edge cases: null weights, incomplete sets)

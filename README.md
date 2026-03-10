@@ -1,6 +1,6 @@
 # CurlBro
 
-A client-side gym workout builder powered by an exercise graph of 300+ exercises and extensive relationships. Build workouts with intelligent suggestions, exercise conflict warnings, inline substitutions, drag-to-reorder, and a live session tracker with rest timer.
+A client-side gym workout builder powered by an exercise graph of 345 exercises and extensive relationships. Build workouts with intelligent suggestions, exercise conflict warnings, inline substitutions, drag-to-reorder and drag-to-superset grouping, and a live session tracker with timer support for weights, reps, duration, and distance.
 
 Mobile-first. Dark mode. No server required.
 
@@ -32,16 +32,17 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | `npm run test:coverage`| Run tests with coverage report       |
 | `npm run lint`         | Lint with ESLint                     |
 | `npx tsc --noEmit`    | Typecheck without emitting           |
+| `npx tsc -b`          | Strict typecheck used in CI          |
 
 ---
 
 ## Features
 
 ### Build Tab
-- Search 300+ exercises with fuzzy matching (Fuse.js)
+- Search 345 exercises with fuzzy matching (Fuse.js)
 - Filter by muscle group
-- Drag-to-reorder exercises
-- Inline set/rep/weight editing
+- Drag-to-reorder exercises and merge them into supersets/tri-sets/circuits
+- Inline set/rep/weight editing plus duration-based planning for timed movements
 - One-tap exercise substitution from the graph
 - Smart suggestions: complements, muscle gap analysis, superset candidates
 - Push/pull balance indicator
@@ -49,34 +50,41 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 - Exercise conflict warnings with scientific citations
 - Auto-generated workout names based on dominant muscle group
 - Embedded exercise videos (YouTube + external links)
+- Auto-applied body-state filtering from soreness and recent/planned activities
 
 ### My Workouts Tab
 - Save and manage user-created workouts
 - Pre-built templates across multiple difficulty tiers (beginner to advanced)
 - Edit a template to create a customizable copy
 - Copy workout to clipboard in a human-readable format
-- Import workouts from text (round-trip compatible)
+- Import workouts from text (round-trip compatible, supports rep- and duration-based entries)
 - Start live sessions from any workout
 
 ### Active Workout Tab
-- Exercise-by-exercise navigation
-- Per-set weight and rep tracking with completion toggle
+- Group-aware navigation (solo exercises or grouped supersets)
+- Per-set tracking for weight, reps, duration, and distance based on exercise type
 - Circular rest timer with audio beep and haptic vibration
 - +/- 15 second timer adjustment
 - Progress bar and dot indicators
 - Add exercises mid-session via + button
 - Two-step finish flow: Finish → Save with post-save summary sheet
+- Wake lock toggle to keep the screen on during a session
+- Preview overlay before the session clock starts
 
 ### Workout Log Tab
 - Chronological list of completed workout logs (most recent first)
-- Per-log stats: date, duration, total weight, exercise count, completed sets
+- Per-log stats: date, duration, total weight, total duration, exercise count, completed sets
 - Tap to expand full exercise/set breakdown
 - "Save as Workout" — convert a log back to a reusable workout with weights prefilled
 - "Copy" — formatted clipboard export of the completed workout
 - Delete logs with confirmation
 
 ### Settings Tab
+- Theme toggle
+- Default reps and sets (compound vs. isolation)
 - Default rest timer durations (compound vs. isolation)
+- Weight and distance unit preferences
+- Export preferences
 - Reset settings
 - Clear all saved data
 
@@ -89,7 +97,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | Framework   | React 19 + TypeScript (strict)                     |
 | Build       | Vite 7                                             |
 | Styling     | Tailwind CSS 4 + shadcn/ui                         |
-| State       | Zustand + Immer (persisted to localStorage)        |
+| State       | Zustand + Immer (library, settings, session persisted to localStorage) |
 | Validation  | Zod (runtime schemas = TypeScript types)           |
 | Animation   | Framer Motion                                      |
 | Drag & Drop | @dnd-kit                                           |
@@ -105,20 +113,20 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 src/
   components/
     exercise/      # ExerciseCard, ExercisePicker, SubstitutePanel, MuscleTags, VideoSheet
-    session/       # SetTracker, RestTimer
+    session/       # SetTracker, GroupSetTracker, RestTimer, StartOverlay
     shared/        # BottomNav, ErrorBoundary
     ui/            # shadcn/ui primitives
     workout/       # WorkoutList, SuggestionPanel, WorkoutStatusBar, TemplateSelector,
                    # ConflictWarnings
   data/
-    exercises.ts   # Merges 9 JSON files into the exercise graph
+    exercises.ts   # Merges the exercise catalog JSON files into the exercise graph
     graphBuilder.ts# Pure function: raw JSON -> ExerciseGraph
     exerciseConflicts.ts  # 33 exercise conflict rules with scientific citations
     seededWorkouts.ts     # Pre-built workout templates
-    exercises/     # JSON files by muscle group (01-07)
+    01-09_*.json   # Exercise catalog files by category / body region
   hooks/           # useExerciseSearch, useSubstitutes, useSuggestions,
                    # useWorkoutValidation, useWorkoutConflicts, useRestTimer,
-                   # useAutoWorkoutName, useSwipeTabs, useElapsedTimer, useWakeLock
+                   # useAutoWorkoutName, useElapsedTimer, useWakeLock
   pages/           # BuildWorkout, MyWorkouts, ActiveWorkout, WorkoutLogPage, SettingsPage
   store/           # Single Zustand store (graph, builder, library, session, settings)
   types/           # Branded types, Zod schemas, all interfaces, shared label constants
@@ -135,7 +143,7 @@ docs/              # Architecture, graph spec, design system, testing strategy
 
 The app is built on a pre-computed exercise graph:
 
-- **300+ exercises** across 9 JSON files (strength, stretching/mobility, cardio)
+- **345 exercises** across 9 catalog JSON files (plus one metadata/schema file)
 - **3 edge types**: substitutes, complements, superset candidates
 - **Extensive cross-exercise relationships** with full bidirectional integrity
 - **4 indexes**: by muscle, equipment, movement pattern, force type
@@ -195,7 +203,7 @@ The `[exercise_id]` in brackets enables perfect round-trip fidelity -- paste an 
 
 ## Testing
 
-130 tests across 12 test files:
+The repo currently includes 30+ test files across hooks, store, utils, components, and integration flows.
 
 ```bash
 # Run all tests
@@ -215,10 +223,12 @@ npm run test:coverage
 - Type system and Zod schemas
 - Graph construction, edge integrity, indexes
 - Store actions (add, remove, reorder, swap exercises)
+- Grouping and drag intent logic
 - Fuzzy search and muscle filtering
 - Substitutes, suggestions, validation hooks
 - Exercise conflict detection (ID-based and pattern-based)
 - Rest timer lifecycle
+- Flexible tracking flags, unit conversion, and duration/distance handling
 - Import/export parsing and round-trip fidelity
 - Full session flow (start, track sets, navigate, finish, save)
 - Log utilities (stats, conversion, clipboard formatting)
@@ -258,7 +268,9 @@ All data is stored in the browser's `localStorage` under the key `curlbro-storag
 
 - Saved workouts
 - Workout logs (completed sessions)
-- Settings (rest timer defaults)
+- Session state (active workout + rest timer)
+- Settings (theme-independent app preferences, timer defaults, export options, unit preferences)
+- Soreness and activity entries used by body-state filtering
 
 On load, each stored object is validated with its Zod schema. Invalid data is silently dropped -- the app never crashes on corrupt storage.
 

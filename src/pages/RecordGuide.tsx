@@ -208,8 +208,9 @@ export function RecordGuide({ open, onOpenChange }: RecordGuideProps) {
           {/* 3. Log Your Sets */}
           <GuideSection step={3} icon={ClipboardCheck} title="Log Your Sets">
             <p className="text-sm text-text-secondary leading-relaxed">
-              Enter weight and reps for each set. Tap the checkmark to
-              complete — it turns green. Swipe left on a set to delete it. Tap
+              Enter the fields that matter for that exercise: weight and reps for
+              strength work, duration for mobility/timed sets, and distance for cardio.
+              Tap the checkmark to complete a set, swipe left to delete, and use
               "+ Add Set" for extra volume.
             </p>
             <MockSetRows />
@@ -244,7 +245,7 @@ export function RecordGuide({ open, onOpenChange }: RecordGuideProps) {
             <p className="text-sm text-text-secondary leading-relaxed">
               Equipment taken? Swipe an exercise name left — Swap shows
               graph-based substitutes targeting the same muscles. Or search all
-              300+ exercises.
+              345 exercises.
             </p>
             <MockSwapActions />
           </GuideSection>

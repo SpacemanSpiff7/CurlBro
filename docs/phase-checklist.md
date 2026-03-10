@@ -8,9 +8,9 @@
 - [x] Zustand store with all slices
 - [x] Vitest + testing infrastructure
 - [x] Test fixture graph (8 exercises)
-- [x] Bottom nav shell with 4 tabs
+- [x] Bottom nav shell (expanded later to 5 tabs)
 - [x] CSS custom properties + Google Fonts
-- [x] Graph builds with 323 exercises, 3000+ edges
+- [x] Graph builds with 345 exercises, 3000+ edges
 - [x] Full dataset edge integrity tests pass
 - [x] `npm run build` succeeds with zero errors
 
@@ -72,4 +72,4 @@
 - [x] Log tab in BottomNav (ClipboardList icon, between Active and Settings)
 - [x] Swipe navigation updated for 5 tabs
 - [x] logUtils.ts — computeLogStats, logToSavedWorkout, formatLogForClipboard
-- [x] Session tests updated + logUtils unit tests (130 tests total)
+- [x] Session tests updated + logUtils unit tests

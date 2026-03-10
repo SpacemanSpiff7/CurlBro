@@ -19,7 +19,6 @@ auto-inferred from category+equipment. Unit preferences (lb/kg, mi/km) with conv
 - Fuse.js for fuzzy search
 - sonner for toast notifications
 - Vitest + React Testing Library (unit/integration)
-- Playwright (E2E)
 
 ## Critical Commands
 - Dev: `npm run dev`
@@ -31,7 +30,7 @@ auto-inferred from category+equipment. Unit preferences (lb/kg, mi/km) with conv
 - Test (unit, watch): `npm run test:watch`
 - Test (single file): `npx vitest run src/path/to/file.test.ts`
 - Test (coverage): `npm run test:coverage`
-- Test (E2E): `npx playwright test`
+- E2E: not currently configured in-repo (see `docs/phase-checklist.md`)
 
 ## Code Style
 - ES modules only (import/export), never CommonJS (require)
@@ -61,7 +60,8 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `tests/CLAUDE.md` — testing conventions and patterns
 
 ## Key Data Files
-- `src/data/01-09_*.json` — 9 JSON files with 345 exercises (strength, stretching/mobility, cardio)
+- `src/data/01-09_*.json` — 9 exercise catalog JSON files with 345 exercises (strength, stretching/mobility, cardio)
+- `src/data/00_schema_and_metadata.json` — schema, metadata, movement/equipment catalogs, and authoring notes for the dataset
 - `src/data/08_stretching_mobility.json` — stretching/mobility exercises (dynamic stretches, static stretches, mobility drills)
 - `src/data/09_cardio_warmup.json` — cardio and conditioning exercises (treadmill, bike, rower, sled push/pull, etc.)
 - `src/data/exerciseConflicts.ts` — exercise conflicts with scientific citations
@@ -157,6 +157,13 @@ Agent definitions live in `.claude/agents/`.
 - `overscroll-behavior-y: contain` on html/body prevents pull-to-refresh on iOS/Android Chrome.
 - Swipe gestures use `@use-gesture/react` with `axis: 'lock'` — first ~10px of touch decides
   vertical (scroll) vs horizontal (swipe). Vertical wins → all swipe handlers ignored.
+- Builder drag-and-drop uses explicit mobile-friendly drop zones (top 20% = reorder before,
+  center 60% = merge into superset, bottom 20% = reorder after). Reorder shows cyan line
+  in gap between cards; merge shows full-card amber overlay with "SUPERSET" label. Drop
+  intent tracks real pointer Y via `pointermove`/`touchmove` listeners (not dnd-kit's
+  `activatorEvent + delta` which is offset by sensor activation distance). Intent re-evaluates
+  continuously as finger moves within a card. Dragged cards/groups keep their exact height
+  with an in-place dashed ghost instead of collapsing.
 - `SwipeToReveal` uses a module-level singleton to ensure only one row is open at a time.
   `closeAllSwipeRows()` is called on tab switch. The `data-swipe-row` attribute blocks
   tab swipe navigation. `data-dnd-handle` attribute blocks swipe-to-reveal on drag handles.
