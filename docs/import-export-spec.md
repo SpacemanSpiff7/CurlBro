@@ -121,4 +121,4 @@ Versioned JSON envelope for backing up, transferring, and restoring workout logs
 - `src/utils/logExportImport.ts` — pure export/import functions
 - `src/utils/fileIO.ts` — browser download/read helpers
 - `src/store/index.ts` — `importLogs(logs)` action with dedup guard
-- `src/pages/WorkoutLogPage.tsx` — export/import UI (header buttons + import sheet)
+- `src/pages/WorkoutLogPage.tsx` — export/import UI (DataActionSheet + LogImportSheet + per-log export in LogDetailSheet)

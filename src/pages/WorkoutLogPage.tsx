@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, Fragment } from 'react';
-import { ClipboardList, Trash2, Share2, Save, Download, Upload } from 'lucide-react';
+import { ClipboardList, Trash2, Share2, Save, Download, Upload, FileSliders, ClipboardCopy, FileInput } from 'lucide-react';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { GroupBadge } from '@/components/shared/GroupBadge';
 import { deriveGroups } from '@/utils/groupUtils';
@@ -16,6 +16,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { computeLogStats, logToSavedWorkout, formatLogForClipboard } from '@/utils/logUtils';
 import { convertWeight, formatWeight } from '@/utils/unitConversion';
 import { downloadFile, readFileAsText } from '@/utils/fileIO';
@@ -139,6 +140,15 @@ function LogDetailSheet({
     const filename = `curlbro-log-${safeName}-${dateStr}.json`;
     downloadFile(createLogExport([log]), filename, 'application/json');
     toast.success('Log exported', { duration: 1500 });
+  };
+
+  const handleCopyJson = async () => {
+    try {
+      await navigator.clipboard.writeText(createLogExport([log]));
+      toast.success('JSON copied to clipboard', { duration: 1500 });
+    } catch {
+      toast.error('Could not copy to clipboard');
+    }
   };
 
   return (
@@ -268,15 +278,24 @@ function LogDetailSheet({
             Share
           </Button>
         </div>
-        <div className="mt-2 pb-4">
+        <div className="flex gap-2 mt-2 pb-4">
+          <Button
+            variant="outline"
+            onClick={handleCopyJson}
+            className="flex-1"
+            aria-label="Copy log JSON to clipboard"
+          >
+            <ClipboardCopy size={14} className="mr-1.5" />
+            Copy JSON
+          </Button>
           <Button
             variant="outline"
             onClick={handleExportSingle}
-            className="w-full"
-            aria-label="Export log as JSON"
+            className="flex-1"
+            aria-label="Download log as JSON"
           >
             <Download size={14} className="mr-1.5" />
-            Export
+            Download
           </Button>
         </div>
       </SheetContent>
@@ -440,10 +459,77 @@ function LogImportSheet({
   );
 }
 
+function DataActionSheet({
+  open,
+  onOpenChange,
+  hasLogs,
+  onExportDownload,
+  onExportClipboard,
+  onImport,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  hasLogs: boolean;
+  onExportDownload: () => void;
+  onExportClipboard: () => void;
+  onImport: () => void;
+}) {
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom" className="bg-bg-surface" onOpenAutoFocus={(e) => e.preventDefault()}>
+        <SheetHeader>
+          <SheetTitle className="text-text-primary">Log Data</SheetTitle>
+        </SheetHeader>
+
+        <div className="mt-4 space-y-1">
+          {/* Export section */}
+          <button
+            onClick={() => {
+              onExportDownload();
+              onOpenChange(false);
+            }}
+            disabled={!hasLogs}
+            className="flex items-center gap-3 w-full rounded-lg px-3 min-h-[44px] text-left text-text-primary hover:bg-bg-elevated active:bg-bg-elevated transition-colors disabled:opacity-40 disabled:pointer-events-none"
+          >
+            <Download size={18} className="text-text-secondary shrink-0" />
+            <span className="text-sm font-medium">Download as JSON</span>
+          </button>
+          <button
+            onClick={() => {
+              onExportClipboard();
+              onOpenChange(false);
+            }}
+            disabled={!hasLogs}
+            className="flex items-center gap-3 w-full rounded-lg px-3 min-h-[44px] text-left text-text-primary hover:bg-bg-elevated active:bg-bg-elevated transition-colors disabled:opacity-40 disabled:pointer-events-none"
+          >
+            <ClipboardCopy size={18} className="text-text-secondary shrink-0" />
+            <span className="text-sm font-medium">Copy to Clipboard</span>
+          </button>
+
+          <Separator className="my-2" />
+
+          {/* Import section */}
+          <button
+            onClick={() => {
+              onOpenChange(false);
+              onImport();
+            }}
+            className="flex items-center gap-3 w-full rounded-lg px-3 min-h-[44px] text-left text-text-primary hover:bg-bg-elevated active:bg-bg-elevated transition-colors"
+          >
+            <FileInput size={18} className="text-text-secondary shrink-0" />
+            <span className="text-sm font-medium">Import Data</span>
+          </button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 export function WorkoutLogPage() {
   const [selectedLog, setSelectedLog] = useState<WorkoutLog | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [importSheetOpen, setImportSheetOpen] = useState(false);
+  const [dataSheetOpen, setDataSheetOpen] = useState(false);
   const logs = useStore((state) => state.library.logs);
   const deleteLog = useStore((state) => state.libraryActions.deleteLog);
   const weightUnit = useStore((state) => state.settings.weightUnit);
@@ -484,26 +570,30 @@ export function WorkoutLogPage() {
     toast.success(`Exported ${logs.length} log(s)`, { duration: 1500 });
   }, [logs]);
 
+  const handleCopyAll = useCallback(async () => {
+    if (logs.length === 0) {
+      toast.error('No logs to copy');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(createLogExport(logs));
+      toast.success(`Copied ${logs.length} log(s) to clipboard`, { duration: 1500 });
+    } catch {
+      toast.error('Could not copy to clipboard');
+    }
+  }, [logs]);
+
   return (
     <PageLayout
       header={<h1 className="text-xl font-bold text-text-primary">Workout Log</h1>}
       headerRight={
-        <div className="flex gap-1.5">
-          <button
-            onClick={() => setImportSheetOpen(true)}
-            className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-elevated transition-colors"
-            aria-label="Import logs"
-          >
-            <Upload size={18} />
-          </button>
-          <button
-            onClick={handleExportAll}
-            className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-elevated transition-colors"
-            aria-label="Export all logs"
-          >
-            <Download size={18} />
-          </button>
-        </div>
+        <button
+          onClick={() => setDataSheetOpen(true)}
+          className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-elevated transition-colors"
+          aria-label="Export or import logs"
+        >
+          <FileSliders size={18} />
+        </button>
       }
       contentClassName="flex flex-col gap-2 px-4"
     >
@@ -552,6 +642,14 @@ export function WorkoutLogPage() {
       <LogImportSheet
         open={importSheetOpen}
         onOpenChange={setImportSheetOpen}
+      />
+      <DataActionSheet
+        open={dataSheetOpen}
+        onOpenChange={setDataSheetOpen}
+        hasLogs={logs.length > 0}
+        onExportDownload={handleExportAll}
+        onExportClipboard={handleCopyAll}
+        onImport={() => setImportSheetOpen(true)}
       />
     </PageLayout>
   );
