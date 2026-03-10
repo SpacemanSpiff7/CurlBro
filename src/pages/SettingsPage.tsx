@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/utils/cookieConsent';
+import { resetWelcomeSeen } from '@/utils/welcomeState';
 import { Button } from '@/components/ui/button';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
@@ -72,6 +73,15 @@ export function SettingsPage() {
           Help
         </h2>
         <div className="rounded-xl border border-border-subtle bg-bg-surface p-3">
+          <button
+            onClick={resetWelcomeSeen}
+            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
+            style={{ minHeight: '44px' }}
+            aria-label="Show welcome page"
+          >
+            <Sparkles size={14} className="text-accent-primary" />
+            Show Welcome Page
+          </button>
           <button
             onClick={() => setQuickStartOpen((v) => !v)}
             className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"

@@ -11,20 +11,22 @@ import { MyWorkouts } from '@/pages/MyWorkouts';
 import { ActiveWorkout } from '@/pages/ActiveWorkout';
 import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { WelcomePage } from '@/pages/WelcomePage';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { setDragOffset } from '@/hooks/useDragOffsetChannel';
 import { FloatingRestTimer } from '@/components/session/FloatingRestTimer';
 import { deriveGroups } from '@/utils/groupUtils';
+import { hasSeenWelcome } from '@/utils/welcomeState';
 import type { TabId } from '@/types';
 
 const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'log', 'settings'];
 
 const TAB_TITLES: Record<TabId, string> = {
-  build: 'Build Workout — CurlBro',
-  library: 'My Workouts — CurlBro',
-  active: 'Active Session — CurlBro',
-  log: 'Workout Log — CurlBro',
-  settings: 'Settings — CurlBro',
+  build: 'CurlBro — Build Workout',
+  library: 'CurlBro — My Workouts',
+  active: 'CurlBro — Active Session',
+  log: 'CurlBro — Workout Log',
+  settings: 'CurlBro — Settings',
 };
 
 function AppContent() {
@@ -71,6 +73,14 @@ export default function App() {
   const setActiveTab = useStore((state) => state.setActiveTab);
 
   const [direction, setDirection] = useState<'left' | 'right'>('left');
+  const [showWelcome, setShowWelcome] = useState(() => !hasSeenWelcome());
+
+  // Listen for welcome reset from Settings
+  useEffect(() => {
+    const handleReset = () => setShowWelcome(true);
+    window.addEventListener('curlbro_welcome_reset', handleReset);
+    return () => window.removeEventListener('curlbro_welcome_reset', handleReset);
+  }, []);
 
   // On Active tab with a running session, swipe navigates exercises first
   const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
@@ -113,6 +123,7 @@ export default function App() {
 
   const bind = useSwipeGesture({
     onSwipe: (direction) => {
+      if (showWelcome) return;
       if (swipeInterceptor(direction)) return;
       const state = useStore.getState();
       const idx = TAB_ORDER.indexOf(state.activeTab);
@@ -146,8 +157,8 @@ export default function App() {
   }, [activeTab]);
 
   useEffect(() => {
-    document.title = TAB_TITLES[activeTab];
-  }, [activeTab]);
+    document.title = showWelcome ? 'CurlBro' : TAB_TITLES[activeTab];
+  }, [activeTab, showWelcome]);
 
   useEffect(() => {
     initGraph();
@@ -179,6 +190,11 @@ export default function App() {
       </main>
       <FloatingRestTimer />
       <BottomNav />
+      <AnimatePresence>
+        {showWelcome && (
+          <WelcomePage onDismiss={() => setShowWelcome(false)} />
+        )}
+      </AnimatePresence>
       <CookieConsent />
       <Toaster position="top-center" />
     </div>

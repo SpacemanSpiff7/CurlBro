@@ -189,8 +189,9 @@ export function RecordGuide({ open, onOpenChange }: RecordGuideProps) {
           <GuideSection step={1} icon={Play} title="Start Your Session">
             <p className="text-sm text-text-secondary leading-relaxed">
               From the Library, tap Play on any workout. A preview overlay shows
-              exercise and group counts. Tap "Let's Go" to begin — the elapsed
-              timer starts immediately.
+              exercise and group counts. Tap &ldquo;Let&apos;s Go&rdquo; to begin &mdash; the elapsed
+              timer starts immediately. Your session saves automatically &mdash;
+              close and reopen without losing progress.
             </p>
             <MockStartOverlay />
           </GuideSection>
@@ -243,9 +244,9 @@ export function RecordGuide({ open, onOpenChange }: RecordGuideProps) {
           {/* 6. Swap Mid-Session */}
           <GuideSection step={6} icon={RefreshCw} title="Swap Mid-Session">
             <p className="text-sm text-text-secondary leading-relaxed">
-              Equipment taken? Swipe an exercise name left — Swap shows
-              graph-based substitutes targeting the same muscles. Or search all
-              345 exercises.
+              Equipment taken? Swipe an exercise name left &mdash; Swap shows
+              substitutes targeting the same muscles. Or search all
+              300+ exercises.
             </p>
             <MockSwapActions />
           </GuideSection>

@@ -80,6 +80,10 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/utils/fieldDefaults.ts` — `inferTrackingFlags(exercise)` — auto-infers tracking flags from category+equipment
 - `src/utils/unitConversion.ts` — weight/distance conversion (lb↔kg, mi↔km) and formatting
 - `src/utils/cookieConsent.ts` — cookie consent utilities (CONSENT_KEY, resetCookieConsent)
+- `src/utils/welcomeState.ts` — welcome page sessionStorage helpers (hasSeenWelcome, markWelcomeSeen, resetWelcomeSeen)
+- `src/pages/WelcomePage.tsx` — full-screen welcome overlay with hero, guide sections, flying logo animation
+- `public/guide/index.html` — static User Guide (standalone HTML)
+- `public/programming/index.html` — static Programming Guide (standalone HTML)
 
 ## Custom Agents
 - `@exercise-validator` — Validates all exercise JSON files: schema completeness, ID uniqueness, cross-reference integrity, scientific plausibility (movement patterns, muscle targeting, workout position). Run after adding/modifying exercise data.
@@ -171,6 +175,15 @@ Agent definitions live in `.claude/agents/`.
   `<noscript>` fallback with indexable content. OG image URLs are absolute (social
   crawlers don't resolve relative URLs). Google Search Console verified via DNS.
 - Dynamic `document.title` updates per tab via `TAB_TITLES` map in `App.tsx`.
+  Title is "CurlBro" during welcome, "CurlBro — Tab Name" for tabs.
+- Welcome page (`WelcomePage.tsx`) shows on fresh navigation (sessionStorage-based via
+  `welcomeState.ts`). Full-screen `fixed inset-0 z-60` overlay above BottomNav (z-50).
+  Hero section fills viewport with logo, title, elevated "Start Building" button (dumbbell
+  icon + text, tactile press animation), and locked guide section (scroll unlocks on "Guide"
+  button click). On dismiss: button explodes (16 particles), logo flies to TopBar position
+  (0.7s, portaled to body), welcome fades out in sync. Re-triggerable from Settings > Help >
+  "Show Welcome Page" via `resetWelcomeSeen()` custom event. Swipe gestures disabled while
+  welcome is visible.
 - `overscroll-behavior-y: contain` on html/body prevents pull-to-refresh on iOS/Android Chrome.
 - Swipe gestures use `@use-gesture/react` with `axis: 'lock'` — first ~10px of touch decides
   vertical (scroll) vs horizontal (swipe). Vertical wins → all swipe handlers ignored.

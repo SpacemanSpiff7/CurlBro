@@ -765,16 +765,20 @@
     </p>
     <div class="stat-grid">
       <div class="stat-card">
+        <div class="stat-number">300+</div>
         <div class="stat-label">Exercises</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Conflict Detection</div>
+        <div class="stat-number">30+</div>
+        <div class="stat-label">Conflict Rules</div>
       </div>
       <div class="stat-card">
+        <div class="stat-number">15+</div>
         <div class="stat-label">Templates</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Gap Analysis</div>
+        <div class="stat-number">14</div>
+        <div class="stat-label">Muscle Groups</div>
       </div>
     </div>
   </header>
@@ -818,11 +822,11 @@
       <a href="#exercise-database">Exercise Database</a>
       <a href="#building-a-workout">Building a Workout</a>
       <a href="#swipe-actions">Swipe Actions</a>
-      <a href="#exercise-picker">Exercise Picker &amp; Filters</a>
+      <a href="#exercise-picker">Exercise Picker &amp; Smart Filters</a>
       <a href="#templates">Pre-built Templates</a>
       <a href="#conflict-detection">Conflict Detection</a>
       <a href="#gap-analysis">Gap Analysis</a>
-      <a href="#supersets">Supersets &amp; Circuits</a>
+      <a href="#supersets">Supersets, Tri-sets &amp; Circuits</a>
       <a href="#active-session">Active Session</a>
       <a href="#workout-log">Workout Log</a>
       <a href="#import-export">Import &amp; Export</a>
@@ -847,7 +851,7 @@
             CurlBro is a free, client-side workout builder that runs entirely in your browser. There is no account to create, no subscription, and no data ever leaves your device. Every workout you build, every log you save, and every setting you configure stays stored locally in your browser using <code>localStorage</code>.
           </p>
           <p>
-            The app is designed around evidence-based resistance training principles drawn from peer-reviewed research by Brad Schoenfeld, Renaissance Periodization (RP), Jeff Nippard, the NSCA, and Stronger By Science. Whether you are a beginner stepping into a gym for the first time or an experienced lifter looking for smarter programming tools, CurlBro gives you the building blocks to create balanced, effective workouts.
+            The app is informed by training principles from sources like Schoenfeld, Renaissance Periodization (RP), and the NSCA. Whether you are a beginner stepping into a gym for the first time or an experienced lifter looking for smarter programming tools, CurlBro gives you the building blocks to create balanced, effective workouts.
           </p>
 
           <h3>Your First Workout in Five Steps</h3>
@@ -899,9 +903,9 @@
           </p>
           <ul>
             <li><strong>Build</strong> &mdash; Create and edit your current workout draft. This is where you add exercises, set parameters, and organize your routine.</li>
-            <li><strong>Library</strong> &mdash; Browse your saved workouts and the 16 built-in templates. Saved workouts persist across sessions. Templates are always available and cannot be deleted.</li>
+            <li><strong>Library</strong> &mdash; Browse your saved workouts and the pre-built templates. Saved workouts persist across sessions. Templates are always available and cannot be deleted.</li>
             <li><strong>Active</strong> &mdash; Your in-progress workout session. Appears when you start a workout. Track sets, log weights and reps, and use the built-in rest timer.</li>
-            <li><strong>Log</strong> &mdash; View your workout history. Each completed session is saved here with detailed statistics including total volume, completion percentage, and duration.</li>
+            <li><strong>Log</strong> &mdash; View your workout history. Each completed session is saved here with detailed statistics including total volume, completed sets, and duration.</li>
             <li><strong>Settings</strong> &mdash; Configure default reps, sets, rest timer durations, export preferences, and manage your data.</li>
           </ul>
         </section>
@@ -915,48 +919,44 @@
             Exercise Database
           </h2>
           <p>
-            CurlBro includes a curated and growing exercise database organized across six categories. Every exercise has been selected for its training value and includes detailed metadata: primary and secondary muscles targeted, equipment required, movement pattern, difficulty level, recommended rep ranges for both hypertrophy and strength goals, superset candidates, complementary exercises, and substitutes.
+            CurlBro includes a growing exercise database organized across six categories. Each exercise includes detailed metadata: primary and secondary muscles targeted, equipment required, movement pattern, difficulty level, recommended rep ranges for both hypertrophy and strength goals, superset candidates, complementary exercises, and substitutes.
           </p>
 
           <h3>Exercise Categories</h3>
+          <p>
+            The database includes 300+ exercises across six categories:
+          </p>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Category</th>
-                  <th>Count</th>
                   <th>Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><span class="badge badge-accent">Compound</span></td>
-                  <td>~90</td>
                   <td>Multi-joint movements that train multiple muscle groups simultaneously. Examples: barbell back squat, bench press, deadlift, pull-up, overhead press.</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-accent">Isolation</span></td>
-                  <td>~72</td>
                   <td>Single-joint movements that target one primary muscle group. Examples: bicep curl, tricep pushdown, lateral raise, leg extension, leg curl.</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-accent">Dynamic Stretch</span></td>
-                  <td>~16</td>
                   <td>Active stretching movements ideal for warm-ups. Move through range of motion with controlled, repetitive movements to prepare muscles for work.</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-accent">Static Stretch</span></td>
-                  <td>~10</td>
                   <td>Held-position stretches for cool-downs and flexibility. Hold each stretch for 20&ndash;60 seconds to promote recovery and improve range of motion.</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-accent">Mobility</span></td>
-                  <td>~6</td>
                   <td>Joint mobility drills using foam rollers, bands, and bodyweight. Focus on improving joint function, reducing stiffness, and addressing movement restrictions.</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-accent">Cardio</span></td>
-                  <td>7</td>
                   <td>Cardiovascular warm-up exercises on common gym equipment: treadmill, elliptical, stationary bike, rowing machine, stair climber, jump rope, and battle ropes.</td>
                 </tr>
               </tbody>
@@ -997,7 +997,7 @@
 
           <h3>Exercise Metadata</h3>
           <p>
-            Each exercise in the database includes the following attributes, which CurlBro uses to power its intelligent features like conflict detection, superset suggestions, and gap analysis:
+            Each exercise in the database includes the following attributes, which CurlBro uses for features like conflict detection, superset suggestions, and gap analysis:
           </p>
           <ul>
             <li><strong>Movement pattern</strong> &mdash; Categorizes how the exercise moves (e.g., hip hinge, vertical push, horizontal pull, squat, isolation). Used for pattern-level conflict detection.</li>
@@ -1005,7 +1005,7 @@
             <li><strong>Equipment</strong> &mdash; All required equipment (barbell, dumbbell, cable machine, etc.). CurlBro supports over 40 equipment types including machines, free weights, bodyweight, and cardio equipment.</li>
             <li><strong>Workout position</strong> &mdash; Where the exercise should ideally appear in a session (early, early-mid, mid, mid-late, late). Compounds go early; isolations go late.</li>
             <li><strong>Difficulty</strong> &mdash; Beginner, intermediate, or advanced. Helps filter exercises appropriate for your experience level.</li>
-            <li><strong>Rep ranges</strong> &mdash; Separate recommendations for hypertrophy and strength goals, drawn from current evidence (Schoenfeld 2017 meta-analysis).</li>
+            <li><strong>Rep ranges</strong> &mdash; Separate recommendations for hypertrophy and strength goals, referenced from Schoenfeld 2017.</li>
             <li><strong>Relationships</strong> &mdash; Each exercise lists substitutes (alternatives that target the same muscles), complements (exercises that pair well), and superset candidates (exercises suitable for back-to-back pairing with minimal rest).</li>
           </ul>
         </section>
@@ -1195,7 +1195,7 @@
 
           <h3>Context-Aware Smart Filters</h3>
           <p>
-            CurlBro's most powerful feature in the Exercise Picker is its context-aware filtering system. These filters use information from the Body State Input panel (available on the Build tab) to intelligently recommend or exclude exercises based on your current physical state.
+            A key feature of the Exercise Picker is its context-aware filtering system. These filters use information from the Body State Input panel (available on the Build tab) to intelligently recommend or exclude exercises based on your current physical state.
           </p>
 
           <h4>Body State Input</h4>
@@ -1203,28 +1203,27 @@
             Before opening the Exercise Picker, you can optionally record your current body state. This involves two inputs:
           </p>
           <ul>
-            <li><strong>Muscle soreness</strong> &mdash; Rate soreness for each muscle group on a four-level scale: None, Mild, Moderate, or Severe. This data persists between sessions so you only need to update what has changed.</li>
+            <li><strong>Muscle soreness</strong> &mdash; Toggle soreness on or off for each muscle group. This data persists between sessions so you only need to update what has changed.</li>
             <li><strong>Recent activities</strong> &mdash; Log any recent physical activity outside of gym training: running, cycling, swimming, hiking, sports, or yoga. You can specify whether the activity happened yesterday, today, or is planned for tomorrow. Each activity type is mapped to the muscle groups it impacts (for example, running impacts quads, hamstrings, glutes, and calves).</li>
           </ul>
 
-          <h4>Smart Filter Types</h4>
+          <h4>How Auto-Filtering Works</h4>
           <p>
-            When body state data is present, CurlBro generates smart filter chips that appear in the Exercise Picker:
+            When body state data is present, CurlBro automatically adjusts the Exercise Picker results:
           </p>
           <ul>
-            <li><span class="badge badge-caution">Avoid sore Chest</span> &mdash; Excludes exercises that primarily target a muscle group you have marked as moderately or severely sore. Mildly sore muscles are still included but flagged.</li>
-            <li><span class="badge badge-accent">Post-run recovery</span> &mdash; If you logged a run yesterday, this filter surfaces dynamic stretches and mobility exercises targeting the muscles impacted by running (quads, hamstrings, glutes, calves).</li>
-            <li><span class="badge badge-accent">Pre-hike warm-up</span> &mdash; If you have a hike planned for tomorrow, this filter shows warm-up exercises for the muscle groups you will need, helping you prepare the day before.</li>
-            <li><span class="badge badge-success">Light day</span> &mdash; Filters to lower-intensity exercises only. Useful when you want to train but your body needs a reduced workload. Excludes heavy compound movements in favor of machine work, isolations, and mobility.</li>
+            <li><strong>Hides exercises targeting sore or fatigued muscles</strong> &mdash; Exercises that primarily target a muscle group you have marked as sore, or that was recently stressed by a logged activity, are filtered out of the results.</li>
+            <li><strong>Boosts recovery exercises</strong> &mdash; Dynamic stretches and mobility drills targeting your sore or recently stressed muscles are surfaced more prominently.</li>
+            <li><span class="badge badge-success">Recovery</span> <strong>badge</strong> &mdash; Recovery-category exercises that directly support sore or recently stressed muscles are highlighted with a "Recovery" badge in the search results, making them easy to spot.</li>
           </ul>
 
-          <h4>Recovery Badges</h4>
+          <h4>How It Applies</h4>
           <p>
-            When smart filters are active, recovery-category exercises that directly support sore or recently stressed muscles can be highlighted with a recovery badge in the search results. Non-recovery exercises that hit sore or fatigued muscles are filtered out instead of shown with graduated warning colors.
+            The filtering is automatic &mdash; there are no manual filter chips to toggle. When body state data is present, CurlBro cross-references your soreness and activity data against each exercise's muscle targets and adjusts the exercise list accordingly. Non-recovery exercises that target sore or fatigued muscles are hidden, while recovery exercises for those muscles are promoted.
           </p>
 
           <div class="callout">
-            <p><strong>How it works under the hood:</strong> The smart filter system cross-references your soreness data and activity log against each exercise's primary and secondary muscle targets. It also considers the muscle impact mapping for each activity type. For example, if you swam yesterday, the system knows your upper back, shoulders, and core were stressed, and will suggest recovery exercises accordingly.</p>
+            <p><strong>How it works under the hood:</strong> The smart filter system cross-references your soreness data and activity log against each exercise's primary muscle targets. It also considers the muscle impact mapping for each activity type. For example, if you swam yesterday, the system knows your upper back, shoulders, and core were stressed, and will suggest recovery exercises accordingly.</p>
           </div>
         </section>
 
@@ -1237,7 +1236,7 @@
             Pre-built Templates
           </h2>
           <p>
-            CurlBro ships with <strong>pre-built workout templates</strong> organized into four tiers. Every template has been designed using evidence-based programming principles from the scientific literature (Schoenfeld, RP, Nippard, NSCA). Templates are bundled with the app and are always available &mdash; they cannot be accidentally deleted.
+            CurlBro ships with <strong>pre-built workout templates</strong> organized into four tiers. Templates are built around common programming principles, with references to Schoenfeld, RP, and the NSCA. They are bundled with the app and are always available &mdash; they cannot be accidentally deleted.
           </p>
           <p>
             When you open a template, you get a complete, ready-to-use workout with exercises, sets, reps, and rest periods already configured. You can start training immediately, or tap <strong>Copy to Builder</strong> to customize the template to your preferences.
@@ -1249,7 +1248,7 @@
                 <span class="badge badge-success" style="margin-right:0.25rem">Beginner</span>
                 Easy Machine
               </h4>
-              <div class="tier-count">4 workouts &mdash; Machine &amp; cable only</div>
+              <div class="tier-count">Machine &amp; cable only</div>
               <ul>
                 <li>Easy Machine Legs</li>
                 <li>Easy Machine Push</li>
@@ -1262,7 +1261,7 @@
                 <span class="badge badge-accent" style="margin-right:0.25rem">Intermediate</span>
                 Free Weight
               </h4>
-              <div class="tier-count">5 workouts &mdash; Barbell, dumbbell &amp; cable</div>
+              <div class="tier-count">Barbell, dumbbell &amp; cable</div>
               <ul>
                 <li>Push Day</li>
                 <li>Pull Day</li>
@@ -1276,7 +1275,7 @@
                 <span class="badge badge-warning" style="margin-right:0.25rem">Advanced</span>
                 Compound-Heavy
               </h4>
-              <div class="tier-count">4 workouts &mdash; High intensity</div>
+              <div class="tier-count">High intensity</div>
               <ul>
                 <li>Heavy Push</li>
                 <li>Heavy Pull</li>
@@ -1289,7 +1288,7 @@
                 <span class="badge badge-caution" style="margin-right:0.25rem">Specialty</span>
                 Targeted Sessions
               </h4>
-              <div class="tier-count">4 workouts &mdash; Focused goals</div>
+              <div class="tier-count">Focused goals</div>
               <ul>
                 <li>Arm Blaster</li>
                 <li>Shoulder Builder</li>
@@ -1301,7 +1300,7 @@
 
           <h3>Programming Principles Behind the Templates</h3>
           <p>
-            All templates follow these evidence-based principles:
+            All templates follow these common programming principles:
           </p>
           <ul>
             <li><strong>Compound exercises first</strong> &mdash; Exercises with the highest neural demand and heaviest loading are placed early in the session when the lifter is freshest (NSCA Essentials, Ch. 22).</li>
@@ -1326,7 +1325,7 @@
             Conflict Detection
           </h2>
           <p>
-            One of CurlBro's most distinctive features is its <strong>exercise conflict detection system</strong>. As you add exercises to your workout, CurlBro checks every pair of exercises against a database of 33 known conflicts, each backed by peer-reviewed research. When a conflict is detected, you see an inline warning explaining the risk and suggesting alternatives.
+            One of CurlBro's most distinctive features is its <strong>exercise conflict detection system</strong>. As you add exercises to your workout, CurlBro checks every pair of exercises against a library of known conflicts, informed by common injury mechanisms and training guidelines. When a conflict is detected, you see an inline warning explaining the risk and suggesting alternatives.
           </p>
 
           <h3>Severity Levels</h3>
@@ -1338,7 +1337,7 @@
               <svg class="icon icon-caution" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
               Caution
             </div>
-            <p>Evidence indicates a meaningfully elevated injury risk or severe performance degradation. These are strong recommendations to avoid or restructure the session. For example, pairing heavy conventional deadlifts with heavy barbell squats imposes cumulative spinal compressive forces that exceed safe intra-session limits for most lifters.</p>
+            <p>This pairing carries a meaningfully elevated injury risk or severe performance degradation. These are strong recommendations to avoid or restructure the session. For example, pairing heavy conventional deadlifts with heavy barbell squats imposes cumulative spinal compressive forces that exceed safe intra-session limits for most lifters.</p>
           </div>
           <div class="conflict-example warning">
             <div class="conflict-header">
@@ -1350,7 +1349,7 @@
 
           <h3>Conflict Categories</h3>
           <p>
-            The conflicts are organized into evidence-based categories:
+            The conflicts are organized into the following categories:
           </p>
           <ol>
             <li><strong>Spinal compression stacking</strong> &mdash; Combining exercises that impose peak lumbar compressive forces (squats + deadlifts, good mornings + any heavy spinal loading). Based on McGill (2016) cumulative load research.</li>
@@ -1367,7 +1366,7 @@
             CurlBro uses three matching strategies to detect conflicts:
           </p>
           <ul>
-            <li><strong>ID-based</strong> &mdash; Exact exercise pairs. For example, <code>conventional_deadlift</code> + <code>barbell_back_squat</code>. These are specific, research-backed pairings.</li>
+            <li><strong>ID-based</strong> &mdash; Exact exercise pairs. For example, <code>conventional_deadlift</code> + <code>barbell_back_squat</code>. These are specific, well-known conflict pairings.</li>
             <li><strong>Pattern-based</strong> &mdash; Movement pattern pairs. For example, any two <code>hip_hinge</code> exercises, or any two <code>vertical_push</code> exercises. These catch broader categories of conflicts.</li>
             <li><strong>Tag-based</strong> &mdash; Logical groupings defined by exercise properties. For example, "heavy axial spinal load" maps to any exercise that imposes significant lumbar compression.</li>
           </ul>
@@ -1479,7 +1478,7 @@
 
           <h3>Superset Suggestions</h3>
           <p>
-            Each exercise in the CurlBro database includes a list of superset candidates &mdash; exercises that pair well for back-to-back performance. These suggestions prioritize antagonist pairings (opposing muscle groups) and non-competing movements, following the evidence that antagonist supersets maintain performance levels comparable to straight sets while significantly reducing total training time (Weakley et al., 2017).
+            Each exercise in the CurlBro database includes a list of superset candidates &mdash; exercises that pair well for back-to-back performance. These suggestions prioritize antagonist pairings (opposing muscle groups) and non-competing movements, consistent with findings that antagonist supersets maintain performance levels comparable to straight sets while significantly reducing total training time (Weakley et al., 2017).
           </p>
         </section>
 
@@ -1605,8 +1604,8 @@
                 <span class="log-stat-value"> 18,240 lbs</span>
               </div>
               <div>
-                <span class="log-stat-label">Completion</span>
-                <span class="log-stat-value"> 96%</span>
+                <span class="log-stat-label">Completed</span>
+                <span class="log-stat-value"> 23/24 sets</span>
               </div>
             </div>
           </div>
@@ -1614,7 +1613,7 @@
           <ul>
             <li><strong>Duration</strong> &mdash; Total time from session start to finish, in minutes.</li>
             <li><strong>Total volume</strong> &mdash; Calculated as the sum of (weight &times; reps) across all completed sets. This is the standard volume metric used in training research for tracking progressive overload (Schoenfeld 2017).</li>
-            <li><strong>Completion percentage</strong> &mdash; The percentage of planned sets that were completed. A session with 23 of 24 sets completed shows 96%. This metric helps you identify when you are overreaching (consistently low completion) or ready to increase volume.</li>
+            <li><strong>Completed sets</strong> &mdash; The number of planned sets that were completed, shown as a count (e.g., "23/24 sets"). This helps you identify when you are overreaching (consistently missing sets) or ready to increase volume.</li>
             <li><strong>Exercise breakdown</strong> &mdash; Tap any log entry to see the full exercise-by-exercise breakdown with individual set data.</li>
           </ul>
 
@@ -1795,7 +1794,7 @@ Face Pull  3x15  @45s rest</code></pre>
             Tips &amp; Best Practices
           </h2>
           <p>
-            Make the most of CurlBro with these evidence-based training tips. Each recommendation is grounded in the same scientific literature that powers CurlBro's programming tools.
+            Make the most of CurlBro with these training tips. Each recommendation references the same sources that inform CurlBro's programming tools.
           </p>
 
           <div class="tip-grid">
@@ -1809,7 +1808,7 @@ Face Pull  3x15  @45s rest</code></pre>
             <div class="tip-card">
               <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <div>
-                <p><strong>Rest periods matter more than you think.</strong> Research consistently shows that longer rest periods (2&ndash;3 minutes) for compound exercises produce better strength and hypertrophy outcomes than short rest (30&ndash;60 seconds). Short rest is appropriate for isolation finishers and metabolic-stress techniques, but not for your primary lifts (Schoenfeld et al., 2016).</p>
+                <p><strong>Rest periods matter more than you think.</strong> Longer rest periods (2&ndash;3 minutes) for compound exercises tend to produce better strength and hypertrophy outcomes than short rest (30&ndash;60 seconds), per Schoenfeld et al. (2016). Short rest is appropriate for isolation finishers and metabolic-stress techniques, but not for your primary lifts.</p>
               </div>
             </div>
 
@@ -1830,21 +1829,21 @@ Face Pull  3x15  @45s rest</code></pre>
             <div class="tip-card">
               <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
               <div>
-                <p><strong>Pay attention to conflict warnings.</strong> CurlBro's conflict detection is based on injury epidemiology research, not arbitrary rules. When you see a caution warning, take it seriously &mdash; these pairings are the most commonly cited injury mechanisms in the strength training literature. Restructure your session or reduce loading on one of the exercises.</p>
+                <p><strong>Pay attention to conflict warnings.</strong> CurlBro's conflict detection is informed by commonly cited injury mechanisms and training guidelines, not arbitrary rules. When you see a caution warning, take it seriously &mdash; these pairings represent well-known risk factors. Restructure your session or reduce loading on one of the exercises.</p>
               </div>
             </div>
 
             <div class="tip-card">
               <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
               <div>
-                <p><strong>Use the body state tracker honestly.</strong> Recording your soreness and recent activities takes 30 seconds but gives CurlBro the context to make intelligent exercise recommendations. Training with moderate chest soreness from yesterday's bench session? The smart filters will steer you toward recovery exercises and away from additional chest volume.</p>
+                <p><strong>Use the body state tracker honestly.</strong> Recording your soreness and recent activities takes 30 seconds but gives CurlBro context to adjust exercise recommendations. Training with moderate chest soreness from yesterday's bench session? The smart filters will steer you toward recovery exercises and away from additional chest volume.</p>
               </div>
             </div>
 
             <div class="tip-card">
               <svg class="icon icon-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
               <div>
-                <p><strong>Supersets are a time-saving superpower.</strong> Antagonist supersets (e.g., bench press + barbell row) allow you to maintain full performance on both exercises while cutting your workout time nearly in half. Research shows no significant strength loss compared to straight sets (Weakley et al., 2017). Use CurlBro's superset suggestions to find optimal pairings.</p>
+                <p><strong>Supersets are a time-saving superpower.</strong> Antagonist supersets (e.g., bench press + barbell row) allow you to maintain full performance on both exercises while cutting your workout time nearly in half. Weakley et al. (2017) found no significant strength loss compared to straight sets. Use CurlBro's superset suggestions to find optimal pairings.</p>
               </div>
             </div>
 
@@ -1871,6 +1870,7 @@ Face Pull  3x15  @45s rest</code></pre>
   <footer class="guide-footer">
     <p>
       <a href="../">Open CurlBro</a> &middot;
+      <a href="../programming/">Programming Guide</a> &middot;
       Built by <a href="https://simonelongo.com" target="_blank" rel="noopener noreferrer">Simone Longo</a> &middot;
       <a href="https://simonelongo.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
     </p>

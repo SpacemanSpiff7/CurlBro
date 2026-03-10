@@ -180,6 +180,14 @@
   shows name, category badge, sets × reps, weight (if set), rest time, muscle tags, and
   notes (if non-empty). Falls back to `exerciseId` string when graph lookup fails.
   Opened from Library tab by tapping the workout card text area (name + metadata).
+- WelcomePage (`pages/`) — Full-screen welcome overlay (z-60) shown on fresh navigation.
+  Two-part layout: hero (logo, title, elevated "Start Building" button with dumbbell icon,
+  locked guide scroll hint) + below-fold guide sections (5 sections with whileInView animations,
+  MockFilterChips/MockRestTimerRing demos, BuildGuide/RecordGuide sheet links, bottom CTA).
+  Scroll locked until "Guide" button clicked (`guideUnlocked` state toggles overflow).
+  Dismiss triggers: button explosion (16 radial particles), flying logo animation (portaled to
+  body, 0.7s flight to TopBar position with synchronized welcome fade-out). Uses
+  `welcomeState.ts` sessionStorage helpers. Re-triggerable from Settings via custom event.
 - PrivacyPolicyPage — Bottom sheet (85dvh) with privacy policy content. Opened from Settings.
 - AboutPage — Bottom sheet (60dvh) with app info, credits, contact links. Opened from Settings.
 - BuildGuide (`pages/`) — Bottom sheet (95dvh) "Build a Workout" quick start guide with 7

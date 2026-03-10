@@ -75,9 +75,10 @@ export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
           {/* 2. Find the Right Exercises */}
           <GuideSection step={2} icon={Search} title="Find the Right Exercises">
             <p className="text-sm text-text-secondary leading-relaxed">
-              Tap &ldquo;+ Add Exercise&rdquo; to search 345 exercises by name. Filter by
-              muscle group, equipment, and type. Mark sore muscles and CurlBro hides risky
-              exercises and boosts recovery options.
+              Tap &ldquo;+ Add Exercise&rdquo; to search 300+ exercises by name. Filter by
+              muscle group, equipment, and type. Mark sore muscles and CurlBro
+              automatically hides exercises that target sore or fatigued muscles
+              and highlights recovery options.
             </p>
             <MockFilterChips />
           </GuideSection>
@@ -86,7 +87,9 @@ export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
           <GuideSection step={3} icon={SlidersHorizontal} title="Configure Sets, Reps & More">
             <p className="text-sm text-text-secondary leading-relaxed">
               Each card shows sets &times; reps &times; weight. Tap the chevron to expand for
-              rest time and form notes. Defaults come from Settings.
+              rest time and form notes. Tracking adapts per exercise &mdash; strength
+              exercises track weight and reps, cardio tracks duration and distance.
+              Defaults come from Settings.
             </p>
             <MockExerciseCard />
           </GuideSection>
@@ -117,9 +120,10 @@ export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
           {/* 6. Smart Suggestions & Validation */}
           <GuideSection step={6} icon={Brain} title="Smart Suggestions & Validation">
             <p className="text-sm text-text-secondary leading-relaxed">
-              CurlBro tracks your push/pull balance, flags exercise conflicts with scientific
-              citations, and suggests exercises that pair well. Select a workout split to see
-              which muscles you&apos;re missing.
+              CurlBro tracks your push/pull balance, flags exercise conflicts,
+              and suggests exercises that pair well. Select a workout split to see
+              which muscles you&apos;re missing. Use Edit mode to select multiple
+              exercises for bulk grouping or deletion.
             </p>
             <MockStatusBar />
           </GuideSection>
