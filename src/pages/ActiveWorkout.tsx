@@ -31,6 +31,7 @@ import { useSessionGroups } from '@/hooks/useSessionGroups';
 import { registerDragOffsetListener } from '@/hooks/useDragOffsetChannel';
 import { setInlineTimerVisible, registerScrollToTimer } from '@/hooks/useTimerVisibility';
 import { computeLogStats } from '@/utils/logUtils';
+import { inferTrackingFlags } from '@/utils/fieldDefaults';
 import { formatWeight } from '@/utils/unitConversion';
 import type { SetLog, ExerciseId, WorkoutLog } from '@/types';
 
@@ -41,6 +42,17 @@ export function ActiveWorkout() {
     (state) => state.sessionActions
   );
   const setActiveTab = useStore((state) => state.setActiveTab);
+  const resetWorkout = useStore((state) => state.builderActions.resetWorkout);
+  const builderWorkoutId = useStore((state) => state.builder.workout.id);
+
+  const resetBuilderIfMatchesSession = useCallback(() => {
+    if (!session) return;
+    const builder = useStore.getState().builder.workout;
+    const builderEmpty = builder.exercises.length === 0 && !builder.name.trim();
+    if (builderWorkoutId === session.workoutId || builderEmpty) {
+      resetWorkout();
+    }
+  }, [builderWorkoutId, session, resetWorkout]);
 
   const isPreview = !!session && !session.startedAt;
   const isCompleted = !!session && !!session.completedAt;
@@ -243,8 +255,9 @@ export function ActiveWorkout() {
     if (log) {
       setSummaryLog(log);
       setSummaryOpen(true);
+      resetBuilderIfMatchesSession();
     }
-  }, [saveSession]);
+  }, [saveSession, resetBuilderIfMatchesSession]);
 
   const handleCancel = useCallback(() => {
     abandonSession();
@@ -259,26 +272,25 @@ export function ActiveWorkout() {
       setClearConfirmOpen(true);
     } else {
       abandonSession();
+      resetBuilderIfMatchesSession();
       setActiveTab('library');
     }
-  }, [isCompleted, isSaved, abandonSession, setActiveTab]);
+  }, [isCompleted, isSaved, abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
 
   const handleClearDiscard = useCallback(() => {
     setClearConfirmOpen(false);
     abandonSession();
+    resetBuilderIfMatchesSession();
     setActiveTab('library');
-  }, [abandonSession, setActiveTab]);
+  }, [abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
 
   const handleClearSaveFirst = useCallback(() => {
     setClearConfirmOpen(false);
-    const log = saveSession();
-    if (log) {
-      setSummaryLog(log);
-      setSummaryOpen(true);
-    }
+    saveSession();
     abandonSession();
+    resetBuilderIfMatchesSession();
     setActiveTab('library');
-  }, [saveSession, abandonSession, setActiveTab]);
+  }, [saveSession, abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
 
   const handleAddExercise = useCallback(
     (exerciseId: ExerciseId) => {
@@ -307,6 +319,17 @@ export function ActiveWorkout() {
     if (!currentGroup || !originalWorkout) return [];
     return currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.durationSeconds);
   }, [currentGroup, originalWorkout]);
+
+  // Default tracking flags for each exercise in the group (from exercise metadata)
+  const defaultFlagsList = useMemo(() => {
+    if (!currentGroup) return [];
+    return currentGroup.exercises.map((ex) => {
+      const info = graph.exercises.get(ex.exerciseId as ExerciseId);
+      return info
+        ? inferTrackingFlags(info)
+        : { trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false };
+    });
+  }, [currentGroup, graph]);
 
   // Derive planNotes for the current group
   const currentPlanNotes = useMemo(() => {
@@ -490,38 +513,43 @@ export function ActiveWorkout() {
           onAdjustRestDuration={timer.adjustRestDuration}
           rightSlot={
             wakeLock.isSupported ? (
-              <button
-                onClick={wakeLock.toggle}
-                aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
-                role="switch"
-                aria-checked={wakeLock.isActive}
-                className="relative w-8 h-14 rounded-full border transition-colors duration-300 flex items-center justify-center flex-shrink-0"
-                style={{
-                  borderColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-border-subtle)',
-                  backgroundColor: wakeLock.isActive ? 'color-mix(in srgb, var(--color-warning) 15%, transparent)' : 'var(--color-bg-elevated)',
-                }}
-              >
-                {/* Track glow when active */}
-                {wakeLock.isActive && (
-                  <span
-                    className="absolute inset-0 rounded-full pointer-events-none"
-                    style={{
-                      boxShadow: '0 0 8px color-mix(in srgb, var(--color-warning) 30%, transparent)',
-                    }}
-                  />
-                )}
-                {/* Thumb */}
-                <span
-                  className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300"
+              <div className="flex flex-col items-center gap-0.5">
+                <button
+                  onClick={wakeLock.toggle}
+                  aria-label={wakeLock.isActive ? 'Allow screen sleep' : 'Keep screen on'}
+                  role="switch"
+                  aria-checked={wakeLock.isActive}
+                  className="relative w-8 h-14 rounded-full border transition-colors duration-300 flex items-center justify-center flex-shrink-0"
                   style={{
-                    bottom: wakeLock.isActive ? 'calc(100% - 24px)' : '4px',
-                    backgroundColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-text-tertiary)',
-                    boxShadow: wakeLock.isActive ? '0 0 6px var(--color-warning)' : 'none',
+                    borderColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-border-subtle)',
+                    backgroundColor: wakeLock.isActive ? 'color-mix(in srgb, var(--color-warning) 15%, transparent)' : 'var(--color-bg-elevated)',
                   }}
                 >
-                  <Smartphone size={12} className="text-bg-root" />
+                  {/* Track glow when active */}
+                  {wakeLock.isActive && (
+                    <span
+                      className="absolute inset-0 rounded-full pointer-events-none"
+                      style={{
+                        boxShadow: '0 0 8px color-mix(in srgb, var(--color-warning) 30%, transparent)',
+                      }}
+                    />
+                  )}
+                  {/* Thumb */}
+                  <span
+                    className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300"
+                    style={{
+                      bottom: wakeLock.isActive ? 'calc(100% - 24px)' : '4px',
+                      backgroundColor: wakeLock.isActive ? 'var(--color-warning)' : 'var(--color-text-tertiary)',
+                      boxShadow: wakeLock.isActive ? '0 0 6px var(--color-warning)' : 'none',
+                    }}
+                  >
+                    <Smartphone size={12} className="text-bg-root" />
+                  </span>
+                </button>
+                <span className="text-[11px] text-text-tertiary leading-tight text-center whitespace-nowrap">
+                  Keep Awake
                 </span>
-              </button>
+              </div>
             ) : undefined
           }
         />
@@ -543,6 +571,7 @@ export function ActiveWorkout() {
             <GroupSetTracker
               group={currentGroup}
               defaultWeights={defaultWeights}
+              defaultFlags={defaultFlagsList}
               onCompleteSet={handleCompleteSet}
               onAddSet={handleAddSet}
               onRemoveSet={handleRemoveSet}

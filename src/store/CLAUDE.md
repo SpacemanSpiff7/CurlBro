@@ -3,7 +3,7 @@
 ## Slice Pattern
 All state lives in a single Zustand store (src/store/index.ts) using Immer middleware.
 - graphSlice — exercise graph (read-only after init, never persisted)
-- builder — workout draft state, workoutSplit, suggestions, validation. `builder.workout` (the draft) is persisted to localStorage so in-progress workouts survive page refresh. Derived state (suggestions, validation, workoutSplit) is NOT persisted — recomputed from graph + exercises on render.
+- builder — workout draft state, isDirty flag, workoutSplit, suggestions, validation. `builder.workout` (the draft) is persisted to localStorage so in-progress workouts survive page refresh. `builder.isDirty` is NOT persisted — tracks unsaved mutations (set `true` by all mutation actions, `false` by `loadWorkout`, `resetWorkout`, `loadTemplate`, and `saveWorkout` when saving current draft). Derived state (suggestions, validation, workoutSplit) is NOT persisted — recomputed from graph + exercises on render.
 - library — saved workouts, logs, soreness entries, and activity entries (persisted to localStorage)
 - session — active workout session + rest timer (persisted to localStorage, Zod-validated on hydration)
 - settings — user settings (persisted)
@@ -23,7 +23,7 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 ## Key Actions
 - `loadTemplate(name, split, exercises)` — loads a seeded workout into the builder
 - `setWorkoutSplit(split)` — sets the workout split type (push/pull/legs/upper/lower/full_body)
-- `resetWorkout()` — clears builder and resets workoutSplit to null
+- `resetWorkout()` — clears builder, resets workoutSplit to null, sets `isDirty = false`. Session end paths in ActiveWorkout call `resetBuilderIfMatchesSession()` — only resets builder when the draft matches the session's workout or is empty (preserves unrelated drafts).
 - `removeSet(exerciseIndex, setIndex)` — deletes a set during active session (guards: won't remove last set)
 - `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds), clears `timerStartedAt`
 - `stopTimer()` — fully resets the timer to idle state
@@ -34,9 +34,10 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
 - `syncTimer()` — recalculates `remainingSeconds` from wall-clock anchor (`timerStartedAt`). Called on `visibilitychange`/`focus` events to correct timer drift after tab backgrounding. Does NOT reset `timerStartedAt`.
 - `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Stamps `weightUnit` / `distanceUnit` from current settings.
+- `addSet(exerciseIndex)` — adds a new set at the given exercise index. Inherits `weight`, `reps`, `durationSeconds`, `distanceMeters` from the last existing set instead of creating an empty set.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `abandonSession()` — discards current session entirely, sets session.active to null and resets timer to emptyTimer. Does NOT navigate — caller handles tab switch.
-- `startSession(workout)` — creates a new preview session (startedAt: null), resets timer, navigates to Active tab. Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active.
+- `startSession(workout)` — creates a new preview session (startedAt: null), resets timer, navigates to Active tab. Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active. Pre-populates `SetLog.reps` from `ex.reps`, `SetLog.durationSeconds` from `ex.durationSeconds`, and `timer.restSeconds` from the first exercise's `restSeconds` (default 90).
 - `deleteLog(id)` — removes a workout log from library.logs
 - `addExercise(exerciseId)` — appends exercise with `instanceId: crypto.randomUUID()` and settings-based defaults
 - `addExerciseToGroup(exerciseId, targetIndex)` — adds an exercise adjacent to `targetIndex` with `instanceId`, assigns both the same `supersetGroupId` (creates a new group or extends an existing one)

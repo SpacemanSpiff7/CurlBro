@@ -49,6 +49,7 @@ interface AppState {
   // Builder
   builder: {
     workout: WorkoutDraft;
+    isDirty: boolean;
     workoutSplit: WorkoutSplit | null;
     suggestions: SuggestionGroups;
     validation: WorkoutValidation;
@@ -202,6 +203,7 @@ export const useStore = create<AppState>()(
       // Builder
       builder: {
         workout: createEmptyDraft(),
+        isDirty: false,
         workoutSplit: null,
         suggestions: emptySuggestions,
         validation: emptyValidation,
@@ -216,6 +218,7 @@ export const useStore = create<AppState>()(
           set((state) => {
             state.builder.workout.name = name;
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         addExercise: (exerciseId: ExerciseId) => {
@@ -247,6 +250,7 @@ export const useStore = create<AppState>()(
               ...flags,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         addExerciseToGroup: (exerciseId: ExerciseId, targetIndex: number) => {
@@ -297,6 +301,7 @@ export const useStore = create<AppState>()(
               supersetGroupId: groupId,
             });
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         ungroupExercise: (index: number) => {
@@ -314,6 +319,7 @@ export const useStore = create<AppState>()(
               remaining[0].supersetGroupId = undefined;
             }
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         removeExercise: (index: number) => {
@@ -330,6 +336,7 @@ export const useStore = create<AppState>()(
               }
             }
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         reorderExercises: (from: number, to: number) => {
@@ -366,6 +373,7 @@ export const useStore = create<AppState>()(
               exercises.splice(to, 0, moved);
             }
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         updateExercise: (index: number, updates: Partial<WorkoutExercise>) => {
@@ -374,6 +382,7 @@ export const useStore = create<AppState>()(
             if (ex) {
               Object.assign(ex, updates);
               state.builder.workout.updatedAt = new Date().toISOString();
+              state.builder.isDirty = true;
             }
           });
         },
@@ -392,6 +401,7 @@ export const useStore = create<AppState>()(
                 ex.trackDistance = flags.trackDistance;
               }
               state.builder.workout.updatedAt = new Date().toISOString();
+              state.builder.isDirty = true;
             }
           });
         },
@@ -438,6 +448,7 @@ export const useStore = create<AppState>()(
             }
 
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         groupSelectedExercises: (indices: number[]) => {
@@ -481,6 +492,7 @@ export const useStore = create<AppState>()(
             }
 
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         removeSelectedExercises: (indices: number[]) => {
@@ -508,11 +520,13 @@ export const useStore = create<AppState>()(
             }
 
             state.builder.workout.updatedAt = new Date().toISOString();
+            state.builder.isDirty = true;
           });
         },
         resetWorkout: () => {
           set((state) => {
             state.builder.workout = createEmptyDraft();
+            state.builder.isDirty = false;
             state.builder.workoutSplit = null;
             state.builder.suggestions = emptySuggestions;
             state.builder.validation = emptyValidation;
@@ -524,6 +538,7 @@ export const useStore = create<AppState>()(
               ...workout,
               updatedAt: new Date().toISOString(),
             };
+            state.builder.isDirty = false;
           });
         },
         loadTemplate: (name, split, exercises) => {
@@ -553,6 +568,7 @@ export const useStore = create<AppState>()(
               updatedAt: now,
             };
             state.builder.workoutSplit = split;
+            state.builder.isDirty = false;
           });
         },
       },
@@ -578,6 +594,10 @@ export const useStore = create<AppState>()(
               state.library.workouts[existingIndex] = saved;
             } else {
               state.library.workouts.push(saved);
+            }
+            // Clear dirty flag if saving the current builder draft
+            if (state.builder.workout.id === workout.id) {
+              state.builder.isDirty = false;
             }
           });
         },
@@ -649,9 +669,9 @@ export const useStore = create<AppState>()(
                 exerciseId: ex.exerciseId as ExerciseId,
                 sets: Array.from({ length: ex.sets }, (): SetLog => ({
                   weight: ex.weight,
-                  reps: null,
+                  reps: ex.reps ?? null,
                   completed: false,
-                  durationSeconds: null,
+                  durationSeconds: ex.durationSeconds ?? null,
                   distanceMeters: null,
                 })),
                 ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
@@ -667,7 +687,7 @@ export const useStore = create<AppState>()(
               completedAt: null,
               notes: '',
             };
-            state.session.timer = emptyTimer;
+            state.session.timer = { ...emptyTimer, restSeconds: workout.exercises[0]?.restSeconds ?? 90 };
             state.activeTab = 'active';
           });
         },
@@ -762,7 +782,14 @@ export const useStore = create<AppState>()(
           set((state) => {
             const exercise = state.session.active?.exercises[exerciseIndex];
             if (exercise) {
-              exercise.sets.push({ weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null });
+              const last = exercise.sets[exercise.sets.length - 1];
+              exercise.sets.push({
+                weight: last?.weight ?? null,
+                reps: last?.reps ?? null,
+                completed: false,
+                durationSeconds: last?.durationSeconds ?? null,
+                distanceMeters: last?.distanceMeters ?? null,
+              });
             }
           });
         },

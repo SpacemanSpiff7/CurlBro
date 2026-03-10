@@ -1,5 +1,5 @@
 import { useState, useCallback, Fragment } from 'react';
-import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste } from 'lucide-react';
+import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste, Save } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -9,6 +9,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Sheet,
   SheetContent,
@@ -303,9 +311,14 @@ function TemplateSection({
   );
 }
 
+type LibraryDialog =
+  | { type: 'none' }
+  | { type: 'replaceSession'; workout: SavedWorkout }
+  | { type: 'editGuard'; workout: SavedWorkout };
+
 export function MyWorkouts() {
   const [importOpen, setImportOpen] = useState(false);
-  const [pendingWorkout, setPendingWorkout] = useState<SavedWorkout | null>(null);
+  const [dialogState, setDialogState] = useState<LibraryDialog>({ type: 'none' });
   const [detailWorkout, setDetailWorkout] = useState<SavedWorkout | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const workouts = useStore((state) => state.library.workouts);
@@ -313,21 +326,25 @@ export function MyWorkouts() {
   const activeSession = useStore((state) => state.session.active);
   const { deleteWorkout, saveWorkout } = useStore((state) => state.libraryActions);
   const { loadWorkout } = useStore((state) => state.builderActions);
-  const { startSession, abandonSession } = useStore((state) => state.sessionActions);
+  const { startSession, abandonSession, endSession, saveSession } = useStore((state) => state.sessionActions);
   const setActiveTab = useStore((state) => state.setActiveTab);
 
   const handleEdit = useCallback(
     (workout: SavedWorkout) => {
+      if (activeSession && !activeSession.completedAt && activeSession.workoutId === workout.id) {
+        setDialogState({ type: 'editGuard', workout });
+        return;
+      }
       loadWorkout(workout);
       setActiveTab('build');
     },
-    [loadWorkout, setActiveTab]
+    [loadWorkout, setActiveTab, activeSession]
   );
 
   const handleStart = useCallback(
     (workout: SavedWorkout) => {
       if (activeSession && !activeSession.completedAt) {
-        setPendingWorkout(workout);
+        setDialogState({ type: 'replaceSession', workout });
       } else {
         startSession(workout);
       }
@@ -379,8 +396,8 @@ export function MyWorkouts() {
     (seeded: SeededWorkout) => {
       const saved = seededToSaved(seeded);
       saveWorkout(saved);
-      if (activeSession) {
-        setPendingWorkout(saved);
+      if (activeSession && !activeSession.completedAt) {
+        setDialogState({ type: 'replaceSession', workout: saved });
       } else {
         startSession(saved);
       }
@@ -449,12 +466,34 @@ export function MyWorkouts() {
     [isSeededPreview, saveWorkout, handleEdit]
   );
 
-  const handleConfirmOverride = useCallback(() => {
-    if (!pendingWorkout) return;
+  const hasProgress = activeSession?.exercises.some(
+    (ex) => ex.sets.some((s) => s.completed)
+  ) ?? false;
+
+  const handleEndSaveAndEdit = useCallback(() => {
+    if (dialogState.type !== 'editGuard') return;
+    if (activeSession?.startedAt) {
+      endSession();
+      saveSession();
+    }
     abandonSession();
-    startSession(pendingWorkout);
-    setPendingWorkout(null);
-  }, [pendingWorkout, abandonSession, startSession]);
+    loadWorkout(dialogState.workout);
+    setDialogState({ type: 'none' });
+    setActiveTab('build');
+  }, [dialogState, activeSession, endSession, saveSession, abandonSession, loadWorkout, setActiveTab]);
+
+  const handleEndDiscardAndEdit = useCallback(() => {
+    if (dialogState.type !== 'editGuard') return;
+    abandonSession();
+    loadWorkout(dialogState.workout);
+    setDialogState({ type: 'none' });
+    setActiveTab('build');
+  }, [dialogState, abandonSession, loadWorkout, setActiveTab]);
+
+  const handleGoToActive = useCallback(() => {
+    setDialogState({ type: 'none' });
+    setActiveTab('active');
+  }, [setActiveTab]);
 
   return (
     <PageLayout
@@ -581,15 +620,56 @@ export function MyWorkouts() {
         onDelete={isSeededPreview ? undefined : (w) => handleDelete(w.id)}
       />
 
-      <ConfirmDialog
-        open={!!pendingWorkout}
-        onOpenChange={(open) => { if (!open) setPendingWorkout(null); }}
-        title="Replace Active Workout?"
-        description="You have a workout in progress. Starting a new one will discard your current session and any recorded sets."
-        confirmLabel="Start New"
-        destructive
-        onConfirm={handleConfirmOverride}
-      />
+      {dialogState.type === 'replaceSession' && (
+        <ConfirmDialog
+          open
+          onOpenChange={(open) => { if (!open) setDialogState({ type: 'none' }); }}
+          title="Replace Active Workout?"
+          description="You have a workout in progress. Starting a new one will discard your current session and any recorded sets."
+          confirmLabel="Start New"
+          destructive
+          onConfirm={() => {
+            abandonSession();
+            startSession(dialogState.workout);
+            setDialogState({ type: 'none' });
+          }}
+        />
+      )}
+
+      {dialogState.type === 'editGuard' && (
+        <Dialog open onOpenChange={(open) => { if (!open) setDialogState({ type: 'none' }); }}>
+          <DialogContent showCloseButton={false}>
+            <DialogHeader>
+              <DialogTitle>Workout In Progress</DialogTitle>
+              <DialogDescription>
+                {hasProgress
+                  ? 'You have recorded sets in this workout. Save your progress or discard it to edit.'
+                  : 'End the current session to edit this workout in the builder.'}
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex-col gap-2 sm:flex-col">
+              {hasProgress && (
+                <Button onClick={handleEndSaveAndEdit} className="w-full min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover">
+                  <Save size={14} className="mr-1.5" /> Save & Edit
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                onClick={handleEndDiscardAndEdit}
+                className={`w-full min-h-[44px] ${hasProgress ? 'border-destructive/30 text-destructive hover:bg-destructive/10' : ''}`}
+              >
+                {hasProgress ? 'Discard & Edit' : 'End Session & Edit'}
+              </Button>
+              <button
+                onClick={handleGoToActive}
+                className="text-xs text-accent-primary hover:underline py-1"
+              >
+                Go to active workout
+              </button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </PageLayout>
   );
 }

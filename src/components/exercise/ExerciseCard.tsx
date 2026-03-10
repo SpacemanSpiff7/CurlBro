@@ -11,6 +11,7 @@ import { ExercisePicker } from './ExercisePicker';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
 import { cn } from '@/lib/utils';
+import { inferTrackingFlags } from '@/utils/fieldDefaults';
 import { vibrateSelect } from '@/utils/haptics';
 import { useStore } from '@/store';
 import type { Exercise, ExerciseId, TrackingFlags, WorkoutExercise } from '@/types';
@@ -55,6 +56,8 @@ export const ExerciseCard = memo(function ExerciseCard({
   const [videoOpen, setVideoOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [swapPickerOpen, setSwapPickerOpen] = useState(false);
+
+  const defaultFlags = useMemo(() => inferTrackingFlags(exercise), [exercise]);
 
   const addExerciseToGroup = useStore((state) => state.builderActions.addExerciseToGroup);
   const ungroupExercise = useStore((state) => state.builderActions.ungroupExercise);
@@ -263,7 +266,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             disabled={editMode}
           />
         </div>
-        {workoutExercise.trackReps && (
+        {defaultFlags.trackReps && workoutExercise.trackReps && (
           <>
             <span className="text-text-tertiary text-xs">x</span>
             <div className="flex items-center gap-1">
@@ -280,7 +283,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             </div>
           </>
         )}
-        {workoutExercise.trackWeight && (
+        {defaultFlags.trackWeight && workoutExercise.trackWeight && (
           <div className="flex items-center gap-1 ml-auto">
             <Input
               type="number"
@@ -295,7 +298,7 @@ export const ExerciseCard = memo(function ExerciseCard({
             <span className="text-xs text-text-tertiary">lb</span>
           </div>
         )}
-        {workoutExercise.trackDuration && (
+        {defaultFlags.trackDuration && workoutExercise.trackDuration && (
           <div className="flex items-center gap-1 ml-auto">
             <Input
               type="text"
@@ -342,6 +345,61 @@ export const ExerciseCard = memo(function ExerciseCard({
             className="overflow-hidden"
           >
             <div className="px-3 pb-3 border-t border-border-subtle pt-2 space-y-2">
+              {/* Non-default active tracking fields */}
+              {((workoutExercise.trackReps && !defaultFlags.trackReps) ||
+                (workoutExercise.trackWeight && !defaultFlags.trackWeight) ||
+                (workoutExercise.trackDuration && !defaultFlags.trackDuration)) && (
+                <div className="space-y-1.5">
+                  <span className="text-[11px] text-text-tertiary uppercase tracking-wide">Additional tracking</span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {workoutExercise.trackReps && !defaultFlags.trackReps && (
+                      <div className="flex items-center gap-1">
+                        <label className="text-xs text-text-tertiary w-8">Reps</label>
+                        <Input
+                          type="number"
+                          value={workoutExercise.reps}
+                          onChange={(e) => handleRepsChange(e.target.value)}
+                          className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
+                          min={1}
+                          aria-label="Reps"
+                          disabled={editMode}
+                        />
+                      </div>
+                    )}
+                    {workoutExercise.trackWeight && !defaultFlags.trackWeight && (
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="number"
+                          value={workoutExercise.weight ?? ''}
+                          onChange={(e) => handleWeightChange(e.target.value)}
+                          placeholder="—"
+                          className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
+                          min={0}
+                          aria-label="Weight"
+                          disabled={editMode}
+                        />
+                        <span className="text-xs text-text-tertiary">lb</span>
+                      </div>
+                    )}
+                    {workoutExercise.trackDuration && !defaultFlags.trackDuration && (
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={workoutExercise.durationSeconds ?? ''}
+                          onChange={(e) => handleDurationChange(e.target.value)}
+                          placeholder="0"
+                          className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
+                          aria-label="Duration seconds"
+                          disabled={editMode}
+                        />
+                        <span className="text-xs text-text-tertiary">sec</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <label className="text-xs text-text-tertiary w-8">Rest</label>
                 <Input
@@ -384,7 +442,7 @@ export const ExerciseCard = memo(function ExerciseCard({
                 {(['trackWeight', 'trackReps', 'trackDuration'] as const).map((flag) => {
                   const active = workoutExercise[flag];
                   const label = { trackWeight: 'Weight', trackReps: 'Reps', trackDuration: 'Duration' }[flag];
-                  const activeCount = [workoutExercise.trackWeight, workoutExercise.trackReps, workoutExercise.trackDuration].filter(Boolean).length;
+                  const activeCount = [workoutExercise.trackWeight, workoutExercise.trackReps, workoutExercise.trackDuration, workoutExercise.trackDistance].filter(Boolean).length;
                   const isLastActive = active && activeCount <= 1;
                   return (
                     <button

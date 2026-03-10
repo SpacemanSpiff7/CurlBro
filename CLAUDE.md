@@ -113,9 +113,15 @@ Agent definitions live in `.claude/agents/`.
 ## Known Quirks
 - Flexible tracking flags: `TrackingFlags` (`trackWeight`, `trackReps`, `trackDuration`,
   `trackDistance`) on `WorkoutExercise` and `ExerciseLog`. Auto-inferred by
-  `inferTrackingFlags()` from exercise category+equipment. SetTracker/GroupSetTracker
-  render fields conditionally. Hydration backfills old data with safe defaults
-  (`trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false`).
+  `inferTrackingFlags()` from exercise category+equipment. Hydration backfills old data
+  with safe defaults (`trackWeight: true, trackReps: true, trackDuration: false,
+  trackDistance: false`). Fields are split into "default" (inferred from exercise) and
+  "non-default" (user-enabled beyond defaults). Builder ExerciseCard collapsed view only
+  shows default-active fields (`defaultFlags.trackX && workoutExercise.trackX`); non-default
+  active fields appear in expanded section under "Additional tracking". SetTracker and
+  GroupSetTracker split rows into primary (default fields, always visible) and secondary
+  (non-default fields, expandable with chevron) to prevent mobile overflow. Both accept
+  `defaultFlags?: TrackingFlags` prop.
 - Unit preferences: `WeightUnit` ('lb'|'kg') and `DistanceUnit` ('mi'|'km') in settings.
   Logs stamp `weightUnit`/`distanceUnit` at save time. Display converts when log unit
   differs from current setting. Export uses configured unit.
@@ -130,7 +136,18 @@ Agent definitions live in `.claude/agents/`.
   (16px on mobile, 14px on desktop). WebKit auto-zooms when font-size < 16px and never
   auto-resets. The shadcn `Input` component already has this; avoid passing `text-sm` in
   className (twMerge overrides the safe base class).
-- `endSession()` only sets `completedAt` and stops the timer — call `saveSession()` separately to create the log
+- `endSession()` only sets `completedAt` and stops the timer — call `saveSession()` separately to create the log.
+  Session end paths in ActiveWorkout call `resetBuilderIfMatchesSession()` — only clears
+  the builder when the draft matches the session's workout or is empty (preserves unrelated drafts).
+- `builder.isDirty` flag tracks unsaved builder mutations. Set `true` by all mutation actions,
+  `false` by `loadWorkout`, `resetWorkout`, `loadTemplate`, and `saveWorkout` (when saving current draft).
+  NOT persisted — resets on reload. BottomNav reads it for the Build tab dirty dot.
+- Edit-in-session guard: editing a workout that has an active session shows a dialog
+  (MyWorkouts.tsx). Uses discriminated union `LibraryDialog` to prevent dialog stacking.
+  `endSession → saveSession → abandonSession → loadWorkout` flow for "Save & Edit".
+- BuildWorkout shows "Unsaved changes" indicator (orange dot + text) below Save when
+  `hasUnsavedChanges` memo detects differences. Non-blocking toast on unmount when dirty.
+  Info banner when editing the active session's workout.
 - WorkoutExercise has an optional `instanceId` field (UUID) used as stable React keys and
   dnd-kit group IDs. Generated via `crypto.randomUUID()` on add/import/template-load.
   Hydration backfills `instanceId` on persisted data missing it. Local component state
@@ -190,3 +207,10 @@ Agent definitions live in `.claude/agents/`.
   gestures navigate tabs normally instead of being consumed by exercise-group navigation.
 - Starting a new workout while one is active shows a confirmation dialog (MyWorkouts.tsx).
   Uses abandonSession() to cleanly discard the previous session before calling startSession().
+- Builder clear flow: no top-bar Clear button. Bottom Clear button opens a 3-option
+  shadcn Dialog: "Save & Clear" / "Clear Without Saving" / "Cancel".
+- `startSession(workout)` pre-populates `SetLog.reps` from `ex.reps`, `SetLog.durationSeconds`
+  from `ex.durationSeconds`, and `timer.restSeconds` from the first exercise's `restSeconds`
+  (default 90).
+- `addSet()` inherits `weight`, `reps`, `durationSeconds`, `distanceMeters` from the last
+  existing set instead of creating empty sets.

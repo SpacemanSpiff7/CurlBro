@@ -20,6 +20,7 @@ describe('useWorkoutValidation', () => {
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
+        isDirty: false,
         workoutSplit: null,
         suggestions: { pairsWellWith: [], stillNeedToHit: [] },
         validation: {

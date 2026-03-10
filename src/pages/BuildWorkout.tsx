@@ -1,8 +1,16 @@
-import { useState, useCallback } from 'react';
-import { Plus, Save, RotateCcw } from 'lucide-react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { Plus, Save, RotateCcw, Info } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { ExercisePicker } from '@/components/exercise/ExercisePicker';
 import { WorkoutList } from '@/components/workout/WorkoutList';
@@ -27,7 +35,40 @@ export function BuildWorkout() {
     (state) => state.builderActions
   );
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
+  const libraryWorkouts = useStore((state) => state.library.workouts);
+  const activeSession = useStore((state) => state.session.active);
   const autoName = useAutoWorkoutName();
+
+  // Detect unsaved changes
+  const hasUnsavedChanges = useMemo(() => {
+    if (workout.exercises.length === 0) return false;
+    const saved = libraryWorkouts.find((w) => w.id === workout.id);
+    if (!saved) return true;
+    const normalize = (w: typeof workout) => ({
+      name: w.name,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      exercises: w.exercises.map(({ instanceId, ...rest }) => rest),
+    });
+    return JSON.stringify(normalize(workout)) !== JSON.stringify(normalize(saved));
+  }, [workout, libraryWorkouts]);
+
+  // Toast on unmount when dirty
+  const hasUnsavedChangesRef = useRef(hasUnsavedChanges);
+  useEffect(() => {
+    hasUnsavedChangesRef.current = hasUnsavedChanges;
+  }, [hasUnsavedChanges]);
+  useEffect(() => {
+    return () => {
+      if (hasUnsavedChangesRef.current) {
+        toast('Draft saved — come back to finish', { duration: 2000 });
+      }
+    };
+  }, []);
+
+  // Info banner: editing the active session's workout
+  const isEditingActiveWorkout = activeSession
+    && !activeSession.completedAt
+    && activeSession.workoutId === workout.id;
 
   const handleSave = useCallback(() => {
     if (workout.exercises.length === 0) return;
@@ -91,6 +132,23 @@ export function BuildWorkout() {
     }
   }, [selectedIndices, removeSelectedExercises, workout.exercises.length]);
 
+  const [clearDialogOpen, setClearDialogOpen] = useState(false);
+
+  const handleClearClick = useCallback(() => {
+    setClearDialogOpen(true);
+  }, []);
+
+  const handleSaveAndClear = useCallback(() => {
+    handleSave();
+    resetWorkout();
+    setClearDialogOpen(false);
+  }, [handleSave, resetWorkout]);
+
+  const handleClearWithoutSaving = useCallback(() => {
+    resetWorkout();
+    setClearDialogOpen(false);
+  }, [resetWorkout]);
+
   const hasExercises = workout.exercises.length > 0;
 
   // Exit edit mode if all exercises removed
@@ -102,26 +160,15 @@ export function BuildWorkout() {
   const topBarRight = hasExercises ? (
     <div className="flex items-center gap-1">
       {!editMode && (
-        <>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={resetWorkout}
-            className="text-text-tertiary"
-            aria-label="Clear workout"
-          >
-            <RotateCcw size={14} />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleSave}
-            className="text-accent-primary"
-            aria-label="Save workout"
-          >
-            <Save size={14} />
-          </Button>
-        </>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSave}
+          className="text-accent-primary"
+          aria-label="Save workout"
+        >
+          <Save size={14} />
+        </Button>
       )}
       <Button
         variant="ghost"
@@ -152,6 +199,16 @@ export function BuildWorkout() {
     >
         {/* Ad slot */}
         <AdSlot slotKey="build" />
+
+        {/* Info banner: editing active session's workout */}
+        {isEditingActiveWorkout && (
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-warning/10 border border-warning/20">
+            <Info size={12} className="text-warning flex-shrink-0" />
+            <span className="text-[11px] text-warning">
+              This workout is in progress — edits won't affect the active session.
+            </span>
+          </div>
+        )}
 
         {/* Templates (only shown when empty) */}
         {!hasExercises && <TemplateSelector />}
@@ -186,24 +243,32 @@ export function BuildWorkout() {
 
         {/* Action buttons */}
         {hasExercises && !editMode && (
-          <div className="flex gap-2 pb-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={resetWorkout}
-              className="text-text-secondary"
-            >
-              <RotateCcw size={14} className="mr-1" />
-              Clear
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleSave}
-              className="ml-auto bg-accent-primary text-bg-root hover:bg-accent-hover"
-            >
-              <Save size={14} className="mr-1" />
-              Save
-            </Button>
+          <div className="flex flex-col pb-2">
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleClearClick}
+                className="text-text-secondary"
+              >
+                <RotateCcw size={14} className="mr-1" />
+                Clear
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleSave}
+                className="ml-auto bg-accent-primary text-bg-root hover:bg-accent-hover"
+              >
+                <Save size={14} className="mr-1" />
+                Save
+              </Button>
+            </div>
+            {hasUnsavedChanges && (
+              <div className="flex items-center justify-center gap-1 pb-1 pt-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-warning" />
+                <span className="text-[10px] text-text-tertiary">Unsaved changes</span>
+              </div>
+            )}
           </div>
         )}
 
@@ -219,6 +284,30 @@ export function BuildWorkout() {
 
       {/* Exercise Picker Sheet */}
       <ExercisePicker open={pickerOpen} onOpenChange={setPickerOpen} />
+
+      {/* Clear workout confirmation dialog */}
+      <Dialog open={clearDialogOpen} onOpenChange={setClearDialogOpen}>
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>Clear Workout?</DialogTitle>
+            <DialogDescription>
+              Would you like to save your workout before clearing?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col gap-2 sm:flex-col">
+            <Button onClick={handleSaveAndClear} className="min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover">
+              <Save size={14} className="mr-1" />
+              Save & Clear
+            </Button>
+            <Button variant="outline" onClick={handleClearWithoutSaving} className="min-h-[44px] text-destructive border-destructive/30 hover:bg-destructive/10">
+              Clear Without Saving
+            </Button>
+            <Button variant="ghost" onClick={() => setClearDialogOpen(false)} className="min-h-[44px]">
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </PageLayout>
   );
 }

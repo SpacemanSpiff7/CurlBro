@@ -1,5 +1,6 @@
-import { memo, useCallback } from 'react';
-import { Check, Plus } from 'lucide-react';
+import { memo, useCallback, useState } from 'react';
+import { Check, ChevronDown, Plus } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { SwipeToDelete } from '@/components/shared/SwipeToDelete';
 import { useStore } from '@/store';
@@ -9,6 +10,7 @@ interface SetTrackerProps {
   sets: SetLog[];
   defaultWeight: number | null;
   trackingFlags: TrackingFlags;
+  defaultFlags?: TrackingFlags;
   onCompleteSet: (setIndex: number, data: SetLog) => void;
   onAddSet: () => void;
   onRemoveSet?: (setIndex: number) => void;
@@ -21,6 +23,7 @@ const SetRow = memo(function SetRow({
   defaultWeight,
   canDelete,
   trackingFlags,
+  defaultFlags: defaultFlagsProp,
   weightLabel,
   distanceLabel,
   onComplete,
@@ -31,6 +34,7 @@ const SetRow = memo(function SetRow({
   defaultWeight: number | null;
   canDelete: boolean;
   trackingFlags: TrackingFlags;
+  defaultFlags?: TrackingFlags;
   weightLabel: string;
   distanceLabel: string;
   onComplete: (setIndex: number, data: SetLog) => void;
@@ -88,90 +92,188 @@ const SetRow = memo(function SetRow({
     });
   }, [index, set, defaultWeight, onComplete]);
 
+  const df = defaultFlagsProp ?? trackingFlags;
+  const hasSecondaryFields =
+    (trackingFlags.trackWeight && !df.trackWeight) ||
+    (trackingFlags.trackReps && !df.trackReps) ||
+    (trackingFlags.trackDuration && !df.trackDuration) ||
+    (trackingFlags.trackDistance && !df.trackDistance);
+
+  const [secondaryExpanded, setSecondaryExpanded] = useState(false);
+
   const rowContent = (
     <div
-      className={`flex items-center gap-2 rounded-lg px-3 py-2 ${
+      className={`rounded-lg overflow-hidden ${
         set.completed
           ? 'bg-success/10 border border-success/20'
           : 'bg-bg-elevated border border-border-subtle'
       }`}
     >
-      <span className="text-xs font-medium text-text-tertiary w-6">
-        {index + 1}
-      </span>
-      {trackingFlags.trackWeight && (
-        <>
-          <input
-            type="number"
-            inputMode="decimal"
-            value={set.weight ?? ''}
-            onChange={handleWeightChange}
-            placeholder={defaultWeight?.toString() ?? '—'}
-            aria-label={`Set ${index + 1} weight`}
-            className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-          />
-          <span className="text-xs text-text-tertiary">{weightLabel}</span>
-        </>
-      )}
-      {trackingFlags.trackWeight && trackingFlags.trackReps && (
-        <span className="text-xs text-text-tertiary mx-1">&times;</span>
-      )}
-      {trackingFlags.trackReps && (
-        <>
-          <input
-            type="number"
-            inputMode="numeric"
-            value={set.reps ?? ''}
-            onChange={handleRepsChange}
-            placeholder="—"
-            aria-label={`Set ${index + 1} reps`}
-            className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-          />
-          <span className="text-xs text-text-tertiary">reps</span>
-        </>
-      )}
-      {trackingFlags.trackDuration && (
-        <>
-          <input
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            value={set.durationSeconds != null ? set.durationSeconds : ''}
-            onChange={handleDurationChange}
-            placeholder="0"
-            aria-label={`Set ${index + 1} duration`}
-            className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-          />
-          <span className="text-xs text-text-tertiary">sec</span>
-        </>
-      )}
-      {trackingFlags.trackDistance && (
-        <>
-          <input
-            type="text"
-            inputMode="decimal"
-            pattern="[0-9.]*"
-            value={set.distanceMeters != null ? set.distanceMeters : ''}
-            onChange={handleDistanceChange}
-            placeholder="0"
-            aria-label={`Set ${index + 1} distance`}
-            className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
-          />
-          <span className="text-xs text-text-tertiary">{distanceLabel}</span>
-        </>
-      )}
-      <div className="flex-1" />
-      <button
-        onClick={handleToggleComplete}
-        aria-label={set.completed ? `Undo set ${index + 1}` : `Complete set ${index + 1}`}
-        className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
-          set.completed
-            ? 'bg-success text-bg-root'
-            : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
-        }`}
-      >
-        <Check size={14} />
-      </button>
+      {/* Primary row — default fields */}
+      <div className="flex items-center gap-2 px-3 py-2">
+        <span className="text-xs font-medium text-text-tertiary w-6">
+          {index + 1}
+        </span>
+        {df.trackWeight && trackingFlags.trackWeight && (
+          <>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={set.weight ?? ''}
+              onChange={handleWeightChange}
+              placeholder={defaultWeight?.toString() ?? '—'}
+              aria-label={`Set ${index + 1} weight`}
+              className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">{weightLabel}</span>
+          </>
+        )}
+        {df.trackWeight && trackingFlags.trackWeight && df.trackReps && trackingFlags.trackReps && (
+          <span className="text-xs text-text-tertiary mx-1">&times;</span>
+        )}
+        {df.trackReps && trackingFlags.trackReps && (
+          <>
+            <input
+              type="number"
+              inputMode="numeric"
+              value={set.reps ?? ''}
+              onChange={handleRepsChange}
+              placeholder="—"
+              aria-label={`Set ${index + 1} reps`}
+              className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">reps</span>
+          </>
+        )}
+        {df.trackDuration && trackingFlags.trackDuration && (
+          <>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={set.durationSeconds != null ? set.durationSeconds : ''}
+              onChange={handleDurationChange}
+              placeholder="0"
+              aria-label={`Set ${index + 1} duration`}
+              className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">sec</span>
+          </>
+        )}
+        {df.trackDistance && trackingFlags.trackDistance && (
+          <>
+            <input
+              type="text"
+              inputMode="decimal"
+              pattern="[0-9.]*"
+              value={set.distanceMeters != null ? set.distanceMeters : ''}
+              onChange={handleDistanceChange}
+              placeholder="0"
+              aria-label={`Set ${index + 1} distance`}
+              className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+            <span className="text-xs text-text-tertiary">{distanceLabel}</span>
+          </>
+        )}
+        <div className="flex-1" />
+        {hasSecondaryFields && (
+          <button
+            onClick={() => setSecondaryExpanded(!secondaryExpanded)}
+            aria-label={secondaryExpanded ? 'Hide extra fields' : 'Show extra fields'}
+            className="h-8 w-8 flex items-center justify-center text-text-tertiary hover:text-text-secondary transition-colors"
+          >
+            <ChevronDown
+              size={14}
+              className={`transition-transform duration-150 ${secondaryExpanded ? 'rotate-180' : ''}`}
+            />
+          </button>
+        )}
+        <button
+          onClick={handleToggleComplete}
+          aria-label={set.completed ? `Undo set ${index + 1}` : `Complete set ${index + 1}`}
+          className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${
+            set.completed
+              ? 'bg-success text-bg-root'
+              : 'bg-bg-surface border border-border-subtle text-text-tertiary hover:border-accent-primary'
+          }`}
+        >
+          <Check size={14} />
+        </button>
+      </div>
+      {/* Secondary row — non-default active fields */}
+      <AnimatePresence>
+        {secondaryExpanded && hasSecondaryFields && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="overflow-hidden"
+          >
+            <div className="flex items-center gap-2 px-3 py-1.5 border-t border-border-subtle/50">
+              <span className="w-6" />
+              {!df.trackWeight && trackingFlags.trackWeight && (
+                <>
+                  <input
+                    type="number"
+                    inputMode="decimal"
+                    value={set.weight ?? ''}
+                    onChange={handleWeightChange}
+                    placeholder={defaultWeight?.toString() ?? '—'}
+                    aria-label={`Set ${index + 1} weight`}
+                    className="w-16 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                  />
+                  <span className="text-xs text-text-tertiary">{weightLabel}</span>
+                </>
+              )}
+              {!df.trackReps && trackingFlags.trackReps && (
+                <>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    value={set.reps ?? ''}
+                    onChange={handleRepsChange}
+                    placeholder="—"
+                    aria-label={`Set ${index + 1} reps`}
+                    className="w-14 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                  />
+                  <span className="text-xs text-text-tertiary">reps</span>
+                </>
+              )}
+              {!df.trackDuration && trackingFlags.trackDuration && (
+                <>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={set.durationSeconds != null ? set.durationSeconds : ''}
+                    onChange={handleDurationChange}
+                    placeholder="0"
+                    aria-label={`Set ${index + 1} duration`}
+                    className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                  />
+                  <span className="text-xs text-text-tertiary">sec</span>
+                </>
+              )}
+              {!df.trackDistance && trackingFlags.trackDistance && (
+                <>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    pattern="[0-9.]*"
+                    value={set.distanceMeters != null ? set.distanceMeters : ''}
+                    onChange={handleDistanceChange}
+                    placeholder="0"
+                    aria-label={`Set ${index + 1} distance`}
+                    className="w-20 rounded bg-bg-surface border border-border-subtle px-2 py-1.5 text-base md:text-sm text-center text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+                  />
+                  <span className="text-xs text-text-tertiary">{distanceLabel}</span>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 
@@ -190,6 +292,7 @@ export const SetTracker = memo(function SetTracker({
   sets,
   defaultWeight,
   trackingFlags,
+  defaultFlags,
   onCompleteSet,
   onAddSet,
   onRemoveSet,
@@ -220,6 +323,7 @@ export const SetTracker = memo(function SetTracker({
           defaultWeight={defaultWeight}
           canDelete={canDelete}
           trackingFlags={trackingFlags}
+          defaultFlags={defaultFlags}
           weightLabel={weightUnit}
           distanceLabel={distanceUnit}
           onComplete={onCompleteSet}

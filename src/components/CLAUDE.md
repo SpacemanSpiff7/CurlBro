@@ -126,8 +126,15 @@
   input fields conditionally based on `TrackingFlags` prop: weight input (trackWeight), reps
   input (trackReps), duration input (trackDuration), distance input (trackDistance). Reads
   `weightUnit`/`distanceUnit` from store for unit labels. Uses `SwipeToDelete` for multi-set
-  rows. Includes plan notes display when provided.
-- GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when the current group has multiple exercises. Same adaptive field rendering pattern as SetTracker.
+  rows. Includes plan notes display when provided. Accepts `defaultFlags?: TrackingFlags` prop.
+  Set rows split into primary (default fields, always visible) and secondary (non-default
+  fields, expandable with chevron). Primary: `df.trackX && trackingFlags.trackX`. Secondary:
+  `!df.trackX && trackingFlags.trackX`. `secondaryExpanded` is local state per set. Prevents
+  mobile overflow by keeping checkmark/timer always visible on the primary row.
+- GroupSetTracker (`session/`) — round-based set tracking for grouped exercises. Displays all
+  exercises in a group side-by-side per round. Used in ActiveWorkout instead of SetTracker when
+  the current group has multiple exercises. Same primary/secondary row split pattern as
+  SetTracker. Accepts `defaultFlags?: TrackingFlags[]` prop (array, one per group exercise).
 - StartOverlay (`session/`) — Full-screen frosted glass overlay shown when session is in preview
   state (startedAt: null). Rendered via createPortal to document.body to avoid z-index conflicts
   with tab AnimatePresence transitions. Self-contained heading, exercise/group stats chips,
@@ -145,11 +152,15 @@
   styling, disabled drag/swipe. Accepts optional `dragHandle` slot (React.ReactNode) from
   BuilderGroupRow — rendered in the header area. Drop cues and ghost rendering are handled
   externally by BuilderGroupRow using `DropIntentCue` and `DragGhostOverlay`.
+  **Collapsed view** shows only fields where BOTH `defaultFlags.trackX && workoutExercise.trackX`
+  (default-inferred AND user-enabled). Uses `inferTrackingFlags()` from `fieldDefaults.ts` to
+  determine default flags. Non-default active fields are hidden in collapsed state.
   **Expand strip** at the bottom of the card (below plan inputs, above expandable content) —
   full-width tappable strip with chevron icon. Lights up with `bg-accent-primary/10` +
   `text-accent-primary` when expanded; subtle `text-text-tertiary` when collapsed.
-  **Expanded section** shows Rest time input + Notes textarea + tracking flag toggles
-  (Weight/Reps/Duration chips, no "Track" label) + Ungroup button (if grouped).
+  **Expanded section** shows non-default active fields under "Additional tracking" label +
+  Rest time input + Notes textarea + tracking flag toggles (Weight/Reps/Duration chips, no
+  "Track" label) + Ungroup button (if grouped).
   Swap/Superset/Delete are swipe-only actions (removed from expanded view).
   Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap

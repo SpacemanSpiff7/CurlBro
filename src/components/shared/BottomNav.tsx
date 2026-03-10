@@ -14,6 +14,7 @@ const tabs: { id: TabId; label: string; icon: typeof Dumbbell }[] = [
 export const BottomNav = memo(function BottomNav() {
   const activeTab = useStore((state) => state.activeTab);
   const setActiveTab = useStore((state) => state.setActiveTab);
+  const builderDirty = useStore((state) => state.builder.isDirty);
 
   return (
     <nav
@@ -38,7 +39,12 @@ export const BottomNav = memo(function BottomNav() {
               }`}
               style={{ minHeight: '56px' }}
             >
-              <Icon size={20} />
+              <span className="relative">
+                <Icon size={20} />
+                {id === 'build' && builderDirty && (
+                  <span className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-warning" />
+                )}
+              </span>
               <span className="font-medium">{label}</span>
             </button>
           );
