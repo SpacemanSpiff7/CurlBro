@@ -345,62 +345,8 @@ export const ExerciseCard = memo(function ExerciseCard({
             className="overflow-hidden"
           >
             <div className="px-3 pb-3 border-t border-border-subtle pt-2 space-y-2">
-              {/* Non-default active tracking fields */}
-              {((workoutExercise.trackReps && !defaultFlags.trackReps) ||
-                (workoutExercise.trackWeight && !defaultFlags.trackWeight) ||
-                (workoutExercise.trackDuration && !defaultFlags.trackDuration)) && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] text-text-tertiary uppercase tracking-wide">Additional tracking</span>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {workoutExercise.trackReps && !defaultFlags.trackReps && (
-                      <div className="flex items-center gap-1">
-                        <label className="text-xs text-text-tertiary w-8">Reps</label>
-                        <Input
-                          type="number"
-                          value={workoutExercise.reps}
-                          onChange={(e) => handleRepsChange(e.target.value)}
-                          className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
-                          min={1}
-                          aria-label="Reps"
-                          disabled={editMode}
-                        />
-                      </div>
-                    )}
-                    {workoutExercise.trackWeight && !defaultFlags.trackWeight && (
-                      <div className="flex items-center gap-1">
-                        <Input
-                          type="number"
-                          value={workoutExercise.weight ?? ''}
-                          onChange={(e) => handleWeightChange(e.target.value)}
-                          placeholder="—"
-                          className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
-                          min={0}
-                          aria-label="Weight"
-                          disabled={editMode}
-                        />
-                        <span className="text-xs text-text-tertiary">lb</span>
-                      </div>
-                    )}
-                    {workoutExercise.trackDuration && !defaultFlags.trackDuration && (
-                      <div className="flex items-center gap-1">
-                        <Input
-                          type="text"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          value={workoutExercise.durationSeconds ?? ''}
-                          onChange={(e) => handleDurationChange(e.target.value)}
-                          placeholder="0"
-                          className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
-                          aria-label="Duration seconds"
-                          disabled={editMode}
-                        />
-                        <span className="text-xs text-text-tertiary">sec</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-              <div className="flex items-center gap-2">
+              {/* Rest timer + non-default tracking fields (inline) */}
+              <div className="flex items-center gap-2 flex-wrap">
                 <label className="text-xs text-text-tertiary w-8">Rest</label>
                 <Input
                   type="text"
@@ -413,20 +359,50 @@ export const ExerciseCard = memo(function ExerciseCard({
                   disabled={editMode}
                 />
                 <span className="text-xs text-text-tertiary">sec</span>
-                {isInGroup && (
-                  <>
-                    <div className="flex-1" />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleUngroupSelf}
-                      className="text-text-secondary hover:text-accent-primary"
-                      aria-label="Remove from group"
-                    >
-                      <Unlink size={14} className="mr-1" />
-                      Ungroup
-                    </Button>
-                  </>
+                {workoutExercise.trackReps && !defaultFlags.trackReps && (
+                  <div className="flex items-center gap-1 ml-auto">
+                    <label className="text-xs text-text-tertiary w-8">Reps</label>
+                    <Input
+                      type="number"
+                      value={workoutExercise.reps}
+                      onChange={(e) => handleRepsChange(e.target.value)}
+                      className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
+                      min={1}
+                      aria-label="Reps"
+                      disabled={editMode}
+                    />
+                  </div>
+                )}
+                {workoutExercise.trackWeight && !defaultFlags.trackWeight && (
+                  <div className="flex items-center gap-1 ml-auto">
+                    <Input
+                      type="number"
+                      value={workoutExercise.weight ?? ''}
+                      onChange={(e) => handleWeightChange(e.target.value)}
+                      placeholder="—"
+                      className="w-16 h-8 text-center bg-bg-elevated border-border-subtle"
+                      min={0}
+                      aria-label="Weight"
+                      disabled={editMode}
+                    />
+                    <span className="text-xs text-text-tertiary">lb</span>
+                  </div>
+                )}
+                {workoutExercise.trackDuration && !defaultFlags.trackDuration && (
+                  <div className="flex items-center gap-1 ml-auto">
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={workoutExercise.durationSeconds ?? ''}
+                      onChange={(e) => handleDurationChange(e.target.value)}
+                      placeholder="0"
+                      className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
+                      aria-label="Duration seconds"
+                      disabled={editMode}
+                    />
+                    <span className="text-xs text-text-tertiary">sec</span>
+                  </div>
                 )}
               </div>
               <textarea
@@ -463,6 +439,18 @@ export const ExerciseCard = memo(function ExerciseCard({
                     </button>
                   );
                 })}
+                {isInGroup && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleUngroupSelf}
+                    className="text-text-secondary hover:text-accent-primary ml-auto"
+                    aria-label="Remove from group"
+                  >
+                    <Unlink size={14} className="mr-1" />
+                    Ungroup
+                  </Button>
+                )}
               </div>
             </div>
           </motion.div>

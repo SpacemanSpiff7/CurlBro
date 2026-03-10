@@ -86,3 +86,39 @@ Cable Flye [cable_flye]
 - Bodyweight exercises show "BW" instead of weight
 - Duration/distance values shown when tracked (e.g., `30s`, `804.7 mi`)
 - This format is NOT round-trip importable — it is display-only for sharing
+
+## Log Export/Import Format
+
+Versioned JSON envelope for backing up, transferring, and restoring workout logs.
+
+### Format
+```json
+{
+  "version": 1,
+  "app": "curlbro",
+  "exportedAt": "2026-03-10T15:30:00.000Z",
+  "logCount": 2,
+  "logs": [/* WorkoutLog[] — same shape as stored */]
+}
+```
+
+### Fields
+- `version` — integer, enables future migrations (same pattern as store hydration backfills)
+- `app: "curlbro"` — rejects unrelated JSON files on import
+- `exportedAt` — ISO timestamp of when the export was created
+- `logCount` — integrity check; mismatch triggers warning (not error)
+- `logs` — array of `WorkoutLog` objects, stored as-is
+
+### Import behavior
+- Validates envelope with `LogExportEnvelopeSchema` (Zod)
+- Each log validated individually with `WorkoutLogSchema`; invalid logs skipped with warning
+- Backfills defaults on old data (notes, units, tracking flags, set fields) — mirrors store hydration
+- Deduplicates by `log.id` against existing logs
+- Future version files import with a warning (not rejected)
+- Returns `LogImportResult` with `{ logs, newLogs, duplicateCount, warnings, errors }`
+
+### Implementation
+- `src/utils/logExportImport.ts` — pure export/import functions
+- `src/utils/fileIO.ts` — browser download/read helpers
+- `src/store/index.ts` — `importLogs(logs)` action with dedup guard
+- `src/pages/WorkoutLogPage.tsx` — export/import UI (header buttons + import sheet)

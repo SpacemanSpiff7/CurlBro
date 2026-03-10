@@ -264,7 +264,7 @@ export function WorkoutList({ editMode = false, selectedIndices, onToggleSelect 
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <div className="space-y-2">
+      <div className="space-y-2 select-none">
         <AnimatePresence mode="popLayout">
           {groups.map((group) => (
             <BuilderGroupRow

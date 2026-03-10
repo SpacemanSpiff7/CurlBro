@@ -1,5 +1,5 @@
-import { useState, useCallback, useMemo, Fragment } from 'react';
-import { ClipboardList, Trash2, Share2, Save } from 'lucide-react';
+import { useState, useCallback, useMemo, useRef, Fragment } from 'react';
+import { ClipboardList, Trash2, Share2, Save, Download, Upload } from 'lucide-react';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { GroupBadge } from '@/components/shared/GroupBadge';
 import { deriveGroups } from '@/utils/groupUtils';
@@ -18,6 +18,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { computeLogStats, logToSavedWorkout, formatLogForClipboard } from '@/utils/logUtils';
 import { convertWeight, formatWeight } from '@/utils/unitConversion';
+import { downloadFile, readFileAsText } from '@/utils/fileIO';
+import { createLogExport, parseLogImport } from '@/utils/logExportImport';
+import type { LogImportResult } from '@/utils/logExportImport';
 import type { WorkoutLog, LogId, WeightUnit } from '@/types';
 
 function formatDate(iso: string): string {
@@ -130,6 +133,14 @@ function LogDetailSheet({
     }
   };
 
+  const handleExportSingle = () => {
+    const dateStr = log.completedAt.slice(0, 10);
+    const safeName = (log.workoutName || 'untitled').replace(/[^a-zA-Z0-9-_]/g, '-').toLowerCase();
+    const filename = `curlbro-log-${safeName}-${dateStr}.json`;
+    downloadFile(createLogExport([log]), filename, 'application/json');
+    toast.success('Log exported', { duration: 1500 });
+  };
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-[80dvh] bg-bg-surface overflow-y-auto" onOpenAutoFocus={(e) => e.preventDefault()}>
@@ -238,7 +249,7 @@ function LogDetailSheet({
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2 mt-4 pb-4">
+        <div className="flex gap-2 mt-4">
           <Button
             onClick={handleSaveAsWorkout}
             className="flex-1 bg-accent-primary text-bg-root hover:bg-accent-hover"
@@ -257,6 +268,173 @@ function LogDetailSheet({
             Share
           </Button>
         </div>
+        <div className="mt-2 pb-4">
+          <Button
+            variant="outline"
+            onClick={handleExportSingle}
+            className="w-full"
+            aria-label="Export log as JSON"
+          >
+            <Download size={14} className="mr-1.5" />
+            Export
+          </Button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+const MAX_IMPORT_SIZE = 10 * 1024 * 1024; // 10MB
+
+function LogImportSheet({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const logs = useStore((state) => state.library.logs);
+  const importLogs = useStore((state) => state.libraryActions.importLogs);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [importResult, setImportResult] = useState<LogImportResult | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const existingIds = useMemo(() => new Set(logs.map((l) => l.id as string)), [logs]);
+
+  const handleFile = useCallback(
+    async (file: File) => {
+      if (file.size > MAX_IMPORT_SIZE) {
+        setImportResult({
+          logs: [],
+          newLogs: [],
+          duplicateCount: 0,
+          warnings: [],
+          errors: ['File too large (max 10MB)'],
+        });
+        return;
+      }
+      setLoading(true);
+      try {
+        const text = await readFileAsText(file);
+        const result = parseLogImport(text, existingIds);
+        setImportResult(result);
+      } catch {
+        setImportResult({
+          logs: [],
+          newLogs: [],
+          duplicateCount: 0,
+          warnings: [],
+          errors: ['Failed to read file'],
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [existingIds],
+  );
+
+  const handleFileChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) handleFile(file);
+    },
+    [handleFile],
+  );
+
+  const handleImport = useCallback(() => {
+    if (!importResult?.newLogs.length) return;
+    importLogs(importResult.newLogs);
+    toast.success(`Imported ${importResult.newLogs.length} log(s)`, { duration: 2000 });
+    setImportResult(null);
+    onOpenChange(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, [importResult, importLogs, onOpenChange]);
+
+  const handleClose = useCallback(
+    (open: boolean) => {
+      if (!open) {
+        setImportResult(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      }
+      onOpenChange(open);
+    },
+    [onOpenChange],
+  );
+
+  return (
+    <Sheet open={open} onOpenChange={handleClose}>
+      <SheetContent side="bottom" className="bg-bg-surface" onOpenAutoFocus={(e) => e.preventDefault()}>
+        <SheetHeader>
+          <SheetTitle className="text-text-primary">Import Logs</SheetTitle>
+        </SheetHeader>
+
+        <div className="mt-4 space-y-3">
+          <div
+            className="rounded-lg border-2 border-dashed border-border-subtle p-6 text-center cursor-pointer hover:border-accent-primary transition-colors"
+            onClick={() => fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Select JSON file to import"
+          >
+            <Upload size={24} className="mx-auto mb-2 text-text-tertiary" />
+            <p className="text-sm text-text-secondary">
+              {loading ? 'Reading file...' : 'Tap to select a .json export file'}
+            </p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              onChange={handleFileChange}
+              className="hidden"
+              aria-label="File input"
+            />
+          </div>
+
+          {importResult && (
+            <div className="space-y-2">
+              {importResult.errors.length > 0 && (
+                <div className="rounded-lg bg-destructive/10 p-3">
+                  {importResult.errors.map((err, i) => (
+                    <p key={i} className="text-sm text-destructive">{err}</p>
+                  ))}
+                </div>
+              )}
+
+              {importResult.warnings.length > 0 && (
+                <div className="rounded-lg bg-yellow-500/10 p-3">
+                  {importResult.warnings.map((warn, i) => (
+                    <p key={i} className="text-sm text-yellow-600 dark:text-yellow-400">{warn}</p>
+                  ))}
+                </div>
+              )}
+
+              {importResult.errors.length === 0 && (
+                <div className="rounded-lg bg-green-500/10 p-3">
+                  <p className="text-sm text-green-600 dark:text-green-400">
+                    {importResult.newLogs.length} new log(s) ready to import
+                    {importResult.duplicateCount > 0 &&
+                      ` (${importResult.duplicateCount} duplicate(s) skipped)`}
+                  </p>
+                </div>
+              )}
+
+              {importResult.newLogs.length > 0 && (
+                <Button
+                  onClick={handleImport}
+                  className="w-full bg-accent-primary text-bg-root hover:bg-accent-hover"
+                >
+                  Import {importResult.newLogs.length} Log(s)
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );
@@ -265,6 +443,7 @@ function LogDetailSheet({
 export function WorkoutLogPage() {
   const [selectedLog, setSelectedLog] = useState<WorkoutLog | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [importSheetOpen, setImportSheetOpen] = useState(false);
   const logs = useStore((state) => state.library.logs);
   const deleteLog = useStore((state) => state.libraryActions.deleteLog);
   const weightUnit = useStore((state) => state.settings.weightUnit);
@@ -295,9 +474,37 @@ export function WorkoutLogPage() {
     if (!open) setSelectedLog(null);
   }, []);
 
+  const handleExportAll = useCallback(() => {
+    if (logs.length === 0) {
+      toast.error('No logs to export');
+      return;
+    }
+    const dateStr = new Date().toISOString().slice(0, 10);
+    downloadFile(createLogExport(logs), `curlbro-logs-${dateStr}.json`, 'application/json');
+    toast.success(`Exported ${logs.length} log(s)`, { duration: 1500 });
+  }, [logs]);
+
   return (
     <PageLayout
       header={<h1 className="text-xl font-bold text-text-primary">Workout Log</h1>}
+      headerRight={
+        <div className="flex gap-1.5">
+          <button
+            onClick={() => setImportSheetOpen(true)}
+            className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-elevated transition-colors"
+            aria-label="Import logs"
+          >
+            <Upload size={18} />
+          </button>
+          <button
+            onClick={handleExportAll}
+            className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-elevated transition-colors"
+            aria-label="Export all logs"
+          >
+            <Download size={18} />
+          </button>
+        </div>
+      }
       contentClassName="flex flex-col gap-2 px-4"
     >
         {sortedLogs.length === 0 ? (
@@ -341,6 +548,10 @@ export function WorkoutLogPage() {
         log={selectedLog}
         open={sheetOpen}
         onOpenChange={handleSheetChange}
+      />
+      <LogImportSheet
+        open={importSheetOpen}
+        onOpenChange={setImportSheetOpen}
       />
     </PageLayout>
   );

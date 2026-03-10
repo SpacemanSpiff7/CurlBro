@@ -15,5 +15,12 @@
   - `computeLogStats(log)` → date, duration, exercise count, sets, total weight
   - `logToSavedWorkout(log)` → converts log back to SavedWorkout with weights prefilled
   - `formatLogForClipboard(log, graph)` → formatted markdown string for clipboard sharing
+- fileIO.ts: browser file I/O helpers — `downloadFile(content, filename, mimeType)` creates
+  Blob → object URL → invisible `<a download>` click; `readFileAsText(file)` → Promise<string>
+- logExportImport.ts: versioned JSON export/import for workout logs (pure functions):
+  - `createLogExport(logs)` → JSON string with `{version, app, exportedAt, logCount, logs}` envelope
+  - `parseLogImport(json, existingLogIds)` → `LogImportResult` with validated logs, dedup, warnings/errors
+  - `LogExportEnvelopeSchema` — Zod schema for the export envelope
+  - Backfills missing fields (notes, units, tracking flags, set fields) — mirrors store hydration
 - audio.ts: Web Audio API beep generator — create AudioContext lazily, single instance
 - haptics.ts: wrap navigator.vibrate with feature detection

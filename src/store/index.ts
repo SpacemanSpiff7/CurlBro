@@ -83,6 +83,7 @@ interface AppState {
     saveWorkout: (workout: WorkoutDraft) => void;
     deleteWorkout: (id: WorkoutId) => void;
     addLog: (log: WorkoutLog) => void;
+    importLogs: (logs: WorkoutLog[]) => void;
     deleteLog: (id: LogId) => void;
     updateLogNotes: (logId: LogId, notes: string) => void;
     addActivity: (entry: ActivityEntry) => void;
@@ -611,6 +612,17 @@ export const useStore = create<AppState>()(
         addLog: (log: WorkoutLog) => {
           set((state) => {
             state.library.logs.push(log);
+          });
+        },
+        importLogs: (logs: WorkoutLog[]) => {
+          set((state) => {
+            const existingIds = new Set(state.library.logs.map((l) => l.id as string));
+            for (const log of logs) {
+              if (!existingIds.has(log.id as string)) {
+                state.library.logs.push(log);
+                existingIds.add(log.id as string);
+              }
+            }
           });
         },
         deleteLog: (id: LogId) => {

@@ -38,6 +38,7 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
 - `abandonSession()` — discards current session entirely, sets session.active to null and resets timer to emptyTimer. Does NOT navigate — caller handles tab switch.
 - `startSession(workout)` — creates a new preview session (startedAt: null), resets timer, navigates to Active tab. Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active. Pre-populates `SetLog.reps` from `ex.reps`, `SetLog.durationSeconds` from `ex.durationSeconds`, and `timer.restSeconds` from the first exercise's `restSeconds` (default 90).
+- `importLogs(logs)` — batch-pushes logs to `library.logs` with dedup guard (skips logs whose `id` already exists)
 - `deleteLog(id)` — removes a workout log from library.logs
 - `addExercise(exerciseId)` — appends exercise with `instanceId: crypto.randomUUID()` and settings-based defaults
 - `addExerciseToGroup(exerciseId, targetIndex)` — adds an exercise adjacent to `targetIndex` with `instanceId`, assigns both the same `supersetGroupId` (creates a new group or extends an existing one)

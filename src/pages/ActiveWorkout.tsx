@@ -71,7 +71,10 @@ export function ActiveWorkout() {
   const { groups, currentGroup, currentGroupIndex, totalGroups } = useSessionGroups();
 
   // IntersectionObserver for inline timer visibility + scroll-to-timer action
+  // Depends on hasSession so the IO is re-created when the timer div appears
+  // (fixes floating timer showing even when inline timer is in view)
   const timerRef = useRef<HTMLDivElement>(null);
+  const hasSession = !!session;
   useEffect(() => {
     const el = timerRef.current;
     if (!el) {
@@ -94,7 +97,7 @@ export function ActiveWorkout() {
       setInlineTimerVisible(false);
       registerScrollToTimer(null);
     };
-  }, []);
+  }, [hasSession]);
 
   // Derive nav direction from currentGroupIndex changes (React 19 safe — setState during render)
   const [navDirection, setNavDirection] = useState<'left' | 'right'>('left');

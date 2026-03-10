@@ -75,6 +75,7 @@
   is the source of an active drag. Props: `active`, `borderRadius`, `children`.
   Used by BuilderGroupRow for both solo cards and superset containers.
 - WorkoutList (`workout/`) — Exercise list with dnd-kit drag-to-reorder and drag-to-superset.
+  Uses `select-none` on the container to prevent accidental text highlighting during drag.
   Uses DragOverlay for smooth drag visuals. WorkoutList owns the builder drag state and renders
   rows as stable draggable/droppable targets rather than live-sortable neighbors. Tracks real
   pointer Y via `pointermove`/`touchmove` listeners (not dnd-kit's `activatorEvent + delta`,
@@ -158,9 +159,9 @@
   **Expand strip** at the bottom of the card (below plan inputs, above expandable content) —
   full-width tappable strip with chevron icon. Lights up with `bg-accent-primary/10` +
   `text-accent-primary` when expanded; subtle `text-text-tertiary` when collapsed.
-  **Expanded section** shows non-default active fields under "Additional tracking" label +
-  Rest time input + Notes textarea + tracking flag toggles (Weight/Reps/Duration chips, no
-  "Track" label) + Ungroup button (if grouped).
+  **Expanded section** layout: Rest timer input + non-default tracking inputs inline on the
+  same row, then Notes textarea, then tracking flag toggles (Weight/Reps/Duration chips) +
+  Ungroup button (if grouped) on the same row.
   Swap/Superset/Delete are swipe-only actions (removed from expanded view).
   Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap
