@@ -39,16 +39,16 @@ export function DropIntentCue({ dropState, active }: DropIntentCueProps) {
         )}
       />
 
-      {/* Merge overlay — full card amber tint with label at top */}
+      {/* Merge overlay — full card amber tint with label at top-right */}
       <div
         className={cn(
-          'pointer-events-none absolute inset-0 z-20 rounded-xl border-2 transition-all duration-150 flex justify-center',
+          'pointer-events-none absolute inset-0 z-20 rounded-xl border-2 transition-all duration-150',
           dropState === 'merge'
             ? 'opacity-100 bg-warning/15 border-warning/60 shadow-[0_0_24px_rgba(245,158,11,0.3)]'
             : 'opacity-0 border-transparent',
         )}
       >
-        <span className="mt-2 text-[11px] font-bold text-warning uppercase tracking-widest">
+        <span className="absolute top-0 right-0 rounded-bl-lg rounded-tr-[10px] bg-warning/90 px-2.5 py-1 text-[11px] font-bold text-bg-root uppercase tracking-widest">
           Superset
         </span>
       </div>
