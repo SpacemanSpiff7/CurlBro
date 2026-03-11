@@ -121,8 +121,10 @@ export function SwipeToReveal({
       }
 
       if (last) {
-        const pastHalf = Math.abs(mx) > totalWidth * 0.5;
-        if (pastHalf && mx < 0) {
+        // Snap open at 30% of total action width — low threshold so rows
+        // with many actions (4 buttons = 288px) don't require huge gestures
+        const pastThreshold = Math.abs(mx) > totalWidth * 0.3;
+        if (pastThreshold && mx < 0) {
           snapOpen();
         } else {
           snapClosed();

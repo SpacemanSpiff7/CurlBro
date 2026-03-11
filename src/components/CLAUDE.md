@@ -116,13 +116,18 @@
   `ActiveWorkout` tracks swap/video targets via offset-based state (`swapTargetOffset`,
   `videoTargetOffset`) so Info/Swap work for any exercise in a group — not just the first.
   `data-swipe-row` from `SwipeToReveal` prevents exercise-navigation swipe on these rows.
-- FloatingRestTimer (`session/`) — floating pill indicator showing rest timer status when the
-  inline timer is scrolled out of view or user is on another tab. Rendered in App.tsx (always
-  mounted, self-manages visibility via AnimatePresence). Compact pill: 24px SVG progress ring +
-  M:SS text. Tap navigates to active tab + scrolls inline timer into view. Uses
-  `useFloatingTimerState` (wall-clock computation, read-only) and `useTimerVisibility` (pub/sub
-  for IntersectionObserver data). 300ms suppression on tab switch to active to prevent flash.
-  Positioned `fixed right-4 z-40` above BottomNav with safe-area inset.
+- FloatingRestTimer (`session/`) — draggable floating pill indicator showing rest timer status
+  when the inline timer is scrolled out of view or user is on another tab. Rendered in App.tsx
+  (always mounted, self-manages visibility via AnimatePresence). Compact pill: 24px SVG progress
+  ring + M:SS text. Tap navigates to active tab + scrolls inline timer into view. Drag to any
+  of 4 screen corners (top-left, top-right, bottom-left, bottom-right) with spring snap
+  animation. Direction-based: drag 25% of viewport width/height to flip that axis. Corner
+  preference persisted to localStorage (`curlbro_floating_timer_corner`). Uses
+  `@use-gesture/react` `useDrag` with `filterTaps: true` on a plain `<div>` wrapper (avoids
+  motion.* onDrag type conflict). Framer Motion `useMotionValue` for 60fps drag tracking.
+  Uses `useFloatingTimerState` (wall-clock computation, read-only) and `useTimerVisibility`
+  (pub/sub for IntersectionObserver data). 300ms suppression on tab switch to active to prevent
+  flash. Positioned `fixed z-40` with `top:0 left:0` base + motion value transforms.
 - SetTracker (`session/`) — adaptive set tracking component for standalone exercises. Renders
   input fields conditionally based on `TrackingFlags` prop: weight input (trackWeight), reps
   input (trackReps), duration input (trackDuration), distance input (trackDistance). Reads

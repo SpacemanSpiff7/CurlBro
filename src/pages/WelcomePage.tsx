@@ -122,7 +122,6 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
   const [buildGuideOpen, setBuildGuideOpen] = useState(false);
   const [recordGuideOpen, setRecordGuideOpen] = useState(false);
   const [exploding, setExploding] = useState(false);
-  const [guideUnlocked, setGuideUnlocked] = useState(false);
   const [flyFrom, setFlyFrom] = useState<DOMRect | null>(null);
   const guideRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -147,11 +146,7 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
   }, [onDismiss]);
 
   const scrollToGuide = useCallback(() => {
-    setGuideUnlocked(true);
-    // Wait for overflow to update before scrolling
-    requestAnimationFrame(() => {
-      guideRef.current?.scrollIntoView({ behavior: 'smooth' });
-    });
+    guideRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
@@ -164,10 +159,14 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
     >
       <div
         ref={scrollRef}
-        className={`flex-1 ${guideUnlocked ? 'overflow-y-auto' : 'overflow-hidden'}`}
+        className="flex-1 overflow-y-auto"
+        style={{ scrollSnapType: 'y mandatory' }}
       >
         {/* ── Hero ── fills the viewport, centered ── */}
-        <div className="flex min-h-dvh flex-col items-center justify-center px-5">
+        <div
+          className="flex min-h-dvh flex-col items-center justify-center px-5"
+          style={{ scrollSnapAlign: 'start' }}
+        >
           {/* Logo */}
           <motion.img
             ref={logoRef}
@@ -222,7 +221,7 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
               className="flex flex-col items-center gap-1.5 rounded-2xl bg-bg-card px-10 py-5 shadow-[0_6px_24px_rgba(0,0,0,0.12),0_2px_6px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.06)] transition-shadow hover:shadow-[0_8px_30px_rgba(0,0,0,0.18),0_3px_8px_rgba(0,0,0,0.1)] active:shadow-[0_2px_8px_rgba(0,0,0,0.1),inset_0_1px_2px_rgba(0,0,0,0.06)]"
               aria-label="Start Building"
             >
-              <Dumbbell size={40} className="rotate-45 text-accent-primary" />
+              <Dumbbell size={40} className="neon-glow rotate-45 text-accent-primary" />
               <span className="text-base font-semibold text-accent-primary">
                 Start Building
               </span>
@@ -255,6 +254,7 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
         <div
           ref={guideRef}
           className="mx-auto max-w-lg space-y-8 px-5 pb-[env(safe-area-inset-bottom)] pt-12"
+          style={{ scrollSnapAlign: 'start' }}
         >
           <Section
             icon={<Dumbbell size={20} className="shrink-0 text-accent-primary" />}
@@ -364,8 +364,8 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
         </div>
       </div>
 
-      <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} />
-      <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} />
+      <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} overlayClassName="z-[70]" />
+      <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} overlayClassName="z-[70]" />
 
       {/* Flying logo — portaled to body so it survives the welcome exit animation */}
       {createPortal(

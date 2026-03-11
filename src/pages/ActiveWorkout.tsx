@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer, X } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -55,7 +55,6 @@ export function ActiveWorkout() {
   }, [builderWorkoutId, session, resetWorkout]);
 
   const isPreview = !!session && !session.startedAt;
-  const isCompleted = !!session && !!session.completedAt;
   const isActive = !!session && !!session.startedAt && !session.completedAt;
 
   // null = closed, number = offset within currentGroup.exercises[]
@@ -70,14 +69,12 @@ export function ActiveWorkout() {
   const elapsed = useElapsedTimer(session?.startedAt ?? null, session?.completedAt);
   const { groups, currentGroup, currentGroupIndex, totalGroups } = useSessionGroups();
 
-  // IntersectionObserver for inline timer visibility + scroll-to-timer action
-  // Depends on hasSession so the IO is re-created when the timer div appears
-  // (fixes floating timer showing even when inline timer is in view)
-  const timerRef = useRef<HTMLDivElement>(null);
-  const hasSession = !!session;
+  // IntersectionObserver for inline timer visibility + scroll-to-timer action.
+  // Uses callback ref (useState) instead of useRef so the effect re-runs reliably
+  // when the timer element mounts/unmounts (useRef doesn't trigger re-renders).
+  const [timerEl, setTimerEl] = useState<HTMLDivElement | null>(null);
   useEffect(() => {
-    const el = timerRef.current;
-    if (!el) {
+    if (!timerEl) {
       setInlineTimerVisible(false);
       return;
     }
@@ -86,18 +83,38 @@ export function ActiveWorkout() {
       ([entry]) => setInlineTimerVisible(entry.isIntersecting),
       { threshold: 0.1 }
     );
-    observer.observe(el);
+    observer.observe(timerEl);
+
+    // Scroll listener as backup — IO can miss visibility during Framer Motion
+    // layout animations (transforms temporarily shift elements off-screen).
+    // Throttled via rAF to avoid excessive getBoundingClientRect calls.
+    let rafId = 0;
+    const checkVisibility = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = timerEl.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        setInlineTimerVisible(inView);
+      });
+    };
+    window.addEventListener('scroll', checkVisibility, { passive: true });
 
     registerScrollToTimer(() => {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      timerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     return () => {
       observer.disconnect();
-      setInlineTimerVisible(false);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', checkVisibility);
+      // NOTE: intentionally NOT calling setInlineTimerVisible(false) here.
+      // With AnimatePresence mode="popLayout", the old component's cleanup runs
+      // AFTER the new component has already set up its IO — resetting here would
+      // override the new component's correct value. The FloatingRestTimer's
+      // `!onActiveTab` short-circuit handles the "not on active tab" case.
       registerScrollToTimer(null);
     };
-  }, [hasSession]);
+  }, [timerEl]);
 
   // Derive nav direction from currentGroupIndex changes (React 19 safe — setState during render)
   const [navDirection, setNavDirection] = useState<'left' | 'right'>('left');
@@ -140,11 +157,6 @@ export function ActiveWorkout() {
   }, [currentGroupIndex]);
 
   // Derive saved status from store
-  const logs = useStore((state) => state.library.logs);
-  const isSaved = useMemo(() => {
-    if (!session?.startedAt) return false;
-    return logs.some((l) => l.workoutId === session.workoutId && l.startedAt === session.startedAt);
-  }, [session, logs]);
 
   const previewExerciseCount = session ? session.exercises.length : 0;
 
@@ -229,9 +241,22 @@ export function ActiveWorkout() {
     setVideoTargetOffset(null);
   }, [currentGroupIndex, totalGroups, goToGroup, timer]);
 
+  const [endDialogOpen, setEndDialogOpen] = useState(false);
+  // Snapshot remaining seconds when dialog opens so we can resume accurately
+  const timerSnapshotRef = useRef(0);
+
   const handleFinish = useCallback(() => {
-    endSession();
-  }, [endSession]);
+    // Pause timer and capture remaining time for potential resume
+    const timerState = useStore.getState().session.timer;
+    if (timerState.isRunning && timerState.timerStartedAt) {
+      const elapsed = Math.floor((Date.now() - new Date(timerState.timerStartedAt).getTime()) / 1000);
+      timerSnapshotRef.current = Math.max(0, timerState.totalSeconds - elapsed);
+    } else {
+      timerSnapshotRef.current = timerState.remainingSeconds;
+    }
+    timer.pause();
+    setEndDialogOpen(true);
+  }, [timer]);
 
   const handleSwap = useCallback(
     (newId: ExerciseId) => {
@@ -253,47 +278,37 @@ export function ActiveWorkout() {
     [handleSwap]
   );
 
-  const handleSave = useCallback(() => {
+  const handleEndAndSave = useCallback(() => {
+    setEndDialogOpen(false);
+    endSession();
     const log = saveSession();
     if (log) {
       setSummaryLog(log);
       setSummaryOpen(true);
-      resetBuilderIfMatchesSession();
     }
-  }, [saveSession, resetBuilderIfMatchesSession]);
-
-  const handleCancel = useCallback(() => {
+    resetBuilderIfMatchesSession();
     abandonSession();
-    setActiveTab('library');
-  }, [abandonSession, setActiveTab]);
+  }, [endSession, saveSession, abandonSession, resetBuilderIfMatchesSession]);
 
-  // Clear session (post-completion)
-  const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
-
-  const handleClear = useCallback(() => {
-    if (isCompleted && !isSaved) {
-      setClearConfirmOpen(true);
-    } else {
-      abandonSession();
-      resetBuilderIfMatchesSession();
-      setActiveTab('library');
-    }
-  }, [isCompleted, isSaved, abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
-
-  const handleClearDiscard = useCallback(() => {
-    setClearConfirmOpen(false);
+  const handleEndAndDiscard = useCallback(() => {
+    setEndDialogOpen(false);
     abandonSession();
     resetBuilderIfMatchesSession();
     setActiveTab('library');
   }, [abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
 
-  const handleClearSaveFirst = useCallback(() => {
-    setClearConfirmOpen(false);
-    saveSession();
+  const handleResumeWorkout = useCallback(() => {
+    setEndDialogOpen(false);
+    // Resume timer if it had time remaining
+    if (timerSnapshotRef.current > 0) {
+      timer.start(timerSnapshotRef.current);
+    }
+  }, [timer]);
+
+  const handleCancel = useCallback(() => {
     abandonSession();
-    resetBuilderIfMatchesSession();
     setActiveTab('library');
-  }, [saveSession, abandonSession, resetBuilderIfMatchesSession, setActiveTab]);
+  }, [abandonSession, setActiveTab]);
 
   const handleAddExercise = useCallback(
     (exerciseId: ExerciseId) => {
@@ -359,7 +374,18 @@ export function ActiveWorkout() {
         <EmptyState
           icon={Timer}
           title="No Active Workout"
-          subtitle="Go to Library and tap play to start a session."
+          subtitle={
+            <span>
+              Go to{' '}
+              <button
+                onClick={() => setActiveTab('library')}
+                className="font-medium text-accent-primary hover:text-accent-hover transition-colors"
+              >
+                Library
+              </button>
+              {' '}to select a workout.
+            </span>
+          }
         />
       </PageLayout>
     );
@@ -372,7 +398,7 @@ export function ActiveWorkout() {
   );
 
   const headerRight = (
-    <div className="flex flex-col items-center justify-center gap-0.5 shrink-0">
+    <div className="flex flex-col items-end justify-center gap-1.5 shrink-0">
       {isActive && (
         <Button
           variant="outline"
@@ -382,29 +408,6 @@ export function ActiveWorkout() {
         >
           <Square size={14} className="mr-1" />
           Finish
-        </Button>
-      )}
-      {isCompleted && !isSaved && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleSave}
-          className="text-success border-success/30 hover:bg-success/10"
-        >
-          <Save size={14} className="mr-1" />
-          Save
-        </Button>
-      )}
-      {isCompleted && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleClear}
-          className="text-text-tertiary border-border-subtle hover:text-text-secondary"
-          aria-label="Clear completed workout"
-        >
-          <X size={14} className="mr-1" />
-          Clear
         </Button>
       )}
       <span className="text-[10px] tabular-nums text-text-tertiary">
@@ -501,7 +504,7 @@ export function ActiveWorkout() {
       )}
 
       {/* Rest timer */}
-      <div ref={timerRef} className="flex flex-col items-center gap-2">
+      <div ref={setTimerEl} className="flex flex-col items-center gap-2">
         <RestTimer
           remainingSeconds={timer.remainingSeconds}
           totalSeconds={timer.totalSeconds}
@@ -735,24 +738,26 @@ export function ActiveWorkout() {
         title="Swap Exercise"
       />
 
-      {/* Clear unsaved workout confirmation */}
-      <Dialog open={clearConfirmOpen} onOpenChange={setClearConfirmOpen}>
+      {/* End workout confirmation */}
+      <Dialog open={endDialogOpen} onOpenChange={(open) => {
+        if (!open) handleResumeWorkout();
+      }}>
         <DialogContent showCloseButton={false}>
           <DialogHeader>
-            <DialogTitle>Unsaved Workout</DialogTitle>
+            <DialogTitle>End your workout?</DialogTitle>
             <DialogDescription>
-              This workout hasn't been saved yet. Would you like to save it before clearing?
+              {completedSets} of {totalSets} sets completed.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex-col gap-2 sm:flex-col">
-            <Button onClick={handleClearSaveFirst} className="min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover">
+            <Button onClick={handleEndAndSave} className="min-h-[44px] bg-accent-primary text-bg-root hover:bg-accent-hover">
               <Save size={14} className="mr-1" />
-              Save & Clear
+              End &amp; Save
             </Button>
-            <Button variant="outline" onClick={handleClearDiscard} className="min-h-[44px] text-destructive border-destructive/30 hover:bg-destructive/10">
-              Discard
+            <Button variant="ghost" onClick={handleEndAndDiscard} className="min-h-[44px] text-text-tertiary">
+              End without saving
             </Button>
-            <Button variant="ghost" onClick={() => setClearConfirmOpen(false)} className="min-h-[44px]">
+            <Button variant="ghost" onClick={handleResumeWorkout} className="min-h-[44px]">
               Cancel
             </Button>
           </DialogFooter>

@@ -15,6 +15,10 @@ export const BottomNav = memo(function BottomNav() {
   const activeTab = useStore((state) => state.activeTab);
   const setActiveTab = useStore((state) => state.setActiveTab);
   const builderDirty = useStore((state) => state.builder.isDirty);
+  const hasActiveSession = useStore((state) => {
+    const s = state.session.active;
+    return !!s?.startedAt && !s?.completedAt;
+  });
 
   return (
     <nav
@@ -43,6 +47,9 @@ export const BottomNav = memo(function BottomNav() {
                 <Icon size={20} />
                 {id === 'build' && builderDirty && (
                   <span className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-warning" />
+                )}
+                {id === 'active' && hasActiveSession && (
+                  <span className="absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-success" />
                 )}
               </span>
               <span className="font-medium">{label}</span>

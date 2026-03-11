@@ -1,4 +1,4 @@
-import { useState, useCallback, Fragment } from 'react';
+import { useState, useCallback } from 'react';
 import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste, Save } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
@@ -554,7 +554,7 @@ export function MyWorkouts() {
               ];
 
               return (
-                <Fragment key={workout.id}>
+                <div key={workout.id}>
                   <SwipeToReveal actions={cardActions}>
                     <motion.div
                       layout
@@ -593,7 +593,7 @@ export function MyWorkouts() {
                   {workouts.length >= 5 && (index + 1) % 4 === 0 && index < workouts.length - 1 && (
                     <AdSlot slotKey="library_feed" />
                   )}
-                </Fragment>
+                </div>
               );
             })}
           </AnimatePresence>

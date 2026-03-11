@@ -198,3 +198,19 @@
     min-height: 100dvh;
   }
 }
+
+/* ── Welcome page neon glow ── */
+@keyframes neon-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px var(--color-accent-primary))
+            drop-shadow(0 0 12px var(--color-accent-primary));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--color-accent-primary))
+            drop-shadow(0 0 24px var(--color-accent-primary))
+            drop-shadow(0 0 48px var(--color-accent-primary));
+  }
+}
+.neon-glow {
+  animation: neon-pulse 2s ease-in-out infinite;
+}

@@ -1,67 +1,71 @@
-import { motion } from 'framer-motion';
-import { Play, Minus, Plus } from 'lucide-react';
+import { Minus, Pause, Plus } from 'lucide-react';
 
-const SIZE = 100;
-const STROKE = 6;
-const RADIUS = (SIZE - STROKE) / 2;
+const RING_SIZE = 100;
+const STROKE_WIDTH = 4;
+const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
+/** Static mock that mirrors the real RestTimer layout at 0:20 idle. */
 export function MockRestTimerRing() {
   return (
     <div className="rounded-xl border border-border-subtle bg-bg-surface p-4 overflow-hidden">
-      <div className="flex flex-col items-center gap-3">
-        {/* Ring */}
-        <div className="relative" style={{ width: SIZE, height: SIZE }}>
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
-            {/* Background track */}
-            <circle
-              cx={SIZE / 2}
-              cy={SIZE / 2}
-              r={RADIUS}
-              fill="none"
-              strokeWidth={STROKE}
-              className="stroke-border-subtle"
-            />
-            {/* Animated arc */}
-            <motion.circle
-              cx={SIZE / 2}
-              cy={SIZE / 2}
-              r={RADIUS}
-              fill="none"
-              strokeWidth={STROKE}
-              strokeLinecap="round"
-              strokeDasharray={CIRCUMFERENCE}
-              className="stroke-accent-primary"
-              style={{ rotate: -90, transformOrigin: 'center' }}
-              animate={{ strokeDashoffset: [0, CIRCUMFERENCE] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                repeatDelay: 1,
-                ease: 'linear',
-              }}
-            />
-          </svg>
-          {/* Center time */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-lg font-semibold text-text-primary tabular-nums">
-              1:30
-            </span>
+      <div className="flex items-center justify-center gap-2">
+        {/* Left: +15 / -15 */}
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center h-8 w-10 rounded-lg text-xs text-text-tertiary">
+            <Plus size={12} className="mr-0.5" />
+            15
+          </div>
+          <div className="flex items-center justify-center h-8 w-10 rounded-lg text-xs text-text-tertiary">
+            <Minus size={12} className="mr-0.5" />
+            15
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex items-center gap-4">
-          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-bg-elevated text-text-secondary">
-            <Minus className="h-3.5 w-3.5" />
-          </button>
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-primary text-white">
-            <Play className="h-4 w-4" />
-          </button>
-          <button className="flex h-7 w-7 items-center justify-center rounded-full bg-bg-elevated text-text-secondary">
-            <Plus className="h-3.5 w-3.5" />
-          </button>
+        {/* Center: timer ring */}
+        <div className="relative" style={{ width: RING_SIZE + 24, height: RING_SIZE + 24 }}>
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{ left: 12, top: 12, width: RING_SIZE, height: RING_SIZE }}
+          >
+            <svg
+              width={RING_SIZE}
+              height={RING_SIZE}
+              className="rotate-[-90deg] absolute inset-0"
+            >
+              <circle
+                cx={RING_SIZE / 2}
+                cy={RING_SIZE / 2}
+                r={RADIUS}
+                fill="none"
+                stroke="var(--color-bg-elevated)"
+                strokeWidth={STROKE_WIDTH}
+              />
+              <circle
+                cx={RING_SIZE / 2}
+                cy={RING_SIZE / 2}
+                r={RADIUS}
+                fill="none"
+                stroke="var(--color-accent-primary)"
+                strokeWidth={STROKE_WIDTH}
+                strokeLinecap="round"
+                strokeDasharray={CIRCUMFERENCE}
+                strokeDashoffset={0}
+              />
+            </svg>
+            <div className="relative flex flex-col items-center justify-center">
+              <span className="text-lg font-bold tabular-nums text-text-primary">
+                0:20
+              </span>
+              <div className="mt-0.5 text-text-tertiary">
+                <Pause size={14} />
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Right: empty spacer to match real layout */}
+        <div className="w-10" />
       </div>
     </div>
   );

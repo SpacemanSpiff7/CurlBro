@@ -29,6 +29,7 @@ import { MockRestTimerRing } from '@/components/guide/illustrations/MockRestTime
 interface RecordGuideProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  overlayClassName?: string;
 }
 
 /* ---------- Inline illustration: Start Overlay ---------- */
@@ -167,12 +168,12 @@ function MockFinishSummary() {
 
 /* ========================================================= */
 
-export function RecordGuide({ open, onOpenChange }: RecordGuideProps) {
+export function RecordGuide({ open, onOpenChange, overlayClassName }: RecordGuideProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[95dvh] bg-bg-surface overflow-hidden">
+      <SheetContent side="bottom" className="h-[95dvh] bg-bg-surface overflow-hidden" overlayClassName={overlayClassName}>
         <ScrollProgressBar scrollRef={scrollRef} />
         <SheetHeader>
           <SheetTitle className="text-text-primary">Record a Workout</SheetTitle>

@@ -27,16 +27,17 @@ import { MockStatusBar } from '@/components/guide/illustrations/MockStatusBar';
 interface BuildGuideProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  overlayClassName?: string;
 }
 
 const TEMPLATE_BADGES = ['Easy Machine', 'Intermediate', 'Advanced', 'Specialty'] as const;
 
-export function BuildGuide({ open, onOpenChange }: BuildGuideProps) {
+export function BuildGuide({ open, onOpenChange, overlayClassName }: BuildGuideProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[95dvh] bg-bg-surface overflow-hidden">
+      <SheetContent side="bottom" className="h-[95dvh] bg-bg-surface overflow-hidden" overlayClassName={overlayClassName}>
         <ScrollProgressBar scrollRef={scrollRef} />
         <SheetHeader>
           <SheetTitle className="text-text-primary">Build a Workout</SheetTitle>

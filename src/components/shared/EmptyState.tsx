@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 interface EmptyStateProps {
   icon: LucideIcon;
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   action?: React.ReactNode;
 }
 
