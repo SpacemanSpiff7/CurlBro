@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { lazy, Suspense, useState, useCallback } from 'react';
 import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste, Save } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
@@ -28,7 +28,7 @@ import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
 import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
 import { SPLIT_LABELS } from '@/types';
-import { WorkoutDetailSheet } from '@/components/library/WorkoutDetailSheet';
+const WorkoutDetailSheet = lazy(() => import('@/components/library/WorkoutDetailSheet').then(m => ({ default: m.WorkoutDetailSheet })));
 import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
 
 const DIFFICULTY_COLORS: Record<SeededWorkout['difficulty'], string> = {
@@ -610,15 +610,17 @@ export function MyWorkouts() {
 
       <ImportSheet open={importOpen} onOpenChange={setImportOpen} />
 
-      <WorkoutDetailSheet
-        workout={detailWorkout}
-        open={detailOpen}
-        onOpenChange={handleDetailChange}
-        onStart={handleDetailStart}
-        onEdit={handleDetailEdit}
-        onExport={handleExport}
-        onDelete={isSeededPreview ? undefined : (w) => handleDelete(w.id)}
-      />
+      <Suspense fallback={null}>
+        <WorkoutDetailSheet
+          workout={detailWorkout}
+          open={detailOpen}
+          onOpenChange={handleDetailChange}
+          onStart={handleDetailStart}
+          onEdit={handleDetailEdit}
+          onExport={handleExport}
+          onDelete={isSeededPreview ? undefined : (w) => handleDelete(w.id)}
+        />
+      </Suspense>
 
       {dialogState.type === 'replaceSession' && (
         <ConfirmDialog

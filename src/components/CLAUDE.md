@@ -116,7 +116,8 @@
   `ActiveWorkout` tracks swap/video targets via offset-based state (`swapTargetOffset`,
   `videoTargetOffset`) so Info/Swap work for any exercise in a group — not just the first.
   `data-swipe-row` from `SwipeToReveal` prevents exercise-navigation swipe on these rows.
-- FloatingRestTimer (`session/`) — draggable floating pill indicator showing rest timer status
+- FloatingRestTimer (`session/`) — both `FloatingRestTimerInner` and internal `MiniRing` are
+  `React.memo`-wrapped for render optimization. Draggable floating pill indicator showing rest timer status
   when the inline timer is scrolled out of view or user is on another tab. Rendered in App.tsx
   (always mounted, self-manages visibility via AnimatePresence). Compact pill: 24px SVG progress
   ring + M:SS text. Tap navigates to active tab + scrolls inline timer into view. Drag to any

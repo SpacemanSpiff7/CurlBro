@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Save, Smartphone, Square, StickyNote, Timer } from 'lucide-react';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -14,13 +14,14 @@ import {
 } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ExerciseRowStack } from '@/components/session/ExerciseRowStack';
-import { StartOverlay } from '@/components/session/StartOverlay';
 import { GroupSetTracker } from '@/components/session/GroupSetTracker';
 import { RestTimer } from '@/components/session/RestTimer';
-import { ExercisePicker } from '@/components/exercise/ExercisePicker';
-import { SubstitutePanel } from '@/components/exercise/SubstitutePanel';
-import { VideoSheet } from '@/components/exercise/VideoSheet';
 import { PageLayout } from '@/components/shared/PageLayout';
+
+const StartOverlay = lazy(() => import('@/components/session/StartOverlay').then(m => ({ default: m.StartOverlay })));
+const ExercisePicker = lazy(() => import('@/components/exercise/ExercisePicker').then(m => ({ default: m.ExercisePicker })));
+const SubstitutePanel = lazy(() => import('@/components/exercise/SubstitutePanel').then(m => ({ default: m.SubstitutePanel })));
+const VideoSheet = lazy(() => import('@/components/exercise/VideoSheet').then(m => ({ default: m.VideoSheet })));
 import { EmptyState } from '@/components/shared/EmptyState';
 import { MarqueeText } from '@/components/shared/MarqueeText';
 import { useStore } from '@/store';
@@ -495,12 +496,14 @@ export function ActiveWorkout() {
 
       {/* Substitute panel — for whichever exercise was swiped */}
       {swapTargetExercise && (
-        <SubstitutePanel
-          exerciseId={swapTargetExercise.exerciseId as ExerciseId}
-          open={true}
-          onSwap={handleSwap}
-          onSearchAll={() => setSwapPickerOpen(true)}
-        />
+        <Suspense fallback={null}>
+          <SubstitutePanel
+            exerciseId={swapTargetExercise.exerciseId as ExerciseId}
+            open={true}
+            onSwap={handleSwap}
+            onSearchAll={() => setSwapPickerOpen(true)}
+          />
+        </Suspense>
       )}
 
       {/* Rest timer */}
@@ -668,11 +671,13 @@ export function ActiveWorkout() {
       )}
       </div>
 
-      <VideoSheet
-        exercise={videoTargetExercise}
-        open={videoTargetOffset !== null}
-        onOpenChange={(open) => { if (!open) setVideoTargetOffset(null); }}
-      />
+      <Suspense fallback={null}>
+        <VideoSheet
+          exercise={videoTargetExercise}
+          open={videoTargetOffset !== null}
+          onOpenChange={(open) => { if (!open) setVideoTargetOffset(null); }}
+        />
+      </Suspense>
 
       {/* Save summary sheet */}
       <Sheet open={summaryOpen} onOpenChange={setSummaryOpen}>
@@ -724,19 +729,23 @@ export function ActiveWorkout() {
       </Sheet>
 
       {/* Exercise picker for mid-session add */}
-      <ExercisePicker
-        open={pickerOpen}
-        onOpenChange={setPickerOpen}
-        onAdd={handleAddExercise}
-      />
+      <Suspense fallback={null}>
+        <ExercisePicker
+          open={pickerOpen}
+          onOpenChange={setPickerOpen}
+          onAdd={handleAddExercise}
+        />
+      </Suspense>
 
       {/* Exercise picker for swap via search */}
-      <ExercisePicker
-        open={swapPickerOpen}
-        onOpenChange={setSwapPickerOpen}
-        onAdd={handleSwapFromPicker}
-        title="Swap Exercise"
-      />
+      <Suspense fallback={null}>
+        <ExercisePicker
+          open={swapPickerOpen}
+          onOpenChange={setSwapPickerOpen}
+          onAdd={handleSwapFromPicker}
+          title="Swap Exercise"
+        />
+      </Suspense>
 
       {/* End workout confirmation */}
       <Dialog open={endDialogOpen} onOpenChange={(open) => {
@@ -766,13 +775,15 @@ export function ActiveWorkout() {
 
       <AnimatePresence>
         {isPreview && (
-          <StartOverlay
-            workoutName={session.workoutName || 'Workout'}
-            exerciseCount={previewExerciseCount}
-            groupCount={totalGroups}
-            onStart={beginSession}
-            onCancel={handleCancel}
-          />
+          <Suspense fallback={null}>
+            <StartOverlay
+              workoutName={session.workoutName || 'Workout'}
+              exerciseCount={previewExerciseCount}
+              groupCount={totalGroups}
+              onStart={beginSession}
+              onCancel={handleCancel}
+            />
+          </Suspense>
         )}
       </AnimatePresence>
     </PageLayout>

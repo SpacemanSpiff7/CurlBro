@@ -115,6 +115,16 @@ Agent definitions live in `.claude/agents/`.
 - Never commit failing tests or type errors
 
 ## Known Quirks
+- React.lazy code splitting: All 6 tab pages are lazy-loaded in `App.tsx` via
+  `React.lazy(() => import(...).then(m => ({ default: m.NamedExport })))` — the `.then()`
+  wrapper is required because pages use named exports, not default exports. Heavy sheets
+  and overlays (ExercisePicker, VideoSheet, SubstitutePanel, StartOverlay, WorkoutDetailSheet,
+  AboutPage, PrivacyPolicyPage, TermsOfUsePage, BuildGuide, RecordGuide) are also lazy-loaded
+  in their respective page files. Wrap render sites in `<Suspense fallback={null}>`.
+- Exercise JSON is dynamically imported: `getAllExercises()` in `src/data/exercises.ts` is
+  `async` — returns `Promise<RawExercise[]>`. `initGraph()` in the store is also async.
+  Tests that use `getAllExercises()` must use `beforeAll(async () => ...)` instead of
+  module-level calls. `exerciseFiles` export replaced with `getExerciseFiles()` (async).
 - Flexible tracking flags: `TrackingFlags` (`trackWeight`, `trackReps`, `trackDuration`,
   `trackDistance`) on `WorkoutExercise` and `ExerciseLog`. Auto-inferred by
   `inferTrackingFlags()` from exercise category+equipment. Hydration backfills old data

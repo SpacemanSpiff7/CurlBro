@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -7,12 +7,13 @@ import { resetWelcomeSeen } from '@/utils/welcomeState';
 import { Button } from '@/components/ui/button';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
-import { AboutPage } from './AboutPage';
-import { PrivacyPolicyPage } from './PrivacyPolicyPage';
-import { TermsOfUsePage } from './TermsOfUsePage';
-import { BuildGuide } from './BuildGuide';
-import { RecordGuide } from './RecordGuide';
 import { useStore } from '@/store';
+
+const AboutPage = lazy(() => import('./AboutPage').then(m => ({ default: m.AboutPage })));
+const PrivacyPolicyPage = lazy(() => import('./PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
+const TermsOfUsePage = lazy(() => import('./TermsOfUsePage').then(m => ({ default: m.TermsOfUsePage })));
+const BuildGuide = lazy(() => import('./BuildGuide').then(m => ({ default: m.BuildGuide })));
+const RecordGuide = lazy(() => import('./RecordGuide').then(m => ({ default: m.RecordGuide })));
 
 function NumberSetting({ value, min, fallback, onChange }: {
   value: number; min: number; fallback: number;
@@ -529,11 +530,13 @@ export function SettingsPage() {
           </Button>
         </div>
       </div>
-      <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
-      <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
-      <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />
-      <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} />
-      <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} />
+      <Suspense fallback={null}>
+        <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
+        <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
+        <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />
+        <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} />
+        <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} />
+      </Suspense>
     </PageLayout>
   );
 }

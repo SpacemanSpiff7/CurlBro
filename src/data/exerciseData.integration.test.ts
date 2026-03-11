@@ -9,9 +9,10 @@
  *  - Load profile schema validation
  *  - Equipment filtering with new types (sled, hip_thrust_machine)
  */
-import { describe, it, expect } from 'vitest';
-import { getAllExercises, exerciseFiles } from './exercises';
+import { describe, it, expect, beforeAll } from 'vitest';
+import { getAllExercises, getExerciseFiles } from './exercises';
 import { buildExerciseGraph } from './graphBuilder';
+import type { RawExercise } from './graphBuilder';
 import {
   ExerciseSchema,
   EQUIPMENT_TYPES,
@@ -19,13 +20,23 @@ import {
   LOAD_LEVELS,
   LoadProfileSchema,
   type ExerciseId,
+  type ExerciseFile,
+  type ExerciseGraph,
   type EquipmentGroup,
 } from '@/types';
 
-// ─── Setup ──────────────────────────────────────────────────
-const allExercises = getAllExercises();
-const graph = buildExerciseGraph(allExercises);
-const allIds = new Set(allExercises.map((e) => e.id));
+// ─── Setup (async — loaded in beforeAll) ─────────────────────
+let allExercises: RawExercise[];
+let exerciseFiles: ExerciseFile[];
+let graph: ExerciseGraph;
+let allIds: Set<string>;
+
+beforeAll(async () => {
+  allExercises = await getAllExercises();
+  exerciseFiles = await getExerciseFiles();
+  graph = buildExerciseGraph(allExercises);
+  allIds = new Set(allExercises.map((e) => e.id));
+});
 
 // ─── Dataset Integrity ──────────────────────────────────────
 describe('exercise dataset integrity', () => {
@@ -133,38 +144,40 @@ describe('graph edge integrity', () => {
 
 // ─── New Exercises ───────────────────────────────────────────
 describe('new exercise: glute_drive_machine', () => {
-  const ex = allExercises.find((e) => e.id === 'glute_drive_machine');
+  const getEx = () => allExercises.find((e) => e.id === 'glute_drive_machine')!;
 
   it('exists in the dataset', () => {
-    expect(ex).toBeDefined();
+    expect(getEx()).toBeDefined();
   });
 
   it('has correct basic properties', () => {
-    expect(ex!.category).toBe('compound');
-    expect(ex!.movement_pattern).toBe('hip_extension');
-    expect(ex!.force_type).toBe('push');
-    expect(ex!.equipment).toEqual(['hip_thrust_machine']);
-    expect(ex!.primary_muscles).toContain('glutes');
-    expect(ex!.difficulty).toBe('beginner');
-    expect(ex!.workout_position).toBe('early_mid');
+    const ex = getEx();
+    expect(ex.category).toBe('compound');
+    expect(ex.movement_pattern).toBe('hip_extension');
+    expect(ex.force_type).toBe('push');
+    expect(ex.equipment).toEqual(['hip_thrust_machine']);
+    expect(ex.primary_muscles).toContain('glutes');
+    expect(ex.difficulty).toBe('beginner');
+    expect(ex.workout_position).toBe('early_mid');
   });
 
   it('has valid substitute references', () => {
-    for (const subId of ex!.substitutes) {
+    const ex = getEx();
+    for (const subId of ex.substitutes) {
       expect(allIds.has(subId)).toBe(true);
     }
-    expect(ex!.substitutes).toContain('hip_thrust');
-    expect(ex!.substitutes).toContain('glute_bridge');
+    expect(ex.substitutes).toContain('hip_thrust');
+    expect(ex.substitutes).toContain('glute_bridge');
   });
 
   it('has valid complement references', () => {
-    for (const compId of ex!.complements) {
+    for (const compId of getEx().complements) {
       expect(allIds.has(compId)).toBe(true);
     }
   });
 
   it('has valid superset candidate references', () => {
-    for (const ssId of ex!.superset_candidates) {
+    for (const ssId of getEx().superset_candidates) {
       expect(allIds.has(ssId)).toBe(true);
     }
   });
@@ -180,7 +193,7 @@ describe('new exercise: glute_drive_machine', () => {
   });
 
   it('has a complete load_profile', () => {
-    const lp = (ex as Record<string, unknown>).load_profile;
+    const lp = (getEx() as unknown as Record<string, unknown>).load_profile;
     expect(lp).toBeDefined();
     const result = LoadProfileSchema.safeParse(lp);
     expect(result.success).toBe(true);
@@ -200,29 +213,30 @@ describe('new exercise: glute_drive_machine', () => {
 });
 
 describe('new exercise: sled_pull', () => {
-  const ex = allExercises.find((e) => e.id === 'sled_pull');
+  const getEx = () => allExercises.find((e) => e.id === 'sled_pull')!;
 
   it('exists in the dataset', () => {
-    expect(ex).toBeDefined();
+    expect(getEx()).toBeDefined();
   });
 
   it('has correct basic properties', () => {
-    expect(ex!.category).toBe('compound');
-    expect(ex!.movement_pattern).toBe('full_body_conditioning');
-    expect(ex!.force_type).toBe('pull');
-    expect(ex!.equipment).toEqual(['sled']);
-    expect(ex!.primary_muscles).toEqual(expect.arrayContaining(['quadriceps', 'hamstrings', 'glutes']));
-    expect(ex!.difficulty).toBe('beginner');
+    const ex = getEx();
+    expect(ex.category).toBe('compound');
+    expect(ex.movement_pattern).toBe('full_body_conditioning');
+    expect(ex.force_type).toBe('pull');
+    expect(ex.equipment).toEqual(['sled']);
+    expect(ex.primary_muscles).toEqual(expect.arrayContaining(['quadriceps', 'hamstrings', 'glutes']));
+    expect(ex.difficulty).toBe('beginner');
   });
 
   it('has valid substitute references', () => {
-    for (const subId of ex!.substitutes) {
+    for (const subId of getEx().substitutes) {
       expect(allIds.has(subId)).toBe(true);
     }
   });
 
   it('has valid complement references', () => {
-    for (const compId of ex!.complements) {
+    for (const compId of getEx().complements) {
       expect(allIds.has(compId)).toBe(true);
     }
   });
@@ -239,7 +253,7 @@ describe('new exercise: sled_pull', () => {
   });
 
   it('has a complete load_profile', () => {
-    const lp = (ex as Record<string, unknown>).load_profile;
+    const lp = (getEx() as unknown as Record<string, unknown>).load_profile;
     expect(lp).toBeDefined();
     const result = LoadProfileSchema.safeParse(lp);
     expect(result.success).toBe(true);
@@ -253,36 +267,38 @@ describe('new exercise: sled_pull', () => {
 });
 
 describe('restored exercise: ab_crunch_machine', () => {
-  const ex = allExercises.find((e) => e.id === 'ab_crunch_machine');
+  const getEx = () => allExercises.find((e) => e.id === 'ab_crunch_machine')!;
 
   it('exists in the dataset', () => {
-    expect(ex).toBeDefined();
+    expect(getEx()).toBeDefined();
   });
 
   it('has correct basic properties', () => {
-    expect(ex!.category).toBe('isolation');
-    expect(ex!.movement_pattern).toBe('spinal_flexion');
-    expect(ex!.force_type).toBe('pull');
-    expect(ex!.equipment).toEqual(['ab_crunch_machine']);
-    expect(ex!.primary_muscles).toContain('core');
-    expect(ex!.difficulty).toBe('beginner');
-    expect(ex!.workout_position).toBe('late');
+    const ex = getEx();
+    expect(ex.category).toBe('isolation');
+    expect(ex.movement_pattern).toBe('spinal_flexion');
+    expect(ex.force_type).toBe('pull');
+    expect(ex.equipment).toEqual(['ab_crunch_machine']);
+    expect(ex.primary_muscles).toContain('core');
+    expect(ex.difficulty).toBe('beginner');
+    expect(ex.workout_position).toBe('late');
   });
 
   it('has valid edge references', () => {
-    for (const subId of ex!.substitutes) {
+    const ex = getEx();
+    for (const subId of ex.substitutes) {
       expect(allIds.has(subId)).toBe(true);
     }
-    for (const compId of ex!.complements) {
+    for (const compId of ex.complements) {
       expect(allIds.has(compId)).toBe(true);
     }
-    for (const ssId of ex!.superset_candidates) {
+    for (const ssId of ex.superset_candidates) {
       expect(allIds.has(ssId)).toBe(true);
     }
   });
 
   it('has a complete load_profile', () => {
-    const lp = (ex as Record<string, unknown>).load_profile;
+    const lp = (getEx() as unknown as Record<string, unknown>).load_profile;
     expect(lp).toBeDefined();
     const result = LoadProfileSchema.safeParse(lp);
     expect(result.success).toBe(true);
@@ -290,10 +306,10 @@ describe('restored exercise: ab_crunch_machine', () => {
 });
 
 describe('sled_push equipment fix', () => {
-  const ex = allExercises.find((e) => e.id === 'sled_push');
+  const getEx = () => allExercises.find((e) => e.id === 'sled_push')!;
 
   it('uses sled equipment (not bodyweight)', () => {
-    expect(ex!.equipment).toEqual(['sled']);
+    expect(getEx().equipment).toEqual(['sled']);
   });
 
   it('is indexed under "sled" equipment in the graph', () => {
@@ -354,19 +370,19 @@ describe('equipment type consistency', () => {
 
 // ─── Load Profile Validation ─────────────────────────────────
 describe('load_profile validation', () => {
-  const exercisesWithLoadProfile = allExercises.filter(
-    (e) => (e as Record<string, unknown>).load_profile != null
+  const getWithLoadProfile = () => allExercises.filter(
+    (e) => (e as unknown as Record<string, unknown>).load_profile != null
   );
 
   it('most exercises have a load_profile', () => {
     // All 320 from feature branch + 3 new ones should have load_profile
-    expect(exercisesWithLoadProfile.length).toBeGreaterThan(300);
+    expect(getWithLoadProfile().length).toBeGreaterThan(300);
   });
 
   it('all load_profiles pass schema validation', () => {
     const failures: string[] = [];
-    for (const ex of exercisesWithLoadProfile) {
-      const lp = (ex as Record<string, unknown>).load_profile;
+    for (const ex of getWithLoadProfile()) {
+      const lp = (ex as unknown as Record<string, unknown>).load_profile;
       const result = LoadProfileSchema.safeParse(lp);
       if (!result.success) {
         failures.push(`${ex.id}: ${result.error.issues.map((i) => i.message).join(', ')}`);
@@ -378,8 +394,8 @@ describe('load_profile validation', () => {
   it('all load_profile values use valid load levels', () => {
     const validLevels = new Set(LOAD_LEVELS);
     const invalid: string[] = [];
-    for (const ex of exercisesWithLoadProfile) {
-      const lp = (ex as Record<string, unknown>).load_profile as Record<string, string>;
+    for (const ex of getWithLoadProfile()) {
+      const lp = (ex as unknown as Record<string, unknown>).load_profile as Record<string, string>;
       for (const [key, value] of Object.entries(lp)) {
         if (!validLevels.has(value as typeof LOAD_LEVELS[number])) {
           invalid.push(`${ex.id}.${key}: ${value}`);
@@ -392,8 +408,8 @@ describe('load_profile validation', () => {
   it('all load_profiles have exactly 7 fields', () => {
     const expectedFields = ['spinal', 'shoulder', 'elbow', 'knee', 'grip', 'lumbar_stabilizer', 'rotator_cuff'];
     const mismatched: string[] = [];
-    for (const ex of exercisesWithLoadProfile) {
-      const lp = (ex as Record<string, unknown>).load_profile as Record<string, string>;
+    for (const ex of getWithLoadProfile()) {
+      const lp = (ex as unknown as Record<string, unknown>).load_profile as Record<string, string>;
       const keys = Object.keys(lp).sort();
       if (keys.length !== 7 || !expectedFields.every((f) => keys.includes(f))) {
         mismatched.push(`${ex.id}: ${keys.join(', ')}`);

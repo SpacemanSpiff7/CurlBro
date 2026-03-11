@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useMemo } from 'react';
 import { useStore } from '@/store';
 import { playTimerDone } from '@/utils/audio';
 import { vibrateTimerDone } from '@/utils/haptics';
@@ -87,6 +87,8 @@ export function useRestTimer() {
     ? timer.remainingSeconds / timer.totalSeconds
     : 0;
 
+  const isDone = !timer.isRunning && timer.totalSeconds > 0 && timer.remainingSeconds <= 0;
+
   const adjustRest = useCallback(
     (delta: number) => {
       adjustRestDuration(delta);
@@ -94,17 +96,21 @@ export function useRestTimer() {
     [adjustRestDuration]
   );
 
-  return {
+  return useMemo(() => ({
     isRunning: timer.isRunning,
     remainingSeconds: timer.remainingSeconds,
     totalSeconds: timer.totalSeconds,
     restSeconds: timer.restSeconds,
     progress,
-    isDone: !timer.isRunning && timer.totalSeconds > 0 && timer.remainingSeconds <= 0,
+    isDone,
     start,
     stop,
     pause,
     addTime,
     adjustRestDuration: adjustRest,
-  };
+  }), [
+    timer.isRunning, timer.remainingSeconds, timer.totalSeconds,
+    timer.restSeconds, progress, isDone,
+    start, stop, pause, addTime, adjustRest,
+  ]);
 }

@@ -19,6 +19,8 @@ Components never access store.graph directly — always through a hook.
   Calls `syncTimer()` on mount to correct for elapsed time during tab switch unmount.
   Listens for `visibilitychange` and `focus` events to call `syncTimer()` on tab return,
   correcting timer drift from browser throttling during backgrounding.
+  Returns a `useMemo`-wrapped object with granular deps — safe to use in `useCallback` dependency
+  arrays without causing unnecessary re-renders.
 - useWorkoutConflicts checks both ID-based and pattern-based exercise conflicts
 - useAutoWorkoutName generates a default name from the most common muscle group + date
 - useSwipeGesture — horizontal swipe gesture hook built on `@use-gesture/react` `useDrag`. Uses

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { lazy, Suspense, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -12,9 +12,10 @@ import {
 } from 'lucide-react';
 import { MockFilterChips } from '@/components/guide/illustrations/MockFilterChips';
 import { MockRestTimerRing } from '@/components/guide/illustrations/MockRestTimerRing';
-import { BuildGuide } from './BuildGuide';
-import { RecordGuide } from './RecordGuide';
 import { markWelcomeSeen } from '@/utils/welcomeState';
+
+const BuildGuide = lazy(() => import('./BuildGuide').then(m => ({ default: m.BuildGuide })));
+const RecordGuide = lazy(() => import('./RecordGuide').then(m => ({ default: m.RecordGuide })));
 
 interface WelcomePageProps {
   onDismiss: () => void;
@@ -364,8 +365,10 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
         </div>
       </div>
 
-      <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} overlayClassName="z-[70]" />
-      <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} overlayClassName="z-[70]" />
+      <Suspense fallback={null}>
+        <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} overlayClassName="z-[70]" />
+        <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} overlayClassName="z-[70]" />
+      </Suspense>
 
       {/* Flying logo — portaled to body so it survives the welcome exit animation */}
       {createPortal(

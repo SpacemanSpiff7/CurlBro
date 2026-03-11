@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { buildExerciseGraph } from './graphBuilder';
 import { testExercises } from '../../tests/fixtures/testGraph';
 import { getAllExercises } from './exercises';
@@ -77,8 +77,13 @@ describe('buildExerciseGraph', () => {
   });
 
   describe('with full dataset', () => {
-    const rawExercises = getAllExercises();
-    const graph = buildExerciseGraph(rawExercises);
+    let rawExercises: Awaited<ReturnType<typeof getAllExercises>>;
+    let graph: ReturnType<typeof buildExerciseGraph>;
+
+    beforeAll(async () => {
+      rawExercises = await getAllExercises();
+      graph = buildExerciseGraph(rawExercises);
+    });
 
     it('builds all 345 exercises', () => {
       expect(graph.exercises.size).toBe(345);

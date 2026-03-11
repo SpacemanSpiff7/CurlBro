@@ -1,15 +1,20 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useWorkoutConflicts } from './useWorkoutConflicts';
 import { useStore } from '@/store';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { getAllExercises } from '@/data/exercises';
-import type { ExerciseId, WorkoutId } from '@/types';
+import type { ExerciseId, ExerciseGraph, WorkoutId } from '@/types';
+
+let realGraph: ExerciseGraph;
+
+beforeAll(async () => {
+  realGraph = buildExerciseGraph(await getAllExercises());
+});
 
 describe('useWorkoutConflicts', () => {
   beforeEach(() => {
-    // Use real exercises so we can test actual conflict IDs
-    const graph = buildExerciseGraph(getAllExercises());
+    const graph = realGraph;
     useStore.setState({
       graph,
       graphReady: true,

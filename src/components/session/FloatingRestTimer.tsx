@@ -16,7 +16,7 @@ function formatTime(seconds: number): string {
 }
 
 /** Mini SVG progress ring for the floating indicator. */
-function MiniRing({ progress }: { progress: number }) {
+const MiniRing = React.memo(function MiniRing({ progress }: { progress: number }) {
   const size = 24;
   const strokeWidth = 2.5;
   const radius = (size - strokeWidth) / 2;
@@ -48,7 +48,7 @@ function MiniRing({ progress }: { progress: number }) {
       />
     </svg>
   );
-}
+});
 
 /* ── Draggable corner logic ─────────────────────────── */
 

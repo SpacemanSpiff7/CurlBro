@@ -44,7 +44,7 @@ interface AppState {
   // Graph (read-only after init)
   graph: ExerciseGraph;
   graphReady: boolean;
-  initGraph: () => void;
+  initGraph: () => Promise<void>;
 
   // Builder
   builder: {
@@ -192,13 +192,17 @@ export const useStore = create<AppState>()(
       // Graph
       graph: createEmptyGraph(),
       graphReady: false,
-      initGraph: () => {
-        const rawExercises = getAllExercises();
-        const graph = buildExerciseGraph(rawExercises);
-        set((state) => {
-          state.graph = graph as ExerciseGraph;
-          state.graphReady = true;
-        });
+      initGraph: async () => {
+        try {
+          const rawExercises = await getAllExercises();
+          const graph = buildExerciseGraph(rawExercises);
+          set((state) => {
+            state.graph = graph as ExerciseGraph;
+            state.graphReady = true;
+          });
+        } catch (err) {
+          console.error('Failed to load exercise data:', err);
+        }
       },
 
       // Builder

@@ -1,6 +1,6 @@
 import type { Exercise, ExerciseGraph, ExerciseId, ForceType } from '@/types';
 
-interface RawExercise {
+export interface RawExercise {
   id: string;
   name: string;
   category: string;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '@/store';
 import { BottomNav } from '@/components/shared/BottomNav';
@@ -6,18 +6,19 @@ import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 import { CookieConsent } from '@/components/shared/CookieConsent';
 import { closeAllSwipeRows } from '@/components/shared/SwipeToReveal';
 import { Toaster } from '@/components/ui/sonner';
-import { BuildWorkout } from '@/pages/BuildWorkout';
-import { MyWorkouts } from '@/pages/MyWorkouts';
-import { ActiveWorkout } from '@/pages/ActiveWorkout';
-import { WorkoutLogPage } from '@/pages/WorkoutLogPage';
-import { SettingsPage } from '@/pages/SettingsPage';
-import { WelcomePage } from '@/pages/WelcomePage';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { setDragOffset } from '@/hooks/useDragOffsetChannel';
 import { FloatingRestTimer } from '@/components/session/FloatingRestTimer';
 import { deriveGroups } from '@/utils/groupUtils';
 import { hasSeenWelcome } from '@/utils/welcomeState';
 import type { TabId } from '@/types';
+
+const BuildWorkout = lazy(() => import('@/pages/BuildWorkout').then(m => ({ default: m.BuildWorkout })));
+const MyWorkouts = lazy(() => import('@/pages/MyWorkouts').then(m => ({ default: m.MyWorkouts })));
+const ActiveWorkout = lazy(() => import('@/pages/ActiveWorkout').then(m => ({ default: m.ActiveWorkout })));
+const WorkoutLogPage = lazy(() => import('@/pages/WorkoutLogPage').then(m => ({ default: m.WorkoutLogPage })));
+const SettingsPage = lazy(() => import('@/pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
+const WelcomePage = lazy(() => import('@/pages/WelcomePage').then(m => ({ default: m.WelcomePage })));
 
 const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'log', 'settings'];
 
@@ -29,41 +30,44 @@ const TAB_TITLES: Record<TabId, string> = {
   settings: 'CurlBro — Settings',
 };
 
+const PageFallback = (
+  <div className="flex min-h-[50dvh] items-center justify-center">
+    <div className="text-text-secondary">Loading...</div>
+  </div>
+);
+
 function AppContent() {
   const activeTab = useStore((state) => state.activeTab);
 
-  switch (activeTab) {
-    case 'build':
-      return (
+  return (
+    <Suspense fallback={PageFallback}>
+      {activeTab === 'build' && (
         <ErrorBoundary fallbackTitle="Builder Error" key="build">
           <BuildWorkout />
         </ErrorBoundary>
-      );
-    case 'library':
-      return (
+      )}
+      {activeTab === 'library' && (
         <ErrorBoundary fallbackTitle="Library Error" key="library">
           <MyWorkouts />
         </ErrorBoundary>
-      );
-    case 'active':
-      return (
+      )}
+      {activeTab === 'active' && (
         <ErrorBoundary fallbackTitle="Session Error" key="active">
           <ActiveWorkout />
         </ErrorBoundary>
-      );
-    case 'log':
-      return (
+      )}
+      {activeTab === 'log' && (
         <ErrorBoundary fallbackTitle="Log Error" key="log">
           <WorkoutLogPage />
         </ErrorBoundary>
-      );
-    case 'settings':
-      return (
+      )}
+      {activeTab === 'settings' && (
         <ErrorBoundary fallbackTitle="Settings Error" key="settings">
           <SettingsPage />
         </ErrorBoundary>
-      );
-  }
+      )}
+    </Suspense>
+  );
 }
 
 export default function App() {
@@ -82,33 +86,39 @@ export default function App() {
     return () => window.removeEventListener('curlbro_welcome_reset', handleReset);
   }, []);
 
-  // On Active tab with a running session, swipe navigates exercises first
-  const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
+  /** Snapshot active session + derived groups for gesture callbacks. */
+  const getSessionInfo = useCallback(() => {
     const state = useStore.getState();
     const session = state.session.active;
-    if (state.activeTab !== 'active' || !session || !session.startedAt) return false;
+    if (state.activeTab !== 'active' || !session || !session.startedAt) return null;
+    return { session, groups: deriveGroups(session.exercises), actions: state.sessionActions };
+  }, []);
 
-    const groups = deriveGroups(session.exercises);
+  // On Active tab with a running session, swipe navigates exercises first
+  const swipeInterceptor = useCallback((direction: 'left' | 'right') => {
+    const info = getSessionInfo();
+    if (!info) return false;
+
+    const { groups, session, actions } = info;
     const { currentGroupIndex } = session;
 
     if (direction === 'left' && currentGroupIndex < groups.length - 1) {
-      state.sessionActions.goToGroup(currentGroupIndex + 1);
+      actions.goToGroup(currentGroupIndex + 1);
       return true;
     }
     if (direction === 'right' && currentGroupIndex > 0) {
-      state.sessionActions.goToGroup(currentGroupIndex - 1);
+      actions.goToGroup(currentGroupIndex - 1);
       return true;
     }
 
     return false; // At edge, let tab navigation happen
-  }, []);
+  }, [getSessionInfo]);
 
   const handleDragOffset = useCallback((offsetX: number) => {
-    const state = useStore.getState();
-    const session = state.session.active;
-    if (state.activeTab !== 'active' || !session || !session.startedAt) return;
+    const info = getSessionInfo();
+    if (!info) return;
 
-    const groups = deriveGroups(session.exercises);
+    const { groups, session } = info;
     const { currentGroupIndex } = session;
     const atFirstGroup = currentGroupIndex <= 0;
     const atLastGroup = currentGroupIndex >= groups.length - 1;
@@ -119,7 +129,7 @@ export default function App() {
     const dampened = atEdge ? offsetX * 0.3 : offsetX;
 
     setDragOffset(dampened);
-  }, []);
+  }, [getSessionInfo]);
 
   const bind = useSwipeGesture({
     onSwipe: (direction) => {
@@ -192,7 +202,9 @@ export default function App() {
       <BottomNav />
       <AnimatePresence>
         {showWelcome && (
-          <WelcomePage onDismiss={() => setShowWelcome(false)} />
+          <Suspense fallback={null}>
+            <WelcomePage onDismiss={() => setShowWelcome(false)} />
+          </Suspense>
         )}
       </AnimatePresence>
       <CookieConsent />

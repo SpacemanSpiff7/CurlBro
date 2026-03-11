@@ -15,7 +15,8 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - If Zod validation fails on hydration, reset to defaults — never crash
 - Actions are methods on the store, accessed via `store.builderActions.addExercise()`
 - Selectors use shallow equality: `useStore(state => state.builder.workout, shallow)`
-- Graph is initialized once via `initGraph()` at app startup, then treated as immutable
+- Graph is initialized once via `initGraph()` (async) at app startup, then treated as immutable.
+  `initGraph` dynamically imports exercise JSON files and catches errors (logs to console).
 - `endSession()` only sets `completedAt` and stops the timer — does NOT create a log
 - `saveSession()` creates a `WorkoutLog` from the completed session and pushes to `library.logs` — call after `endSession()`
 - `saveSession()` includes duplicate prevention (checks workoutId + startedAt)
