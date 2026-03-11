@@ -34,9 +34,58 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
         <div className="flex flex-col gap-5 px-4 pb-8 pt-2">
           <Section title="Overview">
             <p>
-              CurlBro is a client-side web application. All workout data is stored
-              locally in your browser using localStorage. We use third-party services
+              CurlBro stores workout data locally in your browser using localStorage.
+              If you use the Join Our List form or otherwise contact us, we also collect
+              and store the information you submit and certain technical metadata needed
+              to operate, protect, and improve the service. We use third-party services
               as described below.
+            </p>
+          </Section>
+
+          <Section title="Join Our List and Contact Data">
+            <p>
+              If you submit the Join Our List form, we may collect your first name,
+              last name, email address, phone number, training preferences, free-form
+              responses, and other information you choose to provide. We may also collect
+              related metadata such as submission time, source page, referrer or campaign
+              tags, browser language, coarse location, and security or abuse-prevention
+              signals.
+            </p>
+            <p className="mt-2">
+              This information is controlled by CurlBro and treated as part of the
+              business&apos;s data assets, subject to this policy and applicable law.
+              We use reasonable measures and will do our best to protect it, but no
+              method of transmission or storage is completely secure.
+            </p>
+          </Section>
+
+          <Section title="How We Use Submitted Information">
+            <p>
+              We may use submitted information to send product updates, launch news,
+              service messages, improve CurlBro, understand audience interest, prevent
+              spam or abuse, comply with legal obligations, and operate or evolve the
+              business.
+            </p>
+          </Section>
+
+          <Section title="Phone Numbers">
+            <p>
+              If you voluntarily provide a phone number, we may retain it as part of
+              your profile. Providing a phone number through the form does not by itself
+              grant any marketing-text consent beyond what applicable law allows. If we
+              later want to use phone numbers for marketing texts or similar outreach,
+              we will obtain any additional consent required by law.
+            </p>
+          </Section>
+
+          <Section title="Sale or Sharing of Personal Information">
+            <p>
+              We do not currently sell personal information. We may share information
+              with service providers and infrastructure vendors that help us operate
+              CurlBro. If our practices change and we begin selling or otherwise sharing
+              personal information in ways that trigger legal notice or opt-out rights,
+              we will update this policy and provide any notices or controls required by
+              applicable law.
             </p>
           </Section>
 
@@ -76,8 +125,9 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
 
           <Section title="Cookies">
             <p>
-              CurlBro itself does not set any first-party cookies. Third-party cookies
-              may be set by Google Analytics and Google AdSense as described above.
+              CurlBro itself does not currently rely on first-party cookies for workout
+              storage. Third-party cookies may be set by Google Analytics and Google
+              AdSense as described above.
             </p>
           </Section>
 
@@ -90,8 +140,9 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
 
           <Section title="Data Control">
             <p>
-              All your data is stored locally. You can delete all CurlBro data at any
-              time from Settings &gt; Clear All Data.
+              You can delete local workout data at any time from Settings &gt; Clear All
+              Data. To request deletion of information submitted through the Join Our
+              List form, contact us at the email below.
             </p>
           </Section>
 

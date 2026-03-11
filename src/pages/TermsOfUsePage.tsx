@@ -42,9 +42,11 @@ export function TermsOfUsePage({ open, onOpenChange }: TermsOfUsePageProps) {
           <Section title="Description of Service">
             <p>
               CurlBro is a free, client-side web application for building and tracking
-              gym workouts. The App runs entirely in your browser — no account creation
-              is required and no personal data is sent to external servers. All workout
-              data is stored locally on your device using browser storage.
+              gym workouts. The App runs primarily in your browser and no account creation
+              is required. Workout data is stored locally on your device using browser
+              storage. If you voluntarily submit information through the Join Our List
+              form or contact CurlBro, that information may be sent to external servers
+              or service providers as described in the Privacy Policy.
             </p>
           </Section>
 
@@ -95,8 +97,9 @@ export function TermsOfUsePage({ open, onOpenChange }: TermsOfUsePageProps) {
             <p>
               All data you create (workouts, logs, settings) is stored locally in your
               browser. Clearing your browser data or using the &quot;Clear All Data&quot;
-              option in Settings will permanently delete this data. The developer is not
-              responsible for any data loss.
+              option in Settings will permanently delete this data. Information you submit
+              through Join Our List is stored separately and may remain until deleted
+              under the Privacy Policy. The developer is not responsible for any data loss.
             </p>
           </Section>
 

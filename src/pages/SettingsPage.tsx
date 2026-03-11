@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/utils/cookieConsent';
 import { resetWelcomeSeen } from '@/utils/welcomeState';
 import { Button } from '@/components/ui/button';
+import { JoinListSheet } from '@/components/shared/JoinListSheet';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { useStore } from '@/store';
@@ -49,6 +50,7 @@ function NumberSetting({ value, min, fallback, onChange }: {
 }
 
 export function SettingsPage() {
+  const [joinListOpen, setJoinListOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
@@ -67,6 +69,27 @@ export function SettingsPage() {
       header={<h1 className="text-xl font-bold text-text-primary">Settings</h1>}
       contentClassName="flex flex-col gap-4 px-4"
     >
+
+      {/* Join list */}
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
+          Join Our List
+        </h2>
+        <button
+          onClick={() => setJoinListOpen(true)}
+          className="flex w-full items-start gap-3 rounded-xl border border-border-subtle bg-bg-surface p-4 text-left transition-colors hover:bg-bg-elevated"
+          style={{ minHeight: '44px' }}
+          aria-label="Join our list"
+        >
+          <Mail size={18} className="mt-0.5 shrink-0 text-accent-primary" />
+          <div className="space-y-1">
+            <div className="text-sm font-medium text-text-primary">Join Our List</div>
+            <div className="text-xs leading-relaxed text-text-secondary">
+              Get launch updates and leave extra details about how you train.
+            </div>
+          </div>
+        </button>
+      </div>
 
       {/* Help */}
       <div className="space-y-3">
@@ -531,6 +554,7 @@ export function SettingsPage() {
         </div>
       </div>
       <Suspense fallback={null}>
+        <JoinListSheet open={joinListOpen} onOpenChange={setJoinListOpen} source="settings" />
         <AboutPage open={aboutOpen} onOpenChange={setAboutOpen} />
         <PrivacyPolicyPage open={privacyOpen} onOpenChange={setPrivacyOpen} />
         <TermsOfUsePage open={termsOpen} onOpenChange={setTermsOpen} />

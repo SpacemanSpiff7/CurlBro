@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { MockFilterChips } from '@/components/guide/illustrations/MockFilterChips';
 import { MockRestTimerRing } from '@/components/guide/illustrations/MockRestTimerRing';
+import { JoinListSheet } from '@/components/shared/JoinListSheet';
 import { markWelcomeSeen } from '@/utils/welcomeState';
 
 const BuildGuide = lazy(() => import('./BuildGuide').then(m => ({ default: m.BuildGuide })));
@@ -122,6 +123,7 @@ function FlyingLogo({ from }: { from: DOMRect }) {
 export function WelcomePage({ onDismiss }: WelcomePageProps) {
   const [buildGuideOpen, setBuildGuideOpen] = useState(false);
   const [recordGuideOpen, setRecordGuideOpen] = useState(false);
+  const [joinListOpen, setJoinListOpen] = useState(false);
   const [exploding, setExploding] = useState(false);
   const [flyFrom, setFlyFrom] = useState<DOMRect | null>(null);
   const guideRef = useRef<HTMLDivElement>(null);
@@ -230,6 +232,17 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
             <ExplosionParticles active={exploding} />
           </motion.div>
 
+          <motion.button
+            onClick={() => setJoinListOpen(true)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.45, duration: 0.45 }}
+            className="mt-10 min-h-[44px] text-xs font-medium uppercase tracking-widest text-white transition-colors hover:text-zinc-200"
+            aria-label="Join our list"
+          >
+            Join Our List
+          </motion.button>
+
           {/* Guide scroll hint */}
           <motion.button
             onClick={scrollToGuide}
@@ -323,8 +336,8 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
             title="Your Data Stays Here"
           >
             <p className="text-sm text-text-secondary leading-relaxed">
-              No account needed. Everything stays in your browser.
-              Export and import workouts and logs anytime.
+              No account needed. Your workouts, logs, and settings stay in your browser.
+              If you join the list, that contact info is stored separately from your local workout data.
             </p>
           </Section>
 
@@ -369,6 +382,13 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
         <BuildGuide open={buildGuideOpen} onOpenChange={setBuildGuideOpen} overlayClassName="z-[70]" />
         <RecordGuide open={recordGuideOpen} onOpenChange={setRecordGuideOpen} overlayClassName="z-[70]" />
       </Suspense>
+      <JoinListSheet
+        open={joinListOpen}
+        onOpenChange={setJoinListOpen}
+        source="welcome"
+        overlayClassName="z-[70]"
+        contentClassName="z-[70]"
+      />
 
       {/* Flying logo — portaled to body so it survives the welcome exit animation */}
       {createPortal(

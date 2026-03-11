@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "curlbro",
+  "compatibility_date": "2026-03-11",
+  "pages_build_output_dir": "./dist",
+  "vars": {
+    "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "curlbro-emails",
+      "database_id": "4a67d9e1-b3b7-4717-8e58-532e7196c041",
+      "preview_database_id": "4a67d9e1-b3b7-4717-8e58-532e7196c041"
+    }
+  ]
+}
