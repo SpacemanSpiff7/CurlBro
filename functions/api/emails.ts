@@ -289,14 +289,51 @@ export async function onRequestPost(context: EmailListContext) {
   }
 
   const existingSubscriber = await env.DB.prepare(
-    `SELECT id FROM email_subscribers WHERE normalized_email = ? LIMIT 1`,
+    `SELECT id, first_name, last_name, phone, training_goal, experience_level,
+            training_days, equipment_access_json, biggest_challenge
+     FROM email_subscribers WHERE normalized_email = ? LIMIT 1`,
   )
     .bind(normalizedEmail)
-    .first<{ id: string }>();
+    .first<{
+      id: string;
+      first_name: string | null;
+      last_name: string | null;
+      phone: string | null;
+      training_goal: string | null;
+      experience_level: string | null;
+      training_days: string | null;
+      equipment_access_json: string | null;
+      biggest_challenge: string | null;
+    }>();
 
   if (existingSubscriber) {
-    await recordAttempt(env, ipHash, normalizedEmail, 'duplicate', submission.source, country);
-    return json({ message: 'That email is already on the list.' }, { status: 409 }, corsOrigin);
+    const mergedFirstName = optionalText(submission.firstName) ?? existingSubscriber.first_name;
+    const mergedLastName = optionalText(submission.lastName) ?? existingSubscriber.last_name;
+    const mergedPhone = optionalText(submission.phone) ?? existingSubscriber.phone;
+    const mergedGoal = optionalText(submission.trainingGoal) ?? existingSubscriber.training_goal;
+    const mergedExperience = optionalText(submission.experienceLevel) ?? existingSubscriber.experience_level;
+    const mergedDays = optionalText(submission.trainingDays) ?? existingSubscriber.training_days;
+    const mergedEquipment = submission.equipmentAccess.length > 0
+      ? JSON.stringify(submission.equipmentAccess)
+      : existingSubscriber.equipment_access_json;
+    const mergedChallenge = optionalText(submission.biggestChallenge) ?? existingSubscriber.biggest_challenge;
+
+    await env.DB.prepare(
+      `UPDATE email_subscribers
+       SET first_name = ?, last_name = ?, phone = ?, training_goal = ?,
+           experience_level = ?, training_days = ?, equipment_access_json = ?,
+           biggest_challenge = ?
+       WHERE id = ?`,
+    )
+      .bind(
+        mergedFirstName, mergedLastName, mergedPhone, mergedGoal,
+        mergedExperience, mergedDays, mergedEquipment, mergedChallenge,
+        existingSubscriber.id,
+      )
+      .run();
+
+    await recordAttempt(env, ipHash, normalizedEmail, 'updated', submission.source, country);
+    return json({ message: 'Thanks! Your info has been updated.' }, { status: 200 }, corsOrigin);
   }
 
   const referrer = request.headers.get('referer');
