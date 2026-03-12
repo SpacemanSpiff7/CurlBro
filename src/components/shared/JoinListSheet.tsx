@@ -213,6 +213,7 @@ export function JoinListSheet({
     }
 
     setSubmitting(true);
+    setErrors({});
 
     try {
       const response = await fetch('/api/emails', {

@@ -49,7 +49,7 @@ const phoneSchema = z.string().trim().refine((value) => {
 }, 'Enter a valid phone number.');
 
 export const EmailListFormSchema = z.object({
-  email: z.string().trim().email('Enter a valid email address.'),
+  email: z.string().trim().email('Please enter a valid email.'),
   firstName: z.string().trim().max(60, 'Keep your name under 60 characters.'),
   lastName: z.string().trim().max(60, 'Keep your name under 60 characters.'),
   phone: phoneSchema,
