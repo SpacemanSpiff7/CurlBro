@@ -38,6 +38,8 @@ const fieldLabelClassName = 'mb-3 block text-sm font-medium text-text-primary';
 const DEFAULT_TURNSTILE_SITE_KEY = '0x4AAAAAACpX8Zy5wijUNTcU';
 const TURNSTILE_LOAD_RETRY_LIMIT = 50;
 const TURNSTILE_LOAD_RETRY_MS = 100;
+const TURNSTILE_RENDER_DELAY_MS = 250;
+const TURNSTILE_HEALTHCHECK_DELAY_MS = 1200;
 
 function getTurnstileErrorMessage(errorCode?: string | number) {
   const code = typeof errorCode === 'number' ? String(errorCode) : errorCode?.trim() ?? '';
@@ -210,6 +212,7 @@ export function JoinListSheet({
   const [openMenu, setOpenMenu] = useState<'experience' | 'days' | null>(null);
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileMessage, setTurnstileMessage] = useState<string | null>(null);
+  const [turnstileRenderNonce, setTurnstileRenderNonce] = useState(0);
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
   const turnstileWidgetIdRef = useRef<string | null>(null);
 
@@ -221,6 +224,7 @@ export function JoinListSheet({
       setOpenMenu(null);
       setTurnstileToken('');
       setTurnstileMessage(null);
+      setTurnstileRenderNonce(0);
     }
   }, [open]);
 
@@ -231,6 +235,7 @@ export function JoinListSheet({
 
     let cancelled = false;
     let retryCount = 0;
+    let healthCheckId: number | undefined;
 
     const renderWidget = () => {
       if (cancelled || !turnstileContainerRef.current) return;
@@ -249,64 +254,95 @@ export function JoinListSheet({
         return;
       }
 
-      try {
-        turnstileContainerRef.current.innerHTML = '';
-        turnstileWidgetIdRef.current = api.render(turnstileContainerRef.current, {
-          sitekey: turnstileSiteKey,
-          theme: 'auto',
-          size: 'flexible',
-          appearance: 'always',
-          callback: (token) => {
-            setTurnstileToken(token);
-            setTurnstileMessage(null);
-            setErrors((current) => ({ ...current, turnstileToken: undefined }));
-          },
-          'expired-callback': () => {
+      const runRender = () => {
+        if (cancelled || !turnstileContainerRef.current) return;
+
+        try {
+          turnstileContainerRef.current.innerHTML = '';
+          turnstileWidgetIdRef.current = api.render(turnstileContainerRef.current, {
+            sitekey: turnstileSiteKey,
+            theme: 'auto',
+            size: 'normal',
+            appearance: 'always',
+            callback: (token) => {
+              setTurnstileToken(token);
+              setTurnstileMessage(null);
+              setErrors((current) => ({ ...current, turnstileToken: undefined }));
+            },
+            'expired-callback': () => {
+              setTurnstileToken('');
+              setTurnstileMessage('Verification expired. Please try again.');
+            },
+            'timeout-callback': () => {
+              setTurnstileToken('');
+              setTurnstileMessage('Security check timed out. Please try again.');
+            },
+            'error-callback': (errorCode) => {
+              console.error('Turnstile widget error', {
+                errorCode,
+                hostname: window.location.hostname,
+              });
+              setTurnstileToken('');
+              setTurnstileMessage(getTurnstileErrorMessage(errorCode));
+              return true;
+            },
+          });
+        } catch (error) {
+          console.error('Turnstile widget failed to render', {
+            error,
+            hostname: window.location.hostname,
+          });
+          setTurnstileToken('');
+          setTurnstileMessage(
+            `Security check could not initialize for ${window.location.hostname}. Confirm this hostname is allowed in Turnstile and refresh.`,
+          );
+          return;
+        }
+
+        healthCheckId = window.setTimeout(() => {
+          const hasIframe = Boolean(turnstileContainerRef.current?.querySelector('iframe'));
+          if (!cancelled && !hasIframe) {
             setTurnstileToken('');
-            setTurnstileMessage('Verification expired. Please try again.');
-          },
-          'timeout-callback': () => {
-            setTurnstileToken('');
-            setTurnstileMessage('Security check timed out. Please try again.');
-          },
-          'error-callback': (errorCode) => {
-            console.error('Turnstile widget error', {
-              errorCode,
-              hostname: window.location.hostname,
-            });
-            setTurnstileToken('');
-            setTurnstileMessage(getTurnstileErrorMessage(errorCode));
-            return true;
-          },
-        });
-      } catch (error) {
-        console.error('Turnstile widget failed to render', {
-          error,
-          hostname: window.location.hostname,
-        });
-        setTurnstileToken('');
-        setTurnstileMessage(
-          'Security check could not initialize. Confirm this hostname is allowed in Turnstile and refresh.',
-        );
+            setTurnstileMessage(
+              `Security check did not appear on ${window.location.hostname}. Confirm this hostname is allowed in Turnstile and disable blockers, then reload the check.`,
+            );
+          }
+        }, TURNSTILE_HEALTHCHECK_DELAY_MS);
+      };
+
+      if (api.ready) {
+        api.ready(runRender);
+        return;
       }
+
+      runRender();
     };
 
-    renderWidget();
+    const renderDelayId = window.setTimeout(renderWidget, TURNSTILE_RENDER_DELAY_MS);
 
     return () => {
       cancelled = true;
+      window.clearTimeout(renderDelayId);
+      window.clearTimeout(healthCheckId);
       if (turnstileWidgetIdRef.current && window.turnstile) {
         window.turnstile.remove(turnstileWidgetIdRef.current);
         turnstileWidgetIdRef.current = null;
       }
     };
-  }, [open, requiresTurnstile, turnstileSiteKey]);
+  }, [open, requiresTurnstile, turnstileRenderNonce, turnstileSiteKey]);
 
   const resetTurnstile = () => {
     setTurnstileToken('');
     if (turnstileWidgetIdRef.current && window.turnstile) {
       window.turnstile.reset(turnstileWidgetIdRef.current);
     }
+  };
+
+  const reloadTurnstile = () => {
+    setTurnstileToken('');
+    setTurnstileMessage(null);
+    setErrors((current) => ({ ...current, turnstileToken: undefined }));
+    setTurnstileRenderNonce((current) => current + 1);
   };
 
   const setField = <K extends keyof EmailListForm>(key: K, value: EmailListForm[K]) => {
@@ -339,8 +375,13 @@ export function JoinListSheet({
     }
 
     if (requiresTurnstile && !turnstileToken) {
+      const widgetVisible = Boolean(turnstileContainerRef.current?.querySelector('iframe'));
       setErrors((current) => ({ ...current, turnstileToken: 'Complete the security check.' }));
-      setTurnstileMessage('Complete the security check.');
+      setTurnstileMessage(
+        widgetVisible
+          ? 'Complete the security check.'
+          : `Security check is not visible on ${window.location.hostname}. Reload it, then try again.`,
+      );
       return;
     }
 
@@ -415,7 +456,7 @@ export function JoinListSheet({
             Join Our List
           </SheetTitle>
           <SheetDescription className="text-text-secondary">
-            Get launch updates, new features, and training notes. Required fields are marked with *.
+            Get launch updates, new features, and training notes. Only email is required.
           </SheetDescription>
         </SheetHeader>
 
@@ -441,7 +482,7 @@ export function JoinListSheet({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor={`${source}-first-name`} className={fieldLabelClassName}>
-                First Name <span className="text-accent-primary">*</span>
+                First Name
               </label>
               <Input
                 id={`${source}-first-name`}
@@ -457,7 +498,7 @@ export function JoinListSheet({
 
             <div>
               <label htmlFor={`${source}-last-name`} className={fieldLabelClassName}>
-                Last Name <span className="text-accent-primary">*</span>
+                Last Name
               </label>
               <Input
                 id={`${source}-last-name`}
@@ -618,13 +659,22 @@ export function JoinListSheet({
                 </p>
                 <div
                   ref={turnstileContainerRef}
-                  className="min-h-[65px] w-full"
+                  className="flex min-h-[65px] w-full items-start justify-center"
                   aria-live="polite"
                 />
                 {(errors.turnstileToken || turnstileMessage) && (
                   <p className="mt-2 text-xs text-destructive">
                     {errors.turnstileToken ?? turnstileMessage}
                   </p>
+                )}
+                {!turnstileToken && (
+                  <button
+                    type="button"
+                    onClick={reloadTurnstile}
+                    className="mt-2 text-xs font-medium text-accent-primary underline-offset-2 hover:underline"
+                  >
+                    Reload security check
+                  </button>
                 )}
               </div>
             ) : (

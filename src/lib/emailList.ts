@@ -50,8 +50,8 @@ const phoneSchema = z.string().trim().refine((value) => {
 
 export const EmailListFormSchema = z.object({
   email: z.string().trim().email('Enter a valid email address.'),
-  firstName: z.string().trim().min(1, 'First name is required.').max(60, 'Keep your name under 60 characters.'),
-  lastName: z.string().trim().min(1, 'Last name is required.').max(60, 'Keep your name under 60 characters.'),
+  firstName: z.string().trim().max(60, 'Keep your name under 60 characters.'),
+  lastName: z.string().trim().max(60, 'Keep your name under 60 characters.'),
   phone: phoneSchema,
   trainingGoal: z.string().trim().max(120, 'Keep this under 120 characters.'),
   experienceLevel: z.enum(EXPERIENCE_VALUES),

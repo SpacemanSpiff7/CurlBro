@@ -20,6 +20,7 @@ interface TurnstileRenderOptions {
 }
 
 interface TurnstileApi {
+  ready?: (callback: () => void) => void;
   render: (container: HTMLElement, options: TurnstileRenderOptions) => string;
   remove: (widgetId: string) => void;
   reset: (widgetId?: string) => void;
