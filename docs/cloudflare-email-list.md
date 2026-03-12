@@ -19,18 +19,21 @@ npx wrangler d1 create curlbro-emails
 
 3. Copy the returned `database_id` values into [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc).
 
-## 2. Configure local secrets
+## 2. Configure local development variables
 
 Create a `.dev.vars` file in the repo root:
 
 ```dotenv
 TURNSTILE_SECRET_KEY="replace-me"
 EMAIL_LIST_IP_HASH_SALT="generate-a-random-secret"
+EMAIL_LIST_ALLOWED_ORIGINS="http://127.0.0.1:8788,http://localhost:8788,https://curlbro.com"
 EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL=""
 EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_SECRET=""
 ```
 
-The public site key goes into a normal Pages/Workers variable:
+The public Turnstile site key is baked into the client code as a fallback. You do not need a Cloudflare plaintext variable for it.
+
+If you ever want to override it locally or rotate it without touching the constant, you can still create a `.env.local` file:
 
 ```dotenv
 VITE_TURNSTILE_SITE_KEY="replace-me"
@@ -57,10 +60,18 @@ In Cloudflare Pages:
 - Add D1 binding `DB`
 - Add secret `TURNSTILE_SECRET_KEY`
 - Add secret `EMAIL_LIST_IP_HASH_SALT`
-- Add variable `VITE_TURNSTILE_SITE_KEY`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_SECRET`
-- Optional: add `EMAIL_LIST_ALLOWED_ORIGINS` as a comma-separated allowlist
+
+`EMAIL_LIST_ALLOWED_ORIGINS` should stay in [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc) if your Pages project is configured to manage plaintext variables from Wrangler.
+
+Recommended production value in Wrangler:
+
+```dotenv
+EMAIL_LIST_ALLOWED_ORIGINS="https://curlbro.com"
+```
+
+If you want preview deployments to submit successfully too, add the preview domain to `EMAIL_LIST_ALLOWED_ORIGINS` as a comma-separated allowlist.
 
 ## 5. Optional Google Sheets mirror
 
@@ -84,8 +95,6 @@ npx wrangler d1 execute curlbro-emails --remote --file=./cloudflare/migrations/0
 
 ## 6. Deploy
 
-```bash
-npx wrangler pages deploy dist
-```
+Connect the GitHub repo to Cloudflare Pages and let Pages run your Vite build automatically.
 
-Or connect the GitHub repo to Cloudflare Pages and let Pages run your Vite build automatically.
+After adding or changing any Pages variables or secrets, trigger a new deploy. The current deployment will not pick up updated values retroactively.

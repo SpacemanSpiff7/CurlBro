@@ -4,8 +4,7 @@
   "compatibility_date": "2026-03-11",
   "pages_build_output_dir": "./dist",
   "vars": {
-    "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com",
-    "VITE_TURNSTILE_SITE_KEY": "0x4AAAAAACpX8Zy5wijUNTcU"
+    "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com"
   },
   "d1_databases": [
     {

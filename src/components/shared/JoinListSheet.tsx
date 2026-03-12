@@ -35,6 +35,7 @@ const inputClassName = 'h-11 text-base md:text-sm';
 const selectTriggerClassName = 'flex min-h-[44px] w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-left text-base text-text-primary shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm dark:bg-input/30';
 const textareaClassName = 'min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base text-text-primary shadow-xs outline-none transition-[color,box-shadow] placeholder:text-text-tertiary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm dark:bg-input/30';
 const fieldLabelClassName = 'mb-3 block text-sm font-medium text-text-primary';
+const DEFAULT_TURNSTILE_SITE_KEY = '0x4AAAAAACpX8Zy5wijUNTcU';
 
 function getFieldErrors(error: ZodError<EmailListForm>): FieldErrors {
   const fieldErrors: FieldErrors = {};
@@ -170,7 +171,7 @@ export function JoinListSheet({
   overlayClassName,
   contentClassName,
 }: JoinListSheetProps) {
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() ?? '';
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() || DEFAULT_TURNSTILE_SITE_KEY;
   const requiresTurnstile = turnstileSiteKey.length > 0;
   const siteKeyMissingInProd = import.meta.env.PROD && !requiresTurnstile;
 
