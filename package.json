@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:api": "npx wrangler pages dev dist --port 8788",
     "prebuild": "npx tsx scripts/generate-exercises.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
