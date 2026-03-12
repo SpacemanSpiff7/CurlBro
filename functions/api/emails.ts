@@ -36,9 +36,12 @@ const MAX_FORM_AGE_MS = 24 * 60 * 60 * 1000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 8;
 
-function json(data: unknown, init: ResponseInit = {}) {
+function json(data: unknown, init: ResponseInit = {}, corsOrigin?: string | null) {
   const headers = new Headers(init.headers);
   headers.set('content-type', 'application/json; charset=utf-8');
+  if (corsOrigin) {
+    headers.set('access-control-allow-origin', corsOrigin);
+  }
   return new Response(JSON.stringify(data), { ...init, headers });
 }
 
@@ -196,24 +199,35 @@ async function syncToGoogleSheets(
   }
 }
 
+function tryParseUrl(value: string | null): URL | null {
+  if (!value) return null;
+  try {
+    return new URL(value);
+  } catch {
+    return null;
+  }
+}
+
 export async function onRequestPost(context: EmailListContext) {
   const { request, env, waitUntil } = context;
   const requestUrl = new URL(request.url);
   const localRequest = isLocalRequest(requestUrl);
 
-  if (!env.DB) {
-    return json({ message: 'D1 binding is not configured.' }, { status: 503 });
-  }
-
   const origin = request.headers.get('origin');
   const allowedOrigins = getAllowedOrigins(env, requestUrl);
-  if (origin && !allowedOrigins.includes(origin)) {
+  const corsOrigin = origin && allowedOrigins.includes(origin) ? origin : null;
+
+  if (!env.DB) {
+    return json({ message: 'D1 binding is not configured.' }, { status: 503 }, corsOrigin);
+  }
+
+  if (origin && !corsOrigin) {
     return json({ message: 'Origin not allowed.' }, { status: 403 });
   }
 
   const contentType = request.headers.get('content-type') ?? '';
   if (!contentType.includes('application/json')) {
-    return json({ message: 'Expected JSON.' }, { status: 415 });
+    return json({ message: 'Expected JSON.' }, { status: 415 }, corsOrigin);
   }
 
   const ipSalt = env.EMAIL_LIST_IP_HASH_SALT?.trim() ?? '';
@@ -222,13 +236,14 @@ export async function onRequestPost(context: EmailListContext) {
     return json(
       { message: 'Email list rate limiting is not configured yet for this deployment.' },
       { status: 503 },
+      corsOrigin,
     );
   }
 
   const rawBody = await request.json().catch(() => null);
   const parsedBody = EmailListSubmissionSchema.safeParse(rawBody);
   if (!parsedBody.success) {
-    return json({ message: parsedBody.error.issues[0]?.message ?? 'Invalid payload.' }, { status: 400 });
+    return json({ message: parsedBody.error.issues[0]?.message ?? 'Invalid payload.' }, { status: 400 }, corsOrigin);
   }
 
   const submission = parsedBody.data;
@@ -240,7 +255,7 @@ export async function onRequestPost(context: EmailListContext) {
 
   if (submissionAgeMs < MIN_FORM_COMPLETION_MS || submissionAgeMs > MAX_FORM_AGE_MS) {
     await recordAttempt(env, ipHash, normalizedEmail, 'timing_rejected', submission.source, country);
-    return json({ message: 'Submission could not be verified. Please try again.' }, { status: 400 });
+    return json({ message: 'Submission could not be verified. Please try again.' }, { status: 400 }, corsOrigin);
   }
 
   if (ipHash) {
@@ -254,7 +269,7 @@ export async function onRequestPost(context: EmailListContext) {
 
     if ((recentAttempts?.count ?? 0) >= RATE_LIMIT_MAX_ATTEMPTS) {
       await recordAttempt(env, ipHash, normalizedEmail, 'rate_limited', submission.source, country);
-      return json({ message: 'Too many attempts. Please wait and try again.' }, { status: 429 });
+      return json({ message: 'Too many attempts. Please wait and try again.' }, { status: 429 }, corsOrigin);
     }
   }
 
@@ -269,7 +284,7 @@ export async function onRequestPost(context: EmailListContext) {
 
     if (!verification.ok) {
       await recordAttempt(env, ipHash, normalizedEmail, 'turnstile_failed', submission.source, country);
-      return json({ message: 'Security check failed. Please try again.' }, { status: 400 });
+      return json({ message: 'Security check failed. Please try again.' }, { status: 400 }, corsOrigin);
     }
   }
 
@@ -281,11 +296,11 @@ export async function onRequestPost(context: EmailListContext) {
 
   if (existingSubscriber) {
     await recordAttempt(env, ipHash, normalizedEmail, 'duplicate', submission.source, country);
-    return json({ message: 'That email is already on the list.' }, { status: 409 });
+    return json({ message: 'That email is already on the list.' }, { status: 409 }, corsOrigin);
   }
 
   const referrer = request.headers.get('referer');
-  const referrerUrl = referrer ? new URL(referrer) : null;
+  const referrerUrl = tryParseUrl(referrer);
   const subscriberId = crypto.randomUUID();
   const createdAt = new Date().toISOString();
   const googleSheetSyncEnabled = Boolean(env.EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL);
@@ -357,7 +372,7 @@ export async function onRequestPost(context: EmailListContext) {
     }));
   }
 
-  return json({ message: 'You are on the email list.' }, { status: 201 });
+  return json({ message: 'You are on the email list.' }, { status: 201 }, corsOrigin);
 }
 
 export async function onRequestOptions(context: EmailListContext) {

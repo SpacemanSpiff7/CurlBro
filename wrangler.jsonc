@@ -4,7 +4,7 @@
   "compatibility_date": "2026-03-11",
   "pages_build_output_dir": "./dist",
   "vars": {
-    "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com"
+    "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com,https://www.curlbro.com,https://curlbro.pages.dev"
   },
   "d1_databases": [
     {
