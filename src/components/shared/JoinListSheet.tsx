@@ -36,6 +36,34 @@ const selectTriggerClassName = 'flex min-h-[44px] w-full items-center justify-be
 const textareaClassName = 'min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base text-text-primary shadow-xs outline-none transition-[color,box-shadow] placeholder:text-text-tertiary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm dark:bg-input/30';
 const fieldLabelClassName = 'mb-3 block text-sm font-medium text-text-primary';
 const DEFAULT_TURNSTILE_SITE_KEY = '0x4AAAAAACpX8Zy5wijUNTcU';
+const TURNSTILE_LOAD_RETRY_LIMIT = 50;
+const TURNSTILE_LOAD_RETRY_MS = 100;
+
+function getTurnstileErrorMessage(errorCode?: string | number) {
+  const code = typeof errorCode === 'number' ? String(errorCode) : errorCode?.trim() ?? '';
+
+  if (code.startsWith('110200')) {
+    return 'Security check is not authorized for this domain yet. Add this hostname to Turnstile and refresh.';
+  }
+
+  if (code.startsWith('110100') || code.startsWith('110110') || code.startsWith('400020') || code.startsWith('400070')) {
+    return 'Security check configuration is invalid right now. Refresh after updating the Turnstile widget settings.';
+  }
+
+  if (code.startsWith('200500')) {
+    return 'Security check could not load. Disable content blockers or network filtering and try again.';
+  }
+
+  if (code.startsWith('110600') || code.startsWith('110620')) {
+    return 'Security check expired. Please try again.';
+  }
+
+  if (code) {
+    return `Security check could not load right now (error ${code}). Refresh and try again.`;
+  }
+
+  return 'Security check could not load right now. Refresh and try again.';
+}
 
 function getFieldErrors(error: ZodError<EmailListForm>): FieldErrors {
   const fieldErrors: FieldErrors = {};
@@ -202,34 +230,65 @@ export function JoinListSheet({
     }
 
     let cancelled = false;
+    let retryCount = 0;
 
     const renderWidget = () => {
       if (cancelled || !turnstileContainerRef.current) return;
 
       const api = window.turnstile;
       if (!api) {
-        window.setTimeout(renderWidget, 100);
+        retryCount += 1;
+        if (retryCount >= TURNSTILE_LOAD_RETRY_LIMIT) {
+          setTurnstileMessage(
+            'Security check could not load. Disable blockers or confirm this domain is allowed in Turnstile.',
+          );
+          return;
+        }
+
+        window.setTimeout(renderWidget, TURNSTILE_LOAD_RETRY_MS);
         return;
       }
 
-      turnstileContainerRef.current.innerHTML = '';
-      turnstileWidgetIdRef.current = api.render(turnstileContainerRef.current, {
-        sitekey: turnstileSiteKey,
-        theme: 'auto',
-        callback: (token) => {
-          setTurnstileToken(token);
-          setTurnstileMessage(null);
-          setErrors((current) => ({ ...current, turnstileToken: undefined }));
-        },
-        'expired-callback': () => {
-          setTurnstileToken('');
-          setTurnstileMessage('Verification expired. Please try again.');
-        },
-        'error-callback': () => {
-          setTurnstileToken('');
-          setTurnstileMessage('Verification failed. Please try again.');
-        },
-      });
+      try {
+        turnstileContainerRef.current.innerHTML = '';
+        turnstileWidgetIdRef.current = api.render(turnstileContainerRef.current, {
+          sitekey: turnstileSiteKey,
+          theme: 'auto',
+          size: 'flexible',
+          appearance: 'always',
+          callback: (token) => {
+            setTurnstileToken(token);
+            setTurnstileMessage(null);
+            setErrors((current) => ({ ...current, turnstileToken: undefined }));
+          },
+          'expired-callback': () => {
+            setTurnstileToken('');
+            setTurnstileMessage('Verification expired. Please try again.');
+          },
+          'timeout-callback': () => {
+            setTurnstileToken('');
+            setTurnstileMessage('Security check timed out. Please try again.');
+          },
+          'error-callback': (errorCode) => {
+            console.error('Turnstile widget error', {
+              errorCode,
+              hostname: window.location.hostname,
+            });
+            setTurnstileToken('');
+            setTurnstileMessage(getTurnstileErrorMessage(errorCode));
+            return true;
+          },
+        });
+      } catch (error) {
+        console.error('Turnstile widget failed to render', {
+          error,
+          hostname: window.location.hostname,
+        });
+        setTurnstileToken('');
+        setTurnstileMessage(
+          'Security check could not initialize. Confirm this hostname is allowed in Turnstile and refresh.',
+        );
+      }
     };
 
     renderWidget();
@@ -554,7 +613,14 @@ export function JoinListSheet({
           <div className="space-y-2">
             {requiresTurnstile ? (
               <div className="rounded-2xl border border-border-subtle bg-bg-elevated/70 p-3">
-                <div ref={turnstileContainerRef} />
+                <p className="mb-2 text-xs text-text-secondary">
+                  Complete this security check before joining.
+                </p>
+                <div
+                  ref={turnstileContainerRef}
+                  className="min-h-[65px] w-full"
+                  aria-live="polite"
+                />
                 {(errors.turnstileToken || turnstileMessage) && (
                   <p className="mt-2 text-xs text-destructive">
                     {errors.turnstileToken ?? turnstileMessage}

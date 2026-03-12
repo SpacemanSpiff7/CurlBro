@@ -11,9 +11,12 @@ interface ImportMeta {
 interface TurnstileRenderOptions {
   sitekey: string;
   theme?: 'auto' | 'light' | 'dark';
+  size?: 'normal' | 'flexible' | 'compact';
+  appearance?: 'always' | 'execute' | 'interaction-only';
   callback?: (token: string) => void;
   'expired-callback'?: () => void;
-  'error-callback'?: () => void;
+  'timeout-callback'?: () => void;
+  'error-callback'?: (errorCode?: string | number) => boolean | void;
 }
 
 interface TurnstileApi {
