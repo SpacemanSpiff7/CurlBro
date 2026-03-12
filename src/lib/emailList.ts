@@ -67,7 +67,8 @@ export const EmailListFormSchema = z.object({
 export const EmailListSubmissionSchema = EmailListFormSchema.extend({
   source: z.enum(EMAIL_LIST_SOURCES),
   pagePath: z.string().trim().min(1).max(300),
-  turnstileToken: z.string().trim().min(1, 'Complete the security check.'),
+  startedAtMs: z.number().int().positive(),
+  turnstileToken: z.string().trim().optional(),
 });
 
 export type EmailListForm = z.infer<typeof EmailListFormSchema>;

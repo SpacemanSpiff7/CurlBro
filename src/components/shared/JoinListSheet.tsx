@@ -29,43 +29,12 @@ interface JoinListSheetProps {
   contentClassName?: string;
 }
 
-type FieldErrors = Partial<Record<keyof EmailListForm | 'turnstileToken', string>>;
+type FieldErrors = Partial<Record<keyof EmailListForm, string>>;
 
 const inputClassName = 'h-11 text-base md:text-sm';
 const selectTriggerClassName = 'flex min-h-[44px] w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-left text-base text-text-primary shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm dark:bg-input/30';
 const textareaClassName = 'min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-2 text-base text-text-primary shadow-xs outline-none transition-[color,box-shadow] placeholder:text-text-tertiary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm dark:bg-input/30';
 const fieldLabelClassName = 'mb-3 block text-sm font-medium text-text-primary';
-const DEFAULT_TURNSTILE_SITE_KEY = '0x4AAAAAACpX8Zy5wijUNTcU';
-const TURNSTILE_LOAD_RETRY_LIMIT = 50;
-const TURNSTILE_LOAD_RETRY_MS = 100;
-const TURNSTILE_RENDER_DELAY_MS = 250;
-const TURNSTILE_HEALTHCHECK_DELAY_MS = 1200;
-
-function getTurnstileErrorMessage(errorCode?: string | number) {
-  const code = typeof errorCode === 'number' ? String(errorCode) : errorCode?.trim() ?? '';
-
-  if (code.startsWith('110200')) {
-    return 'Security check is not authorized for this domain yet. Add this hostname to Turnstile and refresh.';
-  }
-
-  if (code.startsWith('110100') || code.startsWith('110110') || code.startsWith('400020') || code.startsWith('400070')) {
-    return 'Security check configuration is invalid right now. Refresh after updating the Turnstile widget settings.';
-  }
-
-  if (code.startsWith('200500')) {
-    return 'Security check could not load. Disable content blockers or network filtering and try again.';
-  }
-
-  if (code.startsWith('110600') || code.startsWith('110620')) {
-    return 'Security check expired. Please try again.';
-  }
-
-  if (code) {
-    return `Security check could not load right now (error ${code}). Refresh and try again.`;
-  }
-
-  return 'Security check could not load right now. Refresh and try again.';
-}
 
 function getFieldErrors(error: ZodError<EmailListForm>): FieldErrors {
   const fieldErrors: FieldErrors = {};
@@ -201,149 +170,23 @@ export function JoinListSheet({
   overlayClassName,
   contentClassName,
 }: JoinListSheetProps) {
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() || DEFAULT_TURNSTILE_SITE_KEY;
-  const requiresTurnstile = turnstileSiteKey.length > 0;
-  const siteKeyMissingInProd = import.meta.env.PROD && !requiresTurnstile;
-
   const [form, setForm] = useState<EmailListForm>(EMPTY_EMAIL_LIST_FORM);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [showMore, setShowMore] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [openMenu, setOpenMenu] = useState<'experience' | 'days' | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState('');
-  const [turnstileMessage, setTurnstileMessage] = useState<string | null>(null);
-  const [turnstileRenderNonce, setTurnstileRenderNonce] = useState(0);
-  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
-  const turnstileWidgetIdRef = useRef<string | null>(null);
+  const formStartedAtRef = useRef<number>(Date.now());
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
+      formStartedAtRef.current = Date.now();
+    } else {
       setErrors({});
       setSubmitting(false);
       setShowMore(false);
       setOpenMenu(null);
-      setTurnstileToken('');
-      setTurnstileMessage(null);
-      setTurnstileRenderNonce(0);
     }
   }, [open]);
-
-  useEffect(() => {
-    if (!open || !requiresTurnstile || !turnstileContainerRef.current) {
-      return;
-    }
-
-    let cancelled = false;
-    let retryCount = 0;
-    let healthCheckId: number | undefined;
-
-    const renderWidget = () => {
-      if (cancelled || !turnstileContainerRef.current) return;
-
-      const api = window.turnstile;
-      if (!api) {
-        retryCount += 1;
-        if (retryCount >= TURNSTILE_LOAD_RETRY_LIMIT) {
-          setTurnstileMessage(
-            'Security check could not load. Disable blockers or confirm this domain is allowed in Turnstile.',
-          );
-          return;
-        }
-
-        window.setTimeout(renderWidget, TURNSTILE_LOAD_RETRY_MS);
-        return;
-      }
-
-      const runRender = () => {
-        if (cancelled || !turnstileContainerRef.current) return;
-
-        try {
-          turnstileContainerRef.current.innerHTML = '';
-          turnstileWidgetIdRef.current = api.render(turnstileContainerRef.current, {
-            sitekey: turnstileSiteKey,
-            theme: 'auto',
-            size: 'normal',
-            appearance: 'always',
-            callback: (token) => {
-              setTurnstileToken(token);
-              setTurnstileMessage(null);
-              setErrors((current) => ({ ...current, turnstileToken: undefined }));
-            },
-            'expired-callback': () => {
-              setTurnstileToken('');
-              setTurnstileMessage('Verification expired. Please try again.');
-            },
-            'timeout-callback': () => {
-              setTurnstileToken('');
-              setTurnstileMessage('Security check timed out. Please try again.');
-            },
-            'error-callback': (errorCode) => {
-              console.error('Turnstile widget error', {
-                errorCode,
-                hostname: window.location.hostname,
-              });
-              setTurnstileToken('');
-              setTurnstileMessage(getTurnstileErrorMessage(errorCode));
-              return true;
-            },
-          });
-        } catch (error) {
-          console.error('Turnstile widget failed to render', {
-            error,
-            hostname: window.location.hostname,
-          });
-          setTurnstileToken('');
-          setTurnstileMessage(
-            `Security check could not initialize for ${window.location.hostname}. Confirm this hostname is allowed in Turnstile and refresh.`,
-          );
-          return;
-        }
-
-        healthCheckId = window.setTimeout(() => {
-          const hasIframe = Boolean(turnstileContainerRef.current?.querySelector('iframe'));
-          if (!cancelled && !hasIframe) {
-            setTurnstileToken('');
-            setTurnstileMessage(
-              `Security check did not appear on ${window.location.hostname}. Confirm this hostname is allowed in Turnstile and disable blockers, then reload the check.`,
-            );
-          }
-        }, TURNSTILE_HEALTHCHECK_DELAY_MS);
-      };
-
-      if (api.ready) {
-        api.ready(runRender);
-        return;
-      }
-
-      runRender();
-    };
-
-    const renderDelayId = window.setTimeout(renderWidget, TURNSTILE_RENDER_DELAY_MS);
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(renderDelayId);
-      window.clearTimeout(healthCheckId);
-      if (turnstileWidgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetIdRef.current);
-        turnstileWidgetIdRef.current = null;
-      }
-    };
-  }, [open, requiresTurnstile, turnstileRenderNonce, turnstileSiteKey]);
-
-  const resetTurnstile = () => {
-    setTurnstileToken('');
-    if (turnstileWidgetIdRef.current && window.turnstile) {
-      window.turnstile.reset(turnstileWidgetIdRef.current);
-    }
-  };
-
-  const reloadTurnstile = () => {
-    setTurnstileToken('');
-    setTurnstileMessage(null);
-    setErrors((current) => ({ ...current, turnstileToken: undefined }));
-    setTurnstileRenderNonce((current) => current + 1);
-  };
 
   const setField = <K extends keyof EmailListForm>(key: K, value: EmailListForm[K]) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -369,22 +212,6 @@ export function JoinListSheet({
       return;
     }
 
-    if (siteKeyMissingInProd) {
-      setTurnstileMessage('Turnstile is not configured for this deployment yet.');
-      return;
-    }
-
-    if (requiresTurnstile && !turnstileToken) {
-      const widgetVisible = Boolean(turnstileContainerRef.current?.querySelector('iframe'));
-      setErrors((current) => ({ ...current, turnstileToken: 'Complete the security check.' }));
-      setTurnstileMessage(
-        widgetVisible
-          ? 'Complete the security check.'
-          : `Security check is not visible on ${window.location.hostname}. Reload it, then try again.`,
-      );
-      return;
-    }
-
     setSubmitting(true);
 
     try {
@@ -397,7 +224,7 @@ export function JoinListSheet({
           ...result.data,
           source,
           pagePath: `${window.location.pathname}${window.location.search}`,
-          turnstileToken,
+          startedAtMs: formStartedAtRef.current,
         }),
       });
 
@@ -411,8 +238,6 @@ export function JoinListSheet({
         toast(payload?.message ?? 'You are on the email list.');
         return;
       }
-
-      resetTurnstile();
 
       if (response.status === 409) {
         toast(payload?.message ?? 'That email is already on the email list.');
@@ -436,7 +261,6 @@ export function JoinListSheet({
 
       toast(payload?.message ?? 'Could not join the list right now.');
     } catch {
-      resetTurnstile();
       toast('Network error. Try again once the app is deployed with the Cloudflare endpoint.');
     } finally {
       setSubmitting(false);
@@ -651,39 +475,6 @@ export function JoinListSheet({
             </div>
           )}
 
-          <div className="space-y-2">
-            {requiresTurnstile ? (
-              <div className="rounded-2xl border border-border-subtle bg-bg-elevated/70 p-3">
-                <p className="mb-2 text-xs text-text-secondary">
-                  Complete this security check before joining.
-                </p>
-                <div
-                  ref={turnstileContainerRef}
-                  className="flex min-h-[65px] w-full items-start justify-center"
-                  aria-live="polite"
-                />
-                {(errors.turnstileToken || turnstileMessage) && (
-                  <p className="mt-2 text-xs text-destructive">
-                    {errors.turnstileToken ?? turnstileMessage}
-                  </p>
-                )}
-                {!turnstileToken && (
-                  <button
-                    type="button"
-                    onClick={reloadTurnstile}
-                    className="mt-2 text-xs font-medium text-accent-primary underline-offset-2 hover:underline"
-                  >
-                    Reload security check
-                  </button>
-                )}
-              </div>
-            ) : (
-              <p className="text-xs text-text-tertiary">
-                Turnstile is not configured in this environment yet. Add `VITE_TURNSTILE_SITE_KEY` before production deploys.
-              </p>
-            )}
-          </div>
-
           <label className="flex items-start gap-3 rounded-2xl border border-border-subtle bg-bg-elevated/70 p-3">
             <input
               type="checkbox"
@@ -704,7 +495,7 @@ export function JoinListSheet({
 
           <Button
             type="submit"
-            disabled={submitting || siteKeyMissingInProd}
+            disabled={submitting}
             className="h-11 w-full rounded-xl bg-accent-primary text-bg-root hover:bg-accent-hover"
           >
             {submitting ? 'Joining...' : 'Join Our List'}

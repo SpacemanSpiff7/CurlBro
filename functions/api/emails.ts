@@ -31,6 +31,8 @@ interface TurnstileVerificationResponse {
   'error-codes'?: string[];
 }
 
+const MIN_FORM_COMPLETION_MS = 1500;
+const MAX_FORM_AGE_MS = 24 * 60 * 60 * 1000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 8;
 
@@ -214,12 +216,11 @@ export async function onRequestPost(context: EmailListContext) {
     return json({ message: 'Expected JSON.' }, { status: 415 });
   }
 
-  const turnstileSecret = env.TURNSTILE_SECRET_KEY?.trim() ?? '';
   const ipSalt = env.EMAIL_LIST_IP_HASH_SALT?.trim() ?? '';
 
-  if ((!turnstileSecret || !ipSalt) && !localRequest) {
+  if (!ipSalt && !localRequest) {
     return json(
-      { message: 'Email list secrets are not configured yet for this deployment.' },
+      { message: 'Email list rate limiting is not configured yet for this deployment.' },
       { status: 503 },
     );
   }
@@ -235,6 +236,12 @@ export async function onRequestPost(context: EmailListContext) {
   const clientIp = getClientIp(request);
   const ipHash = ipSalt ? await hashIp(clientIp, ipSalt) : null;
   const country = request.headers.get('cf-ipcountry');
+  const submissionAgeMs = Date.now() - submission.startedAtMs;
+
+  if (submissionAgeMs < MIN_FORM_COMPLETION_MS || submissionAgeMs > MAX_FORM_AGE_MS) {
+    await recordAttempt(env, ipHash, normalizedEmail, 'timing_rejected', submission.source, country);
+    return json({ message: 'Submission could not be verified. Please try again.' }, { status: 400 });
+  }
 
   if (ipHash) {
     const recentAttempts = await env.DB.prepare(
@@ -251,7 +258,8 @@ export async function onRequestPost(context: EmailListContext) {
     }
   }
 
-  if (turnstileSecret) {
+  const turnstileSecret = env.TURNSTILE_SECRET_KEY?.trim() ?? '';
+  if (turnstileSecret && submission.turnstileToken) {
     const verification = await verifyTurnstile(
       submission.turnstileToken,
       turnstileSecret,

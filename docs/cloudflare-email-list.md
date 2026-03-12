@@ -5,38 +5,28 @@
 - Cloudflare Pages serves the app.
 - `functions/api/emails.ts` handles secure submissions.
 - D1 stores the canonical email list data.
-- Turnstile protects the form.
+- The form uses passive abuse checks instead of a visible CAPTCHA.
 - Google Sheets is optional and acts as a mirrored reporting surface through an Apps Script webhook.
 
 ## 1. Create the Cloudflare resources
 
-1. Create a Turnstile widget in Cloudflare.
-2. Create a D1 database:
+1. Create a D1 database:
 
 ```bash
 npx wrangler d1 create curlbro-emails
 ```
 
-3. Copy the returned `database_id` values into [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc).
+2. Copy the returned `database_id` values into [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc).
 
 ## 2. Configure local development variables
 
 Create a `.dev.vars` file in the repo root:
 
 ```dotenv
-TURNSTILE_SECRET_KEY="replace-me"
 EMAIL_LIST_IP_HASH_SALT="generate-a-random-secret"
 EMAIL_LIST_ALLOWED_ORIGINS="http://127.0.0.1:8788,http://localhost:8788,https://curlbro.com"
 EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL=""
 EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_SECRET=""
-```
-
-The public Turnstile site key is baked into the client code as a fallback. You do not need a Cloudflare plaintext variable for it.
-
-If you ever want to override it locally or rotate it without touching the constant, you can still create a `.env.local` file:
-
-```dotenv
-VITE_TURNSTILE_SITE_KEY="replace-me"
 ```
 
 ## 3. Apply the D1 migration
@@ -58,7 +48,6 @@ npx wrangler d1 execute curlbro-emails --remote --file=./cloudflare/migrations/0
 In Cloudflare Pages:
 
 - Add D1 binding `DB`
-- Add secret `TURNSTILE_SECRET_KEY`
 - Add secret `EMAIL_LIST_IP_HASH_SALT`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_SECRET`
@@ -72,6 +61,17 @@ EMAIL_LIST_ALLOWED_ORIGINS="https://curlbro.com"
 ```
 
 If you want preview deployments to submit successfully too, add the preview domain to `EMAIL_LIST_ALLOWED_ORIGINS` as a comma-separated allowlist.
+
+## Passive abuse checks in the current form
+
+- Honeypot field that real users never touch
+- Server-side email validation and payload validation
+- Same-origin allowlist via `EMAIL_LIST_ALLOWED_ORIGINS`
+- Per-IP rate limiting using a salted IP hash
+- Duplicate email rejection
+- Minimum form-fill time check to catch instant bot posts
+
+If you later see meaningful spam volume, add Cloudflare WAF rate limiting before bringing back any visible challenge.
 
 ## 5. Optional Google Sheets mirror
 
