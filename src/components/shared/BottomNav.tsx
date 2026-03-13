@@ -4,8 +4,8 @@ import type { TabId } from '@/types';
 import { useStore } from '@/store';
 
 const tabs: { id: TabId; label: string; icon: typeof Dumbbell }[] = [
-  { id: 'build', label: 'Build', icon: Dumbbell },
   { id: 'library', label: 'Library', icon: Library },
+  { id: 'build', label: 'Build', icon: Dumbbell },
   { id: 'active', label: 'Active', icon: Play },
   { id: 'log', label: 'Log', icon: ClipboardList },
   { id: 'settings', label: 'Settings', icon: Settings },

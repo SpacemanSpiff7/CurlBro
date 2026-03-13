@@ -64,7 +64,7 @@
   blur + content container. All pages use this. Props: `header`, `headerRight`, `children`,
   `contentClassName`. One place to change page padding, header behavior, safe-area handling.
 - EmptyState (`shared/`) — Centered icon + title + optional subtitle + optional action slot.
-  Used in ActiveWorkout (no session) and WorkoutLogPage (no logs).
+  Used in ActiveWorkout (no session), WorkoutLogPage (no logs), and MyWorkouts (no saved workouts).
 - ConfirmDialog (`shared/`) — Reusable confirmation modal wrapping shadcn Dialog. Props:
   `open`, `onOpenChange`, `title`, `description`, `confirmLabel`, `destructive`, `onConfirm`.
   Used in MyWorkouts (replace active workout) and SettingsPage (delete all data).

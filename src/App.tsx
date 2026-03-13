@@ -20,7 +20,7 @@ const WorkoutLogPage = lazy(() => import('@/pages/WorkoutLogPage').then(m => ({ 
 const SettingsPage = lazy(() => import('@/pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
 const WelcomePage = lazy(() => import('@/pages/WelcomePage').then(m => ({ default: m.WelcomePage })));
 
-const TAB_ORDER: TabId[] = ['build', 'library', 'active', 'log', 'settings'];
+const TAB_ORDER: TabId[] = ['library', 'build', 'active', 'log', 'settings'];
 
 const TAB_TITLES: Record<TabId, string> = {
   build: 'CurlBro — Build Workout',

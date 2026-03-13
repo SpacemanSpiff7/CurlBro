@@ -927,7 +927,7 @@ export const useStore = create<AppState>()(
       },
 
       // Navigation
-      activeTab: 'build' as TabId,
+      activeTab: 'library' as TabId,
       setActiveTab: (tab: TabId) => {
         set((state) => {
           state.activeTab = tab;

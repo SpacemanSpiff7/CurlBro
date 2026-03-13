@@ -28,6 +28,7 @@ import { formatExport } from '@/utils/formatExport';
 import { parseImport } from '@/utils/parseImport';
 import { SEEDED_WORKOUTS, type SeededWorkout } from '@/data/seededWorkouts';
 import { SPLIT_LABELS } from '@/types';
+import { EmptyState } from '@/components/shared/EmptyState';
 const WorkoutDetailSheet = lazy(() => import('@/components/library/WorkoutDetailSheet').then(m => ({ default: m.WorkoutDetailSheet })));
 import type { SavedWorkout, WorkoutId, ExerciseId } from '@/types';
 
@@ -512,6 +513,21 @@ export function MyWorkouts() {
     >
       {/* Top ad */}
       <AdSlot slotKey="library_feed" />
+
+      {/* Empty state */}
+      {workouts.length === 0 && (
+        <EmptyState
+          icon={Dumbbell}
+          title="No saved workouts yet"
+          subtitle="Build your first workout or start from a template below"
+          action={
+            <Button onClick={() => setActiveTab('build')} className="min-h-[44px]">
+              <Dumbbell size={16} className="mr-2" />
+              Build Workout
+            </Button>
+          }
+        />
+      )}
 
       {/* User-created workouts */}
       {workouts.length > 0 && (
