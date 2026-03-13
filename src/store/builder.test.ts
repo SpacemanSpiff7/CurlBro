@@ -29,6 +29,7 @@ describe('builderSlice', () => {
           isBalanced: true,
           coveredMuscles: [],
           missingMuscles: [],
+          muscleCounts: {},
         },
       },
     });

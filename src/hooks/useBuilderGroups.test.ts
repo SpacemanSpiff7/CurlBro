@@ -30,6 +30,7 @@ describe('useBuilderGroups', () => {
           isBalanced: true,
           coveredMuscles: [],
           missingMuscles: [],
+          muscleCounts: {},
         },
       },
     });

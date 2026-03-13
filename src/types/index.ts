@@ -228,6 +228,7 @@ export interface WorkoutValidation {
   isBalanced: boolean;
   coveredMuscles: MuscleGroup[];
   missingMuscles: MuscleGroup[];
+  muscleCounts: Partial<Record<MuscleGroup, number>>;
 }
 
 // ─── Active Session ──────────────────────────────────────

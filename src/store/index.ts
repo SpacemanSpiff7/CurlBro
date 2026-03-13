@@ -168,6 +168,7 @@ const emptyValidation: WorkoutValidation = {
   isBalanced: true,
   coveredMuscles: [],
   missingMuscles: [],
+  muscleCounts: {},
 };
 
 const emptyTimer: TimerState = {

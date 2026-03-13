@@ -21,6 +21,7 @@ export function useWorkoutValidation(): WorkoutValidation {
         isBalanced: true,
         coveredMuscles: [],
         missingMuscles: [],
+        muscleCounts: {},
       };
     }
 
@@ -28,6 +29,7 @@ export function useWorkoutValidation(): WorkoutValidation {
     let pullCount = 0;
     let isometricCount = 0;
     const coveredMuscles = new Set<MuscleGroup>();
+    const muscleCounts: Partial<Record<MuscleGroup, number>> = {};
 
     for (const ex of exercises) {
       const exercise = graph.exercises.get(ex.exerciseId);
@@ -46,7 +48,9 @@ export function useWorkoutValidation(): WorkoutValidation {
       }
 
       for (const muscle of exercise.primary_muscles) {
-        coveredMuscles.add(muscle as MuscleGroup);
+        const m = muscle as MuscleGroup;
+        coveredMuscles.add(m);
+        muscleCounts[m] = (muscleCounts[m] ?? 0) + 1;
       }
     }
 
@@ -71,6 +75,7 @@ export function useWorkoutValidation(): WorkoutValidation {
       isBalanced,
       coveredMuscles: Array.from(coveredMuscles),
       missingMuscles,
+      muscleCounts,
     };
   }, [exercises, graph, workoutSplit]);
 }

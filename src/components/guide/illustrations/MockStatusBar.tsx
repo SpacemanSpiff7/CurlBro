@@ -9,12 +9,17 @@ export function MockStatusBar() {
           Push 3 / Pull 2
         </div>
 
-        {/* Missing muscle warning */}
-        <div className="flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1">
-          <AlertTriangle className="h-3 w-3 text-warning" />
-          <span className="text-xs font-medium text-warning">
-            Missing: Rear Delts
-          </span>
+        {/* Muscle count badges */}
+        <div className="flex flex-wrap gap-1">
+          <div className="rounded-full bg-bg-elevated px-2 py-0.5 text-[10px] font-medium text-text-secondary">
+            Chest ×2
+          </div>
+          <div className="rounded-full bg-bg-elevated px-2 py-0.5 text-[10px] font-medium text-text-secondary">
+            Back ×3
+          </div>
+          <div className="rounded-full bg-bg-elevated px-2 py-0.5 text-[10px] font-medium text-text-secondary">
+            Shoulders ×1
+          </div>
         </div>
 
         {/* Conflict indicator */}

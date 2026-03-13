@@ -28,14 +28,16 @@
 - ConflictWarnings — expandable conflict cards, color-coded by severity. Groups conflicts with the same reason into a single card listing all involved exercises.
 - TemplateSelector — collapsible seeded workout categories
 - VideoSheet — YouTube embed with external link fallback
-- WorkoutStatusBar — push/pull ratio + missing muscle badges
+- WorkoutStatusBar — push/pull ratio + muscle group count badges (sorted by count descending)
 - SuggestionPanel — complement and gap suggestions ("Pairs well with", "Still need to hit"). Superset suggestions moved to per-exercise inline `SupersetPanel`.
 - MarqueeText — auto-scrolling text when content overflows its container (uses ResizeObserver + framer-motion)
 - ExercisePicker — exercise search/filter sheet with optional `onAdd` callback prop and
   optional `title` prop (defaults to "Add Exercise"). When `onAdd` is provided, calls it
   instead of `builderActions.addExercise` (used in Build tab, ActiveWorkout mid-session add,
-  and ActiveWorkout swap-via-search). Auto-closes on exercise selection. Prevents mobile
-  keyboard auto-focus and Chrome autocomplete. Organized into 4 collapsible FilterSections
+  and ActiveWorkout swap-via-search). Auto-closes on exercise selection. All filters (query,
+  muscle, exercise type, equipment, expanded sections) reset on close — whether by selection
+  or dismiss. Prevents mobile keyboard auto-focus and Chrome autocomplete. Organized into
+  4 collapsible FilterSections
   with colored headers: Exercise Type (green, single-select strength/warmup/cooldown),
   Muscles (blue, multi-select 14 alphabetized), Equipment (violet, multi-select 7 groups),
   Body State (amber, contains BodyStateInput). Each section shows badge count when collapsed.

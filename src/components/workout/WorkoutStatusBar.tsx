@@ -2,13 +2,16 @@ import { Badge } from '@/components/ui/badge';
 import { useWorkoutValidation } from '@/hooks/useWorkoutValidation';
 import { useStore } from '@/store';
 import { MUSCLE_LABELS } from '@/types';
+import type { MuscleGroup } from '@/types';
 
 export function WorkoutStatusBar() {
   const exercises = useStore((state) => state.builder.workout.exercises);
-  const workoutSplit = useStore((state) => state.builder.workoutSplit);
   const validation = useWorkoutValidation();
 
   if (exercises.length === 0) return null;
+
+  const sortedMuscleCounts = Object.entries(validation.muscleCounts)
+    .sort(([, a], [, b]) => b - a) as [MuscleGroup, number][];
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border-subtle bg-bg-surface px-3 py-2">
@@ -27,23 +30,18 @@ export function WorkoutStatusBar() {
         </Badge>
       </div>
 
-      {/* Missing muscles — only show when a workout split is selected */}
-      {workoutSplit && validation.missingMuscles.length > 0 && (
-        <div className="flex items-center gap-1">
-          <span className="text-[10px] font-medium text-text-tertiary">
-            Missing:
-          </span>
-          <div className="flex flex-wrap gap-0.5">
-            {validation.missingMuscles.map((muscle) => (
-              <Badge
-                key={muscle}
-                variant="outline"
-                className="text-[10px] px-1 py-0 border-warning/40 text-warning/80"
-              >
-                {MUSCLE_LABELS[muscle as keyof typeof MUSCLE_LABELS] ?? muscle}
-              </Badge>
-            ))}
-          </div>
+      {/* Muscle group counts */}
+      {sortedMuscleCounts.length > 0 && (
+        <div className="flex flex-wrap gap-0.5">
+          {sortedMuscleCounts.map(([muscle, count]) => (
+            <Badge
+              key={muscle}
+              variant="secondary"
+              className="text-[10px] px-1 py-0"
+            >
+              {MUSCLE_LABELS[muscle as keyof typeof MUSCLE_LABELS] ?? muscle} ×{count}
+            </Badge>
+          ))}
         </div>
       )}
     </div>

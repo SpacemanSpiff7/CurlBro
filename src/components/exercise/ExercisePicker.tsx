@@ -105,6 +105,22 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
 
   const results = useExerciseSearch(query, { muscleFilter, exerciseType, equipmentGroups });
 
+  const clearFilters = useCallback(() => {
+    setQuery('');
+    setMuscleFilter([]);
+    setExerciseType(null);
+    setEquipmentGroups([]);
+    setExpandedSections(new Set());
+  }, []);
+
+  const handleOpenChange = useCallback(
+    (nextOpen: boolean) => {
+      if (!nextOpen) clearFilters();
+      onOpenChange(nextOpen);
+    },
+    [clearFilters, onOpenChange]
+  );
+
   const handleAdd = useCallback(
     (id: ExerciseId) => {
       if (onAddProp) {
@@ -112,9 +128,9 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
       } else {
         addExercise(id);
       }
-      onOpenChange(false);
+      handleOpenChange(false);
     },
-    [onAddProp, addExercise, onOpenChange]
+    [onAddProp, addExercise, handleOpenChange]
   );
 
   const toggleMuscle = useCallback((muscle: MuscleGroup) => {
@@ -206,7 +222,7 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
   }, [soreness, activities]);
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={handleOpenChange}>
       <SheetContent
         side="bottom"
         className="flex h-[85dvh] flex-col bg-bg-surface p-0"

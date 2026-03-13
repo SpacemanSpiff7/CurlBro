@@ -36,6 +36,7 @@ describe('useWorkoutConflicts', () => {
           isBalanced: true,
           coveredMuscles: [],
           missingMuscles: [],
+          muscleCounts: {},
         },
       },
     });

@@ -30,6 +30,7 @@ describe('useSuggestions', () => {
           isBalanced: true,
           coveredMuscles: [],
           missingMuscles: [],
+          muscleCounts: {},
         },
       },
     });

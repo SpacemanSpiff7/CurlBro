@@ -30,6 +30,7 @@ describe('useWorkoutValidation', () => {
           isBalanced: true,
           coveredMuscles: [],
           missingMuscles: [],
+          muscleCounts: {},
         },
       },
     });
@@ -91,5 +92,16 @@ describe('useWorkoutValidation', () => {
     expect(result.current.missingMuscles).toContain('upper_back');
     expect(result.current.missingMuscles).toContain('quadriceps');
     expect(result.current.missingMuscles).toContain('hamstrings');
+  });
+
+  it('counts exercises per muscle group', () => {
+    const { builderActions } = useStore.getState();
+    builderActions.addExercise('barbell_bench_press' as ExerciseId);
+    builderActions.addExercise('cable_flye' as ExerciseId);
+    builderActions.addExercise('barbell_row' as ExerciseId);
+
+    const { result } = renderHook(() => useWorkoutValidation());
+    expect(result.current.muscleCounts.chest).toBe(2);
+    expect(result.current.muscleCounts.upper_back).toBe(1);
   });
 });
