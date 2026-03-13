@@ -42,6 +42,8 @@
   Muscles (blue, multi-select 14 alphabetized), Equipment (violet, multi-select 7 groups),
   Body State (amber, contains BodyStateInput). Each section shows badge count when collapsed.
   "Recovery" badge (blue) shown on recovery-category exercises targeting sore/fatigued muscles.
+  "Clear Filters" button (X icon + text) appears between Body State section and results
+  divider when any filter (exercise type, muscle, equipment) is active. Calls `clearFilters()`.
 - SubstitutePanel (`exercise/`) — graph-based substitute list for the current exercise.
   Optional `onSearchAll` callback renders a "Search all exercises" button at the bottom,
   allowing users to open ExercisePicker for swap. Panel shows when `open && (substitutes.length > 0 || onSearchAll)`.
@@ -174,6 +176,11 @@
   Swipe-to-reveal actions: Swap/Super/Delete. Swipe "Super" opens inline SupersetPanel.
   Two ExercisePicker sheets: "Add to Superset" (from superset "Search all") and "Swap
   Exercise" (from substitute "Search all").
+  **Clearable numeric inputs**: Sets, reps, rest, and duration use local string state
+  (`localSets`, `localReps`, `localRest`, `localDuration`) so fields can be fully cleared
+  by backspacing. Valid values commit to the store immediately; empty fields restore on blur.
+  External store changes (template load, etc.) sync local state via a `syncKey` derived from
+  store values. Weight already supported empty via `null` — no local state needed.
 - AdSlot (`ads/`) — Reusable ad component accepting `slotKey: AdSlotKey`. Renders AdSense
   `<ins>` when enabled or HouseAdComponent fallback. 6 placements across all pages.
   See `ads/CLAUDE.md` for full details.

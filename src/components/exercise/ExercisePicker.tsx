@@ -104,6 +104,7 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
   const activities = useStore((state) => state.library.activities);
 
   const results = useExerciseSearch(query, { muscleFilter, exerciseType, equipmentGroups });
+  const hasActiveFilters = exerciseType !== null || muscleFilter.length > 0 || equipmentGroups.length > 0;
 
   const clearFilters = useCallback(() => {
     setQuery('');
@@ -340,6 +341,18 @@ export function ExercisePicker({ open, onOpenChange, onAdd: onAddProp, title = '
           >
             <BodyStateInput />
           </FilterSection>
+
+          {hasActiveFilters && (
+            <button
+              type="button"
+              className="flex min-h-[44px] w-full items-center justify-center gap-1 text-xs text-text-tertiary"
+              onClick={clearFilters}
+              aria-label="Clear all filters"
+            >
+              <X className="h-3 w-3" />
+              Clear Filters
+            </button>
+          )}
 
           <div className="mx-4 border-t border-border-subtle" />
 

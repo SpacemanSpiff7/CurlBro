@@ -62,21 +62,52 @@ export const ExerciseCard = memo(function ExerciseCard({
   const addExerciseToGroup = useStore((state) => state.builderActions.addExerciseToGroup);
   const ungroupExercise = useStore((state) => state.builderActions.ungroupExercise);
 
+  // Local string state allows fields to be fully cleared while editing.
+  // Valid values commit to the store immediately; empty fields restore on blur.
+  // Keyed by exercise identity + store values so external changes (template load) reset local state.
+  const fieldKey = `${workoutExercise.exerciseId}-${workoutExercise.sets}-${workoutExercise.reps}-${workoutExercise.restSeconds}-${workoutExercise.durationSeconds}`;
+  const [localSets, setLocalSets] = useState(String(workoutExercise.sets));
+  const [localReps, setLocalReps] = useState(String(workoutExercise.reps));
+  const [localRest, setLocalRest] = useState(String(workoutExercise.restSeconds));
+  const [localDuration, setLocalDuration] = useState(String(workoutExercise.durationSeconds ?? ''));
+  const [syncKey, setSyncKey] = useState(fieldKey);
+  if (syncKey !== fieldKey) {
+    setSyncKey(fieldKey);
+    setLocalSets(String(workoutExercise.sets));
+    setLocalReps(String(workoutExercise.reps));
+    setLocalRest(String(workoutExercise.restSeconds));
+    setLocalDuration(String(workoutExercise.durationSeconds ?? ''));
+  }
+
   const handleSetsChange = useCallback(
     (value: string) => {
+      setLocalSets(value);
       const sets = parseInt(value);
       if (!isNaN(sets) && sets > 0) onUpdate(index, { sets });
     },
     [index, onUpdate]
   );
 
+  const handleSetsBlur = useCallback(() => {
+    if (localSets === '' || isNaN(parseInt(localSets))) {
+      setLocalSets(String(workoutExercise.sets));
+    }
+  }, [localSets, workoutExercise.sets]);
+
   const handleRepsChange = useCallback(
     (value: string) => {
+      setLocalReps(value);
       const reps = parseInt(value);
       if (!isNaN(reps) && reps > 0) onUpdate(index, { reps });
     },
     [index, onUpdate]
   );
+
+  const handleRepsBlur = useCallback(() => {
+    if (localReps === '' || isNaN(parseInt(localReps))) {
+      setLocalReps(String(workoutExercise.reps));
+    }
+  }, [localReps, workoutExercise.reps]);
 
   const handleWeightChange = useCallback(
     (value: string) => {
@@ -91,11 +122,20 @@ export const ExerciseCard = memo(function ExerciseCard({
   const handleRestChange = useCallback(
     (value: string) => {
       const raw = value.replace(/[^0-9]/g, '');
-      const rest = raw === '' ? 0 : parseInt(raw);
-      if (!isNaN(rest) && rest >= 0) onUpdate(index, { restSeconds: rest });
+      setLocalRest(raw);
+      if (raw !== '') {
+        const rest = parseInt(raw);
+        if (!isNaN(rest) && rest >= 0) onUpdate(index, { restSeconds: rest });
+      }
     },
     [index, onUpdate]
   );
+
+  const handleRestBlur = useCallback(() => {
+    if (localRest === '') {
+      setLocalRest(String(workoutExercise.restSeconds));
+    }
+  }, [localRest, workoutExercise.restSeconds]);
 
   const handleNotesChange = useCallback(
     (value: string) => {
@@ -107,11 +147,20 @@ export const ExerciseCard = memo(function ExerciseCard({
   const handleDurationChange = useCallback(
     (value: string) => {
       const raw = value.replace(/[^0-9]/g, '');
-      const dur = raw === '' ? 0 : parseInt(raw);
-      if (!isNaN(dur) && dur >= 0) onUpdate(index, { durationSeconds: dur });
+      setLocalDuration(raw);
+      if (raw !== '') {
+        const dur = parseInt(raw);
+        if (!isNaN(dur) && dur >= 0) onUpdate(index, { durationSeconds: dur });
+      }
     },
     [index, onUpdate]
   );
+
+  const handleDurationBlur = useCallback(() => {
+    if (localDuration === '') {
+      setLocalDuration(String(workoutExercise.durationSeconds ?? ''));
+    }
+  }, [localDuration, workoutExercise.durationSeconds]);
 
   const handleToggleFlag = useCallback(
     (flag: keyof TrackingFlags) => {
@@ -258,8 +307,9 @@ export const ExerciseCard = memo(function ExerciseCard({
           <label className="text-xs text-text-tertiary w-8">Sets</label>
           <Input
             type="number"
-            value={workoutExercise.sets}
+            value={localSets}
             onChange={(e) => handleSetsChange(e.target.value)}
+            onBlur={handleSetsBlur}
             className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
             min={1}
             aria-label="Sets"
@@ -273,8 +323,9 @@ export const ExerciseCard = memo(function ExerciseCard({
               <label className="text-xs text-text-tertiary w-8">Reps</label>
               <Input
                 type="number"
-                value={workoutExercise.reps}
+                value={localReps}
                 onChange={(e) => handleRepsChange(e.target.value)}
+                onBlur={handleRepsBlur}
                 className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
                 min={1}
                 aria-label="Reps"
@@ -304,8 +355,9 @@ export const ExerciseCard = memo(function ExerciseCard({
               type="text"
               inputMode="numeric"
               pattern="[0-9]*"
-              value={workoutExercise.durationSeconds ?? ''}
+              value={localDuration}
               onChange={(e) => handleDurationChange(e.target.value)}
+              onBlur={handleDurationBlur}
               placeholder="0"
               className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
               aria-label="Duration seconds"
@@ -352,8 +404,9 @@ export const ExerciseCard = memo(function ExerciseCard({
                   type="text"
                   inputMode="numeric"
                   pattern="[0-9]*"
-                  value={workoutExercise.restSeconds}
+                  value={localRest}
                   onChange={(e) => handleRestChange(e.target.value)}
+                  onBlur={handleRestBlur}
                   className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
                   aria-label="Rest seconds"
                   disabled={editMode}
@@ -364,8 +417,9 @@ export const ExerciseCard = memo(function ExerciseCard({
                     <label className="text-xs text-text-tertiary w-8">Reps</label>
                     <Input
                       type="number"
-                      value={workoutExercise.reps}
+                      value={localReps}
                       onChange={(e) => handleRepsChange(e.target.value)}
+                      onBlur={handleRepsBlur}
                       className="w-14 h-8 text-center bg-bg-elevated border-border-subtle"
                       min={1}
                       aria-label="Reps"
@@ -394,8 +448,9 @@ export const ExerciseCard = memo(function ExerciseCard({
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      value={workoutExercise.durationSeconds ?? ''}
+                      value={localDuration}
                       onChange={(e) => handleDurationChange(e.target.value)}
+                      onBlur={handleDurationBlur}
                       placeholder="0"
                       className="w-20 h-8 text-center bg-bg-elevated border-border-subtle"
                       aria-label="Duration seconds"
