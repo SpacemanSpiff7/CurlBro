@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { computeLogStats, logToSavedWorkout, formatLogForClipboard } from './logUtils';
+import { computeLogStats, logToSavedWorkout, formatLogForClipboard, formatLogForShare } from './logUtils';
 import { buildExerciseGraph } from '@/data/graphBuilder';
 import { testExercises } from '../../tests/fixtures/testGraph';
 import type { WorkoutLog, ExerciseId, WorkoutId, LogId } from '@/types';
@@ -213,6 +213,89 @@ describe('formatLogForClipboard', () => {
     expect(output).not.toContain('[Superset]');
     expect(output).not.toContain('[Tri-set]');
     expect(output).not.toContain('[Circuit');
+  });
+});
+
+describe('formatLogForShare', () => {
+  it('puts each set on its own line', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForShare(log, graph);
+    const lines = output.split('\n');
+    // Should have lines like "  1. 155 lb x 8 ✓"
+    const setLines = lines.filter((l) => /^\s+\d+\./.test(l));
+    expect(setLines.length).toBe(5); // 3 bench + 2 flye
+  });
+
+  it('does not contain exercise IDs', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForShare(log, graph);
+    expect(output).not.toContain('[barbell_bench_press]');
+    expect(output).not.toContain('[cable_flye]');
+  });
+
+  it('does not contain markdown headers', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForShare(log, graph);
+    expect(output).not.toContain('##');
+  });
+
+  it('shows superset grouping label', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].supersetGroupId = 'ss1';
+    log.exercises[1].supersetGroupId = 'ss1';
+    const output = formatLogForShare(log, graph);
+    expect(output).toContain('[Superset]');
+  });
+
+  it('shows BW for bodyweight exercises', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].sets = [{ weight: null, reps: 10, completed: true, durationSeconds: null, distanceMeters: null }];
+    const output = formatLogForShare(log, graph);
+    expect(output).toContain('BW x 10');
+  });
+
+  it('formats duration-only exercises', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].sets = [{ weight: null, reps: null, completed: true, durationSeconds: 30, distanceMeters: null }];
+    const output = formatLogForShare(log, graph);
+    expect(output).toContain('30s');
+  });
+
+  it('includes calories in header when provided', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForShare(log, graph, { calories: 285 });
+    expect(output).toContain('~285 cal');
+  });
+
+  it('omits calories from header when not provided', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    const output = formatLogForShare(log, graph);
+    expect(output).not.toContain('cal');
+  });
+
+  it('formats distance exercises', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].sets = [{ weight: null, reps: null, completed: true, durationSeconds: 1800, distanceMeters: 0.5 }];
+    const output = formatLogForShare(log, graph);
+    expect(output).toContain('0.5 mi');
+    expect(output).toContain('30:00');
+  });
+
+  it('shows cross mark for incomplete sets', () => {
+    const graph = buildExerciseGraph(testExercises);
+    const log = createTestLog();
+    log.exercises[0].sets[0] = s(155, 8, false);
+    const output = formatLogForShare(log, graph);
+    expect(output).toContain('\u2717');
   });
 });
 

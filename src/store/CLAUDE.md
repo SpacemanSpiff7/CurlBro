@@ -63,6 +63,7 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `clearSoreness()` — resets all soreness entries
 - `addExercise()` / `addExerciseToGroup()` / `swapExercise()` / `loadTemplate()` / `addExerciseToSession()` all call `inferTrackingFlags()` to auto-set tracking flags from exercise category+equipment
 - `updateExercise(index, updates)` — builder-side generic mutation used for sets, reps, rest, notes, tracking flags, prescribed duration, and other `WorkoutExercise` fields
-- `settingsActions.updateSettings(partial)` — merges partial settings including `weightUnit`, `distanceUnit`, export settings, and default sets/reps/timers
+- `settingsActions.updateSettings(partial)` — merges partial settings including `weightUnit`, `distanceUnit`, `bodyWeight`, export settings, and default sets/reps/timers
+- `settings.bodyWeight: number | null` — user's body weight in their current `weightUnit`. Used for calorie estimation. Stored as raw value (no auto-conversion on unit switch). Hydration backfills `undefined` → `null`.
 - `library.soreness: SorenessEntry[]` — persisted array of {muscle, level} pairs, Zod-validated on hydration
 - `library.activities: ActivityEntry[]` — persisted array of {type, timing} pairs (run/bike/swim/hike/sport/yoga + yesterday/today/tomorrow), Zod-validated on hydration

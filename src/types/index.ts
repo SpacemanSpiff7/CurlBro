@@ -363,6 +363,7 @@ export interface AppSettings {
   exportIncludeTips: boolean;
   weightUnit: WeightUnit;
   distanceUnit: DistanceUnit;
+  bodyWeight: number | null;
 }
 
 export const AppSettingsSchema = z.object({
@@ -375,6 +376,7 @@ export const AppSettingsSchema = z.object({
   exportIncludeTips: z.boolean().default(false),
   weightUnit: z.enum(WEIGHT_UNITS).default('lb'),
   distanceUnit: z.enum(DISTANCE_UNITS).default('mi'),
+  bodyWeight: z.number().positive().nullable().default(null),
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -387,6 +389,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   exportIncludeTips: false,
   weightUnit: 'lb',
   distanceUnit: 'mi',
+  bodyWeight: null,
 };
 
 // ─── Navigation ──────────────────────────────────────────

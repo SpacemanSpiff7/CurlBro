@@ -11,10 +11,15 @@
   `135lb`/`70kg` (weight), `0.5mi`/`0.8km` (distance), `Rest: 60s`. Infers tracking
   flags from parsed data. Backward compatible with old 4-field format.
 - unitConversion.ts: pure conversion/formatting for weight (lb↔kg) and distance (mi↔km)
-- logUtils.ts: three pure functions for workout log display and export:
+- logUtils.ts: pure functions for workout log display and export:
   - `computeLogStats(log)` → date, duration, exercise count, sets, total weight
   - `logToSavedWorkout(log)` → converts log back to SavedWorkout with weights prefilled
   - `formatLogForClipboard(log, graph)` → formatted markdown string for clipboard sharing
+  - `formatLogForShare(log, graph, options?)` → mobile-friendly share format (one set per line, no IDs, no markdown headers, optional calorie line)
+- calorieEstimate.ts: pure MET-based calorie estimation — `estimateCalories(log, bodyWeightKg, graph)`.
+  Uses category-specific MET values weighted by completed set count. Requires body weight in kg.
+- tcxExport.ts: pure TCX XML generator — `generateTcx(log, graph, options?)`. Generates
+  Strava-compatible TCX with Sport="Other", duration, calories, and exercise summary in Notes.
 - fileIO.ts: browser file I/O helpers — `downloadFile(content, filename, mimeType)` creates
   Blob → object URL → invisible `<a download>` click; `readFileAsText(file)` → Promise<string>
 - logExportImport.ts: versioned JSON export/import for workout logs (pure functions):

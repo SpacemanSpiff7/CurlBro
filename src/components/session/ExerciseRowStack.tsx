@@ -39,21 +39,21 @@ export const ExerciseRowStack = memo(function ExerciseRowStack({
             color: 'bg-warning',
             onAction: () => onSwap(offset),
           },
+          {
+            key: 'info',
+            label: 'Info',
+            icon: <Info size={16} />,
+            color: 'bg-accent-primary',
+            onAction: () => onInfo(offset),
+          },
         ];
 
         return (
           <SwipeToReveal key={`${exercise.exerciseId}-${offset}`} actions={actions}>
-            <div className="flex items-center justify-between px-3 min-h-[44px]">
+            <div className="flex items-center px-3 min-h-[44px]">
               <span className="text-sm font-semibold text-text-primary">
                 {name}
               </span>
-              <button
-                onClick={() => onInfo(offset)}
-                aria-label={`Info for ${name}`}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent-primary/40 text-accent-primary"
-              >
-                <Info size={14} />
-              </button>
             </div>
           </SwipeToReveal>
         );

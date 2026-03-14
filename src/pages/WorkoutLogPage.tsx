@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, Fragment } from 'react';
-import { ClipboardList, Trash2, Share2, Save, Download, Upload, FileSliders, ClipboardCopy, FileInput } from 'lucide-react';
+import { ClipboardList, Trash2, Share2, Save, Download, Upload, FileSliders, ClipboardCopy, FileInput, FileDown } from 'lucide-react';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { GroupBadge } from '@/components/shared/GroupBadge';
 import { deriveGroups } from '@/utils/groupUtils';
@@ -17,7 +17,9 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { computeLogStats, logToSavedWorkout, formatLogForClipboard } from '@/utils/logUtils';
+import { computeLogStats, logToSavedWorkout, formatLogForShare } from '@/utils/logUtils';
+import { estimateCalories } from '@/utils/calorieEstimate';
+import { generateTcx } from '@/utils/tcxExport';
 import { convertWeight, formatWeight } from '@/utils/unitConversion';
 import { downloadFile, readFileAsText } from '@/utils/fileIO';
 import { createLogExport, parseLogImport } from '@/utils/logExportImport';
@@ -113,6 +115,13 @@ function LogDetailSheet({
   const saveWorkout = useStore((state) => state.libraryActions.saveWorkout);
   const updateLogNotes = useStore((state) => state.libraryActions.updateLogNotes);
   const currentWeightUnit = useStore((state) => state.settings.weightUnit);
+  const bodyWeight = useStore((state) => state.settings.bodyWeight);
+
+  const calorieEstimate = useMemo(() => {
+    if (!log || bodyWeight == null) return null;
+    const bodyWeightKg = convertWeight(bodyWeight, currentWeightUnit, 'kg');
+    return estimateCalories(log, bodyWeightKg, graph);
+  }, [log, bodyWeight, currentWeightUnit, graph]);
 
   if (!log) return null;
 
@@ -124,8 +133,19 @@ function LogDetailSheet({
     toast.success('Saved to Library', { duration: 1500 });
   };
 
-  const handleCopy = async () => {
-    const text = formatLogForClipboard(log, graph);
+  const handleShare = async () => {
+    const text = formatLogForShare(log, graph, {
+      calories: calorieEstimate ?? undefined,
+    });
+    try {
+      if (navigator.share) {
+        await navigator.share({ text, title: log.workoutName || 'Workout Log' });
+        return;
+      }
+    } catch (err) {
+      // User cancelled share — don't fall through
+      if (err instanceof Error && err.name === 'AbortError') return;
+    }
     try {
       await navigator.clipboard.writeText(text);
       toast.success('Copied to clipboard', { duration: 1500 });
@@ -149,6 +169,14 @@ function LogDetailSheet({
     } catch {
       toast.error('Could not copy to clipboard');
     }
+  };
+
+  const handleExportTcx = () => {
+    const tcx = generateTcx(log, graph, { calories: calorieEstimate ?? undefined });
+    const dateStr = log.completedAt.slice(0, 10);
+    const safeName = (log.workoutName || 'untitled').replace(/[^a-zA-Z0-9-_]/g, '-').toLowerCase();
+    downloadFile(tcx, `${safeName}-${dateStr}.tcx`, 'application/vnd.garmin.tcx+xml');
+    toast.success('TCX exported \u2014 upload to Strava', { duration: 2000 });
   };
 
   return (
@@ -183,6 +211,18 @@ function LogDetailSheet({
           <div className="rounded-lg bg-bg-elevated p-2.5">
             <div className="text-[10px] text-text-tertiary uppercase tracking-wide">Sets</div>
             <div className="text-sm font-medium text-text-primary">{stats.completedSets}/{stats.totalSets}</div>
+          </div>
+          <div className="rounded-lg bg-bg-elevated p-2.5 col-span-2">
+            <div className="text-[10px] text-text-tertiary uppercase tracking-wide">Calories (est.)</div>
+            <div className="text-sm font-medium text-text-primary">
+              {calorieEstimate != null ? (
+                `~${calorieEstimate} cal`
+              ) : (
+                <span className="text-text-tertiary">
+                  -- <span className="text-[10px]">Set weight in Settings</span>
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -270,12 +310,32 @@ function LogDetailSheet({
           </Button>
           <Button
             variant="outline"
-            onClick={handleCopy}
+            onClick={handleShare}
             className="flex-1"
-            aria-label="Share log to clipboard"
+            aria-label="Share log"
           >
             <Share2 size={14} className="mr-1.5" />
             Share
+          </Button>
+        </div>
+        <div className="flex gap-2 mt-2">
+          <Button
+            variant="outline"
+            onClick={handleExportTcx}
+            className="flex-1"
+            aria-label="Export as TCX for Strava"
+          >
+            <FileDown size={14} className="mr-1.5" />
+            Export TCX
+          </Button>
+          <Button
+            variant="outline"
+            onClick={handleExportSingle}
+            className="flex-1"
+            aria-label="Download log as JSON"
+          >
+            <Download size={14} className="mr-1.5" />
+            Download
           </Button>
         </div>
         <div className="flex gap-2 mt-2 pb-4">
@@ -287,15 +347,6 @@ function LogDetailSheet({
           >
             <ClipboardCopy size={14} className="mr-1.5" />
             Copy JSON
-          </Button>
-          <Button
-            variant="outline"
-            onClick={handleExportSingle}
-            className="flex-1"
-            aria-label="Download log as JSON"
-          >
-            <Download size={14} className="mr-1.5" />
-            Download
           </Button>
         </div>
       </SheetContent>

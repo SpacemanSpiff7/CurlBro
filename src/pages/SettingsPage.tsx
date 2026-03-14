@@ -49,6 +49,49 @@ function NumberSetting({ value, min, fallback, onChange }: {
   );
 }
 
+function NullableNumberSetting({ value, min, onChange }: {
+  value: number | null; min: number;
+  onChange: (v: number | null) => void;
+}) {
+  const [local, setLocal] = useState(value != null ? String(value) : '');
+  // Sync from store when value changes externally (e.g. reset)
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setLocal(value != null ? String(value) : ''); }, [value]);
+
+  return (
+    <input
+      type="number"
+      inputMode="decimal"
+      className="w-16 h-10 rounded bg-bg-elevated border border-border-subtle px-2 text-base md:text-sm text-center text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+      min={min}
+      value={local}
+      placeholder="--"
+      onChange={(e) => {
+        setLocal(e.target.value);
+        if (e.target.value === '') {
+          onChange(null);
+        } else {
+          const n = parseFloat(e.target.value);
+          if (!isNaN(n) && n >= min) onChange(n);
+        }
+      }}
+      onBlur={() => {
+        if (local === '') {
+          onChange(null);
+        } else {
+          const n = parseFloat(local);
+          if (isNaN(n) || n < min) {
+            onChange(null);
+            setLocal('');
+          } else {
+            setLocal(String(n));
+          }
+        }
+      }}
+    />
+  );
+}
+
 export function SettingsPage() {
   const [joinListOpen, setJoinListOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -257,6 +300,23 @@ export function SettingsPage() {
                   {unit}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className="border-t border-border-subtle" />
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Dumbbell size={14} className="text-text-secondary" />
+              <div className="text-sm text-text-primary">Body Weight</div>
+            </div>
+            <div className="flex items-center gap-1">
+              <NullableNumberSetting
+                value={settings.bodyWeight}
+                min={1}
+                onChange={(v) => updateSettings({ bodyWeight: v })}
+              />
+              <span className="text-xs text-text-tertiary">{settings.weightUnit}</span>
             </div>
           </div>
         </div>

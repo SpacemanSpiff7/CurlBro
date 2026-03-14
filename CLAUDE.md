@@ -67,7 +67,9 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/data/09_cardio_warmup.json` — cardio and conditioning exercises (treadmill, bike, rower, sled push/pull, etc.)
 - `src/data/exerciseConflicts.ts` — exercise conflicts with scientific citations
 - `src/data/seededWorkouts.ts` — pre-built workout templates across 4 difficulty tiers
-- `src/utils/logUtils.ts` — log display/export helpers (computeLogStats, logToSavedWorkout, formatLogForClipboard)
+- `src/utils/logUtils.ts` — log display/export helpers (computeLogStats, logToSavedWorkout, formatLogForClipboard, formatLogForShare)
+- `src/utils/calorieEstimate.ts` — MET-based calorie estimation (estimateCalories, pure function, requires bodyWeightKg + graph)
+- `src/utils/tcxExport.ts` — Strava-compatible TCX XML generator (generateTcx, pure function, string-based XML)
 - `src/utils/groupUtils.ts` — superset group derivation (deriveGroups, getGroupLabel, ExerciseGroup interface)
 - `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
 - `public/llms.txt` — LLM workout generation instructions (import format + guidance)

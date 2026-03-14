@@ -1029,6 +1029,7 @@ export const useStore = create<AppState>()(
           const settingsAny = state.settings as any;
           if (!settingsAny.weightUnit) settingsAny.weightUnit = 'lb';
           if (!settingsAny.distanceUnit) settingsAny.distanceUnit = 'mi';
+          if (settingsAny.bodyWeight === undefined) settingsAny.bodyWeight = null;
 
           // Restore builder draft (if persisted)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
