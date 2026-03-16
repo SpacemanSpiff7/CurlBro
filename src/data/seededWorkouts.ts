@@ -20,7 +20,7 @@
 //   - Isolation/machine work placed last (lower systemic fatigue)
 //   - Rep ranges: compounds 5–8 (strength-hypertrophy), accessories 8–12
 //     (hypertrophy), isolations 12–15 (hypertrophy-endurance)
-//   - Rest periods: compounds 120–180s, accessories 60–90s, isolations 45–60s
+//   - Rest periods: compounds 120–180s, accessories 60–90s, isolations 60s (45s for calves/core/very light work)
 //   - Face pulls / rear-delt work included on every push/upper session for
 //     shoulder health (per Greg Nuckols and RP recommendations)
 //   - Machine workouts use only machine/cable/bodyweight equipment to be
@@ -100,7 +100,7 @@ const easyMachinePush: SeededWorkout = {
     { exerciseId: 'machine_pec_deck',       sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'tricep_pushdown',        sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'cable_overhead_extension', sets: 3, reps: 12, restSeconds: 60 },
-    { exerciseId: 'face_pull',              sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'face_pull',              sets: 3, reps: 15, restSeconds: 60  },
   ],
 };
 
@@ -122,7 +122,7 @@ const easyMachinePull: SeededWorkout = {
     { exerciseId: 'lat_pulldown',        sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'machine_row',         sets: 4, reps: 10, restSeconds: 90  },
     { exerciseId: 'cable_row',           sets: 3, reps: 12, restSeconds: 75  },
-    { exerciseId: 'reverse_fly_machine', sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'reverse_fly_machine', sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'cable_curl',          sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'rope_cable_curl',     sets: 3, reps: 12, restSeconds: 60  },
   ],
@@ -134,11 +134,12 @@ const easyMachineFullBody: SeededWorkout = {
   difficulty: 'beginner',
   // Programming notes:
   //   One exercise per major movement pattern: squat, hinge, horizontal push,
-  //   horizontal pull, vertical pull, shoulder, core. Ideal for 2–3x/week
-  //   full-body frequency (Schoenfeld 2016 meta-analysis: 2x/week frequency
-  //   superior to 1x for hypertrophy at matched volume).
-  //   Lower rep counts per exercise vs. splits — accumulate sufficient volume
-  //   across sessions not within one session.
+  //   horizontal pull, vertical pull, shoulder. Ideal for 2–3x/week full-body
+  //   frequency (Schoenfeld 2016 meta-analysis: 2x/week frequency superior to
+  //   1x for hypertrophy at matched volume). 9 exercises keeps session under 50
+  //   minutes. Side delts hit by shoulder press; core trained by compounds for
+  //   beginners. Lower rep counts per exercise vs. splits — accumulate sufficient
+  //   volume across sessions not within one session.
   exercises: [
     { exerciseId: 'leg_press',            sets: 3, reps: 12, restSeconds: 120 },
     { exerciseId: 'leg_curl_seated',      sets: 3, reps: 12, restSeconds: 90  },
@@ -146,11 +147,9 @@ const easyMachineFullBody: SeededWorkout = {
     { exerciseId: 'machine_row',          sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'lat_pulldown',         sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'machine_shoulder_press', sets: 3, reps: 10, restSeconds: 90 },
-    { exerciseId: 'machine_lateral_raise',  sets: 2, reps: 15, restSeconds: 45 },
     { exerciseId: 'tricep_pushdown',      sets: 2, reps: 12, restSeconds: 60  },
     { exerciseId: 'cable_curl',           sets: 2, reps: 12, restSeconds: 60  },
-    { exerciseId: 'face_pull',            sets: 2, reps: 15, restSeconds: 45  },
-    { exerciseId: 'plank',               sets: 3, reps: 40, restSeconds: 45  }, // reps = seconds held
+    { exerciseId: 'face_pull',            sets: 2, reps: 15, restSeconds: 60  },
   ],
 };
 
@@ -183,7 +182,7 @@ const intermediatePush: SeededWorkout = {
     { exerciseId: 'cable_flye',              sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'tricep_pushdown',         sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'overhead_tricep_extension', sets: 3, reps: 12, restSeconds: 60 },
-    { exerciseId: 'face_pull',               sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'face_pull',               sets: 3, reps: 15, restSeconds: 60  },
   ],
 };
 
@@ -210,7 +209,7 @@ const intermediatePull: SeededWorkout = {
     { exerciseId: 'pull_up',               sets: 3, reps: 8,  restSeconds: 150 },
     { exerciseId: 'cable_row',             sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'straight_arm_pulldown', sets: 3, reps: 12, restSeconds: 60  },
-    { exerciseId: 'rear_delt_flye',        sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'rear_delt_flye',        sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'incline_dumbbell_curl', sets: 3, reps: 10, restSeconds: 60  },
     { exerciseId: 'hammer_curl',           sets: 3, reps: 12, restSeconds: 60  },
   ],
@@ -266,8 +265,8 @@ const intermediateUpper: SeededWorkout = {
     { exerciseId: 'cable_row',             sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'dumbbell_shoulder_press', sets: 3, reps: 10, restSeconds: 90 },
     { exerciseId: 'lat_pulldown',          sets: 3, reps: 10, restSeconds: 90  },
-    { exerciseId: 'lateral_raise',         sets: 3, reps: 15, restSeconds: 45  },
-    { exerciseId: 'face_pull',             sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'lateral_raise',         sets: 3, reps: 15, restSeconds: 60  },
+    { exerciseId: 'face_pull',             sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'tricep_pushdown',       sets: 2, reps: 12, restSeconds: 60  },
     { exerciseId: 'barbell_curl',          sets: 2, reps: 12, restSeconds: 60  },
   ],
@@ -280,8 +279,8 @@ const intermediateLower: SeededWorkout = {
   // Programming notes:
   //   Front squat as primary alternative to back squat — more upright torso,
   //   higher quadriceps emphasis, reduced spinal loading vs. high-bar back squat.
-  //   Goblet squat as secondary squat pattern with lighter load and controlled
-  //   depth — excellent teaching tool and quad accessory.
+  //   Walking lunge adds unilateral pattern — two bilateral squats would be
+  //   redundant. Lunge fixes imbalances and trains single-leg stability.
   //   Dumbbell RDL: easier learning curve than barbell; each arm independent
   //   for identifying and fixing imbalances.
   //   Single-leg RDL: unilateral hinge for hip stability and hamstring work.
@@ -291,7 +290,7 @@ const intermediateLower: SeededWorkout = {
   //   without moving stations (gastrocnemius emphasis with extended knees).
   exercises: [
     { exerciseId: 'barbell_front_squat',  sets: 4, reps: 6,  restSeconds: 180 },
-    { exerciseId: 'goblet_squat',         sets: 3, reps: 10, restSeconds: 90  },
+    { exerciseId: 'walking_lunge',        sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'dumbbell_rdl',         sets: 3, reps: 10, restSeconds: 120 },
     { exerciseId: 'single_leg_rdl',       sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'leg_press',            sets: 3, reps: 12, restSeconds: 90  },
@@ -332,7 +331,7 @@ const advancedHeavyPush: SeededWorkout = {
     { exerciseId: 'cable_lateral_raise',   sets: 4, reps: 15, restSeconds: 60  },
     { exerciseId: 'skull_crusher',         sets: 3, reps: 10, restSeconds: 75  },
     { exerciseId: 'cable_overhead_extension', sets: 3, reps: 12, restSeconds: 60 },
-    { exerciseId: 'face_pull',             sets: 4, reps: 15, restSeconds: 45  },
+    { exerciseId: 'face_pull',             sets: 4, reps: 15, restSeconds: 60  },
   ],
 };
 
@@ -349,18 +348,18 @@ const advancedHeavyPull: SeededWorkout = {
   //   allowing slightly heavier loading vs. pull-ups for equivalent lat work.
   //   T-bar row: neutral grip allows the heaviest row loading for most people;
   //   classic bodybuilding back-thickness builder.
-  //   Rack pull: shortened range of motion allows supra-maximal loading —
-  //   targets the top portion of the deadlift, builds upper back and traps
-  //   under heavy load.
+  //   Chest-supported row: removes spinal loading — three heavy spine-loading
+  //   movements (Pendlay + chin-up + rack pull) was excessive. Replaced rack
+  //   pull to manage axial fatigue.
   //   Bayesian cable curl: loads the bicep long head in a stretched position
   //   with constant tension — best of both incline curl and cable curl worlds.
   exercises: [
     { exerciseId: 'pendlay_row',          sets: 5, reps: 5,  restSeconds: 180 },
     { exerciseId: 'chin_up',              sets: 4, reps: 6,  restSeconds: 150 },
     { exerciseId: 't_bar_row',            sets: 4, reps: 8,  restSeconds: 150 },
-    { exerciseId: 'rack_pull',            sets: 3, reps: 6,  restSeconds: 180 },
+    { exerciseId: 'chest_supported_row',  sets: 3, reps: 10, restSeconds: 90  },
     { exerciseId: 'close_grip_pulldown',  sets: 3, reps: 10, restSeconds: 90  },
-    { exerciseId: 'cable_rear_delt_flye', sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'cable_rear_delt_flye', sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'bayesian_curl',        sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'barbell_shrug',        sets: 3, reps: 12, restSeconds: 75  },
   ],
@@ -375,9 +374,9 @@ const advancedHeavyLegs: SeededWorkout = {
   //   protocol. 5 sets provides sufficient volume at intensity for advanced
   //   trainees (RP MEV for quads: 10–16 sets/week; this session alone
   //   covers ~5 working sets of quad-dominant compound work).
-  //   Conventional deadlift: full posterior chain activation. Do NOT deadlift
-  //   heavy on the same session as heavy squats without adequate recovery —
-  //   here sets/reps are moderated (3x5) vs. the squat to manage fatigue.
+  //   Dumbbell RDL replaces conventional deadlift — back squat 5×5 + heavy
+  //   conventional deadlift in the same session creates extreme axial loading.
+  //   DB RDL still targets posterior chain with reduced spinal compression.
   //   Hack squat machine: unloads the spine vs. barbell squat while maintaining
   //   high quad stimulus for supplemental volume.
   //   Stiff-leg deadlift: greater hamstring stretch than RDL, more direct
@@ -387,7 +386,7 @@ const advancedHeavyLegs: SeededWorkout = {
   //   Hip thrust: loaded glute extension — completes the posterior chain.
   exercises: [
     { exerciseId: 'barbell_back_squat',  sets: 5, reps: 5,  restSeconds: 180 },
-    { exerciseId: 'conventional_deadlift', sets: 3, reps: 5, restSeconds: 180 },
+    { exerciseId: 'dumbbell_rdl',        sets: 3, reps: 8,  restSeconds: 120 },
     { exerciseId: 'hack_squat_machine',  sets: 3, reps: 10, restSeconds: 120 },
     { exerciseId: 'stiff_leg_deadlift',  sets: 3, reps: 8,  restSeconds: 120 },
     { exerciseId: 'nordic_curl',         sets: 3, reps: 5,  restSeconds: 90  },
@@ -402,9 +401,10 @@ const advancedPowerFullBody: SeededWorkout = {
   split: 'full_body',
   difficulty: 'advanced',
   // Programming notes:
-  //   Box jump as the session opener when the nervous system is fresh —
-  //   plyometrics ALWAYS precede heavy strength work, never follow it.
-  //   Post-activation potentiation (PAP): plyometric priming can increase
+  //   Hang clean opens the session for explosive power development —
+  //   Olympic lifts always go first when the nervous system is fresh.
+  //   Box jump follows for plyometric priming before heavy strength work.
+  //   Post-activation potentiation (PAP): explosive priming can increase
   //   subsequent strength performance (Hodgson et al. 2005).
   //   Trap bar deadlift: safest high-load hip hinge for full-body sessions;
   //   centered weight, neutral grip, less spinal loading than conventional.
@@ -412,16 +412,15 @@ const advancedPowerFullBody: SeededWorkout = {
   //   Barbell row: primary horizontal pull, superset candidate with bench.
   //   Overhead press: vertical push, core demand.
   //   Pull-up: vertical pull, lat and bicep.
-  //   Kettlebell swing: explosive hip hinge conditioning, posterior chain.
   //   Ab wheel rollout: highest-activation anti-extension core movement.
   exercises: [
+    { exerciseId: 'hang_clean',           sets: 3, reps: 5,  restSeconds: 120 },
     { exerciseId: 'box_jump',             sets: 3, reps: 5,  restSeconds: 90  },
     { exerciseId: 'trap_bar_deadlift',    sets: 4, reps: 5,  restSeconds: 180 },
     { exerciseId: 'barbell_bench_press',  sets: 4, reps: 5,  restSeconds: 180 },
     { exerciseId: 'barbell_row',          sets: 4, reps: 6,  restSeconds: 150 },
     { exerciseId: 'overhead_press',       sets: 3, reps: 6,  restSeconds: 150 },
     { exerciseId: 'pull_up',              sets: 3, reps: 6,  restSeconds: 120 },
-    { exerciseId: 'kettlebell_swing',     sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'ab_wheel_rollout',     sets: 3, reps: 8,  restSeconds: 60  },
   ],
 };
@@ -434,8 +433,8 @@ const advancedPowerFullBody: SeededWorkout = {
 
 const armBlaster: SeededWorkout = {
   name: 'Arm Blaster',
-  split: 'pull', // Bicep-primary, but tricep volume included — split 'pull' is
-                  // the closest match since most volume is elbow flexion
+  split: 'upper', // Equal bicep + tricep volume — 'upper' is a better fit than
+                   // 'pull' since both flexion and extension are trained equally
   difficulty: 'intermediate',
   // Programming notes:
   //   Structured as a superset-friendly arm workout (curl ↔ tricep extension
@@ -456,7 +455,7 @@ const armBlaster: SeededWorkout = {
     { exerciseId: 'overhead_tricep_extension',sets: 3, reps: 10, restSeconds: 60  },
     { exerciseId: 'bayesian_curl',            sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'cable_overhead_extension', sets: 3, reps: 12, restSeconds: 60  },
-    { exerciseId: 'hammer_curl',              sets: 3, reps: 12, restSeconds: 45  },
+    { exerciseId: 'hammer_curl',              sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'concentration_curl',       sets: 2, reps: 15, restSeconds: 45  },
     { exerciseId: 'tricep_pushdown',          sets: 2, reps: 15, restSeconds: 45  },
   ],
@@ -485,9 +484,9 @@ const shoulderBuilder: SeededWorkout = {
     { exerciseId: 'arnold_press',         sets: 3, reps: 10, restSeconds: 120 },
     { exerciseId: 'lateral_raise',        sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'cable_lateral_raise',  sets: 3, reps: 15, restSeconds: 60  },
-    { exerciseId: 'machine_lateral_raise',sets: 3, reps: 15, restSeconds: 45  },
-    { exerciseId: 'face_pull',            sets: 3, reps: 15, restSeconds: 45  },
-    { exerciseId: 'rear_delt_flye',       sets: 3, reps: 15, restSeconds: 45  },
+    { exerciseId: 'machine_lateral_raise',sets: 3, reps: 15, restSeconds: 60  },
+    { exerciseId: 'face_pull',            sets: 3, reps: 15, restSeconds: 60  },
+    { exerciseId: 'rear_delt_flye',       sets: 3, reps: 15, restSeconds: 60  },
     { exerciseId: 'upright_row',          sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'band_pull_apart',      sets: 2, reps: 20, restSeconds: 30  },
   ],
@@ -516,9 +515,9 @@ const posteriorChainFocus: SeededWorkout = {
   //   Single-leg calf raise: unilateral for identifying and fixing imbalances.
   exercises: [
     { exerciseId: 'romanian_deadlift',   sets: 4, reps: 8,  restSeconds: 150 },
+    { exerciseId: 'sumo_deadlift',       sets: 3, reps: 6,  restSeconds: 180 },
     { exerciseId: 'hip_thrust',          sets: 4, reps: 10, restSeconds: 120 },
     { exerciseId: 'good_morning',        sets: 3, reps: 10, restSeconds: 120 },
-    { exerciseId: 'sumo_deadlift',       sets: 3, reps: 6,  restSeconds: 180 },
     { exerciseId: 'leg_curl_lying',      sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'leg_curl_seated',     sets: 3, reps: 12, restSeconds: 60  },
     { exerciseId: 'back_extension',      sets: 3, reps: 15, restSeconds: 60  },

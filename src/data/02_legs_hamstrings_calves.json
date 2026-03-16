@@ -143,7 +143,8 @@
       "substitutes": [
         "conventional_deadlift",
         "sumo_deadlift",
-        "leg_press"
+        "leg_press",
+        "power_clean"
       ],
       "complements": [
         "leg_curl_lying",
@@ -896,7 +897,9 @@
       "substitutes": [
         "cable_pull_through",
         "hip_thrust",
-        "kb_single_arm_swing"
+        "kb_single_arm_swing",
+        "power_clean",
+        "hang_clean"
       ],
       "complements": [
         "goblet_squat",

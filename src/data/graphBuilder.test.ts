@@ -85,8 +85,8 @@ describe('buildExerciseGraph', () => {
       graph = buildExerciseGraph(rawExercises);
     });
 
-    it('builds all 345 exercises', () => {
-      expect(graph.exercises.size).toBe(345);
+    it('builds all 353 exercises', () => {
+      expect(graph.exercises.size).toBe(353);
     });
 
     it('has no broken substitute references', () => {

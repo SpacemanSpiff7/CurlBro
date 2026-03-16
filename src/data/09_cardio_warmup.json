@@ -1,7 +1,7 @@
 {
   "file": "09_cardio_warmup.json",
   "description": "Cardio warmup exercises using gym machines and equipment for general warm-up before strength training",
-  "exercise_count": 15,
+  "exercise_count": 18,
   "exercises": [
     {
       "id": "treadmill_walk",
@@ -78,7 +78,8 @@
       "substitutes": [
         "treadmill_walk",
         "elliptical",
-        "jump_rope"
+        "jump_rope",
+        "treadmill_sprint"
       ],
       "complements": [
         "high_knee",
@@ -661,7 +662,9 @@
       "substitutes": [
         "jumping_jacks",
         "butt_kick",
-        "jump_rope"
+        "jump_rope",
+        "shuttle_run",
+        "agility_ladder"
       ],
       "complements": [
         "a_skip",
@@ -728,6 +731,146 @@
         "grip": "none",
         "lumbar_stabilizer": "none",
         "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "treadmill_sprint",
+      "name": "Treadmill Sprint Intervals",
+      "category": "cardio",
+      "movement_pattern": "gait_sprinting",
+      "force_type": "isometric",
+      "equipment": [
+        "treadmill"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "calves",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Set the treadmill to your sprint speed (8-12 mph depending on fitness level) and the incline to 0-1%. Sprint for 15-30 seconds, then step to the side rails or reduce speed to a walk for 60-90 seconds recovery. Start with 4-6 intervals and increase as your conditioning improves. Always straddle the belt before increasing to sprint speed — never start sprinting from a standstill on a moving belt. Use the safety clip.",
+      "substitutes": [
+        "treadmill_jog",
+        "assault_bike",
+        "rowing_machine"
+      ],
+      "complements": [
+        "high_knees_timed",
+        "a_skip",
+        "butt_kick"
+      ],
+      "superset_candidates": [],
+      "notes": "Sprint interval training on a treadmill provides a controlled, repeatable environment for high-intensity interval training (HIIT). Research by Hazell et al. (2012) showed that sprint intervals improve VO2max, anaerobic power, and body composition more efficiently than steady-state cardio. The treadmill forces a consistent pace — you can't unconsciously slow down mid-sprint. Set speed and incline before stepping on. For fat loss, sprint intervals are time-efficient: 10-15 minutes of intervals matches or exceeds 30-45 minutes of moderate cardio for metabolic adaptation (Boutcher, 2011). Start conservative with speed — a 'sprint' means near-maximal effort, not necessarily 12 mph.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "shuttle_run",
+      "name": "Shuttle Run",
+      "category": "cardio",
+      "movement_pattern": "agility",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "calves",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Set two markers 10-20 meters apart. Sprint to the far marker, touch the ground or line, then sprint back. That's one rep. Focus on decelerating safely by lowering your hips before the turn, not planting and twisting. Push off explosively from the turn. Start with 4-6 reps with 60-90 seconds rest between. Wear shoes with good lateral support — running shoes alone aren't ideal for the direction changes.",
+      "substitutes": [
+        "high_knees_timed",
+        "burpee",
+        "treadmill_sprint"
+      ],
+      "complements": [
+        "squat_jump",
+        "treadmill_sprint",
+        "agility_ladder"
+      ],
+      "superset_candidates": [],
+      "notes": "The shuttle run (also called suicide runs or beep test intervals) develops change-of-direction speed, deceleration ability, and anaerobic capacity. The repeated acceleration-deceleration pattern trains the eccentric strength of the quadriceps and calf muscles critical for injury prevention in field sports. Used in military and law enforcement fitness testing (PACER test, Illinois agility test). The deceleration phase loads the knees and ankles significantly — ensure adequate warm-up and progressive volume increases. Excellent conditioning finisher that requires only open floor space.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "agility_ladder",
+      "name": "Agility Ladder Drills",
+      "category": "cardio",
+      "movement_pattern": "agility",
+      "force_type": "isometric",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "calves",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "core",
+        "glutes"
+      ],
+      "workout_position": "early",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "n/a",
+      "video_url": "",
+      "beginner_tips": "Lay the ladder flat on the ground. Start with basic patterns: two feet in each box (icky shuffle), lateral shuffles, and single-leg hops. Focus on quick, light ground contacts — stay on the balls of your feet. Speed comes from practice, not forcing it. Start slow and prioritize accuracy over speed. Keep your arms pumping and your core tight. Progress to more complex patterns (in-out, crossover, carioca) as coordination improves.",
+      "substitutes": [
+        "high_knees_timed",
+        "jumping_jacks",
+        "shuttle_run"
+      ],
+      "complements": [
+        "shuttle_run",
+        "a_skip",
+        "treadmill_sprint"
+      ],
+      "superset_candidates": [],
+      "notes": "Agility ladder drills develop foot speed, coordination, and neuromuscular efficiency. While they don't significantly improve change-of-direction speed in isolation (Young et al., 2001), they are excellent for warming up the nervous system, improving proprioception, and developing the quick-contact foot patterns used in court and field sports. The low-impact, high-frequency foot contacts activate the calves and ankle stabilizers. Agility ladders are portable, inexpensive, and require minimal space. Include 2-4 different patterns per warm-up, 2-3 passes through the ladder for each pattern. Focus on quality of movement, not just speed.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "none",
+        "lumbar_stabilizer": "none",
+        "rotator_cuff": "none"
       }
     }
   ]

@@ -1,7 +1,7 @@
 {
   "file": "07_core_and_functional.json",
   "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics, kettlebell complexes",
-  "exercise_count": 41,
+  "exercise_count": 46,
   "exercises": [
     {
       "id": "cable_crunch",
@@ -875,7 +875,9 @@
       "complements": [
         "barbell_back_squat",
         "leg_press",
-        "goblet_squat"
+        "goblet_squat",
+        "power_clean",
+        "hang_clean"
       ],
       "superset_candidates": [
         "barbell_back_squat",
@@ -2042,6 +2044,258 @@
         "grip": "low",
         "lumbar_stabilizer": "moderate",
         "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "power_clean",
+      "name": "Power Clean (Barbell)",
+      "category": "compound",
+      "movement_pattern": "olympic_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "shoulders",
+        "core",
+        "upper_back"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "1-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/power-clean.html",
+      "beginner_tips": "Start with the bar on the floor, grip just outside your knees. Drive through your legs first (like a deadlift), then explosively extend your hips and shrug — the bar should float up. Catch it on your front delts in a quarter-squat position. Start with just the bar and master the hang position first. Use bumper plates so you can safely drop the bar. Never try to reverse the bar down slowly — either guide it to your thighs or drop it.",
+      "substitutes": [
+        "hang_clean",
+        "clean_and_press",
+        "kettlebell_swing",
+        "trap_bar_deadlift"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "barbell_back_squat",
+        "overhead_press"
+      ],
+      "superset_candidates": [],
+      "notes": "The power clean is the most commonly taught Olympic lift derivative in strength and conditioning. It builds explosive triple extension (ankle, knee, hip) power that transfers directly to sprinting, jumping, and sport performance. Unlike the full clean, the power clean catches the bar high (above parallel squat depth), making it more accessible. Peak power output in the power clean exceeds that of the squat, deadlift, and jump squat (Suchomel et al., 2016). Program for power (1-5 reps), never for fatigue — form breaks down rapidly with metabolic stress.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "hang_clean",
+      "name": "Hang Clean (Barbell)",
+      "category": "compound",
+      "movement_pattern": "olympic_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "early",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/hang-clean.html",
+      "beginner_tips": "Start standing with the bar at your hips, hands just outside your knees. Hinge at the hips to lower the bar to just above your knees (the 'hang' position), then explosively drive your hips forward and shrug, catching the bar on your front delts. The hang position eliminates the first pull from the floor, making it easier to learn than the full clean. Focus on the hip snap — the arms should stay straight until the shrug.",
+      "substitutes": [
+        "power_clean",
+        "kettlebell_swing",
+        "trap_bar_deadlift",
+        "clean_and_press"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "barbell_back_squat",
+        "overhead_press"
+      ],
+      "superset_candidates": [],
+      "notes": "The hang clean is the best entry point for learning Olympic lifts. Starting from the hang position (bar at mid-thigh) simplifies the movement by removing the first pull from the floor, letting athletes focus on the explosive hip extension that defines the lift. Widely used in collegiate and professional strength programs (NFL Combine testing). The shortened range of motion also reduces lower back stress compared to power cleans from the floor.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "low",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "clean_and_press",
+      "name": "Clean & Press (Barbell)",
+      "category": "compound",
+      "movement_pattern": "olympic_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "glutes",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "core",
+        "triceps",
+        "hamstrings"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "1-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/clean-and-press.html",
+      "beginner_tips": "This is two movements combined: a power clean into an overhead press. Clean the bar to your front delts first, pause and stabilize, then press it overhead. Don't rush the transition — re-brace your core between the clean and the press. Master both the hang clean and the overhead press separately before combining them. Start light.",
+      "substitutes": [
+        "power_clean",
+        "hang_clean",
+        "overhead_press",
+        "kettlebell_swing"
+      ],
+      "complements": [
+        "box_jump",
+        "barbell_back_squat",
+        "pull_up",
+        "barbell_row"
+      ],
+      "superset_candidates": [],
+      "notes": "The clean and press was the original Olympic lift before it was removed from competition in 1972. It remains one of the most complete full-body strength exercises — requiring explosive lower body power (clean) and upper body pressing strength (press) in a single movement. Trains the entire kinetic chain from floor to overhead. Excellent for athletic performance and functional strength. The strict press version (no leg drive) is harder but builds greater shoulder strength; the push press version allows heavier loads.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "high",
+        "elbow": "moderate",
+        "knee": "high",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "barbell_snatch",
+      "name": "Snatch (Barbell)",
+      "category": "compound",
+      "movement_pattern": "olympic_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings",
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "traps",
+        "core",
+        "upper_back"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "1-3",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-snatch.html",
+      "beginner_tips": "Use a wide (snatch) grip — hands should be wide enough that the bar sits in the crease of your hips when standing. Pull the bar from the floor in one continuous motion, keeping it close to your body, and catch it overhead with arms locked out. This is the most technically demanding barbell exercise — get coaching before attempting heavy weights. Start with a PVC pipe or empty bar. Use bumper plates so you can bail safely.",
+      "substitutes": [
+        "hang_snatch",
+        "power_clean",
+        "kettlebell_swing"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "overhead_press",
+        "barbell_back_squat"
+      ],
+      "superset_candidates": [],
+      "notes": "The snatch is the most technically demanding barbell exercise and one of the two contested Olympic lifts. It requires maximal explosive power, full-body coordination, overhead mobility, and precise timing. The wide grip and overhead catch position demand excellent shoulder mobility and thoracic extension. Peak power output in the snatch is the highest of any barbell exercise. Not recommended for self-taught lifters — seek qualified coaching. However, for those willing to invest in learning, it builds unparalleled explosive power and athleticism.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "high",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "hang_snatch",
+      "name": "Hang Snatch (Barbell)",
+      "category": "compound",
+      "movement_pattern": "olympic_pull",
+      "force_type": "pull",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "glutes",
+        "hamstrings",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "core",
+        "quadriceps"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "n/a",
+      "rep_range_strength": "1-5",
+      "video_url": "https://www.muscleandstrength.com/exercises/hang-snatch.html",
+      "beginner_tips": "Start standing with the bar at your hips using a wide snatch grip. Hinge at the hips to lower the bar to just above your knees, then explosively drive your hips forward, shrug, and pull yourself under the bar to catch it overhead with locked arms. The hang position simplifies the full snatch by removing the first pull from the floor. Start with a wooden dowel or empty bar — the wide-grip overhead catch requires significant shoulder mobility.",
+      "substitutes": [
+        "barbell_snatch",
+        "power_clean",
+        "hang_clean",
+        "kettlebell_swing"
+      ],
+      "complements": [
+        "box_jump",
+        "squat_jump",
+        "overhead_press",
+        "barbell_back_squat"
+      ],
+      "superset_candidates": [],
+      "notes": "The hang snatch is the most accessible version of the barbell snatch. Starting from the hang position (mid-thigh) eliminates the technically demanding first pull from the floor, allowing athletes to focus on the explosive second pull and overhead catch. Builds explosive power, overhead stability, and full-body coordination. Used extensively in Olympic weightlifting training as a teaching progression and as a standalone power exercise. The wide grip increases the range of motion compared to cleans, demanding greater hip extension power and shoulder mobility.",
+      "load_profile": {
+        "spinal": "high",
+        "shoulder": "high",
+        "elbow": "low",
+        "knee": "moderate",
+        "grip": "high",
+        "lumbar_stabilizer": "high",
+        "rotator_cuff": "moderate"
       }
     }
   ]

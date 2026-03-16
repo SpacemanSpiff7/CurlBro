@@ -39,7 +39,8 @@
         "face_pull",
         "rear_delt_flye",
         "tricep_pushdown",
-        "overhead_tricep_extension"
+        "overhead_tricep_extension",
+        "clean_and_press"
       ],
       "superset_candidates": [
         "pull_up",

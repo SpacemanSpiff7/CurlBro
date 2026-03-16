@@ -1,5 +1,5 @@
 /**
- * Integration tests for the expanded exercise dataset (345 exercises).
+ * Integration tests for the expanded exercise dataset (353 exercises).
  *
  * Validates:
  *  - Schema compliance for every exercise
@@ -40,9 +40,9 @@ beforeAll(async () => {
 
 // ─── Dataset Integrity ──────────────────────────────────────
 describe('exercise dataset integrity', () => {
-  it('has exactly 345 exercises', () => {
-    expect(allExercises.length).toBe(345);
-    expect(graph.exercises.size).toBe(345);
+  it('has exactly 353 exercises', () => {
+    expect(allExercises.length).toBe(353);
+    expect(graph.exercises.size).toBe(353);
   });
 
   it('loads from 9 exercise files', () => {

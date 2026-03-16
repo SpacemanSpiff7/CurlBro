@@ -1,7 +1,7 @@
 # CurlBro
 
 ## What
-Client-side React workout builder using an exercise graph (345 exercises, 3000+ edges).
+Client-side React workout builder using an exercise graph (353 exercises, 3000+ edges).
 Mobile-first, light/dark theme support (next-themes), static deployment. Zero server-side processing.
 Library (My Workouts) is the default/leftmost tab — users land on their saved workouts first.
 Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
@@ -61,7 +61,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `tests/CLAUDE.md` — testing conventions and patterns
 
 ## Key Data Files
-- `src/data/01-09_*.json` — 9 exercise catalog JSON files with 345 exercises (strength, stretching/mobility, cardio)
+- `src/data/01-09_*.json` — 9 exercise catalog JSON files with 353 exercises (strength, stretching/mobility, cardio)
 - `src/data/00_schema_and_metadata.json` — schema, metadata, movement/equipment catalogs, and authoring notes for the dataset
 - `src/data/08_stretching_mobility.json` — stretching/mobility exercises (dynamic stretches, static stretches, mobility drills)
 - `src/data/09_cardio_warmup.json` — cardio and conditioning exercises (treadmill, bike, rower, sled push/pull, etc.)
