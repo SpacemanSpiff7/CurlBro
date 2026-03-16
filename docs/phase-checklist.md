@@ -47,7 +47,7 @@
 - [x] RestTimer UI
 - [x] ActiveWorkout page
 - [x] Session progress navigation
-- [x] SettingsPage with rest timer defaults
+- [x] SettingsPage with rest timer default
 
 ## Phase 6: Polish & E2E ✅
 - [x] Error boundaries (per tab)

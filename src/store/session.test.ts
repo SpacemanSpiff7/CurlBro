@@ -302,10 +302,12 @@ describe('startSession pre-populates SetLog fields from WorkoutExercise', () => 
 
     useStore.getState().sessionActions.startSession(workout);
 
-    const sets = useStore.getState().session.active!.exercises[0].sets;
+    const exercise = useStore.getState().session.active!.exercises[0];
+    const sets = exercise.sets;
     expect(sets).toHaveLength(2);
     expect(sets[0].reps).toBe(10);
     expect(sets[1].reps).toBe(10);
+    expect(exercise.restSeconds).toBe(90);
   });
 
   it('initializes sets with durationSeconds from the exercise', () => {
@@ -383,8 +385,8 @@ describe('startSession pre-populates SetLog fields from WorkoutExercise', () => 
   });
 });
 
-// ─── startSession initializes rest timer from first exercise ─
-describe('startSession initializes rest timer from first exercise', () => {
+// ─── startSession initializes rest timer from current group ─
+describe('startSession initializes rest timer from current group', () => {
   beforeEach(() => {
     useStore.setState((state) => ({
       ...state,
@@ -405,6 +407,18 @@ describe('startSession initializes rest timer from first exercise', () => {
     useStore.getState().sessionActions.startSession(workout);
 
     expect(useStore.getState().session.timer.restSeconds).toBe(120);
+  });
+
+  it('uses the max restSeconds for the first superset group', () => {
+    const workout = makeSavedWorkout([
+      makeWorkoutExercise({ restSeconds: 60, supersetGroupId: 'ss1' }),
+      makeWorkoutExercise({ restSeconds: 90, supersetGroupId: 'ss1' }),
+      makeWorkoutExercise({ restSeconds: 45 }),
+    ]);
+
+    useStore.getState().sessionActions.startSession(workout);
+
+    expect(useStore.getState().session.timer.restSeconds).toBe(90);
   });
 
   it('defaults restSeconds to 90 when first exercise has no restSeconds', () => {
@@ -447,6 +461,66 @@ describe('startSession initializes rest timer from first exercise', () => {
     expect(timer.totalSeconds).toBe(0);
     expect(timer.restSeconds).toBe(120);
     expect(timer.timerStartedAt).toBeNull();
+  });
+});
+
+describe('group navigation resets timer to the group default', () => {
+  beforeEach(() => {
+    useStore.setState((state) => ({
+      ...state,
+      session: {
+        ...state.session,
+        active: null,
+        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null },
+      },
+    }));
+  });
+
+  it('stops a running timer and switches to the destination group restSeconds', () => {
+    const workout = makeSavedWorkout([
+      makeWorkoutExercise({ restSeconds: 120 }),
+      makeWorkoutExercise({ restSeconds: 60 }),
+    ]);
+
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.startTimer(75);
+    useStore.getState().sessionActions.goToGroup(1);
+
+    const timer = useStore.getState().session.timer;
+    expect(useStore.getState().session.active!.currentGroupIndex).toBe(1);
+    expect(timer.isRunning).toBe(false);
+    expect(timer.remainingSeconds).toBe(0);
+    expect(timer.totalSeconds).toBe(0);
+    expect(timer.restSeconds).toBe(60);
+  });
+});
+
+describe('stopTimer restores the current group restSeconds', () => {
+  beforeEach(() => {
+    useStore.setState((state) => ({
+      ...state,
+      session: {
+        ...state.session,
+        active: null,
+        timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null },
+      },
+    }));
+  });
+
+  it('clears a temporary override and restores the planned rest', () => {
+    const workout = makeSavedWorkout([
+      makeWorkoutExercise({ restSeconds: 120 }),
+    ]);
+
+    useStore.getState().sessionActions.startSession(workout);
+    useStore.getState().sessionActions.setRestDuration(150);
+    useStore.getState().sessionActions.stopTimer();
+
+    const timer = useStore.getState().session.timer;
+    expect(timer.isRunning).toBe(false);
+    expect(timer.remainingSeconds).toBe(0);
+    expect(timer.totalSeconds).toBe(0);
+    expect(timer.restSeconds).toBe(120);
   });
 });
 

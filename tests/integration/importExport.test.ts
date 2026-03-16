@@ -213,7 +213,7 @@ describe('Import/Export', () => {
       expect(result.workout!.exercises[0].exerciseId).toBe('barbell_bench_press');
       expect(result.workout!.exercises[0].sets).toBe(4); // defaultSetsCompound
       expect(result.workout!.exercises[0].reps).toBe(8); // defaultRepsCompound
-      expect(result.workout!.exercises[0].restSeconds).toBe(120); // restTimerCompoundSeconds
+      expect(result.workout!.exercises[0].restSeconds).toBe(90); // defaultRestSeconds
     });
 
     it('resolves name-only lines with default sets/reps', () => {
@@ -259,7 +259,7 @@ describe('Import/Export', () => {
       const result = parseImport(text, graph, DEFAULT_SETTINGS);
       expect(result.errors).toEqual([]);
       expect(result.workout!.exercises[0].sets).toBe(3); // defaultSetsIsolation
-      expect(result.workout!.exercises[0].restSeconds).toBe(60); // restTimerIsolationSeconds
+      expect(result.workout!.exercises[0].restSeconds).toBe(90); // defaultRestSeconds
     });
 
     it('skips unknown name-only exercises', () => {

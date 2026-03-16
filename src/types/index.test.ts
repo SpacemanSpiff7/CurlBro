@@ -149,6 +149,7 @@ describe('Zod schemas', () => {
       });
       expect(result.success).toBe(true);
       if (result.success) {
+        expect(result.data.restSeconds).toBe(90);
         expect(result.data.planNotes).toBe('');
       }
     });
@@ -161,6 +162,7 @@ describe('Zod schemas', () => {
       });
       expect(result.success).toBe(true);
       if (result.success) {
+        expect(result.data.restSeconds).toBe(90);
         expect(result.data.planNotes).toBe('Pause at bottom');
       }
     });
@@ -248,6 +250,7 @@ describe('Zod schemas', () => {
       });
       expect(result.success).toBe(true);
       if (result.success) {
+        expect(result.data.exercises[0].restSeconds).toBe(90);
         expect(result.data.exercises[0].planNotes).toBe('');
       }
     });
@@ -256,16 +259,14 @@ describe('Zod schemas', () => {
   describe('AppSettingsSchema', () => {
     it('validates valid settings', () => {
       const result = AppSettingsSchema.safeParse({
-        restTimerCompoundSeconds: 120,
-        restTimerIsolationSeconds: 60,
+        defaultRestSeconds: 90,
       });
       expect(result.success).toBe(true);
     });
 
     it('rejects negative timer values', () => {
       const result = AppSettingsSchema.safeParse({
-        restTimerCompoundSeconds: -10,
-        restTimerIsolationSeconds: 60,
+        defaultRestSeconds: -10,
       });
       expect(result.success).toBe(false);
     });
@@ -274,8 +275,7 @@ describe('Zod schemas', () => {
       const result = AppSettingsSchema.safeParse({});
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data.restTimerCompoundSeconds).toBe(120);
-        expect(result.data.restTimerIsolationSeconds).toBe(60);
+        expect(result.data.defaultRestSeconds).toBe(90);
       }
     });
   });

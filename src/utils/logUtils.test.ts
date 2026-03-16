@@ -17,6 +17,7 @@ function createTestLog(): WorkoutLog {
       {
         exerciseId: 'barbell_bench_press' as ExerciseId,
         sets: [s(155, 8, true), s(155, 7, true), s(155, 6, true)],
+        restSeconds: 120,
         trackWeight: true,
         trackReps: true,
         trackDuration: false,
@@ -25,6 +26,7 @@ function createTestLog(): WorkoutLog {
       {
         exerciseId: 'cable_flye' as ExerciseId,
         sets: [s(30, 12, true), s(30, 10, true)],
+        restSeconds: 60,
         trackWeight: true,
         trackReps: true,
         trackDuration: false,
@@ -127,14 +129,14 @@ describe('logToSavedWorkout', () => {
     expect(workout.exercises[0].weight).toBeNull();
   });
 
-  it('sets restSeconds to 60 and notes from planNotes', () => {
+  it('preserves restSeconds and notes from the log plan', () => {
     const log = createTestLog();
     const workout = logToSavedWorkout(log);
 
-    for (const ex of workout.exercises) {
-      expect(ex.restSeconds).toBe(60);
-      expect(ex.notes).toBe('');
-    }
+    expect(workout.exercises[0].restSeconds).toBe(120);
+    expect(workout.exercises[1].restSeconds).toBe(60);
+    expect(workout.exercises[0].notes).toBe('');
+    expect(workout.exercises[1].notes).toBe('');
   });
 
   it('carries planNotes to workout notes', () => {

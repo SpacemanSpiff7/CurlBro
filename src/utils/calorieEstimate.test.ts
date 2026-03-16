@@ -43,6 +43,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'bench_press' as ExerciseId,
         sets: [{ weight: 135, reps: 8, completed: true, durationSeconds: null, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
       }],
     });
@@ -56,6 +57,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'curl' as ExerciseId,
         sets: [{ weight: 30, reps: 12, completed: true, durationSeconds: null, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
       }],
     });
@@ -69,6 +71,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'treadmill_run' as ExerciseId,
         sets: [{ weight: null, reps: null, completed: true, durationSeconds: 1800, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: false, trackReps: false, trackDuration: true, trackDistance: false,
       }],
     });
@@ -89,6 +92,7 @@ describe('estimateCalories', () => {
             { weight: 135, reps: 8, completed: true, durationSeconds: null, distanceMeters: null },
             { weight: 135, reps: 8, completed: true, durationSeconds: null, distanceMeters: null },
           ],
+          restSeconds: 90,
           trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
         },
         {
@@ -96,6 +100,7 @@ describe('estimateCalories', () => {
           sets: [
             { weight: 30, reps: 12, completed: true, durationSeconds: null, distanceMeters: null },
           ],
+          restSeconds: 90,
           trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
         },
       ],
@@ -112,6 +117,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'unknown_exercise' as ExerciseId,
         sets: [{ weight: null, reps: 10, completed: true, durationSeconds: null, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: false, trackReps: true, trackDuration: false, trackDistance: false,
       }],
     });
@@ -125,6 +131,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'bench' as ExerciseId,
         sets: [{ weight: 135, reps: 8, completed: false, durationSeconds: null, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
       }],
     });
@@ -138,6 +145,7 @@ describe('estimateCalories', () => {
       exercises: [{
         exerciseId: 'bench' as ExerciseId,
         sets: [{ weight: 135, reps: 8, completed: true, durationSeconds: null, distanceMeters: null }],
+        restSeconds: 90,
         trackWeight: true, trackReps: true, trackDuration: false, trackDistance: false,
       }],
     });

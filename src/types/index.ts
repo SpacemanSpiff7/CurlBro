@@ -243,6 +243,7 @@ export interface SetLog {
 export interface ExerciseLog {
   exerciseId: ExerciseId;
   sets: SetLog[];
+  restSeconds: number;
   supersetGroupId?: string;
   planNotes?: string;
   trackWeight: boolean;
@@ -297,6 +298,7 @@ export const WorkoutLogSchema = z.object({
       durationSeconds: z.number().nullable().default(null),
       distanceMeters: z.number().nullable().default(null),
     })),
+    restSeconds: z.number().int().min(0).default(90),
     supersetGroupId: z.string().optional(),
     planNotes: z.string().default(''),
     trackWeight: z.boolean().default(true),
@@ -325,6 +327,7 @@ export const SetLogSchema = z.object({
 export const ExerciseLogSchema = z.object({
   exerciseId: z.string(),
   sets: z.array(SetLogSchema),
+  restSeconds: z.number().int().min(0).default(90),
   supersetGroupId: z.string().optional(),
   planNotes: z.string().default(''),
   trackWeight: z.boolean().default(true),
@@ -354,8 +357,7 @@ export const TimerStateSchema = z.object({
 
 // ─── Settings ────────────────────────────────────────────
 export interface AppSettings {
-  restTimerCompoundSeconds: number;
-  restTimerIsolationSeconds: number;
+  defaultRestSeconds: number;
   defaultSetsCompound: number;
   defaultSetsIsolation: number;
   defaultRepsCompound: number;
@@ -367,8 +369,7 @@ export interface AppSettings {
 }
 
 export const AppSettingsSchema = z.object({
-  restTimerCompoundSeconds: z.number().int().min(0).default(120),
-  restTimerIsolationSeconds: z.number().int().min(0).default(60),
+  defaultRestSeconds: z.number().int().min(0).default(90),
   defaultSetsCompound: z.number().int().min(1).default(4),
   defaultSetsIsolation: z.number().int().min(1).default(3),
   defaultRepsCompound: z.number().int().min(1).default(8),
@@ -380,8 +381,7 @@ export const AppSettingsSchema = z.object({
 });
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  restTimerCompoundSeconds: 120,
-  restTimerIsolationSeconds: 60,
+  defaultRestSeconds: 90,
   defaultSetsCompound: 4,
   defaultSetsIsolation: 3,
   defaultRepsCompound: 8,

@@ -14,6 +14,7 @@ function makeLog(overrides: Partial<WorkoutLog> = {}): WorkoutLog {
           { weight: 135, reps: 8, completed: true, durationSeconds: null, distanceMeters: null },
           { weight: 135, reps: 7, completed: true, durationSeconds: null, distanceMeters: null },
         ],
+        restSeconds: 90,
         planNotes: 'Go heavy',
         trackWeight: true,
         trackReps: true,

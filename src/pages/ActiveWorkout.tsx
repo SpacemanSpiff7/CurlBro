@@ -168,22 +168,7 @@ export function ActiveWorkout() {
     return workouts.find((w) => w.id === session.workoutId) ?? null;
   }, [session, workouts]);
 
-  // Rest seconds: use timer store value (allows +/- adjustment when idle)
-  // Initialize store value from the workout's per-group rest seconds
-  const groupRestSeconds = useMemo(() => {
-    if (!currentGroup || !originalWorkout) return 60;
-    return Math.max(
-      ...currentGroup.indices.map((idx) => originalWorkout.exercises[idx]?.restSeconds ?? 60)
-    );
-  }, [currentGroup, originalWorkout]);
-
-  const { setRestDuration } = useStore((state) => state.sessionActions);
   const restSeconds = timer.restSeconds;
-
-  // Sync store restSeconds when navigating to a new group
-  useEffect(() => {
-    setRestDuration(groupRestSeconds);
-  }, [currentGroupIndex, groupRestSeconds, setRestDuration]);
 
   // Default weights for each exercise in the group
   const defaultWeights = useMemo(() => {
@@ -229,18 +214,16 @@ export function ActiveWorkout() {
   const handlePrev = useCallback(() => {
     if (currentGroupIndex <= 0) return;
     goToGroup(currentGroupIndex - 1);
-    timer.stop();
     setSwapTargetOffset(null);
     setVideoTargetOffset(null);
-  }, [currentGroupIndex, goToGroup, timer]);
+  }, [currentGroupIndex, goToGroup]);
 
   const handleNext = useCallback(() => {
     if (currentGroupIndex >= totalGroups - 1) return;
     goToGroup(currentGroupIndex + 1);
-    timer.stop();
     setSwapTargetOffset(null);
     setVideoTargetOffset(null);
-  }, [currentGroupIndex, totalGroups, goToGroup, timer]);
+  }, [currentGroupIndex, totalGroups, goToGroup]);
 
   const [endDialogOpen, setEndDialogOpen] = useState(false);
   // Snapshot remaining seconds when dialog opens so we can resume accurately
@@ -365,30 +348,83 @@ export function ActiveWorkout() {
     setSwapTargetOffset((prev) => (prev === offset ? null : offset));
   }, []);
 
+  const summarySheet = (
+    <Sheet open={summaryOpen} onOpenChange={setSummaryOpen}>
+      <SheetContent side="bottom" className="bg-bg-surface">
+        <SheetHeader>
+          <SheetTitle className="text-text-primary">Workout Saved</SheetTitle>
+        </SheetHeader>
+        {summaryLog && (() => {
+          const stats = computeLogStats(summaryLog);
+          return (
+            <div className="flex flex-col gap-4 px-4 pb-6 pt-2">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-bg-elevated p-3">
+                  <div className="text-xs text-text-tertiary">Date</div>
+                  <div className="text-sm font-medium text-text-primary">{stats.date}</div>
+                </div>
+                <div className="rounded-lg bg-bg-elevated p-3">
+                  <div className="text-xs text-text-tertiary">Duration</div>
+                  <div className="text-sm font-medium text-text-primary">{stats.durationMinutes} min</div>
+                </div>
+                <div className="rounded-lg bg-bg-elevated p-3">
+                  <div className="text-xs text-text-tertiary">Exercises</div>
+                  <div className="text-sm font-medium text-text-primary">{stats.exerciseCount}</div>
+                </div>
+                <div className="rounded-lg bg-bg-elevated p-3">
+                  <div className="text-xs text-text-tertiary">Total Weight</div>
+                  <div className="text-sm font-medium text-text-primary">
+                    {stats.totalWeight > 0
+                      ? formatWeight(stats.totalWeight, summaryLog.weightUnit ?? 'lb')
+                      : '--'}
+                  </div>
+                </div>
+              </div>
+              <AdSlot slotKey="post_workout" />
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSummaryOpen(false);
+                  setActiveTab('log');
+                }}
+                className="w-full"
+              >
+                View Log
+              </Button>
+            </div>
+          );
+        })()}
+      </SheetContent>
+    </Sheet>
+  );
+
   // No active session
   if (!session) {
     return (
-      <PageLayout
-        header={<h1 className="text-xl font-bold text-text-primary">Active</h1>}
-        contentClassName="px-4"
-      >
-        <EmptyState
-          icon={Timer}
-          title="No Active Workout"
-          subtitle={
-            <span>
-              Go to{' '}
-              <button
-                onClick={() => setActiveTab('library')}
-                className="font-medium text-accent-primary hover:text-accent-hover transition-colors"
-              >
-                Library
-              </button>
-              {' '}to select a workout.
-            </span>
-          }
-        />
-      </PageLayout>
+      <>
+        <PageLayout
+          header={<h1 className="text-xl font-bold text-text-primary">Active</h1>}
+          contentClassName="px-4"
+        >
+          <EmptyState
+            icon={Timer}
+            title="No Active Workout"
+            subtitle={
+              <span>
+                Go to{' '}
+                <button
+                  onClick={() => setActiveTab('library')}
+                  className="font-medium text-accent-primary hover:text-accent-hover transition-colors"
+                >
+                  Library
+                </button>
+                {' '}to select a workout.
+              </span>
+            }
+          />
+        </PageLayout>
+        {summarySheet}
+      </>
     );
   }
 
@@ -606,7 +642,6 @@ export function ActiveWorkout() {
               key={i}
               onClick={() => {
                 goToGroup(i);
-                timer.stop();
                 setSwapTargetOffset(null);
                 setVideoTargetOffset(null);
               }}
@@ -680,53 +715,7 @@ export function ActiveWorkout() {
       </Suspense>
 
       {/* Save summary sheet */}
-      <Sheet open={summaryOpen} onOpenChange={setSummaryOpen}>
-        <SheetContent side="bottom" className="bg-bg-surface">
-          <SheetHeader>
-            <SheetTitle className="text-text-primary">Workout Saved</SheetTitle>
-          </SheetHeader>
-          {summaryLog && (() => {
-            const stats = computeLogStats(summaryLog);
-            return (
-              <div className="flex flex-col gap-4 px-4 pb-6 pt-2">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-lg bg-bg-elevated p-3">
-                    <div className="text-xs text-text-tertiary">Date</div>
-                    <div className="text-sm font-medium text-text-primary">{stats.date}</div>
-                  </div>
-                  <div className="rounded-lg bg-bg-elevated p-3">
-                    <div className="text-xs text-text-tertiary">Duration</div>
-                    <div className="text-sm font-medium text-text-primary">{stats.durationMinutes} min</div>
-                  </div>
-                  <div className="rounded-lg bg-bg-elevated p-3">
-                    <div className="text-xs text-text-tertiary">Exercises</div>
-                    <div className="text-sm font-medium text-text-primary">{stats.exerciseCount}</div>
-                  </div>
-                  <div className="rounded-lg bg-bg-elevated p-3">
-                    <div className="text-xs text-text-tertiary">Total Weight</div>
-                    <div className="text-sm font-medium text-text-primary">
-                      {stats.totalWeight > 0
-                        ? formatWeight(stats.totalWeight, summaryLog.weightUnit ?? 'lb')
-                        : '--'}
-                    </div>
-                  </div>
-                </div>
-                <AdSlot slotKey="post_workout" />
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setSummaryOpen(false);
-                    setActiveTab('log');
-                  }}
-                  className="w-full"
-                >
-                  View Log
-                </Button>
-              </div>
-            );
-          })()}
-        </SheetContent>
-      </Sheet>
+      {summarySheet}
 
       {/* Exercise picker for mid-session add */}
       <Suspense fallback={null}>

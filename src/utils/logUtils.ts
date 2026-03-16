@@ -1,4 +1,5 @@
 import type { WorkoutLog, SavedWorkout, ExerciseGraph, ExerciseId, WorkoutId, WeightUnit, DistanceUnit } from '@/types';
+import { DEFAULT_SETTINGS } from '@/types';
 import { deriveGroups, getGroupLabel } from '@/utils/groupUtils';
 import { formatWeight, formatDistance } from '@/utils/unitConversion';
 import { v4 as uuidv4 } from 'uuid';
@@ -52,7 +53,10 @@ export function computeLogStats(log: WorkoutLog): LogStats {
   };
 }
 
-export function logToSavedWorkout(log: WorkoutLog): SavedWorkout {
+export function logToSavedWorkout(
+  log: WorkoutLog,
+  defaultRestSeconds = DEFAULT_SETTINGS.defaultRestSeconds,
+): SavedWorkout {
   const now = new Date().toISOString();
 
   return {
@@ -67,7 +71,7 @@ export function logToSavedWorkout(log: WorkoutLog): SavedWorkout {
         sets: ex.sets.length,
         reps: firstWithReps?.reps ?? 8,
         weight: lastCompleted?.weight ?? null,
-        restSeconds: 60,
+        restSeconds: ex.restSeconds ?? defaultRestSeconds,
         notes: ex.planNotes ?? '',
         trackWeight: ex.trackWeight,
         trackReps: ex.trackReps,

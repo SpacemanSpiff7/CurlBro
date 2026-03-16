@@ -171,13 +171,36 @@ const emptyValidation: WorkoutValidation = {
   muscleCounts: {},
 };
 
-const emptyTimer: TimerState = {
-  isRunning: false,
-  remainingSeconds: 0,
-  totalSeconds: 0,
-  restSeconds: 90,
-  timerStartedAt: null,
-};
+function createIdleTimer(restSeconds = DEFAULT_SETTINGS.defaultRestSeconds): TimerState {
+  return {
+    isRunning: false,
+    remainingSeconds: 0,
+    totalSeconds: 0,
+    restSeconds,
+    timerStartedAt: null,
+  };
+}
+
+function resolveGroupRestSeconds(
+  exercises: Array<{ restSeconds?: number; supersetGroupId?: string }>,
+  groupIndex: number,
+  fallback: number,
+): number {
+  const groups = deriveGroups(exercises);
+  const group = groups[Math.max(0, Math.min(groupIndex, groups.length - 1))];
+  if (!group) return fallback;
+
+  return Math.max(...group.exercises.map((exercise) => exercise.restSeconds ?? fallback));
+}
+
+function resolveActiveSessionRestSeconds(
+  session: ActiveSession | null,
+  fallback: number,
+  groupIndex = session?.currentGroupIndex ?? 0,
+): number {
+  if (!session) return fallback;
+  return resolveGroupRestSeconds(session.exercises, groupIndex, fallback);
+}
 
 /** Pick the default rep count for an exercise based on user settings */
 export function getDefaultReps(exercise: Exercise, settings: AppSettings): number {
@@ -233,9 +256,7 @@ export const useStore = create<AppState>()(
           if (!exercise) return;
 
           const settings = get().settings;
-          const restSeconds = exercise.category === 'compound'
-            ? settings.restTimerCompoundSeconds
-            : settings.restTimerIsolationSeconds;
+          const restSeconds = settings.defaultRestSeconds;
 
           const sets = exercise.category === 'compound'
             ? settings.defaultSetsCompound
@@ -265,9 +286,7 @@ export const useStore = create<AppState>()(
           if (!exercise) return;
 
           const settings = get().settings;
-          const restSeconds = exercise.category === 'compound'
-            ? settings.restTimerCompoundSeconds
-            : settings.restTimerIsolationSeconds;
+          const restSeconds = settings.defaultRestSeconds;
           const sets = exercise.category === 'compound'
             ? settings.defaultSetsCompound
             : settings.defaultSetsIsolation;
@@ -674,37 +693,42 @@ export const useStore = create<AppState>()(
       // Session
       session: {
         active: null,
-        timer: emptyTimer,
+        timer: createIdleTimer(),
       },
       sessionActions: {
         startSession: (workout: SavedWorkout) => {
+          const fallbackRestSeconds = get().settings.defaultRestSeconds;
+          const exercises = workout.exercises.map((ex): ExerciseLog => ({
+            exerciseId: ex.exerciseId as ExerciseId,
+            sets: Array.from({ length: ex.sets }, (): SetLog => ({
+              weight: ex.weight,
+              reps: ex.reps ?? null,
+              completed: false,
+              durationSeconds: ex.durationSeconds ?? null,
+              distanceMeters: null,
+            })),
+            restSeconds: ex.restSeconds ?? fallbackRestSeconds,
+            ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
+            planNotes: ex.notes,
+            trackWeight: ex.trackWeight,
+            trackReps: ex.trackReps,
+            trackDuration: ex.trackDuration,
+            trackDistance: ex.trackDistance,
+            ...(ex.durationSeconds != null ? { durationSeconds: ex.durationSeconds } : {}),
+          }));
+          const initialRestSeconds = resolveGroupRestSeconds(exercises, 0, fallbackRestSeconds);
+
           set((state) => {
             state.session.active = {
               workoutId: workout.id,
               workoutName: workout.name,
-              exercises: workout.exercises.map((ex): ExerciseLog => ({
-                exerciseId: ex.exerciseId as ExerciseId,
-                sets: Array.from({ length: ex.sets }, (): SetLog => ({
-                  weight: ex.weight,
-                  reps: ex.reps ?? null,
-                  completed: false,
-                  durationSeconds: ex.durationSeconds ?? null,
-                  distanceMeters: null,
-                })),
-                ...(ex.supersetGroupId ? { supersetGroupId: ex.supersetGroupId } : {}),
-                planNotes: ex.notes,
-                trackWeight: ex.trackWeight,
-                trackReps: ex.trackReps,
-                trackDuration: ex.trackDuration,
-                trackDistance: ex.trackDistance,
-                ...(ex.durationSeconds != null ? { durationSeconds: ex.durationSeconds } : {}),
-              })),
+              exercises,
               currentGroupIndex: 0,
               startedAt: null,
               completedAt: null,
               notes: '',
             };
-            state.session.timer = { ...emptyTimer, restSeconds: workout.exercises[0]?.restSeconds ?? 90 };
+            state.session.timer = createIdleTimer(initialRestSeconds);
             state.activeTab = 'active';
           });
         },
@@ -718,7 +742,7 @@ export const useStore = create<AppState>()(
         abandonSession: () => {
           set((state) => {
             state.session.active = null;
-            state.session.timer = emptyTimer;
+            state.session.timer = createIdleTimer();
           });
         },
         endSession: () => {
@@ -726,7 +750,7 @@ export const useStore = create<AppState>()(
             if (state.session.active?.startedAt) {
               state.session.active.completedAt = new Date().toISOString();
             }
-            state.session.timer = emptyTimer;
+            state.session.timer = createIdleTimer();
           });
         },
         saveSession: () => {
@@ -780,11 +804,15 @@ export const useStore = create<AppState>()(
             session.exercises.push({
               exerciseId,
               sets: [{ weight: null, reps: null, completed: false, durationSeconds: null, distanceMeters: null }],
+              restSeconds: state.settings.defaultRestSeconds,
               ...flags,
             });
             // New exercise is a solo group at the end
             const groups = deriveGroups(session.exercises);
             session.currentGroupIndex = groups.length - 1;
+            state.session.timer = createIdleTimer(
+              resolveActiveSessionRestSeconds(session, state.settings.defaultRestSeconds)
+            );
           });
         },
         completeSet: (exerciseIndex: number, setIndex: number, data: SetLog) => {
@@ -820,9 +848,19 @@ export const useStore = create<AppState>()(
         },
         goToGroup: (index: number) => {
           set((state) => {
-            if (state.session.active) {
-              state.session.active.currentGroupIndex = index;
-            }
+            const session = state.session.active;
+            if (!session) return;
+
+            const groups = deriveGroups(session.exercises);
+            if (groups.length === 0) return;
+
+            const nextIndex = Math.max(0, Math.min(index, groups.length - 1));
+            if (nextIndex === session.currentGroupIndex) return;
+
+            session.currentGroupIndex = nextIndex;
+            state.session.timer = createIdleTimer(
+              resolveActiveSessionRestSeconds(session, state.settings.defaultRestSeconds, nextIndex)
+            );
           });
         },
         swapExercise: (exerciseIndex: number, newExerciseId: ExerciseId) => {
@@ -846,7 +884,9 @@ export const useStore = create<AppState>()(
         },
         stopTimer: () => {
           set((state) => {
-            state.session.timer = emptyTimer;
+            state.session.timer = createIdleTimer(
+              resolveActiveSessionRestSeconds(state.session.active, state.settings.defaultRestSeconds)
+            );
           });
         },
         pauseTimer: () => {
@@ -966,8 +1006,27 @@ export const useStore = create<AppState>()(
             return parsed.success;
           });
 
-          const settingsParsed = AppSettingsSchema.safeParse(state.settings);
-          const settings = settingsParsed.success ? state.settings : DEFAULT_SETTINGS;
+          // Collapse legacy compound/isolation timer settings into one default rest value.
+          // Preserve a shared legacy value when both matched; otherwise fall back to 90s.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const rawSettings = (state.settings ?? {}) as Record<string, any>;
+          const legacyCompound = typeof rawSettings.restTimerCompoundSeconds === 'number'
+            ? rawSettings.restTimerCompoundSeconds
+            : undefined;
+          const legacyIsolation = typeof rawSettings.restTimerIsolationSeconds === 'number'
+            ? rawSettings.restTimerIsolationSeconds
+            : undefined;
+          const migratedRestSeconds = typeof rawSettings.defaultRestSeconds === 'number'
+            ? rawSettings.defaultRestSeconds
+            : legacyCompound != null && legacyIsolation != null && legacyCompound === legacyIsolation
+              ? legacyCompound
+              : DEFAULT_SETTINGS.defaultRestSeconds;
+
+          const settingsParsed = AppSettingsSchema.safeParse({
+            ...rawSettings,
+            defaultRestSeconds: migratedRestSeconds,
+          });
+          const settings = settingsParsed.success ? settingsParsed.data : DEFAULT_SETTINGS;
 
           // Backfill instanceId for exercises saved before this field existed
           for (const w of workouts) {
@@ -999,6 +1058,9 @@ export const useStore = create<AppState>()(
             for (const ex of log.exercises) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const exAny = ex as any;
+              if (typeof exAny.restSeconds !== 'number') {
+                exAny.restSeconds = settings.defaultRestSeconds;
+              }
               if (typeof exAny.planNotes !== 'string') {
                 exAny.planNotes = '';
               }
@@ -1059,6 +1121,9 @@ export const useStore = create<AppState>()(
             for (const ex of state.session.active.exercises) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const exAny = ex as any;
+              if (typeof exAny.restSeconds !== 'number') {
+                exAny.restSeconds = settings.defaultRestSeconds;
+              }
               if (typeof exAny.planNotes !== 'string') {
                 exAny.planNotes = '';
               }
@@ -1102,13 +1167,13 @@ export const useStore = create<AppState>()(
                 }
               }
             } else {
-              state.session.timer = { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null };
+              state.session.timer = createIdleTimer(settings.defaultRestSeconds);
             }
           }
         } catch {
           state.library = { workouts: [], logs: [], activities: [], soreness: [] };
           state.settings = DEFAULT_SETTINGS;
-          state.session = { active: null, timer: { isRunning: false, remainingSeconds: 0, totalSeconds: 0, restSeconds: 90, timerStartedAt: null } };
+          state.session = { active: null, timer: createIdleTimer() };
         }
       },
     }

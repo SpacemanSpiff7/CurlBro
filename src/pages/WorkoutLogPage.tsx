@@ -116,6 +116,7 @@ function LogDetailSheet({
   const updateLogNotes = useStore((state) => state.libraryActions.updateLogNotes);
   const currentWeightUnit = useStore((state) => state.settings.weightUnit);
   const bodyWeight = useStore((state) => state.settings.bodyWeight);
+  const defaultRestSeconds = useStore((state) => state.settings.defaultRestSeconds);
 
   const calorieEstimate = useMemo(() => {
     if (!log || bodyWeight == null) return null;
@@ -128,7 +129,7 @@ function LogDetailSheet({
   const stats = computeLogStats(log);
 
   const handleSaveAsWorkout = () => {
-    const workout = logToSavedWorkout(log);
+    const workout = logToSavedWorkout(log, defaultRestSeconds);
     saveWorkout(workout);
     toast.success('Saved to Library', { duration: 1500 });
   };

@@ -416,40 +416,23 @@ export function SettingsPage() {
         </div>
       </div>
 
-      {/* Rest Timer Defaults */}
+      {/* Rest Timer Default */}
       <div className="space-y-3">
         <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
-          Rest Timer Defaults
+          Rest Timer Default
         </h2>
 
         <div className="rounded-xl border border-border-subtle bg-bg-surface p-3 space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-sm text-text-primary">
-              Compound exercises
+              Rest Timer
             </label>
             <div className="flex items-center gap-1">
               <NumberSetting
-                value={settings.restTimerCompoundSeconds}
+                value={settings.defaultRestSeconds}
                 min={0}
-                fallback={120}
-                onChange={(v) => updateSettings({ restTimerCompoundSeconds: v })}
-              />
-              <span className="text-xs text-text-tertiary">sec</span>
-            </div>
-          </div>
-
-          <div className="border-t border-border-subtle" />
-
-          <div className="flex items-center justify-between">
-            <label className="text-sm text-text-primary">
-              Isolation exercises
-            </label>
-            <div className="flex items-center gap-1">
-              <NumberSetting
-                value={settings.restTimerIsolationSeconds}
-                min={0}
-                fallback={60}
-                onChange={(v) => updateSettings({ restTimerIsolationSeconds: v })}
+                fallback={90}
+                onChange={(v) => updateSettings({ defaultRestSeconds: v })}
               />
               <span className="text-xs text-text-tertiary">sec</span>
             </div>

@@ -236,7 +236,8 @@ Agent definitions live in `.claude/agents/`.
 - Builder clear flow: no top-bar Clear button. Bottom Clear button opens a 3-option
   shadcn Dialog: "Save & Clear" / "Clear Without Saving" / "Cancel".
 - `startSession(workout)` pre-populates `SetLog.reps` from `ex.reps`, `SetLog.durationSeconds`
-  from `ex.durationSeconds`, and `timer.restSeconds` from the first exercise's `restSeconds`
-  (default 90).
+  from `ex.durationSeconds`, copies each exercise's `restSeconds` into the session, and
+  initializes `timer.restSeconds` from the first group's max planned rest (default 90).
+  Navigating groups (`goToGroup`) resets the timer to the destination group's planned rest.
 - `addSet()` inherits `weight`, `reps`, `durationSeconds`, `distanceMeters` from the last
   existing set instead of creating empty sets.

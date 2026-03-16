@@ -276,7 +276,7 @@ Barbell Bench Press (Flat) [barbell_bench_press]`;
       const ex = workout!.exercises[0];
       expect(ex.sets).toBe(DEFAULT_SETTINGS.defaultSetsCompound);
       expect(ex.reps).toBe(DEFAULT_SETTINGS.defaultRepsCompound);
-      expect(ex.restSeconds).toBe(DEFAULT_SETTINGS.restTimerCompoundSeconds);
+      expect(ex.restSeconds).toBe(DEFAULT_SETTINGS.defaultRestSeconds);
     });
   });
 

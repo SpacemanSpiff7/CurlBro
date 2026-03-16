@@ -13,7 +13,7 @@
 - unitConversion.ts: pure conversion/formatting for weight (lb↔kg) and distance (mi↔km)
 - logUtils.ts: pure functions for workout log display and export:
   - `computeLogStats(log)` → date, duration, exercise count, sets, total weight
-  - `logToSavedWorkout(log)` → converts log back to SavedWorkout with weights prefilled
+  - `logToSavedWorkout(log, defaultRestSeconds?)` → converts log back to SavedWorkout with weights and planned rest prefilled
   - `formatLogForClipboard(log, graph)` → formatted markdown string for clipboard sharing
   - `formatLogForShare(log, graph, options?)` → mobile-friendly share format (one set per line, no IDs, no markdown headers, optional calorie line)
 - calorieEstimate.ts: pure MET-based calorie estimation — `estimateCalories(log, bodyWeightKg, graph)`.

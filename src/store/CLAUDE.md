@@ -27,18 +27,18 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `resetWorkout()` — clears builder, resets workoutSplit to null, sets `isDirty = false`. Session end paths in ActiveWorkout call `resetBuilderIfMatchesSession()` — only resets builder when the draft matches the session's workout or is empty (preserves unrelated drafts).
 - `removeSet(exerciseIndex, setIndex)` — deletes a set during active session (guards: won't remove last set)
 - `pauseTimer()` — pauses the rest timer without resetting (preserves remainingSeconds/totalSeconds), clears `timerStartedAt`
-- `stopTimer()` — fully resets the timer to idle state
+- `stopTimer()` — resets the timer to idle for the CURRENT group and restores that group's planned rest time
 - `startTimer(seconds)` — starts the rest timer and sets `timerStartedAt` wall-clock anchor for rehydration
 - `TimerState.timerStartedAt` — ISO timestamp set on `startTimer`, cleared on pause/stop/expiry. Used by `syncTimer` (on tab return) and rehydration (on reload) to correct `remainingSeconds` for elapsed wall-clock time.
-- `adjustRestDuration(delta)` — adjusts `timer.restSeconds` by delta (clamped to min 15s)
+- `adjustRestDuration(delta)` — adjusts `timer.restSeconds` by delta (clamped to min 15s) as a temporary override for the current group
 - `adjustTimer(delta)` — adjusts `remainingSeconds` and `totalSeconds` by the same delta to maintain the wall-clock invariant (`totalSeconds - elapsed_since(timerStartedAt) = remainingSeconds`)
-- `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s)
+- `setRestDuration(seconds)` — sets `timer.restSeconds` to exact value (clamped to min 15s) as a temporary override for the current group
 - `syncTimer()` — recalculates `remainingSeconds` from wall-clock anchor (`timerStartedAt`). Called on `visibilitychange`/`focus` events to correct timer drift after tab backgrounding. Does NOT reset `timerStartedAt`.
 - `saveSession()` — creates a WorkoutLog from completed session, pushes to library.logs, returns the log. Stamps `weightUnit` / `distanceUnit` from current settings.
 - `addSet(exerciseIndex)` — adds a new set at the given exercise index. Inherits `weight`, `reps`, `durationSeconds`, `distanceMeters` from the last existing set instead of creating an empty set.
 - `addExerciseToSession(exerciseId)` — appends exercise with 1 empty set to active session, navigates to it
-- `abandonSession()` — discards current session entirely, sets session.active to null and resets timer to emptyTimer. Does NOT navigate — caller handles tab switch.
-- `startSession(workout)` — creates a new preview session (startedAt: null), resets timer, navigates to Active tab. Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active. Pre-populates `SetLog.reps` from `ex.reps`, `SetLog.durationSeconds` from `ex.durationSeconds`, and `timer.restSeconds` from the first exercise's `restSeconds` (default 90).
+- `abandonSession()` — discards current session entirely, sets session.active to null and resets timer to the app default rest. Does NOT navigate — caller handles tab switch.
+- `startSession(workout)` — creates a new preview session (startedAt: null), copies each exercise's `restSeconds` into the session, and initializes `timer.restSeconds` from the FIRST GROUP'S max planned rest (default 90 fallback). Overwrites session.active unconditionally — UI layer (MyWorkouts) guards with a confirmation dialog when a session is already active.
 - `importLogs(logs)` — batch-pushes logs to `library.logs` with dedup guard (skips logs whose `id` already exists)
 - `deleteLog(id)` — removes a workout log from library.logs
 - `addExercise(exerciseId)` — appends exercise with `instanceId: crypto.randomUUID()` and settings-based defaults
@@ -46,7 +46,7 @@ All state lives in a single Zustand store (src/store/index.ts) using Immer middl
 - `loadTemplate(name, split, exercises)` — loads a seeded workout; each exercise gets a fresh `instanceId`
 - Hydration backfills `instanceId` on persisted workouts that predate the field
 - `ungroupExercise(index)` — removes `supersetGroupId` from the exercise at `index`
-- `goToGroup(index)` — navigates to a group by index during active session (replaces per-exercise navigation)
+- `goToGroup(index)` — navigates to a group by index during active session, resets any live countdown, and restores the destination group's planned rest (replaces per-exercise navigation)
 - `removeExercise(index)` — removes an exercise; if the removed exercise was the last member of a group, cleans up the `supersetGroupId` on the remaining member
 - Reorder is group-aware: dragging reorders entire groups, not individual exercises within a group
 - `mergeExerciseIntoGroup(fromIndex, targetIndex)` — moves a single exercise into the target's superset group. Creates a new group if target is solo. Inserts after last group member. Cleans up old group if source was last member.

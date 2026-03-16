@@ -86,7 +86,7 @@ function parseFields(parts: string[], settings: AppSettings): ParsedFields {
   let sets = settings.defaultSetsCompound;
   let reps = goalDefaultReps(settings);
   let weight: number | null = null;
-  let restSeconds = settings.restTimerCompoundSeconds;
+  let restSeconds = settings.defaultRestSeconds;
   let durationSeconds: number | undefined;
   let hasSetsReps = false;
   let hasDuration = false;
@@ -314,7 +314,7 @@ export function parseImport(text: string, graph: ExerciseGraph, settings: AppSet
       if (resolved) {
         const ex = graph.exercises.get(resolved);
         const defaultSets = ex?.category === 'isolation' ? settings.defaultSetsIsolation : settings.defaultSetsCompound;
-        const defaultRest = ex?.category === 'isolation' ? settings.restTimerIsolationSeconds : settings.restTimerCompoundSeconds;
+        const defaultRest = settings.defaultRestSeconds;
         exercises.push({
           exerciseId: resolved,
           instanceId: crypto.randomUUID(),

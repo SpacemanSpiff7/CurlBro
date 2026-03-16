@@ -58,14 +58,14 @@ describe('builderSlice', () => {
     expect(new Set(ids).size).toBe(3);
   });
 
-  it('sets default rest seconds based on category', () => {
+  it('sets the default rest seconds for new exercises', () => {
     const { builderActions } = useStore.getState();
     builderActions.addExercise('barbell_bench_press' as ExerciseId); // compound
     builderActions.addExercise('cable_flye' as ExerciseId); // isolation
 
     const workout = useStore.getState().builder.workout;
-    expect(workout.exercises[0].restSeconds).toBe(120); // compound default
-    expect(workout.exercises[1].restSeconds).toBe(60); // isolation default
+    expect(workout.exercises[0].restSeconds).toBe(DEFAULT_SETTINGS.defaultRestSeconds);
+    expect(workout.exercises[1].restSeconds).toBe(DEFAULT_SETTINGS.defaultRestSeconds);
   });
 
   it('removes an exercise from the workout', () => {
