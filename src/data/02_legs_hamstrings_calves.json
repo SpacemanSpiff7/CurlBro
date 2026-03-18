@@ -1,7 +1,7 @@
 {
   "file": "02_legs_hamstrings_calves.json",
   "description": "Deadlift variations, leg curls, calf raises, lower leg work, hip hinge accessories",
-  "exercise_count": 33,
+  "exercise_count": 34,
   "exercises": [
     {
       "id": "conventional_deadlift",
@@ -727,6 +727,7 @@
       "beginner_tips": "Balls of feet on edge of platform, heels hanging off. Rise up on toes as high as possible, pause, lower heels BELOW the platform for full stretch. Full range of motion is everything for calves.",
       "substitutes": [
         "seated_calf_raise",
+        "dumbbell_calf_raise",
         "calf_raise_on_leg_press",
         "single_leg_calf_raise",
         "donkey_calf_raise"
@@ -1608,6 +1609,49 @@
         "knee": "low",
         "grip": "moderate",
         "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "dumbbell_calf_raise",
+      "name": "Standing Dumbbell Calf Raise",
+      "category": "isolation",
+      "movement_pattern": "ankle_plantar_flexion",
+      "force_type": "push",
+      "equipment": [
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "8-12",
+      "video_url": "https://www.muscleandstrength.com/exercises/standing-one-leg-calf-raise-with-dumbbell.html",
+      "beginner_tips": "Hold a dumbbell in each hand at your sides. Stand with the balls of your feet on a step or weight plate, heels hanging off the edge. Rise up on your toes as high as possible, pause at the top, then lower your heels below the platform for a full stretch. Keep your legs straight to target the gastrocnemius.",
+      "substitutes": [
+        "calf_raise_standing",
+        "single_leg_calf_raise",
+        "calf_raise_on_leg_press",
+        "donkey_calf_raise"
+      ],
+      "complements": [
+        "seated_calf_raise"
+      ],
+      "superset_candidates": [
+        "seated_calf_raise"
+      ],
+      "notes": "The most accessible loaded calf raise — no machine required, just dumbbells and a step or plate. Allows progressive overload for anyone training at home or when the calf raise machine is occupied. Can also be done single-leg for unilateral work. Full ROM is critical — get the deep stretch at the bottom and full contraction at the top.",
+      "load_profile": {
+        "spinal": "none",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "low",
+        "grip": "moderate",
+        "lumbar_stabilizer": "low",
         "rotator_cuff": "none"
       }
     }

@@ -1,7 +1,7 @@
 {
   "file": "04_back.json",
   "description": "Rows, pull-ups, pulldowns, pullovers, back isolation",
-  "exercise_count": 43,
+  "exercise_count": 45,
   "exercises": [
     {
       "id": "barbell_row",
@@ -679,6 +679,7 @@
       "substitutes": [
         "lat_pulldown",
         "chin_up",
+        "weighted_pull_up",
         "neutral_grip_pull_up",
         "assisted_pull_up",
         "band_assisted_pull_up"
@@ -734,6 +735,7 @@
       "beginner_tips": "Palms TOWARD you (underhand/supinated), about shoulder-width apart. Pull chin over bar. Generally easier than pull-ups because biceps contribute more force in this grip position.",
       "substitutes": [
         "pull_up",
+        "weighted_chin_up",
         "neutral_grip_pull_up",
         "lat_pulldown",
         "reverse_grip_pulldown"
@@ -2262,6 +2264,114 @@
         "knee": "none",
         "grip": "moderate",
         "lumbar_stabilizer": "low",
+        "rotator_cuff": "low"
+      }
+    },
+    {
+      "id": "weighted_pull_up",
+      "name": "Weighted Pull-Up",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "pull_up_bar",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/weighted-pull-up",
+      "beginner_tips": "Master bodyweight pull-ups for 3 sets of 10+ reps before adding weight. Use a dip belt, weight vest, or hold a dumbbell between your feet. Start with 5-10 lbs and increase gradually. Keep a neutral head position and squeeze your lats at the top. Lower to nearly full extension but don't lock out or swing.",
+      "substitutes": [
+        "pull_up",
+        "chin_up",
+        "weighted_chin_up",
+        "lat_pulldown"
+      ],
+      "complements": [
+        "barbell_row",
+        "cable_row",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "dip_chest",
+        "overhead_press",
+        "dip_tricep",
+        "hanging_leg_raise"
+      ],
+      "notes": "The progression from bodyweight pull-ups once 12+ reps becomes easy. One of the best exercises for building back width and lat strength. Adding weight forces recruitment of more motor units in the lats and teres major. Can be loaded with a dip belt, weight vest, chains, or a dumbbell between the feet. Squeeze glutes and brace abs to prevent lower spine hyperextension under load.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "moderate",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "weighted_chin_up",
+      "name": "Weighted Chin-Up",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "pull_up_bar",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back",
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "workout_position": "early",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "3-6",
+      "video_url": "https://www.muscleandstrength.com/exercises/weighted-pull-up",
+      "beginner_tips": "Master bodyweight chin-ups for 3 sets of 10+ reps before adding weight. Palms facing you (supinated grip), about shoulder-width. Use a dip belt or hold a dumbbell between your feet. Pull until your chin clears the bar, lower with control. The underhand grip makes these generally easier to load than pull-ups.",
+      "substitutes": [
+        "chin_up",
+        "pull_up",
+        "weighted_pull_up",
+        "reverse_grip_pulldown"
+      ],
+      "complements": [
+        "barbell_row",
+        "cable_row",
+        "cable_face_pull_high",
+        "straight_arm_pulldown"
+      ],
+      "superset_candidates": [
+        "dip_chest",
+        "dip_tricep",
+        "overhead_press",
+        "hanging_leg_raise"
+      ],
+      "notes": "Combines heavy lat work with significant bicep loading — an efficient two-for-one exercise. Research (Youdas et al., 2010) shows similar lat activation to pull-ups, but chin-ups produce higher bicep EMG activity. Most people can load heavier than weighted pull-ups due to the bicep mechanical advantage. Excellent for both back strength and arm hypertrophy.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "moderate",
+        "elbow": "high",
+        "knee": "none",
+        "grip": "high",
+        "lumbar_stabilizer": "moderate",
         "rotator_cuff": "low"
       }
     }

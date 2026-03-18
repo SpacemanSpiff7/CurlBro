@@ -1,7 +1,7 @@
 # CurlBro
 
 ## What
-Client-side React workout builder using an exercise graph (353 exercises, 3000+ edges).
+Client-side React workout builder using an exercise graph (360 exercises, 3000+ edges).
 Mobile-first, light/dark theme support (next-themes), static deployment. Zero server-side processing.
 Library (My Workouts) is the default/leftmost tab — users land on their saved workouts first.
 Supports superset/tri-set/circuit grouping — exercises sharing a `supersetGroupId` are
@@ -61,7 +61,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `tests/CLAUDE.md` — testing conventions and patterns
 
 ## Key Data Files
-- `src/data/01-09_*.json` — 9 exercise catalog JSON files with 353 exercises (strength, stretching/mobility, cardio)
+- `src/data/01-09_*.json` — 9 exercise catalog JSON files with 360 exercises (strength, stretching/mobility, cardio)
 - `src/data/00_schema_and_metadata.json` — schema, metadata, movement/equipment catalogs, and authoring notes for the dataset
 - `src/data/08_stretching_mobility.json` — stretching/mobility exercises (dynamic stretches, static stretches, mobility drills)
 - `src/data/09_cardio_warmup.json` — cardio and conditioning exercises (treadmill, bike, rower, sled push/pull, etc.)
@@ -92,6 +92,7 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `@exercise-validator` — Validates all exercise JSON files: schema completeness, ID uniqueness, cross-reference integrity, scientific plausibility (movement patterns, muscle targeting, workout position). Run after adding/modifying exercise data.
 - `@ui-scaffolder` — Generates new React components following CurlBro conventions (dark-mode tokens, 44px touch targets, React.memo, aria-labels, Framer Motion). Pass a description of what you need.
 - `@graph-checker` — Validates exercise graph integrity: edge symmetry, orphan nodes, muscle coverage, dangling references, conflict data. Run after modifying exercise relationships.
+- `@exercise-researcher` — Dual-mode agent: gap analysis (no args) scans all 360 exercises across 7 dimensions (muscle coverage, movement patterns, equipment diversity, difficulty distribution, antagonist balance, category distribution, equipment×muscle gaps) and recommends top 10 additions; research mode (with args like `"add Turkish getup"`) produces complete JSON entries with WebSearch-sourced data, video URLs, and cross-reference updates. Output-only — does not modify files.
 
 Agent definitions live in `.claude/agents/`.
 

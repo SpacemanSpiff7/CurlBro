@@ -40,9 +40,9 @@ beforeAll(async () => {
 
 // ─── Dataset Integrity ──────────────────────────────────────
 describe('exercise dataset integrity', () => {
-  it('has exactly 353 exercises', () => {
-    expect(allExercises.length).toBe(353);
-    expect(graph.exercises.size).toBe(353);
+  it('has exactly 360 exercises', () => {
+    expect(allExercises.length).toBe(360);
+    expect(graph.exercises.size).toBe(360);
   });
 
   it('loads from 9 exercise files', () => {

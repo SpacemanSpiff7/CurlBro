@@ -1,7 +1,7 @@
 {
   "file": "07_core_and_functional.json",
   "description": "Abs, obliques, lower back, planks, carries, conditioning, plyometrics, kettlebell complexes",
-  "exercise_count": 46,
+  "exercise_count": 48,
   "exercises": [
     {
       "id": "cable_crunch",
@@ -74,6 +74,7 @@
       "beginner_tips": "Lie on back, knees bent, feet flat on the floor. Hands lightly behind head (don't pull your neck — your hands are just resting there). Curl your shoulders off the floor using your abs. This is a small movement — your lower back stays on the floor the entire time. Think about bringing your ribcage toward your pelvis, not sitting up.",
       "substitutes": [
         "cable_crunch",
+        "sit_up",
         "hanging_leg_raise",
         "decline_crunch",
         "lying_leg_raise",
@@ -82,6 +83,7 @@
       ],
       "complements": [
         "plank",
+        "reverse_crunch",
         "russian_twist",
         "side_plank"
       ],
@@ -124,6 +126,7 @@
       "substitutes": [
         "cable_crunch",
         "lying_leg_raise",
+        "reverse_crunch",
         "hanging_knee_raise",
         "decline_crunch",
         "v_up"
@@ -2296,6 +2299,102 @@
         "grip": "high",
         "lumbar_stabilizer": "high",
         "rotator_cuff": "moderate"
+      }
+    },
+    {
+      "id": "reverse_crunch",
+      "name": "Reverse Crunch",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15",
+      "video_url": "",
+      "beginner_tips": "Lie on your back, knees bent at 90 degrees, feet off the floor. Curl your knees toward your chest by lifting your hips off the floor — your pelvis should tilt toward your ribcage. This is a SHORT movement. Don't use momentum to swing your legs. Lower slowly until your hips just touch the floor, then repeat.",
+      "substitutes": [
+        "lying_leg_raise",
+        "hanging_knee_raise",
+        "crunch",
+        "cable_crunch"
+      ],
+      "complements": [
+        "plank",
+        "crunch",
+        "bicycle_crunch",
+        "pallof_press"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "overhead_press"
+      ],
+      "notes": "Targets the lower portion of the rectus abdominis more effectively than standard crunches (Sarti et al., 1996). The key is the posterior pelvic tilt — curling the pelvis upward. Without it, the hip flexors dominate the movement. Excellent beginner exercise because it's low-impact and easy to learn. Progress by straightening the legs or adding a slow eccentric.",
+      "load_profile": {
+        "spinal": "low",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "sit_up",
+      "name": "Sit-Up",
+      "category": "isolation",
+      "movement_pattern": "spinal_flexion",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-25",
+      "rep_range_strength": "10-20",
+      "video_url": "https://www.muscleandstrength.com/exercises/sit-up.html",
+      "beginner_tips": "Lie on your back, knees bent, feet flat on the floor. Cross arms over your chest or place hands lightly behind your ears — never pull on your neck. Exhale and curl all the way up until your torso is upright, then lower back down with control. If your feet lift off the floor, anchor them under something or have a partner hold them.",
+      "substitutes": [
+        "crunch",
+        "cable_crunch",
+        "decline_crunch",
+        "v_up"
+      ],
+      "complements": [
+        "plank",
+        "reverse_crunch",
+        "hanging_leg_raise",
+        "russian_twist"
+      ],
+      "superset_candidates": [
+        "barbell_back_squat",
+        "barbell_bench_press",
+        "barbell_row"
+      ],
+      "notes": "The classic ab exercise. Full range of motion from lying flat to sitting upright engages both the rectus abdominis and hip flexors. If you experience lower back discomfort, switch to crunches or anti-extension exercises like planks and dead bugs — these train the core without repeated spinal flexion. Exhale forcefully at the top and hold for a beat to maximize contraction.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "none",
+        "elbow": "none",
+        "knee": "none",
+        "grip": "none",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
       }
     }
   ]

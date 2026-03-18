@@ -1,7 +1,7 @@
 {
   "file": "01_legs_quads_glutes.json",
   "description": "Squat variations, lunges, leg press, leg extensions, hip thrusts, glute work, single-leg work, banded movements",
-  "exercise_count": 46,
+  "exercise_count": 48,
   "exercises": [
     {
       "id": "bodyweight_squat",
@@ -840,6 +840,7 @@
       "substitutes": [
         "bulgarian_split_squat",
         "reverse_lunge",
+        "barbell_forward_lunge",
         "step_up",
         "stationary_lunge"
       ],
@@ -892,6 +893,7 @@
       "beginner_tips": "Step BACKWARD instead of forward. Much easier on the knees. Lower until back knee nearly touches floor, then push back to standing.",
       "substitutes": [
         "walking_lunge",
+        "barbell_reverse_lunge",
         "bulgarian_split_squat",
         "step_up",
         "lateral_lunge"
@@ -947,6 +949,8 @@
       "substitutes": [
         "reverse_lunge",
         "walking_lunge",
+        "barbell_forward_lunge",
+        "barbell_reverse_lunge",
         "leg_press"
       ],
       "complements": [
@@ -2330,6 +2334,116 @@
         "knee": "moderate",
         "grip": "low",
         "lumbar_stabilizer": "low",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "barbell_forward_lunge",
+      "name": "Barbell Forward Lunge",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core",
+        "calves"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "6-8 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-lunge.html",
+      "beginner_tips": "Set up in a squat rack with the barbell on your upper back — same position as a back squat. Step forward into a lunge, lowering until both knees are at about 90 degrees. Push through the front heel to return to standing. Keep your torso upright and brace your core throughout. Start with just the bar to learn the balance before adding weight.",
+      "substitutes": [
+        "walking_lunge",
+        "reverse_lunge",
+        "barbell_reverse_lunge",
+        "stationary_lunge",
+        "bulgarian_split_squat"
+      ],
+      "complements": [
+        "leg_press",
+        "leg_curl_lying",
+        "romanian_deadlift",
+        "hip_thrust",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "leg_extension",
+        "plank"
+      ],
+      "notes": "Heavier loading than dumbbell lunges because the barbell allows more total weight. The forward step requires more deceleration force on the front leg, increasing quad demand compared to reverse lunges. Requires good balance and core stability. Perform in a squat rack for safety. Shorter steps emphasize quads, longer steps shift load to glutes and hamstrings.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "high",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
+        "rotator_cuff": "none"
+      }
+    },
+    {
+      "id": "barbell_reverse_lunge",
+      "name": "Barbell Reverse Lunge",
+      "category": "compound",
+      "movement_pattern": "lunge",
+      "force_type": "push",
+      "equipment": [
+        "barbell"
+      ],
+      "primary_muscles": [
+        "quadriceps",
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "core",
+        "calves"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "8-12 per leg",
+      "rep_range_strength": "6-8 per leg",
+      "video_url": "https://www.muscleandstrength.com/exercises/barbell-rear-lunge.html",
+      "beginner_tips": "Barbell on upper back in squat position. Step BACKWARD, lower until back knee nearly touches the floor, then drive through the front heel to return to standing. Both knees should reach about 90 degrees at the bottom. Keep your torso upright — don't lean forward. The backward step is easier on the knees than forward lunges.",
+      "substitutes": [
+        "reverse_lunge",
+        "barbell_forward_lunge",
+        "walking_lunge",
+        "stationary_lunge",
+        "bulgarian_split_squat"
+      ],
+      "complements": [
+        "leg_press",
+        "leg_curl_lying",
+        "romanian_deadlift",
+        "hip_thrust",
+        "calf_raise_standing"
+      ],
+      "superset_candidates": [
+        "leg_curl_lying",
+        "leg_extension",
+        "plank"
+      ],
+      "notes": "The barbell-loaded version of the reverse lunge allows heavier progressive overload than the dumbbell variant. Stepping backward is more knee-friendly because the shin stays more vertical on the working leg, reducing anterior knee shear force. Smaller step = more quad emphasis, larger step with heel drive = more glute/hamstring emphasis. Preferred over forward lunges for athletes with knee issues.",
+      "load_profile": {
+        "spinal": "moderate",
+        "shoulder": "low",
+        "elbow": "none",
+        "knee": "moderate",
+        "grip": "low",
+        "lumbar_stabilizer": "moderate",
         "rotator_cuff": "none"
       }
     }
