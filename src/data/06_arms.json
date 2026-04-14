@@ -1932,12 +1932,12 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/reverse-grip-tricep-pushdown.html",
-      "beginner_tips": "Use an underhand (supinated) grip on a straight bar. Keep elbows pinned to your sides and extend your forearms downward. The reverse grip feels unusual at first — start light. Your forearms will work harder to maintain the grip compared to overhand pushdowns.",
+      "beginner_tips": "Use an underhand (supinated) grip on a straight bar. Keep elbows pinned to your sides and extend your forearms downward. The reverse grip feels unusual at first \u2014 start light. Your forearms will work harder to maintain the grip compared to overhand pushdowns.",
       "substitutes": [
         "tricep_pushdown",
         "v_bar_pushdown",
         "overhead_tricep_extension",
-        "rope_pushdown"
+        "cable_overhead_extension"
       ],
       "complements": [
         "skull_crusher",
@@ -1981,11 +1981,11 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/v-bar-pushdown.html",
-      "beginner_tips": "Attach a V-bar to a high cable. Grab the handles with a neutral (palms facing each other) grip. Keep elbows locked at your sides and push down until arms are fully extended. The neutral grip is the most wrist-friendly pushdown variation — great if straight bars cause wrist pain.",
+      "beginner_tips": "Attach a V-bar to a high cable. Grab the handles with a neutral (palms facing each other) grip. Keep elbows locked at your sides and push down until arms are fully extended. The neutral grip is the most wrist-friendly pushdown variation \u2014 great if straight bars cause wrist pain.",
       "substitutes": [
         "tricep_pushdown",
         "reverse_grip_pushdown",
-        "rope_pushdown",
+        "cable_overhead_extension",
         "overhead_tricep_extension"
       ],
       "complements": [
@@ -2040,7 +2040,7 @@
       ],
       "complements": [
         "tricep_pushdown",
-        "rope_pushdown",
+        "close_grip_bench_press",
         "cable_curl",
         "barbell_curl"
       ],
@@ -2083,7 +2083,7 @@
       "rep_range_hypertrophy": "8-12",
       "rep_range_strength": "6-10",
       "video_url": "https://www.muscleandstrength.com/exercises/ez-bar-preacher-curl.html",
-      "beginner_tips": "Sit at a preacher bench with your armpits at the top of the pad. Grip the EZ bar on the inner angles. Curl up to shoulder level and lower with control — don't fully straighten your arms at the bottom (keep a slight bend to protect the elbow). The pad eliminates all cheating — your biceps do 100% of the work.",
+      "beginner_tips": "Sit at a preacher bench with your armpits at the top of the pad. Grip the EZ bar on the inner angles. Curl up to shoulder level and lower with control \u2014 don't fully straighten your arms at the bottom (keep a slight bend to protect the elbow). The pad eliminates all cheating \u2014 your biceps do 100% of the work.",
       "substitutes": [
         "preacher_curl",
         "concentration_curl",
@@ -2100,9 +2100,9 @@
         "tricep_pushdown",
         "skull_crusher",
         "overhead_tricep_extension",
-        "rope_pushdown"
+        "tate_press"
       ],
-      "notes": "Combines the strict isolation of the preacher bench with the wrist-friendly angle of the EZ bar. The preacher pad eliminates all momentum and shoulder involvement. The EZ bar reduces wrist extension stress compared to a straight bar. Don't fully extend at the bottom — the extreme stretched position under load can strain the distal bicep tendon.",
+      "notes": "Combines the strict isolation of the preacher bench with the wrist-friendly angle of the EZ bar. The preacher pad eliminates all momentum and shoulder involvement. The EZ bar reduces wrist extension stress compared to a straight bar. Don't fully extend at the bottom \u2014 the extreme stretched position under load can strain the distal bicep tendon.",
       "load_profile": {
         "spinal": "none",
         "shoulder": "none",
@@ -2134,7 +2134,7 @@
       "rep_range_hypertrophy": "10-15",
       "rep_range_strength": "8-12",
       "video_url": "https://www.muscleandstrength.com/exercises/ez-bar-reverse-curl.html",
-      "beginner_tips": "Grip the EZ bar with an overhand (pronated) grip on the outer angles. Curl up while keeping your elbows pinned at your sides. Use significantly less weight than regular curls — your forearms are much weaker than your biceps. The EZ bar is much more comfortable than a straight bar for this movement.",
+      "beginner_tips": "Grip the EZ bar with an overhand (pronated) grip on the outer angles. Curl up while keeping your elbows pinned at your sides. Use significantly less weight than regular curls \u2014 your forearms are much weaker than your biceps. The EZ bar is much more comfortable than a straight bar for this movement.",
       "substitutes": [
         "reverse_curl",
         "hammer_curl",
@@ -2145,7 +2145,7 @@
         "barbell_curl",
         "dumbbell_curl",
         "wrist_curl",
-        "farmer_carry"
+        "farmer_walk"
       ],
       "superset_candidates": [
         "barbell_curl",
@@ -2202,7 +2202,7 @@
         "tricep_pushdown",
         "skull_crusher",
         "overhead_tricep_extension",
-        "rope_pushdown"
+        "tate_press"
       ],
       "notes": "Combines the brachialis emphasis of the hammer grip with the stretched-position loading of the incline angle. The incline prevents cheating by eliminating momentum and keeping the upper arm behind the body. Excellent for targeting the brachialis (which pushes the biceps up, creating a wider look) in its lengthened position.",
       "load_profile": {
@@ -2251,10 +2251,10 @@
       ],
       "superset_candidates": [
         "tricep_pushdown",
-        "rope_pushdown",
+        "tate_press",
         "overhead_tricep_extension"
       ],
-      "notes": "Cable provides constant tension throughout the full ROM, unlike the dumbbell version which loses tension at the top. The concentration position (elbow braced against thigh) eliminates all momentum. Excellent finisher for biceps — the constant cable tension creates an intense peak contraction.",
+      "notes": "Cable provides constant tension throughout the full ROM, unlike the dumbbell version which loses tension at the top. The concentration position (elbow braced against thigh) eliminates all momentum. Excellent finisher for biceps \u2014 the constant cable tension creates an intense peak contraction.",
       "load_profile": {
         "spinal": "none",
         "shoulder": "none",
