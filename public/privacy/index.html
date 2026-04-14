@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy &mdash; CurlBro</title>
+  <meta name="description" content="Privacy policy for the CurlBro iOS app. CurlBro stores all data locally on your device and does not collect or transmit personal information." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://curlbro.com/privacy/" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f4f4f5;
+      --border: #e4e4e7;
+      --text: #09090b;
+      --text-secondary: #52525b;
+      --text-muted: #a1a1aa;
+      --accent: #0891b2;
+      --accent-hover: #0e7490;
+      --max-width: 660px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #09090b;
+        --surface: #18181b;
+        --border: rgba(255,255,255,0.08);
+        --text: #fafafa;
+        --text-secondary: #a1a1aa;
+        --text-muted: #71717a;
+        --accent: #06b6d4;
+        --accent-hover: #22d3ee;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      min-height: 100dvh;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+    }
+    .app-name {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 48px;
+    }
+
+    /* summary card */
+    .summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .summary-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .summary-item .check {
+      color: #16a34a;
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* sections */
+    section {
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    p + p { margin-top: 10px; }
+
+    ul {
+      margin: 10px 0 0 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    a:hover { color: var(--accent-hover); }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 16px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img class="logo" src="../icon-192x192.png" alt="CurlBro logo" />
+    <a class="app-name" href="https://curlbro.com/">CurlBro</a>
+  </div>
+</header>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective date: April 2026 &nbsp;&middot;&nbsp; Applies to the CurlBro iOS app</p>
+
+  <!-- Quick summary -->
+  <div class="summary">
+    <div class="summary-title">The short version</div>
+    <div class="summary-item"><span class="check">✓</span><span>All your workout data stays on your device — nothing is sent to our servers.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>No analytics, no crash reporters, no advertising SDKs.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>No account required. We don't know who you are.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>Apple Health integration is optional and controlled entirely by you.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>Data only leaves your device when you explicitly export or share it.</span></div>
+  </div>
+
+  <section>
+    <h2>Overview</h2>
+    <p>
+      CurlBro ("we", "our", or "the app") is a strength training workout tracker for iPhone.
+      This policy explains what data the app handles, where it is stored, and what controls
+      you have over it.
+    </p>
+    <p>
+      CurlBro does not have user accounts, does not connect to CurlBro servers, and does not
+      collect personal information. The app functions entirely offline. Nothing you enter into
+      CurlBro is transmitted to us or to any third party unless you explicitly choose to
+      share or export it yourself.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Stored on Your Device</h2>
+    <p>
+      The following data is created by you and stored locally using Apple's SwiftData framework.
+      It never leaves your device automatically.
+    </p>
+    <ul>
+      <li><strong>Workout plans</strong> — exercise names, sets, reps, weight targets, rest durations, notes</li>
+      <li><strong>Workout logs</strong> — completed session records including exercises, weights, reps, RPE, duration, and timestamps</li>
+      <li><strong>Body weight</strong> — captured at the end of a workout session (used for calorie estimates)</li>
+      <li><strong>App settings</strong> — unit system (lb/kg), rest timer preferences, equipment list, display theme, and a randomly generated device identifier used only to associate local data</li>
+    </ul>
+    <p>
+      During an active workout, session state is temporarily cached to your device's local
+      storage so the app can resume if it is interrupted. This cache is cleared when the
+      session ends.
+    </p>
+  </section>
+
+  <section>
+    <h2>Apple Health (Optional)</h2>
+    <p>
+      CurlBro can optionally read and write data to Apple Health. You must explicitly grant
+      permission for each of the following. Permissions can be changed at any time in the
+      iOS Settings app under Health &gt; Data Access &amp; Devices.
+    </p>
+    <ul>
+      <li>
+        <strong>Read — Body Mass:</strong> If permitted, the app reads your most recent body
+        weight from Health to improve calorie estimates. This data is used only within the
+        app and is not transmitted anywhere.
+      </li>
+      <li>
+        <strong>Write — Workouts:</strong> If the "Automatically save to Apple Health" setting
+        is enabled, the app writes completed workout sessions (duration and estimated calories)
+        to Apple Health. This feature is off by default.
+      </li>
+    </ul>
+    <p>
+      Apple Health data is governed by Apple's own privacy policies. CurlBro does not retain
+      or transmit any data read from Apple Health.
+    </p>
+  </section>
+
+  <section>
+    <h2>Notifications</h2>
+    <p>
+      CurlBro may request permission to send local notifications for rest timer alerts between
+      sets. These notifications are generated entirely on your device — no notification server
+      is involved. You can disable them at any time in iOS Settings &gt; Notifications &gt; CurlBro.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Sharing and Export</h2>
+    <p>
+      Your data does not leave your device unless you take an explicit action:
+    </p>
+    <ul>
+      <li>
+        <strong>Share a workout plan:</strong> You can share a workout as formatted text via
+        the iOS Share Sheet (iMessage, Mail, Notes, etc.). You control what is included and
+        where it goes.
+      </li>
+      <li>
+        <strong>Export workout history:</strong> You can export your full workout history as
+        a JSON file from Settings. The file is shared via the iOS Share Sheet — you choose
+        the destination (email, Files, cloud storage, etc.).
+      </li>
+      <li>
+        <strong>Import a workout:</strong> You can import workout files from AirDrop, the
+        Files app, or email. No data is uploaded in this process.
+      </li>
+    </ul>
+    <p>
+      We do not receive any of this exported data. We have no servers that accept it.
+    </p>
+  </section>
+
+  <section>
+    <h2>Third-Party SDKs and Analytics</h2>
+    <p>
+      CurlBro does not include any third-party analytics, advertising, crash reporting, or
+      tracking SDKs. The app is built entirely with Apple's native frameworks (SwiftUI,
+      SwiftData, HealthKit, UserNotifications) and an internal CurlBro framework. No
+      third-party code in the app collects or transmits data.
+    </p>
+  </section>
+
+  <section>
+    <h2>Children's Privacy</h2>
+    <p>
+      CurlBro is not directed at children under 13. We do not knowingly collect personal
+      information from children. Because the app does not collect or transmit any data,
+      there is no data for us to hold about any user of any age.
+    </p>
+  </section>
+
+  <section>
+    <h2>Deleting Your Data</h2>
+    <p>
+      Because all data is stored locally on your device, you are in full control of it:
+    </p>
+    <ul>
+      <li>Delete individual workouts or logs from within the app.</li>
+      <li>Remove all app data by going to iOS Settings &gt; General &gt; iPhone Storage &gt;
+          CurlBro &gt; Delete App.</li>
+      <li>Revoke Apple Health permissions at any time in iOS Settings &gt; Health &gt;
+          Data Access &amp; Devices &gt; CurlBro.</li>
+    </ul>
+    <p>
+      We do not hold any of your data on our end, so there is nothing for us to delete
+      on your behalf.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>
+      If we update this policy, the revised version will be posted at this URL with a new
+      effective date. We encourage you to review it periodically. Continued use of the app
+      after changes are posted constitutes acceptance of the updated policy.
+    </p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>
+      Questions about this privacy policy? Contact us at
+      <a href="mailto:contact@curlbro.com">contact@curlbro.com</a>.
+    </p>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 CurlBro</span>
+    <nav class="footer-links">
+      <a href="https://curlbro.com/">Web App</a>
+      <a href="mailto:contact@curlbro.com">Contact</a>
+    </nav>
+  </footer>
+</main>
+
+</body>
+</html>
