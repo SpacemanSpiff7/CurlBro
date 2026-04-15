@@ -118,6 +118,16 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
             </p>
           </Section>
 
+          <Section title="Affiliate Links">
+            <p>
+              CurlBro may contain affiliate links to third-party products or services. If
+              you make a purchase through one of these links, CurlBro may earn a commission
+              at no additional cost to you. Affiliate relationships do not influence which
+              products or exercises we feature. Affiliate links are disclosed at the point
+              of recommendation.
+            </p>
+          </Section>
+
           <Section title="Children's Privacy">
             <p>
               CurlBro is not directed at children under 13. We do not knowingly collect
