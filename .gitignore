@@ -18,6 +18,9 @@ dist-ssr
 # Generated exercise catalog (rebuilt by prebuild script)
 public/exercises.json
 
+# OMC state
+.omc/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
