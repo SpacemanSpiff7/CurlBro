@@ -519,45 +519,20 @@ html, body { background: var(--bg-root); }
   }
 }
 
-/* Pin-stack: title + body share a single sticky wrapper. Title at top,
-   body below. Gap between them is wide during entry (looks detached),
-   shrinks to a centered distance once locked. */
-.pin-stack {
+/* Body content pins centered while title pins at top. Both stay locked
+   through the section's middle scroll range, both unpin near the end. */
+.section-body-pin {
   position: sticky;
-  top: 64px;
-  z-index: 30;
+  top: 38vh;
+  margin-top: 22rem;
   display: flex;
   flex-direction: column;
 }
-.pin-stack-title {
-  /* Override .sticky-title's own position:sticky — wrapper handles pinning */
-  position: relative;
-  top: auto;
-}
-.pin-stack-body {
-  /* Wide gap by default (entry). Shrinks when wrapper locks. */
-  margin-top: 55vh;
-  transition: margin-top 360ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.pin-stack.is-locked .pin-stack-body {
-  /* Body centered ~mid-viewport with title visible above. */
-  margin-top: 32vh;
-}
 @media (max-width: 767px) {
-  /* Mobile: keep the lock-and-scroll pattern but tighter, with
-     reduced gaps and a smaller pin offset for the smaller viewport. */
-  .pin-stack {
-    top: 56px;
+  .section-body-pin {
+    top: 32vh;
+    margin-top: 12rem;
   }
-  .pin-stack-body {
-    margin-top: 38vh;
-  }
-  .pin-stack.is-locked .pin-stack-body {
-    margin-top: 22vh;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pin-stack-body { transition: none; }
 }
 
 /* ── Contact list (Get in touch) ─────────────────────────────────── */
@@ -566,13 +541,11 @@ html, body { background: var(--bg-root); }
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 1.25rem;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 @media (min-width: 768px) {
   .contact-list {
-    flex-direction: column;
     gap: 1rem;
   }
 }
@@ -582,17 +555,19 @@ html, body { background: var(--bg-root); }
   align-items: center;
   gap: 1rem;
   text-decoration: none;
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 0;
-  transition: border-color 200ms ease, background-color 200ms ease, transform 100ms ease;
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  padding: 0.5rem 0;
+  transition: color 180ms ease, transform 100ms ease;
 }
-@media (min-width: 768px) {
+@media (max-width: 767px) {
+  /* Mobile: stack the icon + label + value vertically, centered */
   .contact-row {
-    border: none;
-    padding: 0.5rem 0;
-    border-radius: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
   }
 }
 
@@ -600,57 +575,58 @@ html, body { background: var(--bg-root); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  color: var(--text-secondary);
-  transition: color 180ms ease, background-color 180ms ease;
-}
-@media (min-width: 768px) {
-  .contact-icon {
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-  }
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  transition: color 180ms ease;
 }
 @media (hover: hover) {
   .contact-row:hover .contact-icon {
     color: var(--accent-primary);
-    border-color: var(--accent-primary);
   }
-  .contact-row:hover .contact-label {
-    color: var(--text-secondary);
+  .contact-row:hover .contact-value {
+    color: var(--accent-primary);
   }
 }
 .contact-row:active { transform: translateY(0.5px); }
 .contact-row:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 3px;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .contact-label {
-  display: none;
+  display: inline-block;
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   color: var(--text-tertiary);
-  width: 11rem;
   flex-shrink: 0;
 }
+@media (min-width: 768px) {
+  .contact-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    width: 11rem;
+  }
+}
+
 .contact-value {
-  display: none;
+  display: inline-block;
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--text-primary);
+  color: #ffffff;
+  transition: color 180ms ease;
 }
-@media (min-width: 768px) {
-  .contact-label,
+@media (max-width: 767px) {
   .contact-value {
-    display: inline-block;
+    font-size: 1.125rem;
+    word-break: break-all; /* email won't overflow narrow viewport */
   }
 }
 
