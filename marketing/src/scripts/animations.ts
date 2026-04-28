@@ -471,6 +471,48 @@ function initPinStackLock() {
   update();
 }
 
+// ────────────────────────────────────────────────────────────────────────
+// Mobile hamburger menu — toggles the nav panel open/closed.
+// ────────────────────────────────────────────────────────────────────────
+
+function initMobileNav() {
+  const toggle = document.querySelector<HTMLButtonElement>(
+    '[data-mobile-nav-toggle]',
+  );
+  const panel = document.querySelector<HTMLElement>('[data-mobile-nav-panel]');
+  const links = document.querySelectorAll<HTMLAnchorElement>(
+    '[data-mobile-nav-link]',
+  );
+  if (!toggle || !panel) return;
+
+  const close = () => {
+    panel.classList.remove('is-open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const open = () => {
+    panel.classList.add('is-open');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (panel.classList.contains('is-open')) close();
+    else open();
+  });
+
+  // Close panel after tapping any nav link
+  links.forEach((link) => {
+    link.addEventListener('click', () => close());
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('is-open')) close();
+  });
+}
+
 function init() {
   initActiveNav();
   initReadingProgress();
@@ -479,6 +521,7 @@ function init() {
   initFormReveal();
   initIPhoneSection();
   initPinStackLock();
+  initMobileNav();
 }
 
 if (typeof document !== 'undefined') {

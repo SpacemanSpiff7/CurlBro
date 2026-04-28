@@ -9,6 +9,7 @@ import Logo from './Logo.astro';
   <div class="mx-auto flex h-[52px] max-w-6xl items-center justify-between px-5 sm:px-8">
     <Logo size={26} href="#top" />
 
+    {/* Desktop nav */}
     <div
       class="hidden items-center gap-8 md:flex"
       data-nav-links
@@ -24,21 +25,98 @@ import Logo from './Logo.astro';
       </a>
     </div>
 
-    <a href="/app/" class="btn btn-primary text-sm" style="height:36px">
-      Open web app
-      <svg
-        width="13"
-        height="13"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+    {/* Right side: web app button + mobile hamburger */}
+    <div class="flex items-center gap-2">
+      <a href="/app/" class="btn btn-primary text-sm" style="height:36px">
+        Open web app
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      </a>
+
+      {/* Hamburger — mobile only */}
+      <button
+        type="button"
+        class="mobile-nav-toggle md:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav-panel"
+        data-mobile-nav-toggle
       >
-        <path d="M5 12h14M13 5l7 7-7 7" />
-      </svg>
+        <svg
+          class="mobile-nav-icon-open"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="13" x2="20" y2="13" />
+          <line x1="4" y1="19" x2="20" y2="19" />
+        </svg>
+        <svg
+          class="mobile-nav-icon-close"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile nav panel — slides down on hamburger tap */}
+  <div
+    id="mobile-nav-panel"
+    class="mobile-nav-panel md:hidden"
+    data-mobile-nav-panel
+  >
+    <a
+      href="#iphone"
+      class="mobile-nav-link"
+      data-nav-target="iphone"
+      data-mobile-nav-link
+    >
+      iPhone App
+    </a>
+    <a
+      href="#whole-idea"
+      class="mobile-nav-link"
+      data-nav-target="whole-idea"
+      data-mobile-nav-link
+    >
+      About
+    </a>
+    <a
+      href="#get-in-touch"
+      class="mobile-nav-link"
+      data-nav-target="get-in-touch"
+      data-mobile-nav-link
+    >
+      Contact
     </a>
   </div>
 </nav>

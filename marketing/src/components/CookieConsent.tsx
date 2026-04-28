@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 // Same storage key as the SPA so a single accept/reject decision applies
 // across the marketing site AND the web app at /app/.
@@ -23,19 +23,25 @@ function updateGtagConsent(granted: boolean) {
 }
 
 export function CookieConsent() {
-  const [visible, setVisible] = useState(() => {
+  // Always render hidden first; useEffect decides if banner should appear.
+  // This avoids any SSR/hydration mismatch on mobile webkit.
+  const [visible, setVisible] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
     try {
       const stored = localStorage.getItem(CONSENT_KEY);
       if (stored === 'granted') {
         updateGtagConsent(true);
-        return false;
+        return;
       }
-      if (stored === 'denied') return false;
-      return true;
+      if (stored === 'denied') return;
+      setVisible(true);
     } catch {
-      return true;
+      setVisible(true);
     }
-  });
+  }, []);
 
   useEffect(() => {
     const handleReset = () => setVisible(true);
@@ -43,7 +49,7 @@ export function CookieConsent() {
     return () => window.removeEventListener('curlbro_consent_reset', handleReset);
   }, []);
 
-  const handleAccept = useCallback(() => {
+  const handleAccept = () => {
     try {
       localStorage.setItem(CONSENT_KEY, 'granted');
     } catch {
@@ -51,22 +57,23 @@ export function CookieConsent() {
     }
     updateGtagConsent(true);
     setVisible(false);
-  }, []);
+  };
 
-  const handleReject = useCallback(() => {
+  const handleReject = () => {
     try {
       localStorage.setItem(CONSENT_KEY, 'denied');
     } catch {
       /* storage unavailable */
     }
     setVisible(false);
-  }, []);
+  };
 
-  if (!visible) return null;
+  if (!hydrated || !visible) return null;
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-[100] border-t border-[var(--border-subtle)] bg-[var(--bg-root)]/95 px-5 py-4 backdrop-blur-md sm:px-8"
+      className="fixed bottom-0 left-0 right-0 z-[100] border-t border-[var(--border-subtle)] bg-[var(--bg-root)]/95 px-5 pt-4 backdrop-blur-md sm:px-8"
+      style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
       role="dialog"
       aria-label="Cookie consent"
     >
@@ -83,16 +90,26 @@ export function CookieConsent() {
         </p>
         <div className="flex flex-shrink-0 gap-2">
           <button
+            type="button"
             onClick={handleReject}
-            className="btn btn-ghost"
-            style={{ height: 40 }}
+            className="btn btn-ghost flex-1 sm:flex-none"
+            style={{
+              height: 40,
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+            }}
           >
             Reject
           </button>
           <button
+            type="button"
             onClick={handleAccept}
-            className="btn btn-primary"
-            style={{ height: 40 }}
+            className="btn btn-primary flex-1 sm:flex-none"
+            style={{
+              height: 40,
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+            }}
           >
             Accept
           </button>
