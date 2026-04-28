@@ -194,7 +194,7 @@ export function SettingsPage() {
             )}
           </AnimatePresence>
           <a
-            href={`${import.meta.env.BASE_URL}guide/`}
+            href="/guide/" // absolute path: static page lives at root, not /app/
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"
@@ -204,7 +204,7 @@ export function SettingsPage() {
             <ExternalLink size={12} className="ml-auto opacity-50" />
           </a>
           <a
-            href={`${import.meta.env.BASE_URL}programming/`}
+            href="/programming/" // absolute path: static page lives at root, not /app/
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-text-secondary hover:bg-bg-elevated transition-colors"

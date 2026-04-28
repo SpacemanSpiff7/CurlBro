@@ -4,8 +4,11 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 export default defineConfig({
-  base: '/',
+  base: '/app/',
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: 'dist/app',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

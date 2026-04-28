@@ -353,7 +353,7 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
             </button>
             <div className="flex items-center justify-center gap-4 text-sm text-text-tertiary">
               <a
-                href={`${import.meta.env.BASE_URL}guide/`}
+                href="/guide/" // absolute path: static page lives at root, not /app/
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 py-3 hover:text-text-secondary transition-colors"
@@ -364,7 +364,7 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
               </a>
               <span className="text-border-subtle">|</span>
               <a
-                href={`${import.meta.env.BASE_URL}programming/`}
+                href="/programming/" // absolute path: static page lives at root, not /app/
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 py-3 hover:text-text-secondary transition-colors"

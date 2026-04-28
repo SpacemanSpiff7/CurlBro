@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const EMAIL_LIST_SOURCES = ['settings', 'welcome'] as const;
+export const EMAIL_LIST_SOURCES = ['settings', 'welcome', 'marketing'] as const;
 export type EmailListSource = typeof EMAIL_LIST_SOURCES[number];
 
 export const EXPERIENCE_VALUES = ['', 'beginner', 'intermediate', 'advanced', 'coach'] as const;
