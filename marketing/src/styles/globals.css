@@ -341,9 +341,28 @@ html, body { background: var(--bg-root); }
 @media (max-width: 900px) {
   .iphone-beat {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
     min-height: 200vh; /* same scroll envelope as desktop for scrub */
     gap: 0;
+    padding-bottom: 4rem; /* visible breathing room before the next beat */
+  }
+}
+
+/* Stage wrapper: on desktop, display:contents passes phone + text as
+   direct grid children (sticky individually). On mobile, becomes a
+   real sticky flex column so phone + text scroll and lock together
+   as a single unit, sitting below the section's pinned title. */
+.iphone-beat-stage {
+  display: contents;
+}
+@media (max-width: 900px) {
+  .iphone-beat-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    position: sticky;
+    top: 84px; /* clears top nav (52px) + section title (~30px) + buffer */
+    padding-top: 1rem;
   }
 }
 
@@ -357,11 +376,14 @@ html, body { background: var(--bg-root); }
   padding-right: 1rem;
 }
 @media (max-width: 900px) {
+  /* Mobile: phone is normally positioned inside the sticky stage */
   .iphone-beat-phone {
-    top: 7vh;
-    height: 60vh;
-    padding-right: 0;
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: 0;
     justify-content: center;
+    width: 100%;
   }
   .iphone-beat-phone .phone-frame {
     max-width: 220px;
@@ -378,18 +400,21 @@ html, body { background: var(--bg-root); }
 }
 @media (max-width: 900px) {
   .iphone-beat-text {
-    top: 70vh; /* below the pinned phone */
-    height: 25vh;
+    position: relative;
+    top: auto;
+    height: auto;
     justify-content: flex-start;
     text-align: center;
     padding: 0 1rem;
+    width: 100%;
   }
   .iphone-beat-text h3 {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin-bottom: 0.4rem;
   }
   .iphone-beat-text p {
-    font-size: clamp(0.95rem, 4vw, 1.125rem);
+    font-size: clamp(0.95rem, 3.5vw, 1.0625rem);
+    line-height: 1.5;
     margin: 0 auto;
     max-width: 32ch;
   }

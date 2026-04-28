@@ -41,28 +41,30 @@ const beats = [
     <div class="iphone-beats-stack" data-iphone-stage>
       {beats.map((b, idx) => (
         <div class="iphone-beat" data-iphone-beat={b.id}>
-          <div class="iphone-beat-phone">
-            <div class="phone-frame">
-              <video
-                data-iphone-video={b.id}
-                src={b.video}
-                muted
-                playsinline
-                preload="auto"
-                disablepictureinpicture
-                disableremoteplayback
-              ></video>
-              {idx === 0 && (
-                <div class="video-splash" data-video-splash>
-                  <img src="/logo.png" alt="" draggable="false" />
-                  <span class="video-splash-name">CurlBro</span>
-                </div>
-              )}
+          <div class="iphone-beat-stage">
+            <div class="iphone-beat-phone">
+              <div class="phone-frame">
+                <video
+                  data-iphone-video={b.id}
+                  src={b.video}
+                  muted
+                  playsinline
+                  preload="auto"
+                  disablepictureinpicture
+                  disableremoteplayback
+                ></video>
+                {idx === 0 && (
+                  <div class="video-splash" data-video-splash>
+                    <img src="/logo.png" alt="" draggable="false" />
+                    <span class="video-splash-name">CurlBro</span>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div class="iphone-beat-text">
-            <h3>{b.title}</h3>
-            <p>{b.body}</p>
+            <div class="iphone-beat-text">
+              <h3>{b.title}</h3>
+              <p>{b.body}</p>
+            </div>
           </div>
         </div>
       ))}
