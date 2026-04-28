@@ -42,13 +42,15 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
 
           <Section title="iOS App — What We Collect">
             <p>
-              The CurlBro iOS app collects no personal information and sends no data
-              to external servers. All workout logs, exercises, sets, and settings are
-              stored locally on your device using Apple&apos;s SwiftData framework.
+              The CurlBro iOS app stores all workout logs, exercises, sets, and
+              settings locally on your device using Apple&apos;s SwiftData framework.
+              By default, no data leaves your device.
             </p>
             <p className="mt-2">
               The app does not include analytics, advertising SDKs, crash reporters,
-              or any third-party data collection libraries.
+              or any third-party data collection libraries. Data is transmitted to a
+              non-Apple server only when you explicitly opt into the optional Cloud AI
+              feature described below.
             </p>
           </Section>
 
@@ -70,6 +72,46 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
               enabled, CurlBro may use Apple&apos;s on-device Foundation Models to
               generate workout plans and exercise notes. All inference runs entirely
               on your device. No prompts or results are sent to CurlBro or Apple servers.
+            </p>
+          </Section>
+
+          <Section title="iOS App — Optional Cloud AI (Claude API)">
+            <p>
+              CurlBro includes an optional Cloud AI feature that uses Anthropic&apos;s
+              Claude API to generate workout plans. This feature is OFF by default and
+              requires you to (1) tick an in-app data-policy agreement in Settings, and
+              (2) supply your own Anthropic API key. The key is stored in your
+              device&apos;s Keychain — it is never synced to iCloud and never sent to
+              CurlBro servers.
+            </p>
+            <p className="mt-2">
+              When enabled, each workout build sends the following from your device
+              directly to <code className="text-zinc-300">api.anthropic.com</code>:
+            </p>
+            <ul className="mt-2 ml-4 list-disc space-y-1">
+              <li>Your quiz answers (split, training goal, fatigue level, sore muscles, superset / warmup / cooldown / finisher preferences)</li>
+              <li>Your profile name, if you have set one</li>
+              <li>The last 14 days of your workout history — absolute dates, total sets per session, and muscle groups trained per session</li>
+              <li>The candidate exercise pool the rules engine selected for this build — exercise IDs, names, primary muscles, and equipment requirements</li>
+            </ul>
+            <p className="mt-2">
+              No HealthKit data, body weight, or personally identifying information
+              beyond an optional profile name is transmitted. Traffic does not pass
+              through CurlBro servers. Anthropic&apos;s privacy policy applies to that
+              traffic — see{' '}
+              <a
+                href="https://www.anthropic.com/legal/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-primary underline"
+              >
+                anthropic.com/legal/privacy
+              </a>
+              .
+            </p>
+            <p className="mt-2">
+              You can disable Cloud AI at any time in Settings &gt; Cloud AI; turning
+              it off deletes the API key from your device&apos;s Keychain.
             </p>
           </Section>
 
