@@ -1,0 +1,20 @@
+# Marketing at /, SPA at /app/, static pages at /privacy/ /support/ /guide/ /programming/.
+# Cloudflare Pages serves actual files first, then falls through to these rules.
+
+# Old SPA deep links (back when the SPA was at /) → redirect to /app/
+/library      /app/library   301
+/library/*    /app/library/:splat  301
+/build        /app/build     301
+/build/*      /app/build/:splat    301
+/settings     /app/settings  301
+/settings/*   /app/settings/:splat 301
+/session      /app/session   301
+/session/*    /app/session/:splat  301
+/log          /app/log       301
+/log/*        /app/log/:splat      301
+/body         /app/body      301
+/body/*       /app/body/:splat     301
+
+# No SPA fallback rule for /app/* — the SPA is tab-based with no client-side
+# router, so deep-link refreshes inside /app/ aren't needed. A catch-all here
+# would intercept asset requests (/app/assets/*.js) and break the SPA.

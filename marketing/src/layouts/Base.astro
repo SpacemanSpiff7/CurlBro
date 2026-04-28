@@ -1,0 +1,158 @@
+---
+import '../styles/globals.css';
+import TopNav from '../components/TopNav.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import Colophon from '../components/sections/Colophon.astro';
+import { CookieConsent } from '../components/CookieConsent.tsx';
+import { Toaster } from 'sonner';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = 'CurlBro — Plan, lift, log, repeat.',
+  description = 'A workout builder and tracker designed to get out of your way. No account. No subscription. No data collection.',
+  canonicalUrl = 'https://curlbro.com/',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- PWA standalone-mode redirect — MUST be first script -->
+    <script>
+      if (window.matchMedia('(display-mode: standalone)').matches && location.pathname === '/') {
+        location.replace('/app/');
+      }
+    </script>
+
+    <!-- Dark mode — prevent flash -->
+    <script>try{if(localStorage.getItem('curlbro_theme')!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}</script>
+
+    <!-- Consent Mode v2 defaults — MUST come before any Google tags -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500
+      });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0MTXEF3SY"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-W0MTXEF3SY');
+    </script>
+
+    <!-- Viewport & Theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Simone Longo" />
+    <meta name="keywords" content="workout builder, exercise planner, gym workout generator, workout tracker, free workout app, curlbro" />
+    <meta name="robots" content="index, follow" />
+    <meta name="application-name" content="CurlBro" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://curlbro.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CurlBro workout builder app" />
+    <meta property="og:site_name" content="CurlBro" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://curlbro.com/og-image.png" />
+    <meta name="twitter:image:alt" content="CurlBro workout builder app" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "CurlBro",
+      "url": "https://curlbro.com/",
+      "description": "A workout builder and tracker designed to get out of your way. No account. No subscription. No data collection.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "iOS",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Workout builder with superset grouping",
+        "Live Activity rest timer (Dynamic Island and Lock Screen)",
+        "Quick start workout templates",
+        "Smart exercise suggestions",
+        "Per-set logging for reps, weight, duration, and distance",
+        "Full session history",
+        "No account, no cloud sync, no tracking"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Simone Longo",
+        "url": "https://simonelongo.com"
+      },
+      "screenshot": "https://curlbro.com/og-image.png",
+      "inLanguage": "en"
+    })} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[var(--bg-root)] text-[var(--text-primary)] font-[var(--font-body)] antialiased">
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <ReadingProgress />
+    <TopNav />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Colophon />
+
+    <CookieConsent client:load />
+    <Toaster theme="dark" position="bottom-center" client:load />
+
+    <script>import '../scripts/animations.ts'</script>
+
+    <noscript>
+      <div style="padding:2rem;font-family:sans-serif;color:#fafafa;background:#09090b;min-height:100vh">
+        <h1>CurlBro</h1>
+        <p>Plan, lift, log, repeat.</p>
+        <p>A workout builder and tracker designed to get out of your way. No account. No subscription. No data collection.</p>
+        <p><a href="/app/" style="color:#06b6d4">Open the web app</a></p>
+        <p>
+          <a href="mailto:contact@curlbro.com" style="color:#06b6d4">Contact and support</a>
+          ·
+          <a href="/privacy/" style="color:#06b6d4">Privacy</a>
+        </p>
+      </div>
+    </noscript>
+  </body>
+</html>

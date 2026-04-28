@@ -1,0 +1,71 @@
+---
+const beats = [
+  {
+    id: 'start',
+    title: 'Start',
+    body: 'Quick start templates. Or build your own.',
+    video: '/videos/01-start.mp4',
+  },
+  {
+    id: 'build',
+    title: 'Build',
+    body: 'Pick an exercise. Smart suggestions for what fits next.',
+    video: '/videos/02-build.mp4',
+  },
+  {
+    id: 'lift',
+    title: 'Lift',
+    body: 'Track your sets. Rest in the Dynamic Island.',
+    video: '/videos/03-lift.mp4',
+  },
+];
+---
+
+<section
+  id="iphone"
+  class="iphone-section relative isolate border-t border-[var(--border-subtle)]"
+  style="background: var(--bg-surface)"
+  data-section="iphone"
+>
+  {/* Background pulse — radial cyan, breathes 6s cycle */}
+  <div class="iphone-pulse" aria-hidden="true"></div>
+
+  <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 pt-10 md:pt-14">
+    <div class="sticky-title" data-sticky-title>
+      <h2>CurlBro on iPhone</h2>
+    </div>
+
+    {/* Three independent beats. Each has its own sticky phone that scrolls
+        in, locks for a beat, scrubs through its video, then continues scrolling
+        out as the next beat enters. */}
+    <div class="iphone-beats-stack" data-iphone-stage>
+      {beats.map((b, idx) => (
+        <div class="iphone-beat" data-iphone-beat={b.id}>
+          <div class="iphone-beat-phone">
+            <div class="phone-frame">
+              <video
+                data-iphone-video={b.id}
+                src={b.video}
+                muted
+                playsinline
+                preload="auto"
+                disablepictureinpicture
+                disableremoteplayback
+              ></video>
+              {idx === 0 && (
+                <div class="video-splash" data-video-splash>
+                  <img src="/logo.png" alt="" draggable="false" />
+                  <span class="video-splash-name">CurlBro</span>
+                </div>
+              )}
+            </div>
+          </div>
+          <div class="iphone-beat-text">
+            <h3>{b.title}</h3>
+            <p>{b.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

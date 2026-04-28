@@ -1,0 +1,44 @@
+---
+import Logo from './Logo.astro';
+---
+
+<nav
+  class="sticky top-0 z-50 border-b border-[var(--border-subtle)]/40 bg-[var(--bg-root)]/75 backdrop-blur-md"
+  aria-label="Site navigation"
+>
+  <div class="mx-auto flex h-[52px] max-w-6xl items-center justify-between px-5 sm:px-8">
+    <Logo size={26} href="#top" />
+
+    <div
+      class="hidden items-center gap-8 md:flex"
+      data-nav-links
+    >
+      <a href="#iphone" class="nav-link" data-nav-target="iphone">
+        iPhone App
+      </a>
+      <a href="#whole-idea" class="nav-link" data-nav-target="whole-idea">
+        About
+      </a>
+      <a href="#get-in-touch" class="nav-link" data-nav-target="get-in-touch">
+        Contact
+      </a>
+    </div>
+
+    <a href="/app/" class="btn btn-primary text-sm" style="height:36px">
+      Open web app
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14M13 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
+</nav>

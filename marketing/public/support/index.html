@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support &mdash; CurlBro</title>
+  <meta name="description" content="Help and support for CurlBro — contact info, bug reports, FAQs, and links to the user guide and programming guide." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://curlbro.com/support/" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f4f4f5;
+      --border: #e4e4e7;
+      --text: #09090b;
+      --text-secondary: #52525b;
+      --text-muted: #a1a1aa;
+      --accent: #0891b2;
+      --accent-hover: #0e7490;
+      --max-width: 660px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #09090b;
+        --surface: #18181b;
+        --border: rgba(255,255,255,0.08);
+        --text: #fafafa;
+        --text-secondary: #a1a1aa;
+        --text-muted: #71717a;
+        --accent: #06b6d4;
+        --accent-hover: #22d3ee;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      min-height: 100dvh;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+    }
+    .app-name {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 48px;
+    }
+
+    /* summary card */
+    .summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .summary-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .summary-item .check {
+      color: var(--accent);
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* sections */
+    section {
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 16px;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    p + p { margin-top: 10px; }
+
+    ul {
+      margin: 10px 0 0 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    a:hover { color: var(--accent-hover); }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 16px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img class="logo" src="../icon-192x192.png" alt="CurlBro logo" />
+    <a class="app-name" href="https://curlbro.com/">CurlBro</a>
+  </div>
+</header>
+
+<main>
+  <h1>Support</h1>
+  <p class="meta">Need help with CurlBro? You're in the right place.</p>
+
+  <!-- Quick summary -->
+  <div class="summary">
+    <div class="summary-title">Where to find what</div>
+    <div class="summary-item"><span class="check">→</span><span>Questions or feedback: <a href="mailto:contact@curlbro.com">contact@curlbro.com</a></span></div>
+    <div class="summary-item"><span class="check">→</span><span>Bugs and feature requests: <a href="https://github.com/SpacemanSpiff7/CurlBro/issues" target="_blank" rel="noopener">GitHub Issues</a></span></div>
+    <div class="summary-item"><span class="check">→</span><span>How to use the app: <a href="https://curlbro.com/guide/">User Guide</a></span></div>
+    <div class="summary-item"><span class="check">→</span><span>How to design good workouts: <a href="https://curlbro.com/programming/">Programming Guide</a></span></div>
+    <div class="summary-item"><span class="check">→</span><span>What we store and don't: <a href="https://curlbro.com/privacy/">Privacy Policy</a></span></div>
+  </div>
+
+  <section>
+    <h2>Get in touch</h2>
+    <p>
+      The fastest way to reach a human is email:
+      <a href="mailto:contact@curlbro.com">contact@curlbro.com</a>. CurlBro is built and
+      maintained by one person, so replies usually take a couple of days.
+    </p>
+    <p>
+      Questions, suggestions, app-store reviews you'd like addressed, partnership inquiries —
+      all welcome at the same address.
+    </p>
+  </section>
+
+  <section>
+    <h2>Report a bug</h2>
+    <p>
+      Found something broken? The best place to file it is GitHub:
+      <a href="https://github.com/SpacemanSpiff7/CurlBro/issues" target="_blank" rel="noopener">github.com/SpacemanSpiff7/CurlBro/issues</a>.
+      You can also use the <strong>Report a Bug</strong> button inside the app
+      (Settings &rarr; Help) — it pre-fills your browser, screen size, and platform so we
+      can reproduce faster.
+    </p>
+    <p>A useful bug report includes:</p>
+    <ul>
+      <li>What you were trying to do</li>
+      <li>What happened instead</li>
+      <li>Steps to reproduce, if you can repeat it</li>
+      <li>Browser / device / OS</li>
+      <li>A screenshot or short screen recording, if relevant</li>
+    </ul>
+    <p>
+      If you'd rather not use GitHub, email is fine — the same details just go in the email
+      body.
+    </p>
+  </section>
+
+  <section>
+    <h2>Guides</h2>
+    <p>
+      Most "how do I&hellip;" questions are answered in one of these:
+    </p>
+    <ul>
+      <li>
+        <a href="https://curlbro.com/guide/">User Guide</a> &mdash; building workouts, running
+        sessions, supersets, logs, exporting and sharing.
+      </li>
+      <li>
+        <a href="https://curlbro.com/programming/">Programming Guide</a> &mdash; how to design
+        a balanced routine, splits, set/rep schemes, progression.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Frequently asked</h2>
+
+    <h3>My workouts disappeared.</h3>
+    <p>
+      CurlBro stores everything in your browser's local storage on the device you're using.
+      It's not synced to a server. Clearing your browser's site data, switching to private /
+      incognito mode, or using a different browser or device will all show an empty library.
+      If you exported your workouts before, you can import them back from
+      Settings &rarr; Data.
+    </p>
+
+    <h3>Sharing or "Copy to clipboard" isn't working.</h3>
+    <p>
+      The browser's clipboard API only works over HTTPS. If you're using
+      <code>http://</code> (some local network setups), copy-to-clipboard will silently fail.
+      Use the share/export options instead, or open the app at
+      <a href="https://curlbro.com/">https://curlbro.com</a>.
+    </p>
+
+    <h3>The screen zooms in when I tap an input on iPhone.</h3>
+    <p>
+      iOS Safari auto-zooms text inputs smaller than 16px and never resets after. CurlBro's
+      inputs are tuned to avoid this; if you're seeing it, you're likely on an older cached
+      version &mdash; pull down to refresh, or close the tab and reopen the page.
+    </p>
+
+    <h3>Can I sync across devices?</h3>
+    <p>
+      Not automatically &mdash; there are no accounts and no server. To move data between
+      devices, use Settings &rarr; <strong>Export</strong> on the source device and
+      Settings &rarr; <strong>Import</strong> on the destination.
+    </p>
+
+    <h3>Is there an iOS app?</h3>
+    <p>
+      Yes &mdash; the iOS app stores data locally with Apple Health integration. The web app
+      is fully featured and doesn't require an install. Both are independent; data does not
+      sync between them.
+    </p>
+
+    <h3>How do I delete all my data?</h3>
+    <p>
+      Settings &rarr; Data &rarr; <strong>Clear All Data</strong>. Or, in your browser,
+      clear site data for <code>curlbro.com</code>. CurlBro never receives a copy, so there's
+      nothing on our end to delete.
+    </p>
+  </section>
+
+  <section>
+    <h2>Privacy and data</h2>
+    <p>
+      CurlBro stores all your workout data locally and does not collect personal information.
+      Full details, including how Apple Health and exports work, are in the
+      <a href="https://curlbro.com/privacy/">Privacy Policy</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Feature requests</h2>
+    <p>
+      Have an idea? Open an issue on
+      <a href="https://github.com/SpacemanSpiff7/CurlBro/issues" target="_blank" rel="noopener">GitHub</a>
+      with the <em>enhancement</em> label, or email
+      <a href="mailto:contact@curlbro.com">contact@curlbro.com</a>. Real use cases ("I'm
+      doing X and the app makes me do Y workaround") help much more than abstract feature
+      names.
+    </p>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 CurlBro</span>
+    <nav class="footer-links">
+      <a href="https://curlbro.com/">Web App</a>
+      <a href="https://curlbro.com/privacy/">Privacy</a>
+      <a href="mailto:contact@curlbro.com">Contact</a>
+    </nav>
+  </footer>
+</main>
+
+</body>
+</html>

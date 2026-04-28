@@ -1,0 +1,85 @@
+---
+import { EmailForm } from '../EmailForm.tsx';
+---
+
+<section
+  id="top"
+  class="relative isolate flex flex-col justify-center overflow-hidden"
+  style="min-height:calc(100svh - 52px)"
+  data-section="hero"
+>
+  {/* Giant dumbbell watermark — single bold visual gesture, bleeds bottom-right */}
+  <div class="hero-watermark" aria-hidden="true">
+    <img src="/logo.svg" alt="" />
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8 py-16 md:py-24">
+    {/* Brand mark — icon + wordmark, dominant hero size */}
+    <div class="flex items-center gap-5 mb-8">
+      <img
+        src="/logo.png"
+        alt=""
+        class="block flex-shrink-0"
+        style="width:clamp(60px, 9vw, 110px); height:auto"
+        draggable="false"
+      />
+      <h1
+        class="display-heading text-[var(--text-primary)] leading-none"
+        style="font-size:clamp(3.5rem, 11vw, 8.5rem); letter-spacing:-0.025em"
+      >
+        CurlBro
+      </h1>
+    </div>
+
+    {/* Thin cyan accent rule */}
+    <span class="hairline mb-6" aria-hidden="true"></span>
+
+    {/* Tagline — smaller now, lets the brand mark dominate */}
+    <p
+      class="mb-12 text-[var(--text-secondary)] [text-wrap:balance]"
+      style="font-size:clamp(1.125rem, 2vw, 1.625rem); font-family:var(--font-body)"
+    >
+      Plan, lift, log, repeat.
+    </p>
+
+    {/* Two equal-weight CTAs side-by-side */}
+    <div class="flex flex-wrap items-center gap-3">
+      <a href="/app/" class="btn btn-primary">
+        Open web app
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      </a>
+      <button
+        type="button"
+        class="btn btn-ghost"
+        aria-controls="hero-form-wrap"
+        aria-expanded="false"
+        data-form-reveal-trigger
+      >
+        Get updates
+      </button>
+    </div>
+
+    {/* Form reveal — hidden by default; click 'Get updates' to expand */}
+    <div
+      id="hero-form-wrap"
+      class="email-form-wrap mt-8 max-w-lg"
+      data-form-reveal-wrap
+    >
+      <div class="email-form-inner pt-2 pb-2">
+        <EmailForm client:load />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,58 @@
+---
+// CurlBro logo lockup. Icon (logo.png) + wordmark in JetBrains Mono.
+// No easter egg — v5 strips all decorative motion.
+export interface Props {
+  size?: number;
+  wordmark?: 'show' | 'hide';
+  href?: string;
+}
+const { size = 28, wordmark = 'show', href } = Astro.props;
+const wordSize = Math.round(size * 0.62);
+---
+
+{href ? (
+  <a
+    href={href}
+    class="inline-flex items-center gap-2.5 text-[var(--text-primary)]"
+    style="text-decoration:none"
+    aria-label="CurlBro"
+  >
+    <img
+      src="/logo.png"
+      alt=""
+      width={size}
+      height={size}
+      style={`width:${size}px;height:${size}px;object-fit:contain;display:block`}
+      class="select-none"
+      draggable="false"
+    />
+    {wordmark === 'show' && (
+      <span
+        class="font-display font-bold leading-none"
+        style={`font-size:${wordSize}px;letter-spacing:-0.01em`}
+      >
+        CurlBro
+      </span>
+    )}
+  </a>
+) : (
+  <span class="inline-flex items-center gap-2.5 text-[var(--text-primary)]">
+    <img
+      src="/logo.png"
+      alt=""
+      width={size}
+      height={size}
+      style={`width:${size}px;height:${size}px;object-fit:contain;display:block`}
+      class="select-none"
+      draggable="false"
+    />
+    {wordmark === 'show' && (
+      <span
+        class="font-display font-bold leading-none"
+        style={`font-size:${wordSize}px;letter-spacing:-0.01em`}
+      >
+        CurlBro
+      </span>
+    )}
+  </span>
+)}

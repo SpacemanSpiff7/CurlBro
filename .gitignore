@@ -18,6 +18,11 @@ dist-ssr
 # Generated exercise catalog (rebuilt by prebuild script)
 public/exercises.json
 
+# Marketing site (Astro)
+marketing/node_modules/
+marketing/.astro/
+marketing/dist/
+
 # OMC state
 .omc/
 
