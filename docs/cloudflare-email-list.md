@@ -2,8 +2,9 @@
 
 ## What this repo now expects
 
-- Cloudflare Pages serves the app.
-- `functions/api/emails.ts` handles secure submissions.
+- Cloudflare Workers static assets serve the app build from `dist/`.
+- `worker/index.ts` is the Worker entrypoint for deploys driven by `wrangler versions upload`.
+- `functions/api/emails.ts` contains the email route handler logic reused by the Worker entrypoint.
 - D1 stores the canonical email list data.
 - The form uses passive abuse checks instead of a visible CAPTCHA.
 - Google Sheets is optional and acts as a mirrored reporting surface through an Apps Script webhook.
@@ -43,16 +44,16 @@ Remote:
 npx wrangler d1 execute curlbro-emails --remote --file=./cloudflare/migrations/0001_emails.sql
 ```
 
-## 4. Configure Pages bindings and secrets
+## 4. Configure Worker bindings and secrets
 
-In Cloudflare Pages:
+In your Cloudflare Worker / Workers Builds project:
 
 - Add D1 binding `DB`
 - Add secret `EMAIL_LIST_IP_HASH_SALT`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_URL`
 - Optional: add `EMAIL_LIST_GOOGLE_SHEETS_WEBHOOK_SECRET`
 
-`EMAIL_LIST_ALLOWED_ORIGINS` should stay in [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc) if your Pages project is configured to manage plaintext variables from Wrangler.
+`EMAIL_LIST_ALLOWED_ORIGINS` should stay in [wrangler.jsonc](/Users/slongo/Documents/GitHub/curlbro/workout-builder/wrangler.jsonc) if your Worker project is configured to manage plaintext variables from Wrangler.
 
 Recommended production value in Wrangler:
 
@@ -95,6 +96,16 @@ npx wrangler d1 execute curlbro-emails --remote --file=./cloudflare/migrations/0
 
 ## 6. Deploy
 
-Connect the GitHub repo to Cloudflare Pages and let Pages run your Vite build automatically.
+This repo now deploys as a Cloudflare Worker with static assets:
 
-After adding or changing any Pages variables or secrets, trigger a new deploy. The current deployment will not pick up updated values retroactively.
+- Build command: `npm run build`
+- Deploy command: `npx wrangler versions upload`
+
+`wrangler.jsonc` must keep both:
+
+- `main: "./worker/index.ts"`
+- `assets.directory: "./dist"`
+
+That pairing is what allows Workers Builds to upload the marketing site, the `/app/` SPA assets, and the `/api/emails` endpoint in one deployment.
+
+After adding or changing Worker variables or secrets, trigger a new deploy. The current deployment will not pick up updated values retroactively.

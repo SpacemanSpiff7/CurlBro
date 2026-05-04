@@ -1,5 +1,5 @@
 # Marketing at /, SPA at /app/, static pages at /privacy/ /support/ /guide/ /programming/.
-# Cloudflare Pages serves actual files first, then falls through to these rules.
+# Cloudflare static assets serve actual files first, then fall through to these rules.
 
 # Old SPA deep links (back when the SPA was at /) → redirect to /app/
 /library      /app/library   301

@@ -85,6 +85,9 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/utils/cookieConsent.ts` — cookie consent utilities (CONSENT_KEY, resetCookieConsent)
 - `src/utils/welcomeState.ts` — welcome page sessionStorage helpers (hasSeenWelcome, markWelcomeSeen, resetWelcomeSeen)
 - `src/pages/WelcomePage.tsx` — full-screen welcome overlay with hero, guide sections, flying logo animation
+- `functions/api/emails.ts` — email signup route logic (validation, rate limiting, D1 writes, optional Sheets sync)
+- `worker/index.ts` — Cloudflare Worker entrypoint that routes `/api/emails` and serves `dist/` assets
+- `wrangler.jsonc` — Worker static-assets config, D1 binding, and production origin allowlist
 - `public/guide/index.html` — static User Guide (standalone HTML)
 - `public/programming/index.html` — static Programming Guide (standalone HTML)
 

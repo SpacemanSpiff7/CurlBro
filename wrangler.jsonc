@@ -1,8 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "curlbro",
-  "compatibility_date": "2026-03-11",
-  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-05-04",
+  "main": "./worker/index.ts",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
   "vars": {
     "EMAIL_LIST_ALLOWED_ORIGINS": "https://curlbro.com,https://www.curlbro.com,https://curlbro.pages.dev"
   },
