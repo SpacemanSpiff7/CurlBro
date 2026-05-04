@@ -89,16 +89,30 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
               directly to <code className="text-zinc-300">api.anthropic.com</code>:
             </p>
             <ul className="mt-2 ml-4 list-disc space-y-1">
-              <li>Your quiz answers (split, training goal, fatigue level, sore muscles, superset / warmup / cooldown / finisher preferences)</li>
+              <li>Your quiz answers (split, training goal, fatigue level, sore muscles, equipment, experience level, superset / warmup / cooldown / finisher preferences)</li>
               <li>Your profile name, if you have set one</li>
-              <li>The last 14 days of your workout history — absolute dates, total sets per session, and muscle groups trained per session</li>
+              <li>The last 14 days of your workout history — absolute dates, total sets per session, and muscle groups trained per session (no per-set weights, reps, RPE, or notes)</li>
               <li>The candidate exercise pool the rules engine selected for this build — exercise IDs, names, primary muscles, and equipment requirements</li>
             </ul>
             <p className="mt-2">
-              No HealthKit data, body weight, or personally identifying information
-              beyond an optional profile name is transmitted. Traffic does not pass
-              through CurlBro servers. Anthropic&apos;s privacy policy applies to that
-              traffic — see{' '}
+              If you use the Chat with Claude planning feature, the following is also
+              sent to <code className="text-zinc-300">api.anthropic.com</code> on every
+              chat turn:
+            </p>
+            <ul className="mt-2 ml-4 list-disc space-y-1">
+              <li>Your chat messages and the running message history for the session</li>
+              <li>The equipment-filtered exercise catalog (minus exercises you have deselected)</li>
+              <li>The list of exercises you have deselected, so the assistant can avoid them</li>
+            </ul>
+            <p className="mt-2">
+              Chat transcripts are session-only and are never saved on this device — they
+              are held in memory while the chat is open and discarded when you close it.
+            </p>
+            <p className="mt-2">
+              No HealthKit data, body weight, per-set training data, or personally
+              identifying information beyond an optional profile name is transmitted.
+              Traffic does not pass through CurlBro servers. Anthropic&apos;s privacy
+              policy applies to that traffic — see{' '}
               <a
                 href="https://www.anthropic.com/legal/privacy"
                 target="_blank"
@@ -112,6 +126,34 @@ export function PrivacyPolicyPage({ open, onOpenChange }: PrivacyPolicyPageProps
             <p className="mt-2">
               You can disable Cloud AI at any time in Settings &gt; Cloud AI; turning
               it off deletes the API key from your device&apos;s Keychain.
+            </p>
+          </Section>
+
+          <Section title="iOS App — Video Demos and External Links">
+            <p>
+              Some exercises link to a curated YouTube video demonstration. When you tap
+              the demo button, the video opens in an in-app Safari sheet
+              (<code className="text-zinc-300">SFSafariViewController</code>) operated by
+              Apple. This component runs in a separate process from CurlBro and shares
+              cookies with your existing Mobile Safari session. CurlBro never loads YouTube
+              or any third-party content into its own UI.
+            </p>
+            <p className="mt-2">
+              CurlBro does not observe, log, or transmit which videos you watch. Once the
+              sheet opens, you are interacting directly with YouTube through Safari, and
+              YouTube / Google&apos;s data collection applies according to their own
+              policies — see{' '}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-primary underline"
+              >
+                Google&apos;s privacy policy
+              </a>
+              . You can dismiss the sheet at any time to return to CurlBro. The list of
+              videos shipped with the app is curated and stored locally with the exercise
+              catalog; nothing is fetched until you tap a demo.
             </p>
           </Section>
 
