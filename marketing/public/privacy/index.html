@@ -203,16 +203,17 @@
 
 <main>
   <h1>Privacy Policy</h1>
-  <p class="meta">Effective date: April 2026 &nbsp;&middot;&nbsp; Applies to the CurlBro iOS app</p>
+  <p class="meta">Effective date: May 2026 &nbsp;&middot;&nbsp; Applies to the CurlBro iOS app</p>
 
   <!-- Quick summary -->
   <div class="summary">
     <div class="summary-title">The short version</div>
-    <div class="summary-item"><span class="check">✓</span><span>All your workout data stays on your device — nothing is sent to our servers.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>By default, all your workout data stays on your device — nothing is sent to our servers.</span></div>
     <div class="summary-item"><span class="check">✓</span><span>No analytics, no crash reporters, no advertising SDKs.</span></div>
     <div class="summary-item"><span class="check">✓</span><span>No account required. We don't know who you are.</span></div>
     <div class="summary-item"><span class="check">✓</span><span>Apple Health integration is optional and controlled entirely by you.</span></div>
-    <div class="summary-item"><span class="check">✓</span><span>Data only leaves your device when you explicitly export or share it.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>Optional Cloud AI feature (Claude API) is off by default and requires your own API key — only data you choose to share with it is transmitted, directly to Anthropic.</span></div>
+    <div class="summary-item"><span class="check">✓</span><span>Data only leaves your device when you explicitly export, share, or enable Cloud AI.</span></div>
   </div>
 
   <section>
@@ -224,9 +225,11 @@
     </p>
     <p>
       CurlBro does not have user accounts, does not connect to CurlBro servers, and does not
-      collect personal information. The app functions entirely offline. Nothing you enter into
-      CurlBro is transmitted to us or to any third party unless you explicitly choose to
-      share or export it yourself.
+      collect personal information. The app functions entirely offline by default. Nothing you
+      enter into CurlBro is transmitted to us, and nothing is transmitted to any third party
+      unless you enable the optional Cloud AI feature described below in
+      &ldquo;Optional Cloud AI (Claude API)&rdquo; or explicitly choose to share or export
+      data yourself.
     </p>
   </section>
 
@@ -275,6 +278,78 @@
   </section>
 
   <section>
+    <h2>On-Device AI (Apple Intelligence)</h2>
+    <p>
+      On supported devices running iOS&nbsp;26 or later with Apple Intelligence enabled,
+      CurlBro may use Apple's on-device Foundation Models to generate workout plans, parse
+      shared workouts, and produce post-session summaries and coaching notes. All inference
+      runs entirely on your device. No prompts and no results are sent to CurlBro, to Apple,
+      or to any other server.
+    </p>
+  </section>
+
+  <section>
+    <h2>Optional Cloud AI (Claude API)</h2>
+    <p>
+      CurlBro includes an optional Cloud AI feature that uses Anthropic's Claude API to
+      generate and refine workout plans, and to power an interactive workout-planning chat.
+      This feature is <strong>off by default</strong> and requires you to take two explicit
+      actions in Settings:
+    </p>
+    <ol style="margin: 10px 0 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+      <li>Tick an in-app data-policy agreement that summarizes what is sent.</li>
+      <li>Supply your own Anthropic API key (BYOK &mdash; bring your own key). CurlBro
+          never bundles or uses a shared key.</li>
+    </ol>
+    <p>
+      Your API key is stored in your device's Keychain. It is never synced to iCloud, never
+      sent to CurlBro, and never written to logs, analytics, exported workouts, or
+      <code>UserDefaults</code>. Disabling the toggle deletes the key from the Keychain.
+    </p>
+    <p>
+      When the feature is enabled, the following is transmitted directly from your device to
+      <code>api.anthropic.com</code> on each workout build:
+    </p>
+    <ul>
+      <li>Your quiz answers (split, training goal, fatigue / energy level, sore muscles, equipment, experience level, superset / warmup / cooldown / finisher preferences, target session length)</li>
+      <li>Your profile name, if you have set one</li>
+      <li>The current date</li>
+      <li>The last 14 days of your workout history &mdash; absolute dates, total sets per session, and muscle groups trained per session (no per-set weights, reps, RPE, or notes)</li>
+      <li>The candidate exercise pool the on-device rules engine selected for this build &mdash; exercise IDs, names, primary muscles, and equipment requirements</li>
+    </ul>
+    <p>
+      If you use the &ldquo;Chat with Claude&rdquo; planning feature, the following is also
+      transmitted to <code>api.anthropic.com</code> on every chat turn:
+    </p>
+    <ul>
+      <li>Your chat messages and the running message history for the current session</li>
+      <li>The equipment-filtered exercise catalog (the same catalog ships with the app, minus any exercises you have deselected)</li>
+      <li>The list of exercises you have deselected, so the assistant can avoid suggesting them</li>
+    </ul>
+    <p>
+      Chat transcripts are session-only and are never saved on this device. They are held
+      in memory while the chat is open and discarded when you close it or quit the app.
+    </p>
+    <p>
+      Cloud AI never transmits HealthKit data, body weight, per-set training data
+      (individual weights, reps, RPE), notes you have written on workouts, your device
+      identifier, location, or any personally identifying information beyond an optional
+      profile name. Traffic does not pass through CurlBro servers; the request is made
+      directly from your device to Anthropic. Anthropic's processing of that traffic is
+      governed by Anthropic's privacy policy &mdash; see
+      <a
+        href="https://www.anthropic.com/legal/privacy"
+        target="_blank"
+        rel="noopener noreferrer"
+      >anthropic.com/legal/privacy</a>.
+    </p>
+    <p>
+      You can disable Cloud AI at any time in Settings &gt; Cloud AI. The app then falls
+      back silently to the on-device features described above.
+    </p>
+  </section>
+
+  <section>
     <h2>Notifications</h2>
     <p>
       CurlBro may request permission to send local notifications for rest timer alerts between
@@ -316,6 +391,37 @@
       tracking SDKs. The app is built entirely with Apple's native frameworks (SwiftUI,
       SwiftData, HealthKit, UserNotifications) and an internal CurlBro framework. No
       third-party code in the app collects or transmits data.
+    </p>
+    <p>
+      The only third party the app communicates with at all is Anthropic, and only when you
+      explicitly opt into the Cloud AI feature and supply your own API key &mdash; see
+      &ldquo;Optional Cloud AI (Claude API)&rdquo; above for the exact data scope.
+    </p>
+  </section>
+
+  <section>
+    <h2>Video Demos and External Links</h2>
+    <p>
+      Some exercises in CurlBro link to a curated YouTube video demonstration. When you tap
+      the demo button, the video opens in an in-app Safari sheet
+      (<code>SFSafariViewController</code>) operated by Apple. This component runs in a
+      separate process from CurlBro and shares cookies with your existing Mobile Safari
+      session. CurlBro never loads YouTube or any third-party content into its own UI.
+    </p>
+    <p>
+      CurlBro does not observe, log, or transmit which videos you watch, when you watch them,
+      or anything else about that browsing session. Once the sheet opens, you are interacting
+      directly with YouTube through Safari, and YouTube / Google's data collection applies
+      according to their own policies &mdash; see
+      <a
+        href="https://policies.google.com/privacy"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Google's privacy policy</a>. You can dismiss the sheet at any time to return to CurlBro.
+    </p>
+    <p>
+      The list of videos shipped with the app is curated by CurlBro and stored locally with
+      the exercise catalog. No video content is fetched or pre-loaded until you tap a demo.
     </p>
   </section>
 
