@@ -16,13 +16,24 @@ import { EmailForm } from '../EmailForm.tsx';
   <div class="relative z-10 mx-auto w-full max-w-6xl px-5 sm:px-8 py-16 md:py-24">
     {/* Brand mark — icon + wordmark, dominant hero size */}
     <div class="flex items-center gap-5 mb-8">
-      <img
-        src="/logo.png"
-        alt=""
-        class="block flex-shrink-0"
-        style="width:clamp(60px, 9vw, 110px); height:auto"
-        draggable="false"
-      />
+      <button
+        type="button"
+        class="hero-logo-burst"
+        aria-label="Animate CurlBro logo"
+        data-logo-burst
+        data-logo-burst-frames="/logo-burst/logo-rest.png,/logo-burst/logo-flex-01.png,/logo-burst/logo-flex-02.png,/logo-burst/logo-flex-03.png,/logo-burst/logo-flex-02.png,/logo-burst/logo-flex-01.png,/logo-burst/logo-rest.png"
+      >
+        <img
+          src="/logo-burst/logo-rest.png"
+          alt=""
+          width="293"
+          height="240"
+          class="block"
+          draggable="false"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </button>
       <h1
         class="display-heading text-[var(--text-primary)] leading-none"
         style="font-size:clamp(3.5rem, 11vw, 8.5rem); letter-spacing:-0.025em"

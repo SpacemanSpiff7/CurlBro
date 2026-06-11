@@ -5,8 +5,9 @@
 //   2. Reading progress bar (scroll listener, rAF-throttled)
 //   3. Sticky-title shrink-on-pin (intersection observer per section)
 //   4. Hero email-form reveal (button click toggles class)
-//   5. Section 2: pinned phone + video scrub by scroll progress
-//   6. Background pulse in Section 2 (CSS keyframe, no JS)
+//   5. Hero logo flex replay (hover/click/focus + occasional idle replay)
+//   6. Section 2: pinned phone + video scrub by scroll progress
+//   7. Background pulse in Section 2 (CSS keyframe, no JS)
 //
 // Everything else from v2-v4 is dead. No GSAP. No cursor halo. No magnetic
 // buttons. No parallax. No letter reveals. No word reveals. No edge draws.
@@ -222,7 +223,112 @@ function initFormReveal() {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// 5. Section 2: pinned phone + video scrub
+// 5. Hero logo flex replay
+//
+// The native app ships pre-rendered logo burst frames from its SwiftUI
+// renderer. The marketing page replays those frames by swapping the hero
+// <img> src. It runs on explicit interaction and occasionally at idle; reduced
+// motion users keep the static logo.
+// ────────────────────────────────────────────────────────────────────────
+
+function initHeroLogoBurst() {
+  if (prefersReducedMotion) return;
+
+  const hosts = document.querySelectorAll<HTMLButtonElement>('[data-logo-burst]');
+  if (!hosts.length) return;
+
+  hosts.forEach((host) => {
+    const img = host.querySelector<HTMLImageElement>('img');
+    const frames = host
+      .getAttribute('data-logo-burst-frames')
+      ?.split(',')
+      .map((frame) => frame.trim())
+      .filter(Boolean);
+
+    if (!img || !frames || frames.length < 2) return;
+
+    frames.forEach((src) => {
+      const preload = new Image();
+      preload.src = src;
+    });
+
+    const overlay = document.createElement('img');
+    overlay.src = frames[0];
+    overlay.alt = '';
+    overlay.draggable = false;
+    overlay.decoding = 'async';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.className = 'hero-logo-burst-overlay';
+    host.appendChild(overlay);
+
+    let isAnimating = false;
+    let currentFrame = frames[0];
+
+    const delayAfterFrame = (frameIndex: number) => {
+      const progress = frameIndex / Math.max(frames.length - 1, 1);
+      const edgeWeight = Math.abs(progress - 0.5) * 2;
+      return 105 + edgeWeight * 45;
+    };
+
+    const crossfadeTo = (nextFrame: string, fadeMs: number) => {
+      if (nextFrame === currentFrame) return;
+
+      overlay.src = currentFrame;
+      overlay.style.setProperty('--logo-burst-fade-ms', `${fadeMs}ms`);
+      overlay.style.opacity = '1';
+
+      currentFrame = nextFrame;
+      img.src = nextFrame;
+
+      window.requestAnimationFrame(() => {
+        overlay.style.opacity = '0';
+      });
+    };
+
+    const play = () => {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const nextFrame = (frameIndex: number) => {
+        const isFirstMotionFrame = frameIndex === 1;
+        const isFinalRestFrame = frameIndex === frames.length - 1;
+        const fadeMs = isFinalRestFrame ? 220 : isFirstMotionFrame ? 150 : 105;
+
+        crossfadeTo(frames[frameIndex], fadeMs);
+
+        if (frameIndex < frames.length - 1) {
+          window.setTimeout(
+            () => nextFrame(frameIndex + 1),
+            delayAfterFrame(frameIndex),
+          );
+        } else {
+          window.setTimeout(() => {
+            overlay.src = currentFrame;
+            isAnimating = false;
+          }, fadeMs + 40);
+        }
+      };
+
+      window.setTimeout(() => nextFrame(1), 35);
+    };
+
+    host.addEventListener('pointerenter', play);
+    host.addEventListener('focus', play);
+    host.addEventListener('click', play);
+
+    const scheduleIdleReplay = (delayMs: number) => {
+      window.setTimeout(() => {
+        if (!document.hidden) play();
+        scheduleIdleReplay(10000 + Math.random() * 6000);
+      }, delayMs);
+    };
+
+    scheduleIdleReplay(2400 + Math.random() * 1200);
+  });
+}
+
+// ────────────────────────────────────────────────────────────────────────
+// 6. Section 2: pinned phone + video scrub
 //
 // Layout: each beat occupies ~95vh of scroll. The phone is sticky in its
 // column; videos stack on top of one another, only the active beat's video
@@ -330,12 +436,12 @@ function initIPhoneSection() {
   // video catches up: lower = smoother but laggier.
   // ────────────────────────────────────────────────────────────────────
 
-  const DEADZONE_START = 0.45; // phone locked, pause before video begins
-  const DEADZONE_END = 0.42;   // long deliberate hold on last frame before next beat takes over
-  const SPLASH_FADE_START = 0.34; // splash holds fully opaque through the long lock-pause
-  const SPLASH_FADE_END = 0.45;   // splash fully gone exactly as video begins scrubbing
-  const LERP = 0.12;            // 0.05 = very smooth & laggy; 0.25 = snappy; 0.12 = balanced
-  const SNAP_THRESHOLD = 0.01;  // seconds — below this, snap to target to avoid float drift
+  const DEADZONE_START = 0.22; // brief lock-pause before video begins
+  const DEADZONE_END = 0.18;   // hold on final frame before next beat takes over
+  const SPLASH_FADE_START = 0.10; // splash holds while phone settles into place
+  const SPLASH_FADE_END = 0.22;   // splash fully gone exactly as video begins scrubbing
+  const LERP = 0.08;            // 0.05 = very smooth & laggy; 0.25 = snappy; 0.08 = smooth
+  const SNAP_THRESHOLD = 0.005; // seconds — below this, snap to target to avoid float drift
 
   let targetTime = 0;
   let currentTime = 0;
@@ -519,6 +625,7 @@ function init() {
   initStickyTitleShrink();
   initSmoothAnchors();
   initFormReveal();
+  initHeroLogoBurst();
   initIPhoneSection();
   initPinStackLock();
   initMobileNav();
