@@ -8,7 +8,7 @@
     "dev:marketing": "cd marketing && npx astro dev --port 4322",
     "dev:api": "npx wrangler dev --port 8788",
     "postinstall": "cd marketing && npm install",
-    "prebuild": "npx tsx scripts/generate-exercises.ts && cp public/exercises.json marketing/public/exercises.json",
+    "prebuild": "node scripts/validate-public-exercises.mjs && cp marketing/public/exercises.json public/exercises.json",
     "build": "tsc -b && cd marketing && npx astro build && cd .. && vite build && cp dist/app/index.html dist/app/shell.html",
     "lint": "eslint . && npm run lint:copy",
     "lint:copy": "! grep -riE --include='*.astro' --include='*.md' --include='*.mdx' --exclude-dir='scripts' 'journey|unleash|crush it|\\belevate\\b|AI-powered' marketing/src/",

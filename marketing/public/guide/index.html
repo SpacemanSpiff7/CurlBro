@@ -1665,23 +1665,23 @@ Face Pull  3x15  @45s rest</code></pre>
 
           <h3>Import Format</h3>
           <p>
-            You can import workouts by pasting text in the same format. CurlBro's parser is flexible &mdash; it handles minor variations in formatting. The core grammar for each exercise line is:
+            You can import workouts by pasting text in CurlBro's share format. For AI-generated workouts, every exercise line should include a catalog ID in square brackets so the app can resolve the exact variation.
           </p>
-          <pre><code>Exercise Name  SETSxREPS  @RESTs rest</code></pre>
+          <pre><code>Exercise Name [exercise_id] | SETSxREPS | Rest: 90s</code></pre>
           <p>
-            The parser matches exercise names against the database using fuzzy search, so exact names are not required. If a match cannot be found, the exercise is skipped with a warning message telling you which line failed.
+            The bracketed ID is authoritative. If an ID is unknown, CurlBro warns instead of silently changing it to a different exercise variation.
           </p>
 
           <h3>AI-Generated Workouts</h3>
           <p>
-            CurlBro publishes an LLM-friendly exercise catalog at <code>/exercises.json</code> and detailed import instructions at <code>/llms.txt</code>. These files are designed to be consumed by AI assistants (ChatGPT, Claude, etc.) to generate workouts in CurlBro's import format. The workflow:
+            CurlBro publishes an LLM-friendly exercise catalog at <code>/ai/exercises.v1.json</code>, a compatibility alias at <code>/exercises.json</code>, and detailed import instructions at <code>/llms.txt</code>. These files are designed to be consumed by AI assistants (ChatGPT, Claude, etc.) to generate workouts in CurlBro's import format. The workflow:
           </p>
           <ol>
-            <li>Give your AI assistant the CurlBro exercise catalog URL or paste the contents of <code>llms.txt</code>.</li>
+            <li>Give your AI assistant the CurlBro exercise catalog URL and the exact-ID rules from <code>llms.txt</code>.</li>
             <li>Describe the workout you want (e.g., "Create a push day focusing on upper chest with 30-minute time constraint").</li>
             <li>The AI generates a workout in CurlBro's text format.</li>
             <li>Paste the generated text into CurlBro's import panel.</li>
-            <li>CurlBro parses the text, matches exercises against the database, and creates a workout ready to edit or start.</li>
+            <li>CurlBro parses the bracketed IDs and creates a workout ready to edit or start.</li>
           </ol>
 
           <h3>Sharing with Friends</h3>

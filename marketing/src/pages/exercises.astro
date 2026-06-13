@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="CurlBro Exercise Catalog for GPTs"
+  description="Public CurlBro exercise IDs and copy-paste workout import instructions for AI assistants."
+  canonicalUrl="https://curlbro.com/exercises/"
+>
+  <section class="relative bg-[var(--bg-root)] py-20 md:py-28">
+    <div class="mx-auto max-w-4xl px-5 sm:px-8">
+      <p class="eyebrow mb-4">Public catalog</p>
+      <h1
+        class="display-heading text-[var(--text-primary)]"
+        style="font-size:clamp(2.75rem, 8vw, 6rem)"
+      >
+        CurlBro exercises for GPTs
+      </h1>
+      <p class="mt-6 measure text-[var(--text-secondary)]" style="font-size:clamp(1.05rem, 2vw, 1.35rem); line-height:1.55">
+        Use this page to help an assistant generate workouts that import cleanly into CurlBro.
+        The public catalog includes stable exercise IDs and basic descriptors only.
+      </p>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-3">
+        <a href="/ai/exercises.v1.json" class="btn btn-primary">Catalog JSON</a>
+        <a href="/llms.txt" class="btn btn-ghost">LLM guide</a>
+        <a href="/app/" class="btn btn-ghost">Open CurlBro</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-[var(--border-subtle)] bg-[var(--bg-root)] py-16 md:py-20">
+    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="eyebrow mb-3">Import contract</p>
+        <h2 class="font-display text-3xl font-bold text-[var(--text-primary)]">Exact IDs only</h2>
+        <p class="mt-4 text-[var(--text-secondary)]" style="line-height:1.65">
+          Every exercise line must include a valid ID from the public catalog in square brackets.
+          CurlBro treats that ID as authoritative. The display name helps humans read the workout,
+          but the ID controls import.
+        </p>
+        <ul class="mt-6 space-y-3 text-[var(--text-secondary)]" style="line-height:1.55">
+          <li>Use only IDs from <code>/ai/exercises.v1.json</code>.</li>
+          <li>Do not invent exercise IDs.</li>
+          <li>Use seconds for timed work, such as <code>3x60s</code>.</li>
+          <li>Paste into CurlBro from Library, Import Workout.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-5">
+        <p class="eyebrow mb-3">Copyable example</p>
+        <pre class="overflow-x-auto text-sm text-[var(--text-primary)]" style="line-height:1.6"><code>## Push Day
+---
+Barbell Bench Press (Flat) [barbell_bench_press] | 4x8 | 185lb | Rest: 120s
+Incline Dumbbell Press [incline_dumbbell_press] | 3x10 | 50lb | Rest: 90s
+Face Pull (Cable) [face_pull] | 3x15 | Rest: 60s
+Plank [plank] | 3x60s | Rest: 45s</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-[var(--border-subtle)] bg-[var(--bg-root)] py-16 md:py-20">
+    <div class="mx-auto max-w-4xl px-5 sm:px-8">
+      <p class="eyebrow mb-3">Custom GPT setup</p>
+      <h2 class="font-display text-3xl font-bold text-[var(--text-primary)]">Suggested instructions</h2>
+      <p class="mt-4 text-[var(--text-secondary)]" style="line-height:1.65">
+        Add the catalog URL as reference material, then give the GPT these rules.
+      </p>
+      <pre class="mt-6 overflow-x-auto rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-5 text-sm text-[var(--text-primary)]" style="line-height:1.6"><code>You generate workouts for CurlBro.
+Use only exercise IDs from https://curlbro.com/ai/exercises.v1.json.
+Every exercise line must include the exact catalog ID in square brackets.
+Never invent IDs or output name-only exercise lines.
+Use this format:
+## Workout Name
+---
+Exercise Name [exercise_id] | 3x10 | Rest: 90s
+Exercise Name [exercise_id] | 4x8 | 185lb | Rest: 120s
+Tell users to paste the text in CurlBro: Library tab, Import Workout.</code></pre>
+    </div>
+  </section>
+</Base>

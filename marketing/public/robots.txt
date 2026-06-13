@@ -5,4 +5,5 @@ Sitemap: https://curlbro.com/sitemap.xml
 
 # LLM instructions for generating CurlBro workouts
 # See: /llms.txt
-# Exercise catalog: /exercises.json
+# Canonical public exercise catalog: /ai/exercises.v1.json
+# Compatibility catalog alias: /exercises.json
