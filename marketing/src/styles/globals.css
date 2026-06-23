@@ -549,6 +549,63 @@ html, body { background: var(--bg-root); }
   line-height: 1;
 }
 
+/* Touch / in-app-browser fallback: tap-to-play overlay (see animations.ts §6).
+   Scrubbing doesn't render video frames in iOS WKWebView, so on touch devices
+   the active video is shown directly, the launch splash is dropped, and each
+   phone gets a tappable play button. */
+.iphone-tap-mode .phone-frame > video { opacity: 1; }
+.iphone-tap-mode .video-splash { display: none; }
+
+.video-tap {
+  position: absolute;
+  inset: 6px;
+  z-index: 6;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 1.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 9, 11, 0.5);
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 240ms ease;
+}
+.phone-frame.is-playing .video-tap {
+  opacity: 0;
+  pointer-events: none;
+}
+.video-tap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding-left: 3px; /* optically center the play triangle */
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #09090b;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6);
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-tap { transition: none; }
+}
+
+/* Hero secondary text link ("Open web app") — subordinate to the two CTAs
+   but clearly interactive (readable color, not a muted/disabled-looking gray). */
+.hero-textlink {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 160ms ease;
+}
+.hero-textlink:hover { color: #22d3ee; }
+
 .iphone-beat-text h3 {
   font-family: var(--font-display);
   font-weight: 700;

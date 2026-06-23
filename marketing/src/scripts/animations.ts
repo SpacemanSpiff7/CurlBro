@@ -385,9 +385,10 @@ function initIPhoneSection() {
               v.getAttribute('data-iphone-video') === id,
             ),
           );
-          // Reset time of newly-active video so it starts fresh.
+          // Reset time of newly-active video so it starts fresh — but never
+          // rewind a video the user is actively playing (touch tap-to-play).
           const v = videoByBeat.get(id);
-          if (v && Number.isFinite(v.duration)) {
+          if (v && Number.isFinite(v.duration) && v.paused) {
             v.currentTime = 0;
           }
         }
@@ -400,6 +401,76 @@ function initIPhoneSection() {
     },
   );
   beats.forEach((b) => beatObserver.observe(b));
+
+  // ────────────────────────────────────────────────────────────────────
+  // Touch / in-app-browser fallback: tap-to-play.
+  //
+  // Scrubbing a paused <video> via currentTime does not render frames in
+  // iOS WKWebView — i.e. the Instagram / Facebook in-app browsers (and
+  // mobile Safari more generally) — so the user just sees blank phone
+  // screens. A tap is a real user gesture, and gesture-initiated
+  // video.play() is always permitted there. On touch devices we therefore
+  // skip the scrub: each beat gets a play overlay, and tapping plays that
+  // beat's video (muted, looping). Hover-capable pointers (desktop) fall
+  // through to the scroll-scrub below.
+  // ────────────────────────────────────────────────────────────────────
+  const isTouch =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(hover: none)').matches;
+
+  if (isTouch) {
+    stage.closest<HTMLElement>('.iphone-section')?.classList.add('iphone-tap-mode');
+
+    videoByBeat.forEach((video) => {
+      // Reduced-motion users get a single play per tap rather than a loop.
+      video.loop = !prefersReducedMotion;
+      video.muted = true;
+      const frame = video.closest<HTMLElement>('.phone-frame');
+      if (!frame) return;
+
+      const overlay = document.createElement('button');
+      overlay.type = 'button';
+      overlay.className = 'video-tap';
+      overlay.setAttribute('aria-label', 'Play demo video');
+      overlay.innerHTML =
+        '<span class="video-tap-btn"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>';
+      frame.appendChild(overlay);
+
+      const toggle = () => {
+        if (video.paused) {
+          // Only one demo plays at a time.
+          videoByBeat.forEach((other) => {
+            if (other !== video && !other.paused) other.pause();
+          });
+          const p = video.play();
+          if (p && typeof p.catch === 'function') p.catch(() => { /* noop */ });
+        } else {
+          video.pause();
+        }
+      };
+
+      overlay.addEventListener('click', toggle);
+      video.addEventListener('click', toggle);
+      video.addEventListener('play', () => frame.classList.add('is-playing'));
+      video.addEventListener('pause', () => frame.classList.remove('is-playing'));
+    });
+
+    // Pause a demo once its beat scrolls well out of view (battery hygiene).
+    const offscreen = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            const v = entry.target.querySelector('video');
+            if (v && !v.paused) v.pause();
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    beats.forEach((b) => offscreen.observe(b));
+
+    return; // touch devices: no scrub, no first-frame kick
+  }
 
   // Force each video to decode its first frame. Without this, browsers
   // (especially Safari and Firefox) don't render anything for muted
