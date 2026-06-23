@@ -6,6 +6,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from '@/components/ui/sheet';
+import { AppStoreBadge } from '@/components/shared/AppStoreBadge';
 
 interface AboutPageProps {
   open: boolean;
@@ -43,6 +44,12 @@ export function AboutPage({ open, onOpenChange }: AboutPageProps) {
             Free workout builder with smart conflict
             detection, and gap analysis for balanced training.
           </p>
+
+          {/* Download on the App Store */}
+          <div className="flex flex-col gap-2">
+            <span className="text-xs text-text-tertiary">Now on iPhone</span>
+            <AppStoreBadge placement="about" />
+          </div>
 
           {/* Links */}
           <div className="flex flex-col gap-3">

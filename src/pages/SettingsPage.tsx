@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
-import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler, Sparkles } from 'lucide-react';
+import { RotateCcw, Trash2, Info, Shield, FileText, ExternalLink, Cookie, Mail, BookOpen, Dumbbell, Sun, Moon, Bug, HelpCircle, Zap, Hammer, Timer, ChevronDown, Weight, Ruler, Sparkles, Smartphone } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { resetCookieConsent } from '@/utils/cookieConsent';
@@ -9,6 +9,8 @@ import { JoinListSheet } from '@/components/shared/JoinListSheet';
 import { PageLayout } from '@/components/shared/PageLayout';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { useStore } from '@/store';
+import { APP_STORE_URL } from '@/config/app';
+import { trackEvent } from '@/utils/analytics';
 
 const AboutPage = lazy(() => import('./AboutPage').then(m => ({ default: m.AboutPage })));
 const PrivacyPolicyPage = lazy(() => import('./PrivacyPolicyPage').then(m => ({ default: m.PrivacyPolicyPage })));
@@ -520,6 +522,22 @@ export function SettingsPage() {
           >
             <Info size={14} className="mr-2" />
             About CurlBro
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="w-full justify-start text-text-secondary"
+          >
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('app_store_click', { placement: 'settings' })}
+            >
+              <Smartphone size={14} className="mr-2" />
+              Get the iPhone App
+            </a>
           </Button>
           <Button
             variant="ghost"

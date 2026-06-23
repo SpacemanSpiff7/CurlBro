@@ -13,6 +13,7 @@ import {
 import { MockFilterChips } from '@/components/guide/illustrations/MockFilterChips';
 import { MockRestTimerRing } from '@/components/guide/illustrations/MockRestTimerRing';
 import { JoinListSheet } from '@/components/shared/JoinListSheet';
+import { AppStoreBadge } from '@/components/shared/AppStoreBadge';
 import { markWelcomeSeen } from '@/utils/welcomeState';
 
 const BuildGuide = lazy(() => import('./BuildGuide').then(m => ({ default: m.BuildGuide })));
@@ -242,6 +243,16 @@ export function WelcomePage({ onDismiss }: WelcomePageProps) {
           >
             Join Our List
           </motion.button>
+
+          {/* Download on the App Store */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.45 }}
+            className="mt-6"
+          >
+            <AppStoreBadge placement="welcome" />
+          </motion.div>
 
           {/* Guide scroll hint */}
           <motion.button
