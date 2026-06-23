@@ -11,6 +11,14 @@ exercise filtering (excludes sore/fatigued muscles, boosts recovery exercises).
 Flexible exercise tracking: per-exercise tracking flags (weight/reps/duration/distance)
 auto-inferred from category+equipment. Unit preferences (lb/kg, mi/km) with conversion.
 
+## Top Priority: App Store downloads
+CurlBro is **live on the App Store** (iOS): https://apps.apple.com/us/app/curlbro/id6762241598
+(app id `6762241598`). As of the iOS launch, **driving App Store downloads is the #1 product
+priority** — above web-app engagement and email signups. Surface the "Download on the App Store"
+link/badge prominently (web app Welcome hero, About, Settings; marketing landing hero) and treat
+it as the primary CTA; secondary actions ("open web app", email list) sit beneath it. The shared
+App Store URL/ID lives in `src/config/app.ts`; clicks fire the `app_store_click` GA4 event.
+
 ## Tech Stack
 - React 19 / TypeScript (strict) / Vite 7
 - Zustand (state) + Immer (immutable updates) + Zod (validation)
@@ -78,6 +86,9 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `public/manifest.json` — PWA web app manifest
 - `public/ads.txt` — AdSense publisher verification (placeholder until approved)
 - `src/config/ads.ts` — ad slot definitions, AdSense kill switch (`import.meta.env.PROD && false`), publisher ID
+- `src/config/app.ts` — App Store ID/URL + `AppStorePlacement` analytics type (single source of truth for the iOS app link)
+- `src/utils/analytics.ts` — `trackEvent()` guarded GA4 wrapper (fires `app_store_click`)
+- `src/components/shared/AppStoreBadge.tsx` — Apple "Download on the App Store" badge (official SVG, `dark:`-swapped); links to the iOS app and tracks the click
 - `src/data/houseAds.ts` — 24 house ads across 5 categories (tips)
 - `src/components/shared/CookieConsent.tsx` — EU cookie consent banner + Consent Mode v2 integration
 - `src/utils/fieldDefaults.ts` — `inferTrackingFlags(exercise)` — auto-infers tracking flags from category+equipment
@@ -181,7 +192,8 @@ Agent definitions live in `.claude/agents/`.
 - `foam_roller` is a valid equipment type (used by mobility exercises)
 - Cardio equipment types: `treadmill`, `elliptical`, `stationary_bike`, `rowing_machine`, `stair_climber`, `jump_rope`
 - Public asset paths in JSX must use `import.meta.env.BASE_URL` prefix — hardcoded `/foo.png`
-  breaks in production where base is `/curlbro/`. Vite only rewrites paths in index.html, not JSX.
+  breaks in production where base is `/app/` (the SPA is served at curlbro.com/app/; the marketing
+  landing page is at the root). Vite only rewrites paths in index.html, not JSX.
 - Ad system uses a two-tier approach: Google AdSense (programmatic, behind `ADSENSE_ENABLED`
   kill switch) with house ad fallbacks. Currently house ads only — see
   `src/components/ads/CLAUDE.md` for activation checklist. `ADSENSE_ENABLED` uses

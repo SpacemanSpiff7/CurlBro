@@ -4,6 +4,8 @@ A client-side gym workout builder powered by an exercise graph of 345 exercises 
 
 Mobile-first. Dark mode. No server required.
 
+**📱 Now on iPhone — [Download CurlBro on the App Store](https://apps.apple.com/us/app/curlbro/id6762241598).** The native iOS app is the primary way to use CurlBro; the web app at [curlbro.com/app](https://curlbro.com/app/) remains free and fully featured.
+
 ---
 
 ## Quick Start

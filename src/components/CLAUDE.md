@@ -205,6 +205,12 @@
   `welcomeState.ts` sessionStorage helpers. Re-triggerable from Settings via custom event.
 - PrivacyPolicyPage — Bottom sheet (85dvh) with privacy policy content. Opened from Settings.
 - AboutPage — Bottom sheet (60dvh) with app info, credits, contact links. Opened from Settings.
+- AppStoreBadge (`shared/`) — Apple "Download on the App Store" badge linking to the iOS app
+  (driving App Store downloads is the top product priority — see root CLAUDE.md). Renders Apple's
+  official black/white SVGs (`public/app-store-badge-*.svg`) swapped via the `dark:` class (black on
+  light, white on dark — no JS, no hydration flash). Anchor keeps a 44px touch target and fires
+  `trackEvent('app_store_click', { placement })`. Used in the WelcomePage hero, AboutPage, and a
+  SettingsPage row. URL/ID and the `AppStorePlacement` type live in `src/config/app.ts`.
 - BuildGuide (`pages/`) — Bottom sheet (95dvh) "Build a Workout" quick start guide with 7
   scroll-reveal sections. Uses GuideSection, ScrollProgressBar, GuideTip shared components
   and mock illustrations. Opened from Settings > Help > Quick Start.
