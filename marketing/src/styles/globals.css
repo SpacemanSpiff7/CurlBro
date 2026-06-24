@@ -606,6 +606,57 @@ html, body { background: var(--bg-root); }
 }
 .hero-textlink:hover { color: #22d3ee; }
 
+/* Apple "Download on the App Store" badge — official asset, used unmodified.
+   Only the link wrapper is styled (subtle hover + focus ring). */
+.appstore-badge-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  transition: opacity 140ms ease;
+}
+.appstore-badge-link:hover { opacity: 0.85; }
+.appstore-badge-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+.appstore-badge {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+/* Closing App Store CTA at the end of the iPhone demo section */
+.iphone-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0 1rem;
+  text-align: center;
+}
+.iphone-cta-text {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.iphone-cta .appstore-badge { height: 52px; }
+
+/* Touch / in-app-browser (tap-to-play, see animations.ts §6): drop the 200vh
+   pinned scroll-scrub envelope and let the iPhone section scroll naturally.
+   Hover-capable pointers (desktop) keep the fancy pinned scrub. */
+.iphone-tap-mode .iphone-beat {
+  min-height: auto;
+  padding: 2.5rem 0;
+}
+.iphone-tap-mode .iphone-beat-stage,
+.iphone-tap-mode .iphone-beat-phone,
+.iphone-tap-mode .iphone-beat-text {
+  position: static;
+  top: auto;
+  height: auto;
+}
+
 .iphone-beat-text h3 {
   font-family: var(--font-display);
   font-weight: 700;
