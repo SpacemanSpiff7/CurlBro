@@ -33,8 +33,10 @@
 .measure { max-width: 70ch; }
 .measure-tight { max-width: 36ch; }
 
-/* Native-smooth scroll on anchor links. Reduced motion turns it off. */
-html { scroll-behavior: smooth; }
+/* Native-smooth scroll on anchor links. Reduced motion turns it off.
+   scroll-padding-top keeps anchor targets clear of the 52px sticky nav
+   on native hash jumps and the skip-link. */
+html { scroll-behavior: smooth; scroll-padding-top: 56px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }

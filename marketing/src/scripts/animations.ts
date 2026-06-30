@@ -151,48 +151,77 @@ function initStickyTitleShrink() {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// 4. Hero email-form reveal
+// Nav anchor scrolling.
+//
+// The top nav renders on EVERY page (it lives in Base.astro), but the home
+// sections (#iphone, #whole-idea, #get-in-touch) only exist on the home page.
+// So nav links use the absolute-to-home form `/#section`:
+//   - On the home page  → intercept and smooth-scroll to the section.
+//   - On any other page → let the browser navigate to `/#section`; the home
+//     page then runs initHashOnLoad() and scrolls to the section after load.
+// Body-pin sections scroll ~0.3vh deeper so the pinned body lands centered;
+// other sections scroll to just under the sticky nav.
 // ────────────────────────────────────────────────────────────────────────
 
-// ────────────────────────────────────────────────────────────────────────
-// Nav anchor scrolling — for sections with sticky body-pin, scroll into the
-// section past its entry phase so the body lands in its locked center
-// position. For sections without body-pin, scroll to top normally.
-// ────────────────────────────────────────────────────────────────────────
+const NAV_OFFSET = 52; // sticky nav height (h-[52px] in TopNav)
+
+function scrollToSection(target: HTMLElement) {
+  const sectionTop = window.scrollY + target.getBoundingClientRect().top;
+  const hasBodyPin = !!target.querySelector('.section-body-pin');
+  const offset = hasBodyPin ? window.innerHeight * 0.3 : -NAV_OFFSET;
+  window.scrollTo({
+    top: sectionTop + offset,
+    behavior: prefersReducedMotion ? 'auto' : 'smooth',
+  });
+}
 
 function initSmoothAnchors() {
-  const links = document.querySelectorAll<HTMLAnchorElement>(
-    'a[href^="#"]:not([href="#"])',
-  );
-  links.forEach((link) => {
+  document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
     link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href?.startsWith('#')) return;
-      const target = document.querySelector<HTMLElement>(href);
-      if (!target) return;
-
-      e.preventDefault();
-
-      const sectionTop = window.scrollY + target.getBoundingClientRect().top;
-      const hasBodyPin = !!target.querySelector('.section-body-pin');
-
-      // Scroll deeper into sections that have body-pin so the body lands
-      // in its centered locked position, with the sticky title at the top.
-      // ~30vh of section scroll-into puts body just past pin trigger and
-      // title firmly docked.
-      const offset = hasBodyPin ? window.innerHeight * 0.3 : 0;
-
-      window.scrollTo({
-        top: sectionTop + offset,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      });
-
+      const url = new URL(link.href, location.href);
+      if (!url.hash || url.hash === '#') return; // not a hash link → browser handles
+      if (url.pathname !== location.pathname) return; // different page → navigate; on-load scrolls
+      const target = document.querySelector<HTMLElement>(url.hash);
+      if (!target) return; // hash not on this page → let the browser handle it
+      e.preventDefault(); // same page + target exists → smooth scroll
+      scrollToSection(target);
       try {
-        history.replaceState(null, '', href);
+        history.replaceState(null, '', url.hash);
       } catch {
         /* noop */
       }
     });
+  });
+}
+
+// When the home page loads with a hash (e.g. arriving at /#whole-idea from the
+// exercises page), scroll to the target with our offset, overriding the
+// browser's native jump. Two rAFs let layout (sticky sections, pinned phone,
+// fonts) settle first.
+function initHashOnLoad() {
+  if (!location.hash || location.hash === '#') return;
+  const target = document.querySelector<HTMLElement>(location.hash);
+  if (!target) return;
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => scrollToSection(target)),
+  );
+}
+
+// The CurlBro logo links to "/" so it always returns home. When already on the
+// home page, intercept the click and smooth-scroll to the top instead of doing
+// a full reload.
+function initHomeLogo() {
+  const logo = document.querySelector<HTMLAnchorElement>('[data-home-link]');
+  if (!logo) return;
+  logo.addEventListener('click', (e) => {
+    if (location.pathname !== '/') return; // other pages: navigate to "/" normally
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    try {
+      history.replaceState(null, '', '/');
+    } catch {
+      /* noop */
+    }
   });
 }
 
@@ -587,10 +616,6 @@ function initIPhoneSection() {
 
   // When the active beat changes, snap currentTime to the beat-start so we
   // don't see a quick rewind from the previous beat's last frame.
-  const originalBeatObserver = beatObserver;
-  // (already wired above; we hook into the same intersection callback by
-  //  resetting currentTime/targetTime when an is-active beat is set)
-  void originalBeatObserver;
   const observer2 = new MutationObserver(() => {
     // active beat changed — reset currentTime so video starts at frame 0
     currentTime = 0;
@@ -599,11 +624,6 @@ function initIPhoneSection() {
   beats.forEach((b) =>
     observer2.observe(b, { attributes: true, attributeFilter: ['class'] }),
   );
-
-  videos.forEach((v) => {
-    if (v.readyState >= 1) return;
-    v.addEventListener('loadedmetadata', () => {}, { once: true });
-  });
 
   rafId = window.requestAnimationFrame(tick);
   void rafId;
@@ -695,6 +715,8 @@ function init() {
   initReadingProgress();
   initStickyTitleShrink();
   initSmoothAnchors();
+  initHashOnLoad();
+  initHomeLogo();
   initFormReveal();
   initHeroLogoBurst();
   initIPhoneSection();

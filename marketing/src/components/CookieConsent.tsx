@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
 
 // Same storage key as the SPA so a single accept/reject decision applies
 // across the marketing site AND the web app at /app/.
@@ -22,32 +22,60 @@ function updateGtagConsent(granted: boolean) {
   });
 }
 
-export function CookieConsent() {
-  // Always render hidden first; useEffect decides if banner should appear.
-  // This avoids any SSR/hydration mismatch on mobile webkit.
-  const [visible, setVisible] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
+// ── Banner-visibility external store ────────────────────────────────────
+// Whether the banner shows is client-only state: it depends on a localStorage
+// read that must happen AFTER hydration (reading it during render would cause
+// an SSR/hydration mismatch on mobile webkit). useSyncExternalStore renders the
+// server snapshot (hidden) first, then syncs to the real client value once
+// mounted — the React-blessed alternative to a synchronous setState-in-effect.
+let bannerVisible = false;
+let initialized = false;
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    setHydrated(true);
-    try {
-      const stored = localStorage.getItem(CONSENT_KEY);
-      if (stored === 'granted') {
-        updateGtagConsent(true);
-        return;
-      }
-      if (stored === 'denied') return;
-      setVisible(true);
-    } catch {
-      setVisible(true);
+function emit() {
+  for (const listener of listeners) listener();
+}
+
+function setBannerVisible(next: boolean) {
+  if (bannerVisible === next) return;
+  bannerVisible = next;
+  emit();
+}
+
+// Read the stored decision once, the first time we mount on the client.
+function initFromStorage() {
+  if (initialized) return;
+  initialized = true;
+  try {
+    const stored = localStorage.getItem(CONSENT_KEY);
+    if (stored === 'granted') {
+      updateGtagConsent(true);
+      return;
     }
-  }, []);
+    if (stored === 'denied') return;
+    bannerVisible = true; // no decision yet → show the banner
+  } catch {
+    bannerVisible = true; // storage unavailable → show the banner
+  }
+}
 
-  useEffect(() => {
-    const handleReset = () => setVisible(true);
-    window.addEventListener('curlbro_consent_reset', handleReset);
-    return () => window.removeEventListener('curlbro_consent_reset', handleReset);
-  }, []);
+function subscribe(callback: () => void) {
+  listeners.add(callback);
+  initFromStorage();
+  // Settings > "reset consent" re-opens the banner without clearing storage.
+  const handleReset = () => setBannerVisible(true);
+  window.addEventListener('curlbro_consent_reset', handleReset);
+  return () => {
+    listeners.delete(callback);
+    window.removeEventListener('curlbro_consent_reset', handleReset);
+  };
+}
+
+const getSnapshot = () => bannerVisible;
+const getServerSnapshot = () => false;
+
+export function CookieConsent() {
+  const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const handleAccept = () => {
     try {
@@ -56,7 +84,7 @@ export function CookieConsent() {
       /* storage unavailable */
     }
     updateGtagConsent(true);
-    setVisible(false);
+    setBannerVisible(false);
   };
 
   const handleReject = () => {
@@ -65,10 +93,10 @@ export function CookieConsent() {
     } catch {
       /* storage unavailable */
     }
-    setVisible(false);
+    setBannerVisible(false);
   };
 
-  if (!hydrated || !visible) return null;
+  if (!visible) return null;
 
   return (
     <div

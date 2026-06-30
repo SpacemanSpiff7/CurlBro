@@ -194,6 +194,11 @@ Agent definitions live in `.claude/agents/`.
 - Public asset paths in JSX must use `import.meta.env.BASE_URL` prefix — hardcoded `/foo.png`
   breaks in production where base is `/app/` (the SPA is served at curlbro.com/app/; the marketing
   landing page is at the root). Vite only rewrites paths in index.html, not JSX.
+- Marketing site (Astro, at curlbro.com/) lives in `marketing/` — see `marketing/CLAUDE.md`.
+  Its `TopNav` renders on **every** page (home + `/exercises/`), so home-section nav links MUST
+  use the absolute-to-home hash form `/#section` (never bare `#section`, which dies on
+  `/exercises/`), and the logo MUST link to `/`. Enforced by the `lint:nav` grep guard in
+  `npm run lint`. New top-level content gets its own page route, not a home anchor.
 - Ad system uses a two-tier approach: Google AdSense (programmatic, behind `ADSENSE_ENABLED`
   kill switch) with house ad fallbacks. Currently house ads only — see
   `src/components/ads/CLAUDE.md` for activation checklist. `ADSENSE_ENABLED` uses
