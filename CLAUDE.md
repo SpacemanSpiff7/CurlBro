@@ -79,8 +79,15 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `src/utils/calorieEstimate.ts` — MET-based calorie estimation (estimateCalories, pure function, requires bodyWeightKg + graph)
 - `src/utils/tcxExport.ts` — Strava-compatible TCX XML generator (generateTcx, pure function, string-based XML)
 - `src/utils/groupUtils.ts` — superset group derivation (deriveGroups, getGroupLabel, ExerciseGroup interface)
-- `public/exercises.json` — generated exercise catalog (run `npx tsx scripts/generate-exercises.ts`)
-- `public/llms.txt` — LLM workout generation instructions (import format + guidance)
+- `marketing/public/ai/exercises.v1.json` — canonical public exercise catalog for GPT/crawler use.
+  Generated in the **curlbro-app repo** (`npm run generate-public-exercises`, source of truth:
+  the iOS app's `CurlBro/Resources/`) and copied here; `marketing/public/exercises.json` and
+  `public/exercises.json` must be byte-identical copies (`prebuild` copies marketing → public and
+  runs `scripts/validate-public-exercises.mjs`, which pins the expected exercise count — bump
+  `EXPECTED_COUNT` when syncing). NOTE: the catalog is a superset of this web app's graph —
+  some exercises are iOS-only. `scripts/generate-exercises.ts` (from `src/data`) is legacy;
+  its output is overwritten by prebuild.
+- `marketing/public/llms.txt` — LLM workout generation instructions (import format + guidance)
 - `public/robots.txt` — points crawlers to llms.txt, exercises.json, and sitemap.xml
 - `public/sitemap.xml` — sitemap for search engine crawlers
 - `public/manifest.json` — PWA web app manifest

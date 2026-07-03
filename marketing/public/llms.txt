@@ -13,7 +13,7 @@ Use the public catalog at:
 - https://curlbro.com/ai/exercises.v1.json
 - https://curlbro.com/exercises.json
 
-The catalog contains 413 exercises. Each row only includes stable public descriptors:
+The catalog contains 400+ exercises. Each row only includes stable public descriptors:
 id, name, category, movement_pattern, force_type, equipment, primary_muscles,
 secondary_muscles, workout_position, difficulty, bilateral,
 rep_range_hypertrophy, and rep_range_strength.
@@ -21,6 +21,10 @@ rep_range_hypertrophy, and rep_range_strength.
 Do not ask for or rely on internal relationship data, notes, videos, rankings,
 conflicts, seeded workouts, or private recommendation rules. They are not part
 of the public import contract.
+
+The catalog tracks the CurlBro iOS app. The web app at https://curlbro.com/app/
+supports most of the catalog, but some newer exercises are iOS-only. If an ID
+fails to import in the web app, choose another valid catalog ID.
 
 ## Required Import Format
 

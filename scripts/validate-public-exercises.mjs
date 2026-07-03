@@ -5,7 +5,7 @@ import { join } from 'node:path';
 const ROOT = new URL('..', import.meta.url).pathname;
 const CANONICAL = 'https://curlbro.com/ai/exercises.v1.json';
 const INSTRUCTIONS = 'https://curlbro.com/llms.txt';
-const EXPECTED_COUNT = 413;
+const EXPECTED_COUNT = 428;
 const REQUIRED_CATALOG_FIELDS = Object.freeze([
   'schema_version',
   'canonical_url',
@@ -111,4 +111,4 @@ if (errors.length > 0) {
   for (const error of errors) process.stderr.write(`public catalog error: ${error}\n`);
   process.exit(1);
 }
-process.stderr.write('Public exercise catalog validated (413 exercises, no forbidden keys)\n');
+process.stderr.write(`Public exercise catalog validated (${EXPECTED_COUNT} exercises, no forbidden keys)\n`);

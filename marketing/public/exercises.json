@@ -2,7 +2,7 @@
   "schema_version": 1,
   "canonical_url": "https://curlbro.com/ai/exercises.v1.json",
   "import_instructions_url": "https://curlbro.com/llms.txt",
-  "exercise_count": 413,
+  "exercise_count": 428,
   "exercises": [
     {
       "id": "bodyweight_squat",
@@ -623,7 +623,7 @@
         "hamstrings",
         "core"
       ],
-      "workout_position": "mid",
+      "workout_position": "early_mid",
       "difficulty": "beginner",
       "bilateral": true,
       "rep_range_hypertrophy": "10-15",
@@ -755,8 +755,8 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "30-60 seconds",
-      "rep_range_strength": "45-90 seconds"
+      "rep_range_hypertrophy": "90-150 seconds",
+      "rep_range_strength": "60-120 seconds"
     },
     {
       "id": "single_leg_box_squat",
@@ -2277,6 +2277,25 @@
       "rep_range_strength": "6-10 per leg"
     },
     {
+      "id": "tibialis_raise",
+      "name": "Tibialis Raise (Wall-Supported)",
+      "category": "isolation",
+      "movement_pattern": "ankle_dorsiflexion_mobility",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "15-25",
+      "rep_range_strength": "12-20"
+    },
+    {
       "id": "barbell_bench_press",
       "name": "Barbell Bench Press (Flat)",
       "category": "compound",
@@ -2506,12 +2525,33 @@
     },
     {
       "id": "floor_press",
-      "name": "Floor Press (Barbell or Dumbbell)",
+      "name": "Floor Press (Barbell)",
       "category": "compound",
       "movement_pattern": "horizontal_push",
       "force_type": "push",
       "equipment": [
-        "barbell",
+        "barbell"
+      ],
+      "primary_muscles": [
+        "chest",
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-12",
+      "rep_range_strength": "3-8"
+    },
+    {
+      "id": "dumbbell_floor_press",
+      "name": "Floor Press (Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -2861,28 +2901,6 @@
       "rep_range_strength": "8-12"
     },
     {
-      "id": "squeeze_press",
-      "name": "Squeeze Press (Dumbbell)",
-      "category": "compound",
-      "movement_pattern": "horizontal_push",
-      "force_type": "push",
-      "equipment": [
-        "dumbbell",
-        "flat_bench"
-      ],
-      "primary_muscles": [
-        "chest"
-      ],
-      "secondary_muscles": [
-        "triceps"
-      ],
-      "workout_position": "mid_late",
-      "difficulty": "intermediate",
-      "bilateral": true,
-      "rep_range_hypertrophy": "10-15",
-      "rep_range_strength": "8-12"
-    },
-    {
       "id": "svend_press",
       "name": "Svend Press (Plate Squeeze)",
       "category": "isolation",
@@ -3199,8 +3217,32 @@
       "workout_position": "early_mid",
       "difficulty": "intermediate",
       "bilateral": true,
-      "rep_range_hypertrophy": "4 × 10–15s",
-      "rep_range_strength": "4 × 10–15s"
+      "rep_range_hypertrophy": "10-15 seconds",
+      "rep_range_strength": "10-15 seconds"
+    },
+    {
+      "id": "ring_push_up",
+      "name": "Ring Push-Up",
+      "category": "compound",
+      "movement_pattern": "horizontal_push",
+      "force_type": "push",
+      "equipment": [
+        "gymnastics_rings",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "5-10"
     },
     {
       "id": "barbell_row",
@@ -3425,13 +3467,34 @@
     },
     {
       "id": "bodyweight_row",
-      "name": "Inverted Row (Bodyweight Row)",
+      "name": "Table Row (Bodyweight Inverted Row)",
       "category": "compound",
       "movement_pattern": "horizontal_pull",
       "force_type": "pull",
       "equipment": [
-        "bodyweight",
-        "smith_machine"
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "core"
+      ],
+      "workout_position": "mid",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "8-15",
+      "rep_range_strength": "6-12"
+    },
+    {
+      "id": "towel_row",
+      "name": "Towel Row (Doorway)",
+      "category": "compound",
+      "movement_pattern": "horizontal_pull",
+      "force_type": "pull",
+      "equipment": [
+        "bodyweight"
       ],
       "primary_muscles": [
         "upper_back"
@@ -3857,7 +3920,7 @@
     },
     {
       "id": "inverted_row",
-      "name": "Inverted Row (Bar or Rings)",
+      "name": "Inverted Row (Bar)",
       "category": "compound",
       "movement_pattern": "horizontal_pull",
       "force_type": "pull",
@@ -4331,6 +4394,30 @@
       "bilateral": true,
       "rep_range_hypertrophy": "8-15",
       "rep_range_strength": "5-10"
+    },
+    {
+      "id": "ring_pull_up",
+      "name": "Ring Pull-Up",
+      "category": "compound",
+      "movement_pattern": "vertical_pull",
+      "force_type": "pull",
+      "equipment": [
+        "gymnastics_rings",
+        "bodyweight"
+      ],
+      "primary_muscles": [
+        "upper_back"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "forearms",
+        "core"
+      ],
+      "workout_position": "early_mid",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "5-12",
+      "rep_range_strength": "3-8"
     },
     {
       "id": "flex_hang",
@@ -5072,13 +5159,12 @@
     },
     {
       "id": "upright_row",
-      "name": "Upright Row (Cable or Dumbbell)",
+      "name": "Upright Row (Cable)",
       "category": "compound",
       "movement_pattern": "shoulder_abduction",
       "force_type": "pull",
       "equipment": [
-        "cable_machine",
-        "dumbbell"
+        "cable_machine"
       ],
       "primary_muscles": [
         "shoulders",
@@ -5482,12 +5568,11 @@
     },
     {
       "id": "preacher_curl",
-      "name": "Preacher Curl",
+      "name": "Dumbbell Preacher Curl",
       "category": "isolation",
       "movement_pattern": "elbow_flexion",
       "force_type": "pull",
       "equipment": [
-        "ez_bar",
         "dumbbell",
         "preacher_curl_bench"
       ],
@@ -5542,12 +5627,31 @@
     },
     {
       "id": "spider_curl",
-      "name": "Spider Curl",
+      "name": "Spider Curl (Dumbbell)",
       "category": "isolation",
       "movement_pattern": "elbow_flexion",
       "force_type": "pull",
       "equipment": [
         "dumbbell",
+        "adjustable_bench"
+      ],
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "10-15",
+      "rep_range_strength": "8-12"
+    },
+    {
+      "id": "ez_bar_spider_curl",
+      "name": "Spider Curl (EZ Bar)",
+      "category": "isolation",
+      "movement_pattern": "elbow_flexion",
+      "force_type": "pull",
+      "equipment": [
         "ez_bar",
         "adjustable_bench"
       ],
@@ -5623,12 +5727,11 @@
     },
     {
       "id": "reverse_curl",
-      "name": "Reverse Curl (EZ Bar or Barbell)",
+      "name": "Reverse Curl (Barbell)",
       "category": "isolation",
       "movement_pattern": "elbow_flexion",
       "force_type": "pull",
       "equipment": [
-        "ez_bar",
         "barbell"
       ],
       "primary_muscles": [
@@ -5804,12 +5907,30 @@
     },
     {
       "id": "wrist_curl",
-      "name": "Wrist Curl (Barbell or Dumbbell)",
+      "name": "Wrist Curl (Barbell)",
       "category": "isolation",
       "movement_pattern": "wrist_flexion",
       "force_type": "pull",
       "equipment": [
-        "barbell",
+        "barbell"
+      ],
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15"
+    },
+    {
+      "id": "dumbbell_wrist_curl",
+      "name": "Wrist Curl (Dumbbell)",
+      "category": "isolation",
+      "movement_pattern": "wrist_flexion",
+      "force_type": "pull",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -5824,12 +5945,30 @@
     },
     {
       "id": "reverse_wrist_curl",
-      "name": "Reverse Wrist Curl",
+      "name": "Reverse Wrist Curl (Barbell)",
       "category": "isolation",
       "movement_pattern": "wrist_extension",
       "force_type": "push",
       "equipment": [
-        "barbell",
+        "barbell"
+      ],
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "12-20",
+      "rep_range_strength": "10-15"
+    },
+    {
+      "id": "dumbbell_reverse_wrist_curl",
+      "name": "Reverse Wrist Curl (Dumbbell)",
+      "category": "isolation",
+      "movement_pattern": "wrist_extension",
+      "force_type": "push",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -5844,14 +5983,37 @@
     },
     {
       "id": "farmer_walk",
-      "name": "Farmer's Walk (Loaded Carry)",
+      "name": "Farmer's Walk (Dumbbell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "dumbbell",
-        "kettlebell",
-        "trap_bar"
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "forearms",
+        "traps",
+        "core"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "glutes",
+        "calves"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-60 seconds",
+      "rep_range_strength": "20-30 seconds heavy"
+    },
+    {
+      "id": "kb_farmer_walk",
+      "name": "Farmer's Walk (Kettlebell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
+        "kettlebell"
       ],
       "primary_muscles": [
         "forearms",
@@ -6117,12 +6279,34 @@
     },
     {
       "id": "jm_press",
-      "name": "JM Press",
+      "name": "JM Press (Barbell)",
       "category": "compound",
       "movement_pattern": "elbow_extension",
       "force_type": "push",
       "equipment": [
         "barbell",
+        "flat_bench"
+      ],
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "workout_position": "mid",
+      "difficulty": "advanced",
+      "bilateral": true,
+      "rep_range_hypertrophy": "6-10",
+      "rep_range_strength": "4-6"
+    },
+    {
+      "id": "ez_bar_jm_press",
+      "name": "JM Press (EZ Bar)",
+      "category": "compound",
+      "movement_pattern": "elbow_extension",
+      "force_type": "push",
+      "equipment": [
         "ez_bar",
         "flat_bench"
       ],
@@ -6488,7 +6672,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "30-60 seconds",
+      "rep_range_hypertrophy": "90-150 seconds",
       "rep_range_strength": "n/a"
     },
     {
@@ -6509,7 +6693,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": false,
-      "rep_range_hypertrophy": "20-45 seconds per side",
+      "rep_range_hypertrophy": "90-150 seconds per side",
       "rep_range_strength": "n/a"
     },
     {
@@ -6578,12 +6762,30 @@
     },
     {
       "id": "pallof_press",
-      "name": "Pallof Press",
+      "name": "Pallof Press (Cable)",
       "category": "isolation",
       "movement_pattern": "anti_rotation",
       "force_type": "push",
       "equipment": [
-        "cable_machine",
+        "cable_machine"
+      ],
+      "primary_muscles": [
+        "core"
+      ],
+      "secondary_muscles": [],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "10-15 per side",
+      "rep_range_strength": "8-12 per side"
+    },
+    {
+      "id": "band_pallof_press",
+      "name": "Pallof Press (Band)",
+      "category": "isolation",
+      "movement_pattern": "anti_rotation",
+      "force_type": "push",
+      "equipment": [
         "resistance_band"
       ],
       "primary_muscles": [
@@ -6772,12 +6974,35 @@
     },
     {
       "id": "suitcase_carry",
-      "name": "Suitcase Carry (Single-Arm Farmer's Walk)",
+      "name": "Suitcase Carry (Dumbbell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "dumbbell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "core",
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "traps",
+        "glutes"
+      ],
+      "workout_position": "late",
+      "difficulty": "beginner",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-45 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side"
+    },
+    {
+      "id": "kb_suitcase_carry",
+      "name": "Suitcase Carry (Kettlebell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
         "kettlebell"
       ],
       "primary_muscles": [
@@ -6943,12 +7168,34 @@
     },
     {
       "id": "overhead_carry",
-      "name": "Overhead Carry",
+      "name": "Overhead Carry (Dumbbell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "dumbbell",
+        "dumbbell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "triceps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-45 seconds",
+      "rep_range_strength": "20-30 seconds heavy"
+    },
+    {
+      "id": "kb_overhead_carry",
+      "name": "Overhead Carry (Kettlebell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
         "kettlebell"
       ],
       "primary_muscles": [
@@ -6967,12 +7214,34 @@
     },
     {
       "id": "rack_carry",
-      "name": "Rack Carry (Front Rack Walk)",
+      "name": "Rack Carry (Kettlebell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "kettlebell",
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "traps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": true,
+      "rep_range_hypertrophy": "30-45 seconds",
+      "rep_range_strength": "20-30 seconds heavy"
+    },
+    {
+      "id": "dumbbell_rack_carry",
+      "name": "Rack Carry (Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -6991,12 +7260,35 @@
     },
     {
       "id": "cross_body_carry",
-      "name": "Cross-Body Carry (Offset Carry)",
+      "name": "Cross-Body Carry (Kettlebell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "kettlebell",
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "core",
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "forearms",
+        "glutes"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "advanced",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-40 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side"
+    },
+    {
+      "id": "dumbbell_cross_body_carry",
+      "name": "Cross-Body Carry (Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -7016,12 +7308,34 @@
     },
     {
       "id": "waiter_walk",
-      "name": "Waiter Walk (Single-Arm Overhead Carry)",
+      "name": "Waiter Walk (Kettlebell)",
       "category": "compound",
       "movement_pattern": "loaded_carry",
       "force_type": "isometric",
       "equipment": [
-        "kettlebell",
+        "kettlebell"
+      ],
+      "primary_muscles": [
+        "shoulders",
+        "core"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "triceps"
+      ],
+      "workout_position": "mid_late",
+      "difficulty": "intermediate",
+      "bilateral": false,
+      "rep_range_hypertrophy": "30-45 seconds per side",
+      "rep_range_strength": "20-30 seconds heavy per side"
+    },
+    {
+      "id": "dumbbell_waiter_walk",
+      "name": "Waiter Walk (Dumbbell)",
+      "category": "compound",
+      "movement_pattern": "loaded_carry",
+      "force_type": "isometric",
+      "equipment": [
         "dumbbell"
       ],
       "primary_muscles": [
@@ -7468,7 +7782,7 @@
       "workout_position": "late",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "20-45 seconds",
+      "rep_range_hypertrophy": "90-150 seconds",
       "rep_range_strength": "n/a"
     },
     {
@@ -8670,7 +8984,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "8-12 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8694,7 +9008,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "15-25 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8718,7 +9032,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "15-25 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8741,7 +9055,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "15-30 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8766,7 +9080,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "5-15 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8789,7 +9103,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "10-20 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8838,7 +9152,7 @@
       "workout_position": "early",
       "difficulty": "beginner",
       "bilateral": true,
-      "rep_range_hypertrophy": "3-10 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
@@ -8863,7 +9177,7 @@
       "workout_position": "late",
       "difficulty": "intermediate",
       "bilateral": true,
-      "rep_range_hypertrophy": "3-10 minutes",
+      "rep_range_hypertrophy": "4-6 minutes",
       "rep_range_strength": "n/a"
     },
     {
