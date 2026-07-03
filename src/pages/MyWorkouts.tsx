@@ -1,5 +1,7 @@
 import { lazy, Suspense, useState, useCallback } from 'react';
 import { Play, Pencil, Trash2, Upload, Download, Share2, Dumbbell, ClipboardList, ChevronDown, ChevronUp, ClipboardPaste, Save } from 'lucide-react';
+import { CUSTOM_GPT_URL } from '@/config/app';
+import { trackEvent } from '@/utils/analytics';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { SwipeToReveal } from '@/components/shared/SwipeToReveal';
 import type { SwipeAction } from '@/components/shared/SwipeToReveal';
@@ -156,6 +158,19 @@ function ImportSheet({
                 Clear
               </button>
             </div>
+          )}
+          {!text && (
+            <a
+              href={CUSTOM_GPT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('custom_gpt_click', { placement: 'import' })}
+              className="flex min-h-[44px] items-center justify-center text-xs text-text-tertiary"
+              aria-label="Open the CurlBro Trainer GPT on ChatGPT"
+            >
+              No workout text yet?&nbsp;
+              <span className="font-medium text-accent-primary">Ask CurlBro Trainer on ChatGPT</span>
+            </a>
           )}
           {result && (
             <div className="space-y-1">

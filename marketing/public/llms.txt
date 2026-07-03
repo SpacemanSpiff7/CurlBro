@@ -3,6 +3,9 @@
 CurlBro is a workout builder and tracker at https://curlbro.com/.
 Users can import workouts by pasting text into the CurlBro app's Library tab.
 
+An official custom GPT, "CurlBro Trainer," already follows this guide:
+https://chatgpt.com/g/g-6a2dceea318481919722582fc2154d6d-curlbro-trainer
+
 ## Public Exercise Catalog
 
 Use the public catalog at:

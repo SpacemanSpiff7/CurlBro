@@ -21,8 +21,14 @@ import Base from '../layouts/Base.astro';
         The public catalog includes stable exercise IDs and basic descriptors only.
       </p>
 
-      <div class="mt-10 grid gap-4 sm:grid-cols-3">
-        <a href="/ai/exercises.v1.json" class="btn btn-primary">Catalog JSON</a>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <a
+          href="https://chatgpt.com/g/g-6a2dceea318481919722582fc2154d6d-curlbro-trainer"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >CurlBro Trainer GPT</a>
+        <a href="/ai/exercises.v1.json" class="btn btn-ghost">Catalog JSON</a>
         <a href="/llms.txt" class="btn btn-ghost">LLM guide</a>
         <a href="/app/" class="btn btn-ghost">Open CurlBro</a>
       </div>
@@ -64,7 +70,15 @@ Plank [plank] | 3x60s | Rest: 45s</code></pre>
       <p class="eyebrow mb-3">Custom GPT setup</p>
       <h2 class="font-display text-3xl font-bold text-[var(--text-primary)]">Suggested instructions</h2>
       <p class="mt-4 text-[var(--text-secondary)]" style="line-height:1.65">
-        Add the catalog URL as reference material, then give the GPT these rules.
+        The official
+        <a
+          href="https://chatgpt.com/g/g-6a2dceea318481919722582fc2154d6d-curlbro-trainer"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-underline text-[var(--text-primary)]"
+        >CurlBro Trainer GPT</a>
+        is ready to use. To build your own instead, add the catalog URL as reference
+        material, then give the GPT these rules.
       </p>
       <pre class="mt-6 overflow-x-auto rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-5 text-sm text-[var(--text-primary)]" style="line-height:1.6"><code>You generate workouts for CurlBro.
 Use only exercise IDs from https://curlbro.com/ai/exercises.v1.json.

@@ -86,8 +86,11 @@ Each major directory has its own CLAUDE.md with specific conventions:
 - `public/manifest.json` — PWA web app manifest
 - `public/ads.txt` — AdSense publisher verification (placeholder until approved)
 - `src/config/ads.ts` — ad slot definitions, AdSense kill switch (`import.meta.env.PROD && false`), publisher ID
-- `src/config/app.ts` — App Store ID/URL + `AppStorePlacement` analytics type (single source of truth for the iOS app link)
-- `src/utils/analytics.ts` — `trackEvent()` guarded GA4 wrapper (fires `app_store_click`)
+- `src/config/app.ts` — App Store ID/URL + `AppStorePlacement` analytics type, Instagram handle/URL
+  (`@lift_with_curlbro`), and official "CurlBro Trainer" custom GPT URL (single source of truth for
+  all official external links; header comment lists the non-TS surfaces to keep in sync)
+- `src/utils/analytics.ts` — `trackEvent()` guarded GA4 wrapper (fires `app_store_click`,
+  `instagram_click`, `custom_gpt_click` — each with `{ placement }`)
 - `src/components/shared/AppStoreBadge.tsx` — Apple "Download on the App Store" badge (official SVG, `dark:`-swapped); links to the iOS app and tracks the click
 - `src/data/houseAds.ts` — 24 house ads across 5 categories (tips)
 - `src/components/shared/CookieConsent.tsx` — EU cookie consent banner + Consent Mode v2 integration

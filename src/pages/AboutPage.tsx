@@ -1,4 +1,6 @@
-import { Info, ExternalLink, Mail, Bug } from 'lucide-react';
+import { Info, ExternalLink, Instagram, Mail, Bug } from 'lucide-react';
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '@/config/app';
+import { trackEvent } from '@/utils/analytics';
 import {
   Sheet,
   SheetContent,
@@ -76,6 +78,21 @@ export function AboutPage({ open, onOpenChange }: AboutPageProps) {
               <div>
                 <div className="text-sm font-medium text-text-primary">Contact</div>
                 <div className="text-xs text-text-tertiary">contact@curlbro.com</div>
+              </div>
+            </a>
+
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-xl border border-border-subtle bg-bg-elevated p-3 min-h-[44px] active:bg-bg-surface transition-colors"
+              aria-label={`Follow CurlBro on Instagram: @${INSTAGRAM_HANDLE}`}
+              onClick={() => trackEvent('instagram_click', { placement: 'about' })}
+            >
+              <Instagram size={16} className="text-accent-primary flex-shrink-0" />
+              <div>
+                <div className="text-sm font-medium text-text-primary">Follow on Instagram</div>
+                <div className="text-xs text-text-tertiary">@{INSTAGRAM_HANDLE}</div>
               </div>
             </a>
 
